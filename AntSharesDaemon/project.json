@@ -1,0 +1,31 @@
+{
+  "authors": [ "The Antshares team" ],
+  "copyright": "2016 The Antshares team",
+  "title": "AntShares.Daemon",
+  "version": "1.1.0",
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "define": [ "DEBUG" ],
+    "copyToOutput": {
+      "includeFiles": [ "config.json", "protocol.json" ]
+    }
+  },
+  "publishOptions": {
+    "includeFiles": [ "config.json", "protocol.json" ]
+  },
+
+  "dependencies": {
+    "AntShares": "1.1.0.4",
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.1",
+    "Microsoft.AspNetCore.Server.Kestrel.Https": "1.0.1",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0",
+    "Microsoft.NETCore.App": {
+      "type": "platform",
+      "version": "1.0.1"
+    }
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {}
+  }
+}
