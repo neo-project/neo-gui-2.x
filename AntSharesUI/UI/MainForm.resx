@@ -519,6 +519,15 @@
   <data name="toolStripStatusLabel2.Text" xml:space="preserve">
     <value>Waiting for next block:</value>
   </data>
+  <data name="toolStripStatusLabel3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 17</value>
+  </data>
+  <data name="toolStripStatusLabel3.Text" xml:space="preserve">
+    <value>Download New Version</value>
+  </data>
+  <data name="toolStripStatusLabel3.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="statusStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 584</value>
   </data>
@@ -1110,6 +1119,12 @@
     <value>toolStripStatusLabel2</value>
   </data>
   <data name="&gt;&gt;toolStripStatusLabel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabel3.Name" xml:space="preserve">
+    <value>toolStripStatusLabel3</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabel3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;timer1.Name" xml:space="preserve">

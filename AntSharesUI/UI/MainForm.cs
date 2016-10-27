@@ -26,6 +26,15 @@ namespace AntShares.UI
         private bool balance_changed = false;
         private DateTime persistence_time = DateTime.MinValue;
 
+        internal Version LatestVersion
+        {
+            set
+            {
+                toolStripStatusLabel3.Tag = value;
+                toolStripStatusLabel3.Visible = true;
+            }
+        }
+
         public MainForm()
         {
             InitializeComponent();
@@ -625,6 +634,11 @@ namespace AntShares.UI
             if (listView3.SelectedIndices.Count == 0) return;
             string url = "http://antcha.in/tx/hash/" + listView3.SelectedItems[0].Name;
             Process.Start(url);
+        }
+
+        private void toolStripStatusLabel3_Click(object sender, EventArgs e)
+        {
+            Process.Start($"https://www.antshares.org/client/{toolStripStatusLabel3.Tag}.zip");
         }
     }
 }

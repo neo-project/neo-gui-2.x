@@ -22,28 +22,6 @@ namespace AntShares
         public static UserWallet CurrentWallet;
         public static MainForm MainForm;
 
-        private static bool CheckVersion()
-        {
-            try
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.Load("https://www.antshares.org/client/version.xml");
-                Version minimum = Version.Parse(doc.GetElementsByTagName("version")[0].Attributes["minimum"].Value);
-                Version latest = Version.Parse(doc.GetElementsByTagName("version")[0].Attributes["latest"].Value);
-                Version self = Assembly.GetExecutingAssembly().GetName().Version;
-                if (self >= latest) return true;
-                using (UpdateDialog dialog = new UpdateDialog { LatestVersion = latest })
-                {
-                    dialog.ShowDialog();
-                }
-                return self >= minimum;
-            }
-            catch
-            {
-                return true;
-            }
-        }
-
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = (Exception)e.ExceptionObject;
@@ -108,13 +86,36 @@ namespace AntShares
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            if (!CheckVersion()) return;
+            Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            Version minimum, latest;
+            try
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load("https://www.antshares.org/client/version.xml");
+                minimum = Version.Parse(doc.GetElementsByTagName("version")[0].Attributes["minimum"].Value);
+                latest = Version.Parse(doc.GetElementsByTagName("version")[0].Attributes["latest"].Value);
+            }
+            catch
+            {
+                minimum = latest = version;
+            }
+            if (version < minimum)
+            {
+                using (UpdateDialog dialog = new UpdateDialog { LatestVersion = latest })
+                {
+                    dialog.ShowDialog();
+                }
+                return;
+            }
             if (!InstallCertificate()) return;
             using (Blockchain.RegisterBlockchain(new LevelDBBlockchain(Settings.Default.DataDirectoryPath)))
             using (LocalNode = new LocalNode())
             {
                 LocalNode.UpnpEnabled = true;
-                Application.Run(MainForm = new MainForm());
+                if (version < latest)
+                    Application.Run(MainForm = new MainForm { LatestVersion = latest });
+                else
+                    Application.Run(MainForm = new MainForm());
             }
         }
     }

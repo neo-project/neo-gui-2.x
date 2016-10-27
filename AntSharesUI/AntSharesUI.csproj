@@ -59,8 +59,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AntShares, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AntShares.1.1.1\lib\net461\AntShares.dll</HintPath>
+    <Reference Include="AntShares, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AntShares.1.1.1.1\lib\net461\AntShares.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AntShares.VM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

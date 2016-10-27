@@ -381,6 +381,12 @@
   <data name="toolStripStatusLabel2.Text" xml:space="preserve">
     <value>等待下一个区块:</value>
   </data>
+  <data name="toolStripStatusLabel3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 17</value>
+  </data>
+  <data name="toolStripStatusLabel3.Text" xml:space="preserve">
+    <value>发现新版本</value>
+  </data>
   <data name="tabPage1.Text" xml:space="preserve">
     <value>账户</value>
   </data>

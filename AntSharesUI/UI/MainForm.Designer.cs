@@ -82,6 +82,7 @@
             this.lbl_count_node = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -433,7 +434,8 @@
             this.toolStripStatusLabel4,
             this.lbl_count_node,
             this.toolStripProgressBar1,
-            this.toolStripStatusLabel2});
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel3});
             this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.SizingGrip = false;
@@ -471,6 +473,13 @@
             resources.ApplyResources(this.toolStripStatusLabel2, "toolStripStatusLabel2");
             this.toolStripStatusLabel2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            // 
+            // toolStripStatusLabel3
+            // 
+            resources.ApplyResources(this.toolStripStatusLabel3, "toolStripStatusLabel3");
+            this.toolStripStatusLabel3.IsLink = true;
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Click += new System.EventHandler(this.toolStripStatusLabel3_Click);
             // 
             // timer1
             // 
@@ -708,6 +717,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restoreAccountsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
     }
 }
 
