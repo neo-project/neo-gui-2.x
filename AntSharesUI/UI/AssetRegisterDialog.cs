@@ -20,7 +20,7 @@ namespace AntShares.UI
             return Program.CurrentWallet.MakeTransaction(new RegisterTransaction
             {
                 AssetType = (AssetType)comboBox1.SelectedItem,
-                Name = (AssetType)comboBox1.SelectedItem == AssetType.Share ? string.Empty : $"[{{\"lang\":\"{CultureInfo.CurrentCulture.Name}\",\"name\":\"{textBox1.Text}\"}}]",
+                Name = string.IsNullOrWhiteSpace(textBox1.Text) ? string.Empty : $"[{{\"lang\":\"{CultureInfo.CurrentCulture.Name}\",\"name\":\"{textBox1.Text}\"}}]",
                 Amount = checkBox1.Checked ? Fixed8.Parse(textBox2.Text) : -Fixed8.Satoshi,
                 Precision = (byte)numericUpDown1.Value,
                 Issuer = (ECPoint)comboBox2.SelectedItem,
@@ -38,7 +38,6 @@ namespace AntShares.UI
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            textBox1.Enabled = (AssetType)comboBox1.SelectedItem != AssetType.Share;
             numericUpDown1.Enabled = (AssetType)comboBox1.SelectedItem != AssetType.Share;
             if (!numericUpDown1.Enabled) numericUpDown1.Value = 0;
         }
