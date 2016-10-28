@@ -84,6 +84,7 @@ namespace AntShares.UI
             restoreAccountsToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             交易TToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             提取小蚁币CToolStripMenuItem.Enabled = Program.CurrentWallet != null;
+            requestCertificateToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             注册资产RToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             资产分发IToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             选举EToolStripMenuItem.Enabled = Program.CurrentWallet != null;
@@ -417,6 +418,14 @@ namespace AntShares.UI
         private void 提取小蚁币CToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Helper.Show<ClaimForm>();
+        }
+
+        private void requestCertificateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (CertificateRequestWizard wizard = new UI.CertificateRequestWizard())
+            {
+                wizard.ShowDialog();
+            }
         }
 
         private void 注册资产RToolStripMenuItem_Click(object sender, EventArgs e)

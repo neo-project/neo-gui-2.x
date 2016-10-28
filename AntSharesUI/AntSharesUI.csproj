@@ -207,6 +207,12 @@
     <Compile Include="UI\AssetRegisterDialog.Designer.cs">
       <DependentUpon>AssetRegisterDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\CertificateRequestWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CertificateRequestWizard.Designer.cs">
+      <DependentUpon>CertificateRequestWizard.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ClaimForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -372,6 +378,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\AssetRegisterDialog.zh-Hans.resx">
       <DependentUpon>AssetRegisterDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CertificateRequestWizard.resx">
+      <DependentUpon>CertificateRequestWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CertificateRequestWizard.zh-Hans.resx">
+      <DependentUpon>CertificateRequestWizard.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ClaimForm.resx">
       <DependentUpon>ClaimForm.cs</DependentUpon>
@@ -552,6 +565,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="CERTENROLLLib">
+      <Guid>{728AB348-217D-11DA-B2A4-000E7BBB2B09}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

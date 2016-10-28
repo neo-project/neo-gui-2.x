@@ -197,10 +197,16 @@
     <value>161, 22</value>
   </data>
   <data name="提取小蚁币CToolStripMenuItem.Text" xml:space="preserve">
-    <value>提取小蚁币(&amp;C)...</value>
+    <value>提取小蚁币(&amp;A)...</value>
   </data>
   <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
     <value>158, 6</value>
+  </data>
+  <data name="requestCertificateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 22</value>
+  </data>
+  <data name="requestCertificateToolStripMenuItem.Text" xml:space="preserve">
+    <value>申请证书(&amp;C)...</value>
   </data>
   <data name="注册资产RToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>161, 22</value>

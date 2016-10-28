@@ -48,6 +48,7 @@
             this.高级AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.提取小蚁币CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.requestCertificateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.注册资产RToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.资产分发IToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
@@ -222,6 +223,7 @@
             this.高级AToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.提取小蚁币CToolStripMenuItem,
             this.toolStripSeparator7,
+            this.requestCertificateToolStripMenuItem,
             this.注册资产RToolStripMenuItem,
             this.资产分发IToolStripMenuItem,
             this.toolStripSeparator8,
@@ -240,6 +242,12 @@
             // 
             resources.ApplyResources(this.toolStripSeparator7, "toolStripSeparator7");
             this.toolStripSeparator7.Name = "toolStripSeparator7";
+            // 
+            // requestCertificateToolStripMenuItem
+            // 
+            resources.ApplyResources(this.requestCertificateToolStripMenuItem, "requestCertificateToolStripMenuItem");
+            this.requestCertificateToolStripMenuItem.Name = "requestCertificateToolStripMenuItem";
+            this.requestCertificateToolStripMenuItem.Click += new System.EventHandler(this.requestCertificateToolStripMenuItem_Click);
             // 
             // 注册资产RToolStripMenuItem
             // 
@@ -718,6 +726,7 @@
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restoreAccountsToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.ToolStripMenuItem requestCertificateToolStripMenuItem;
     }
 }
 

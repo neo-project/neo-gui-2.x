@@ -213,19 +213,28 @@
     <value>False</value>
   </data>
   <data name="提取小蚁币CToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 22</value>
+    <value>194, 22</value>
   </data>
   <data name="提取小蚁币CToolStripMenuItem.Text" xml:space="preserve">
-    <value>AntCoin &amp;Claim...</value>
+    <value>&amp;AntCoin Claim...</value>
   </data>
   <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 6</value>
+    <value>191, 6</value>
+  </data>
+  <data name="requestCertificateToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="requestCertificateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="requestCertificateToolStripMenuItem.Text" xml:space="preserve">
+    <value>Request &amp;Certificate...</value>
   </data>
   <data name="注册资产RToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="注册资产RToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 22</value>
+    <value>194, 22</value>
   </data>
   <data name="注册资产RToolStripMenuItem.Text" xml:space="preserve">
     <value>Asset &amp;Registration...</value>
@@ -234,28 +243,28 @@
     <value>False</value>
   </data>
   <data name="资产分发IToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 22</value>
+    <value>194, 22</value>
   </data>
   <data name="资产分发IToolStripMenuItem.Text" xml:space="preserve">
     <value>Asset D&amp;istribution...</value>
   </data>
   <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 6</value>
+    <value>191, 6</value>
   </data>
   <data name="选举EToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="选举EToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 22</value>
+    <value>194, 22</value>
   </data>
   <data name="选举EToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Election...</value>
   </data>
   <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 6</value>
+    <value>191, 6</value>
   </data>
   <data name="optionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 22</value>
+    <value>194, 22</value>
   </data>
   <data name="optionsToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Options...</value>
@@ -934,6 +943,12 @@
   </data>
   <data name="&gt;&gt;toolStripSeparator7.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;requestCertificateToolStripMenuItem.Name" xml:space="preserve">
+    <value>requestCertificateToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;requestCertificateToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;注册资产RToolStripMenuItem.Name" xml:space="preserve">
     <value>注册资产RToolStripMenuItem</value>
