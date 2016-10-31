@@ -280,6 +280,7 @@ namespace AntShares.UI
                 }
                 using (result)
                 {
+                    subitem.Tag = result.Type;
                     switch (result.Type)
                     {
                         case CertificateQueryResultType.Querying:
@@ -586,12 +587,26 @@ namespace AntShares.UI
 
         private void contextMenuStrip2_Opening(object sender, CancelEventArgs e)
         {
-            bool enabled = listView2.SelectedIndices.Count > 0;
-            if (enabled)
+            viewCertificateToolStripMenuItem.Enabled = listView2.SelectedIndices.Count == 1;
+            if (viewCertificateToolStripMenuItem.Enabled)
             {
-                enabled = listView2.SelectedItems.OfType<ListViewItem>().Select(p => (RegisterTransaction)p.Tag).All(p => p.AssetType != AssetType.AntShare && p.AssetType != AssetType.AntCoin);
+                CertificateQueryResultType type = (CertificateQueryResultType)listView2.SelectedItems[0].SubItems["issuer"].Tag;
+                viewCertificateToolStripMenuItem.Enabled = type == CertificateQueryResultType.Good || type == CertificateQueryResultType.Expired || type == CertificateQueryResultType.Invalid;
             }
-            删除DToolStripMenuItem1.Enabled = enabled;
+            删除DToolStripMenuItem1.Enabled = listView2.SelectedIndices.Count > 0;
+            if (删除DToolStripMenuItem1.Enabled)
+            {
+                删除DToolStripMenuItem1.Enabled = listView2.SelectedItems.OfType<ListViewItem>().Select(p => (RegisterTransaction)p.Tag).All(p => p.AssetType != AssetType.AntShare && p.AssetType != AssetType.AntCoin);
+            }
+        }
+
+        private void viewCertificateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RegisterTransaction asset = (RegisterTransaction)listView2.SelectedItems[0].Tag;
+            UInt160 hash = Contract.CreateSignatureRedeemScript(asset.Issuer).ToScriptHash();
+            string address = Wallet.ToAddress(hash);
+            string path = Path.Combine(Settings.Default.CertCachePath, $"{address}.cer");
+            Process.Start(path);
         }
 
         private void 删除DToolStripMenuItem1_Click(object sender, EventArgs e)

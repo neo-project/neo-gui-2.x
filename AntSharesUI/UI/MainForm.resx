@@ -618,14 +618,20 @@
   <metadata name="contextMenuStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>513, 17</value>
   </metadata>
+  <data name="viewCertificateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 22</value>
+  </data>
+  <data name="viewCertificateToolStripMenuItem.Text" xml:space="preserve">
+    <value>View &amp;Certificate</value>
+  </data>
   <data name="删除DToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 22</value>
+    <value>165, 22</value>
   </data>
   <data name="删除DToolStripMenuItem1.Text" xml:space="preserve">
     <value>&amp;Delete...</value>
   </data>
   <data name="contextMenuStrip2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 26</value>
+    <value>166, 48</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip2.Name" xml:space="preserve">
     <value>contextMenuStrip2</value>
@@ -1171,6 +1177,12 @@
   </data>
   <data name="&gt;&gt;columnHeader5.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;viewCertificateToolStripMenuItem.Name" xml:space="preserve">
+    <value>viewCertificateToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;viewCertificateToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;删除DToolStripMenuItem1.Name" xml:space="preserve">
     <value>删除DToolStripMenuItem1</value>

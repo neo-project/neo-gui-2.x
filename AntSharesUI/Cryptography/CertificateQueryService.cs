@@ -1,8 +1,9 @@
-﻿using AntShares.Cryptography.ECC;
+﻿using AntShares.Core;
+using AntShares.Cryptography.ECC;
 using AntShares.Properties;
+using AntShares.Wallets;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
@@ -13,89 +14,103 @@ namespace AntShares.Cryptography
     internal static class CertificateQueryService
     {
         private static WebClient web = new WebClient();
-        private static Dictionary<ECPoint, CertificateQueryResult> results = new Dictionary<ECPoint, CertificateQueryResult>();
+        private static Dictionary<UInt160, CertificateQueryResult> results = new Dictionary<UInt160, CertificateQueryResult>();
 
         static CertificateQueryService()
         {
             Directory.CreateDirectory(Settings.Default.CertCachePath);
-            web.DownloadFileCompleted += Web_DownloadFileCompleted;
+            web.DownloadDataCompleted += Web_DownloadDataCompleted;
         }
 
-        private static void Web_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        private static void Web_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
         {
-            ECPoint pubkey = (ECPoint)e.UserState;
-            lock (results)
+            UInt160 hash = (UInt160)e.UserState;
+            if (e.Cancelled || e.Error != null)
             {
-                if (e.Cancelled || e.Error != null)
-                    results[pubkey].Type = CertificateQueryResultType.Missing;
-                else
-                    UpdateResultFromFile(pubkey);
+                lock (results)
+                {
+                    results[hash].Type = CertificateQueryResultType.Missing;
+                }
+            }
+            else
+            {
+                string address = Wallet.ToAddress(hash);
+                string path = Path.Combine(Settings.Default.CertCachePath, $"{address}.cer");
+                File.WriteAllBytes(path, e.Result);
+                lock (results)
+                {
+                    UpdateResultFromFile(hash);
+                }
             }
         }
 
         public static CertificateQueryResult Query(ECPoint pubkey, string url)
         {
+            return Query(Contract.CreateSignatureRedeemScript(pubkey).ToScriptHash(), url);
+        }
+
+        public static CertificateQueryResult Query(UInt160 hash, string url)
+        {
             lock (results)
             {
-                if (results.ContainsKey(pubkey)) return results[pubkey];
-                results[pubkey] = new CertificateQueryResult { Type = CertificateQueryResultType.Querying };
+                if (results.ContainsKey(hash)) return results[hash];
+                results[hash] = new CertificateQueryResult { Type = CertificateQueryResultType.Querying };
             }
-            string path = Path.Combine(Settings.Default.CertCachePath, $"{pubkey}.cer");
+            string address = Wallet.ToAddress(hash);
+            string path = Path.Combine(Settings.Default.CertCachePath, $"{address}.cer");
             if (File.Exists(path))
             {
                 lock (results)
                 {
-                    UpdateResultFromFile(pubkey);
+                    UpdateResultFromFile(hash);
                 }
             }
             else
             {
                 if (string.IsNullOrEmpty(url))
-                    url = $"http://cert.onchain.com/antshares/{pubkey}.cer";
-                web.DownloadFileAsync(new Uri(url), path, pubkey);
+                    url = $"http://cert.onchain.com/antshares/{address}.cer";
+                web.DownloadDataAsync(new Uri(url), hash);
             }
-            return results[pubkey];
-
-            //if (!File.Exists(path))
-            //    return new CertificateQueryResult { Type = CertificateQueryResultType.Missing };
+            return results[hash];
         }
 
-        private static void UpdateResultFromFile(ECPoint pubkey)
+        private static void UpdateResultFromFile(UInt160 hash)
         {
+            string address = Wallet.ToAddress(hash);
             X509Certificate2 cert;
             try
             {
-                cert = new X509Certificate2(Path.Combine(Settings.Default.CertCachePath, $"{pubkey}.cer"));
+                cert = new X509Certificate2(Path.Combine(Settings.Default.CertCachePath, $"{address}.cer"));
             }
             catch (CryptographicException)
             {
-                results[pubkey].Type = CertificateQueryResultType.Missing;
+                results[hash].Type = CertificateQueryResultType.Missing;
                 return;
             }
             if (cert.PublicKey.Oid.Value != "1.2.840.10045.2.1")
             {
-                results[pubkey].Type = CertificateQueryResultType.Missing;
+                results[hash].Type = CertificateQueryResultType.Missing;
                 return;
             }
-            if (!pubkey.Equals(ECPoint.DecodePoint(cert.PublicKey.EncodedKeyValue.RawData, ECCurve.Secp256r1)))
+            if (!hash.Equals(Contract.CreateSignatureRedeemScript(ECPoint.DecodePoint(cert.PublicKey.EncodedKeyValue.RawData, ECCurve.Secp256r1)).ToScriptHash()))
             {
-                results[pubkey].Type = CertificateQueryResultType.Missing;
+                results[hash].Type = CertificateQueryResultType.Missing;
                 return;
             }
             using (X509Chain chain = new X509Chain())
             {
-                results[pubkey].Certificate = cert;
+                results[hash].Certificate = cert;
                 if (chain.Build(cert))
                 {
-                    results[pubkey].Type = CertificateQueryResultType.Good;
+                    results[hash].Type = CertificateQueryResultType.Good;
                 }
                 else if (chain.ChainStatus.Length == 1 && chain.ChainStatus[0].Status == X509ChainStatusFlags.NotTimeValid)
                 {
-                    results[pubkey].Type = CertificateQueryResultType.Expired;
+                    results[hash].Type = CertificateQueryResultType.Expired;
                 }
                 else
                 {
-                    results[pubkey].Type = CertificateQueryResultType.Invalid;
+                    results[hash].Type = CertificateQueryResultType.Invalid;
                 }
             }
         }

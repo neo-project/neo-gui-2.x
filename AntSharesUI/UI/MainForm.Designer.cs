@@ -94,6 +94,7 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.viewCertificateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除DToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.listView3 = new System.Windows.Forms.ListView();
@@ -560,9 +561,16 @@
             // 
             resources.ApplyResources(this.contextMenuStrip2, "contextMenuStrip2");
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewCertificateToolStripMenuItem,
             this.删除DToolStripMenuItem1});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip2_Opening);
+            // 
+            // viewCertificateToolStripMenuItem
+            // 
+            resources.ApplyResources(this.viewCertificateToolStripMenuItem, "viewCertificateToolStripMenuItem");
+            this.viewCertificateToolStripMenuItem.Name = "viewCertificateToolStripMenuItem";
+            this.viewCertificateToolStripMenuItem.Click += new System.EventHandler(this.viewCertificateToolStripMenuItem_Click);
             // 
             // 删除DToolStripMenuItem1
             // 
@@ -727,6 +735,7 @@
         private System.Windows.Forms.ToolStripMenuItem restoreAccountsToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripMenuItem requestCertificateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewCertificateToolStripMenuItem;
     }
 }
 
