@@ -52,6 +52,7 @@ namespace AntShares.UI
                 textBox2.Text = Wallet.ToAddress(txOutListBox1.Asset.Admin);
                 textBox3.Text = txOutListBox1.Asset.Amount == -Fixed8.Satoshi ? "+\u221e" : txOutListBox1.Asset.Amount.ToString();
                 textBox4.Text = Blockchain.Default.GetQuantityIssued(txOutListBox1.Asset.Hash).ToString();
+                label6.Text = $"{new IssueTransaction { Outputs = new[] { new TransactionOutput { AssetId = txOutListBox1.Asset.Hash } } }.SystemFee } ANC";
                 groupBox3.Enabled = true;
             }
             txOutListBox1.Clear();

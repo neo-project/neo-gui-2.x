@@ -34,6 +34,7 @@ namespace AntShares.UI
         private void ElectionDialog_Load(object sender, EventArgs e)
         {
             comboBox1.Items.AddRange(Program.CurrentWallet.GetContracts().Where(p => p.IsStandard).Select(p => Program.CurrentWallet.GetAccount(p.PublicKeyHash).PublicKey).ToArray());
+            label4.Text = $"{new EnrollmentTransaction { }.SystemFee } ANC";
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

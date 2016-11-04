@@ -132,6 +132,9 @@
   <data name="button3.Text" xml:space="preserve">
     <value>关闭</value>
   </data>
+  <data name="button4.Text" xml:space="preserve">
+    <value>广播</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>签名</value>
   </data>

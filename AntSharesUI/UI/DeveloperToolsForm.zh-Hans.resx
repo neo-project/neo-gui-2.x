@@ -117,17 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="button2.Text" xml:space="preserve">
-    <value>广播</value>
-  </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>转换</value>
-  </data>
-  <data name="groupBox5.Text" xml:space="preserve">
-    <value>要广播的数据包</value>
-  </data>
   <data name="tabPage2.Text" xml:space="preserve">
-    <value>广播</value>
+    <value>智能合约</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>AntShares 开发人员工具</value>

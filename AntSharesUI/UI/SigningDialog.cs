@@ -1,4 +1,5 @@
 ﻿using AntShares.Core;
+using AntShares.Network;
 using AntShares.Properties;
 using System;
 using System.Windows.Forms;
@@ -26,12 +27,23 @@ namespace AntShares.UI
                 return;
             }
             textBox2.Text = context.ToString();
+            if (context.Completed) button4.Visible = true;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             textBox2.SelectAll();
             textBox2.Copy();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SignatureContext context = SignatureContext.Parse(textBox2.Text);
+            context.Signable.Scripts = context.GetScripts();
+            IInventory inventory = (IInventory)context.Signable;
+            Program.LocalNode.Relay(inventory);
+            InformationBox.Show(inventory.Hash.ToString(), Strings.RelaySuccessText, Strings.RelaySuccessTitle);
+            button4.Visible = false;
         }
     }
 }

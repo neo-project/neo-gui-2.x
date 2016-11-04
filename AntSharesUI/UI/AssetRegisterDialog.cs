@@ -40,6 +40,7 @@ namespace AntShares.UI
         {
             numericUpDown1.Enabled = (AssetType)comboBox1.SelectedItem != AssetType.Share;
             if (!numericUpDown1.Enabled) numericUpDown1.Value = 0;
+            label8.Text = $"{new RegisterTransaction { AssetType = (AssetType)comboBox1.SelectedItem }.SystemFee} ANC";
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
