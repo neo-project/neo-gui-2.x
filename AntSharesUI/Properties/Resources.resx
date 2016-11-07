@@ -121,4 +121,7 @@
   <data name="OnchainCertificate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\onchain certification authority.cer;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="UpdateBat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\update.bat;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

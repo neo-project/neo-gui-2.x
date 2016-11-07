@@ -129,6 +129,9 @@
   <data name="AddContractFailedMessage" xml:space="preserve">
     <value>Failed to add smart contract, corresponding private key missing in this wallet.</value>
   </data>
+  <data name="ChangePasswordSuccessful" xml:space="preserve">
+    <value>Change password successful.</value>
+  </data>
   <data name="DeleteAddressConfirmationCaption" xml:space="preserve">
     <value>Confirmation</value>
   </data>

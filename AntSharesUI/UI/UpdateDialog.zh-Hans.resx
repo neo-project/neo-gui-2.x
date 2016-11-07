@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 15</value>
-  </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 17</value>
   </data>
@@ -128,13 +125,10 @@
     <value>最新版本:</value>
   </data>
   <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>77, 12</value>
+    <value>77, 15</value>
   </data>
   <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>359, 23</value>
-  </data>
-  <data name="linkLabel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>74, 84</value>
+    <value>367, 16</value>
   </data>
   <data name="linkLabel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 17</value>
@@ -142,38 +136,23 @@
   <data name="linkLabel1.Text" xml:space="preserve">
     <value>官网</value>
   </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 44</value>
+  <data name="button1.Text" xml:space="preserve">
+    <value>关闭</value>
   </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 17</value>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>更新日志</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>当前版本:</value>
-  </data>
-  <data name="textBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>77, 41</value>
-  </data>
-  <data name="textBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>359, 23</value>
+  <data name="button2.Text" xml:space="preserve">
+    <value>更新</value>
   </data>
   <data name="linkLabel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>112, 84</value>
+    <value>50, 335</value>
   </data>
   <data name="linkLabel2.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 17</value>
   </data>
   <data name="linkLabel2.Text" xml:space="preserve">
     <value>下载</value>
-  </data>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>361, 81</value>
-  </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>确定</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>448, 116</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>发现新版本</value>

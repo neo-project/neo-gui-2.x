@@ -12,7 +12,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
-using System.Xml;
+using System.Xml.Linq;
 
 namespace AntShares
 {
@@ -86,36 +86,31 @@ namespace AntShares
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Version version = Assembly.GetExecutingAssembly().GetName().Version;
-            Version minimum, latest;
+            XDocument xdoc = null;
             try
             {
-                XmlDocument doc = new XmlDocument();
-                doc.Load("https://www.antshares.org/client/version.xml");
-                minimum = Version.Parse(doc.GetElementsByTagName("version")[0].Attributes["minimum"].Value);
-                latest = Version.Parse(doc.GetElementsByTagName("version")[0].Attributes["latest"].Value);
+                xdoc = XDocument.Load("https://www.antshares.org/client/update.xml");
             }
-            catch
+            catch { }
+            if (xdoc != null)
             {
-                minimum = latest = version;
-            }
-            if (version < minimum)
-            {
-                using (UpdateDialog dialog = new UpdateDialog { LatestVersion = latest })
+                Version version = Assembly.GetExecutingAssembly().GetName().Version;
+                Version minimum = Version.Parse(xdoc.Element("update").Attribute("minimum").Value);
+                if (version < minimum)
                 {
-                    dialog.ShowDialog();
+                    using (UpdateDialog dialog = new UpdateDialog(xdoc))
+                    {
+                        dialog.ShowDialog();
+                    }
+                    return;
                 }
-                return;
             }
             if (!InstallCertificate()) return;
             using (Blockchain.RegisterBlockchain(new LevelDBBlockchain(Settings.Default.DataDirectoryPath)))
             using (LocalNode = new LocalNode())
             {
                 LocalNode.UpnpEnabled = true;
-                if (version < latest)
-                    Application.Run(MainForm = new MainForm { LatestVersion = latest });
-                else
-                    Application.Run(MainForm = new MainForm());
+                Application.Run(MainForm = new MainForm(xdoc));
             }
         }
     }

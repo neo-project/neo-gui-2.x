@@ -17,6 +17,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace AntShares.UI
 {
@@ -26,18 +27,20 @@ namespace AntShares.UI
         private bool balance_changed = false;
         private DateTime persistence_time = DateTime.MinValue;
 
-        internal Version LatestVersion
-        {
-            set
-            {
-                toolStripStatusLabel3.Tag = value;
-                toolStripStatusLabel3.Visible = true;
-            }
-        }
-
-        public MainForm()
+        public MainForm(XDocument xdoc = null)
         {
             InitializeComponent();
+            if (xdoc != null)
+            {
+                Version version = Assembly.GetExecutingAssembly().GetName().Version;
+                Version latest = Version.Parse(xdoc.Element("update").Attribute("latest").Value);
+                if (version < latest)
+                {
+                    toolStripStatusLabel3.Tag = xdoc;
+                    toolStripStatusLabel3.Text += $": {latest}";
+                    toolStripStatusLabel3.Visible = true;
+                }
+            }
         }
 
         private void AddContractToListView(Contract contract, bool selected = false)
@@ -363,7 +366,14 @@ namespace AntShares.UI
 
         private void 修改密码CToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //弹出对话框，验证原密码，保存新密码
+            using (ChangePasswordDialog dialog = new ChangePasswordDialog())
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+                if (Program.CurrentWallet.ChangePassword(dialog.OldPassword, dialog.NewPassword))
+                    MessageBox.Show(Strings.ChangePasswordSuccessful);
+                else
+                    MessageBox.Show(Strings.PasswordIncorrect);
+            }
         }
 
         private void 重建钱包数据库RToolStripMenuItem_Click(object sender, EventArgs e)
@@ -481,7 +491,7 @@ namespace AntShares.UI
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
-            查看私钥VToolStripMenuItem.Enabled = listView1.SelectedIndices.Count == 1;
+            查看私钥VToolStripMenuItem.Enabled = listView1.SelectedIndices.Count == 1 && ((Contract)listView1.SelectedItems[0].Tag).IsStandard;
             复制到剪贴板CToolStripMenuItem.Enabled = listView1.SelectedIndices.Count == 1;
             删除DToolStripMenuItem.Enabled = listView1.SelectedIndices.Count > 0;
         }
@@ -662,7 +672,10 @@ namespace AntShares.UI
 
         private void toolStripStatusLabel3_Click(object sender, EventArgs e)
         {
-            Process.Start($"https://www.antshares.org/client/{toolStripStatusLabel3.Tag}.zip");
+            using (UpdateDialog dialog = new UpdateDialog((XDocument)toolStripStatusLabel3.Tag))
+            {
+                dialog.ShowDialog();
+            }
         }
     }
 }

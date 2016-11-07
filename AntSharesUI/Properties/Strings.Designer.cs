@@ -97,6 +97,15 @@ namespace AntShares.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change password successful..
+        /// </summary>
+        internal static string ChangePasswordSuccessful {
+            get {
+                return ResourceManager.GetString("ChangePasswordSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirmation.
         /// </summary>
         internal static string DeleteAddressConfirmationCaption {
