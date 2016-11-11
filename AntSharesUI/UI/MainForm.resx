@@ -290,9 +290,6 @@
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>191, 6</value>
   </data>
-  <data name="开发人员工具TToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="开发人员工具TToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>F12</value>
@@ -415,7 +412,16 @@
     <value>205, 22</value>
   </data>
   <data name="查看私钥VToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;View Private Key</value>
+    <value>View &amp;Private Key</value>
+  </data>
+  <data name="viewContractToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="viewContractToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>205, 22</value>
+  </data>
+  <data name="viewContractToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;View Contract</value>
   </data>
   <data name="复制到剪贴板CToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -442,7 +448,7 @@
     <value>&amp;Delete...</value>
   </data>
   <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 142</value>
+    <value>206, 186</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip1.Name" xml:space="preserve">
     <value>contextMenuStrip1</value>
@@ -8304,6 +8310,12 @@
     <value>查看私钥VToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;查看私钥VToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;viewContractToolStripMenuItem.Name" xml:space="preserve">
+    <value>viewContractToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;viewContractToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;复制到剪贴板CToolStripMenuItem.Name" xml:space="preserve">

@@ -1,6 +1,6 @@
-﻿using AntShares.Core;
-using AntShares.Network;
+﻿using AntShares.Network;
 using AntShares.Properties;
+using AntShares.Wallets;
 using System;
 using System.Windows.Forms;
 

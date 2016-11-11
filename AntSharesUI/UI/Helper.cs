@@ -1,5 +1,6 @@
 ﻿using AntShares.Core;
 using AntShares.Properties;
+using AntShares.Wallets;
 using System;
 using System.Collections.Generic;
 using System.Linq;

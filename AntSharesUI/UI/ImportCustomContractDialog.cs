@@ -12,7 +12,7 @@ namespace AntShares.UI
         public Contract GetContract()
         {
             UInt160 publicKeyHash = ((ECPoint)comboBox1.SelectedItem).EncodePoint(true).ToScriptHash();
-            ContractParameterType[] parameterList = textBox1.Text.HexToBytes().Cast<ContractParameterType>().ToArray();
+            ContractParameterType[] parameterList = textBox1.Text.HexToBytes().Select(p => (ContractParameterType)p).ToArray();
             byte[] redeemScript = textBox2.Text.HexToBytes();
             return Contract.Create(publicKeyHash, parameterList, redeemScript);
         }

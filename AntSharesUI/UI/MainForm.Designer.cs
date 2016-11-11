@@ -74,6 +74,7 @@
             this.自定义CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.查看私钥VToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewContractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.复制到剪贴板CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除DToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -360,6 +361,7 @@
             this.创建智能合约SToolStripMenuItem,
             this.toolStripSeparator6,
             this.查看私钥VToolStripMenuItem,
+            this.viewContractToolStripMenuItem,
             this.复制到剪贴板CToolStripMenuItem,
             this.删除DToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -421,6 +423,12 @@
             resources.ApplyResources(this.查看私钥VToolStripMenuItem, "查看私钥VToolStripMenuItem");
             this.查看私钥VToolStripMenuItem.Name = "查看私钥VToolStripMenuItem";
             this.查看私钥VToolStripMenuItem.Click += new System.EventHandler(this.查看私钥VToolStripMenuItem_Click);
+            // 
+            // viewContractToolStripMenuItem
+            // 
+            resources.ApplyResources(this.viewContractToolStripMenuItem, "viewContractToolStripMenuItem");
+            this.viewContractToolStripMenuItem.Name = "viewContractToolStripMenuItem";
+            this.viewContractToolStripMenuItem.Click += new System.EventHandler(this.viewContractToolStripMenuItem_Click);
             // 
             // 复制到剪贴板CToolStripMenuItem
             // 
@@ -736,6 +744,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripMenuItem requestCertificateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewCertificateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewContractToolStripMenuItem;
     }
 }
 

@@ -15,7 +15,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
-using System.Text;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
@@ -277,9 +276,7 @@ namespace AntShares.UI
                 }
                 else
                 {
-                    byte[] cert_url_data = asset.Attributes.FirstOrDefault(p => p.Usage == TransactionAttributeUsage.CertUrl)?.Data;
-                    string cert_url = cert_url_data == null ? null : Encoding.UTF8.GetString(cert_url_data);
-                    result = CertificateQueryService.Query(asset.Issuer, cert_url);
+                    result = CertificateQueryService.Query(asset.Issuer, asset.CertUrl);
                 }
                 using (result)
                 {
@@ -492,6 +489,7 @@ namespace AntShares.UI
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
             查看私钥VToolStripMenuItem.Enabled = listView1.SelectedIndices.Count == 1 && ((Contract)listView1.SelectedItems[0].Tag).IsStandard;
+            viewContractToolStripMenuItem.Enabled = listView1.SelectedIndices.Count == 1;
             复制到剪贴板CToolStripMenuItem.Enabled = listView1.SelectedIndices.Count == 1;
             删除DToolStripMenuItem.Enabled = listView1.SelectedIndices.Count > 0;
         }
@@ -568,6 +566,15 @@ namespace AntShares.UI
             Contract contract = (Contract)listView1.SelectedItems[0].Tag;
             Account account = Program.CurrentWallet.GetAccountByScriptHash(contract.ScriptHash);
             using (ViewPrivateKeyDialog dialog = new ViewPrivateKeyDialog(account, contract.ScriptHash))
+            {
+                dialog.ShowDialog();
+            }
+        }
+
+        private void viewContractToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Contract contract = (Contract)listView1.SelectedItems[0].Tag;
+            using (ViewContractDialog dialog = new ViewContractDialog(contract))
             {
                 dialog.ShowDialog();
             }
