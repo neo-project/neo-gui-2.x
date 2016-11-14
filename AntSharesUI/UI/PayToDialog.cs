@@ -15,7 +15,7 @@ namespace AntShares.UI
             InitializeComponent();
             if (asset == null)
             {
-                foreach (UInt256 asset_id in Program.CurrentWallet.FindUnspentCoins().Select(p => p.AssetId).Distinct())
+                foreach (UInt256 asset_id in Program.CurrentWallet.FindUnspentCoins().Select(p => p.Output.AssetId).Distinct())
                 {
                     comboBox1.Items.Add(Blockchain.Default.GetTransaction(asset_id));
                 }

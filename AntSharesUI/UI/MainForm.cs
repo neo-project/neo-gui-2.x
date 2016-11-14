@@ -60,7 +60,7 @@ namespace AntShares.UI
         private void Blockchain_PersistCompleted(object sender, Block block)
         {
             persistence_time = DateTime.Now;
-            if (Program.CurrentWallet?.FindCoins().Any(p => p.AssetId.Equals(Blockchain.AntShare.Hash)) == true)
+            if (Program.CurrentWallet?.FindCoins().Any(p => p.Output.AssetId.Equals(Blockchain.AntShare.Hash)) == true)
                 balance_changed = true;
             CurrentWallet_TransactionsChanged(null, Enumerable.Empty<TransactionInfo>());
         }
@@ -198,13 +198,13 @@ namespace AntShares.UI
             if (balance_changed)
             {
                 IEnumerable<Coin> coins = Program.CurrentWallet?.FindCoins() ?? Enumerable.Empty<Coin>();
-                Fixed8 anc_claim_available = Wallet.CalculateClaimAmount(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Input));
-                Fixed8 anc_claim_unavailable = Wallet.CalculateClaimAmountUnavailable(coins.Where(p => p.State == CoinState.Unspent && p.AssetId.Equals(Blockchain.AntShare.Hash)).Select(p => p.Input), Blockchain.Default.Height);
+                Fixed8 anc_claim_available = Wallet.CalculateClaimAmount(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference));
+                Fixed8 anc_claim_unavailable = Wallet.CalculateClaimAmountUnavailable(coins.Where(p => !p.State.HasFlag(CoinState.Spent) && p.State.HasFlag(CoinState.Confirmed) && p.Output.AssetId.Equals(Blockchain.AntShare.Hash)).Select(p => p.Reference), Blockchain.Default.Height);
                 Fixed8 anc_claim = anc_claim_available + anc_claim_unavailable;
-                var assets = coins.GroupBy(p => p.AssetId, (k, g) => new
+                var assets = coins.GroupBy(p => p.Output.AssetId, (k, g) => new
                 {
                     Asset = (RegisterTransaction)Blockchain.Default.GetTransaction(k),
-                    Value = g.Sum(p => p.Value),
+                    Value = g.Sum(p => p.Output.Value),
                     Claim = k.Equals(Blockchain.AntCoin.Hash) ? anc_claim : Fixed8.Zero
                 }).ToDictionary(p => p.Asset.Hash);
                 if (anc_claim != Fixed8.Zero && !assets.ContainsKey(Blockchain.AntCoin.Hash))

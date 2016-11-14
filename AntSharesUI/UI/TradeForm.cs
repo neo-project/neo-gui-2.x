@@ -20,7 +20,7 @@ namespace AntShares.UI
         {
             return new ContractTransaction
             {
-                Inputs = ((JArray)json["vin"]).Select(p => new TransactionInput
+                Inputs = ((JArray)json["vin"]).Select(p => new CoinReference
                 {
                     PrevHash = UInt256.Parse(p["txid"].AsString()),
                     PrevIndex = (ushort)p["vout"].AsNumber()
@@ -77,7 +77,7 @@ namespace AntShares.UI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            IEnumerable<TransactionInput> inputs;
+            IEnumerable<CoinReference> inputs;
             IEnumerable<TransactionOutput> outputs;
             JObject json = JObject.Parse(textBox2.Text);
             if (json.ContainsProperty("hex"))

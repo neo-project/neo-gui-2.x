@@ -15,12 +15,12 @@ namespace AntShares.UI
 
         private void CalculateClaimAmountUnavailable(uint height)
         {
-            textBox2.Text = Wallet.CalculateClaimAmountUnavailable(Program.CurrentWallet.FindUnspentCoins().Where(p => p.AssetId.Equals(Blockchain.AntShare.Hash)).Select(p => p.Input), height).ToString();
+            textBox2.Text = Wallet.CalculateClaimAmountUnavailable(Program.CurrentWallet.FindUnspentCoins().Where(p => p.Output.AssetId.Equals(Blockchain.AntShare.Hash)).Select(p => p.Reference), height).ToString();
         }
 
         private void ClaimForm_Load(object sender, EventArgs e)
         {
-            Fixed8 amount_available = Wallet.CalculateClaimAmount(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Input));
+            Fixed8 amount_available = Wallet.CalculateClaimAmount(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference));
             textBox1.Text = amount_available.ToString();
             if (amount_available == Fixed8.Zero) button1.Enabled = false;
             CalculateClaimAmountUnavailable(Blockchain.Default.Height);
@@ -46,13 +46,13 @@ namespace AntShares.UI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            TransactionInput[] claims = Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Input).ToArray();
+            CoinReference[] claims = Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference).ToArray();
             if (claims.Length == 0) return;
             Helper.SignAndShowInformation(new ClaimTransaction
             {
                 Claims = claims,
                 Attributes = new TransactionAttribute[0],
-                Inputs = new TransactionInput[0],
+                Inputs = new CoinReference[0],
                 Outputs = new[]
                 {
                     new TransactionOutput

@@ -306,11 +306,11 @@ namespace AntShares.Shell
         private bool OnListAssetCommand(string[] args)
         {
             if (Program.Wallet == null) return true;
-            foreach (var item in Program.Wallet.FindCoins().Where(p => p.State == CoinState.Unspent || p.State == CoinState.Unconfirmed).GroupBy(p => p.AssetId, (k, g) => new
+            foreach (var item in Program.Wallet.FindCoins().GroupBy(p => p.Output.AssetId, (k, g) => new
             {
                 Asset = (RegisterTransaction)Blockchain.Default.GetTransaction(k),
-                Balance = g.Sum(p => p.Value),
-                Confirmed = g.Where(p => p.State == CoinState.Unspent).Sum(p => p.Value)
+                Balance = g.Sum(p => p.Output.Value),
+                Confirmed = g.Where(p => p.State.HasFlag(CoinState.Confirmed)).Sum(p => p.Output.Value)
             }))
             {
                 Console.WriteLine($"       id:{item.Asset.Hash}");

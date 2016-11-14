@@ -61,10 +61,10 @@ namespace AntShares.Network.RPC
                     else
                     {
                         UInt256 assetId = UInt256.Parse(_params[0].AsString());
-                        IEnumerable<Coin> coins = Program.Wallet.FindCoins().Where(p => p.AssetId.Equals(assetId));
+                        IEnumerable<Coin> coins = Program.Wallet.FindCoins().Where(p => p.Output.AssetId.Equals(assetId));
                         JObject json = new JObject();
-                        json["balance"] = coins.Where(p => p.State == CoinState.Unspent || p.State == CoinState.Unconfirmed).Sum(p => p.Value).ToString();
-                        json["confirmed"] = coins.Where(p => p.State == CoinState.Unspent).Sum(p => p.Value).ToString();
+                        json["balance"] = coins.Sum(p => p.Output.Value).ToString();
+                        json["confirmed"] = coins.Where(p => p.State.HasFlag(CoinState.Confirmed)).Sum(p => p.Output.Value).ToString();
                         return json;
                     }
                 case "getbestblockhash":
