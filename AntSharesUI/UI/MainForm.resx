@@ -361,16 +361,25 @@
     <value>Create &amp;New Add.</value>
   </data>
   <data name="importWIFToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 22</value>
+    <value>248, 22</value>
   </data>
   <data name="importWIFToolStripMenuItem.Text" xml:space="preserve">
     <value>Import from &amp;WIF...</value>
   </data>
   <data name="importCertificateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 22</value>
+    <value>248, 22</value>
   </data>
   <data name="importCertificateToolStripMenuItem.Text" xml:space="preserve">
     <value>Import from &amp;Certificate...</value>
+  </data>
+  <data name="toolStripSeparator10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>245, 6</value>
+  </data>
+  <data name="importWatchOnlyAddressToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>248, 22</value>
+  </data>
+  <data name="importWatchOnlyAddressToolStripMenuItem.Text" xml:space="preserve">
+    <value>Import Watch-Only &amp;Address...</value>
   </data>
   <data name="导入私钥IToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -379,7 +388,7 @@
     <value>205, 22</value>
   </data>
   <data name="导入私钥IToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Import Private Key...</value>
+    <value>&amp;Import</value>
   </data>
   <data name="多方签名MToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>174, 22</value>
@@ -448,7 +457,7 @@
     <value>&amp;Delete...</value>
   </data>
   <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 186</value>
+    <value>206, 164</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip1.Name" xml:space="preserve">
     <value>contextMenuStrip1</value>
@@ -478,6 +487,16 @@
         AwAAABBDb250cmFjdCBBZGRyZXNzBfz///8oU3lzdGVtLldpbmRvd3MuRm9ybXMuSG9yaXpvbnRhbEFs
         aWdubWVudAEAAAAHdmFsdWVfXwAIAgAAAAAAAAAKBgUAAAAYbm9uc3RhbmRhcmRDb250cmFjdEdyb3Vw
         Cw==
+</value>
+  </data>
+  <data name="listView1.Groups2" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACJTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5MaXN0Vmlld0dyb3VwBAAAAAZIZWFkZXIPSGVhZGVyQWxpZ25tZW50A1Rh
+        ZwROYW1lAQQCAShTeXN0ZW0uV2luZG93cy5Gb3Jtcy5Ib3Jpem9udGFsQWxpZ25tZW50AgAAAAIAAAAG
+        AwAAABJXYXRjaC1Pbmx5IEFkZHJlc3MF/P///yhTeXN0ZW0uV2luZG93cy5Gb3Jtcy5Ib3Jpem9udGFs
+        QWxpZ25tZW50AQAAAAd2YWx1ZV9fAAgCAAAAAAAAAAoGBQAAAA53YXRjaE9ubHlHcm91cAs=
 </value>
   </data>
   <data name="listView1.Location" type="System.Drawing.Point, System.Drawing">
@@ -8280,6 +8299,18 @@
     <value>importCertificateToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;importCertificateToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator10.Name" xml:space="preserve">
+    <value>toolStripSeparator10</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;importWatchOnlyAddressToolStripMenuItem.Name" xml:space="preserve">
+    <value>importWatchOnlyAddressToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;importWatchOnlyAddressToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;创建智能合约SToolStripMenuItem.Name" xml:space="preserve">

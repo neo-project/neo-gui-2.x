@@ -129,6 +129,9 @@
   <data name="AddContractFailedMessage" xml:space="preserve">
     <value>无法添加智能合约，因为当前钱包中不包含签署该合约的私钥。</value>
   </data>
+  <data name="Address" xml:space="preserve">
+    <value>地址</value>
+  </data>
   <data name="ChangePasswordSuccessful" xml:space="preserve">
     <value>修改密码成功。</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="Failed" xml:space="preserve">
     <value>失败</value>
+  </data>
+  <data name="ImportWatchOnlyAddress" xml:space="preserve">
+    <value>导入监视地址</value>
   </data>
   <data name="IncompletedSignatureMessage" xml:space="preserve">
     <value>交易构造完成，但没有足够的签名：</value>
@@ -175,7 +181,8 @@
     <value>钱包文件升级</value>
   </data>
   <data name="MigrateWalletMessage" xml:space="preserve">
-    <value>正在打开旧版本的钱包文件，是否尝试将文件升级为新版格式？\n注意，升级后将无法用旧版本的客户端打开该文件！</value>
+    <value>正在打开旧版本的钱包文件，是否尝试将文件升级为新版格式？
+注意，升级后将无法用旧版本的客户端打开该文件！</value>
   </data>
   <data name="MigrateWalletSucceedMessage" xml:space="preserve">
     <value>钱包文件迁移成功，旧的文件已经自动保存到以下位置：</value>

@@ -69,6 +69,8 @@
             this.导入私钥IToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importWIFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importCertificateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.importWatchOnlyAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.创建智能合约SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.多方签名MToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.自定义CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -340,7 +342,8 @@
             this.listView1.GridLines = true;
             this.listView1.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
             ((System.Windows.Forms.ListViewGroup)(resources.GetObject("listView1.Groups"))),
-            ((System.Windows.Forms.ListViewGroup)(resources.GetObject("listView1.Groups1")))});
+            ((System.Windows.Forms.ListViewGroup)(resources.GetObject("listView1.Groups1"))),
+            ((System.Windows.Forms.ListViewGroup)(resources.GetObject("listView1.Groups2")))});
             this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView1.HideSelection = false;
             this.listView1.Name = "listView1";
@@ -378,7 +381,9 @@
             resources.ApplyResources(this.导入私钥IToolStripMenuItem, "导入私钥IToolStripMenuItem");
             this.导入私钥IToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.importWIFToolStripMenuItem,
-            this.importCertificateToolStripMenuItem});
+            this.importCertificateToolStripMenuItem,
+            this.toolStripSeparator10,
+            this.importWatchOnlyAddressToolStripMenuItem});
             this.导入私钥IToolStripMenuItem.Name = "导入私钥IToolStripMenuItem";
             // 
             // importWIFToolStripMenuItem
@@ -392,6 +397,17 @@
             resources.ApplyResources(this.importCertificateToolStripMenuItem, "importCertificateToolStripMenuItem");
             this.importCertificateToolStripMenuItem.Name = "importCertificateToolStripMenuItem";
             this.importCertificateToolStripMenuItem.Click += new System.EventHandler(this.importCertificateToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator10
+            // 
+            resources.ApplyResources(this.toolStripSeparator10, "toolStripSeparator10");
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            // 
+            // importWatchOnlyAddressToolStripMenuItem
+            // 
+            resources.ApplyResources(this.importWatchOnlyAddressToolStripMenuItem, "importWatchOnlyAddressToolStripMenuItem");
+            this.importWatchOnlyAddressToolStripMenuItem.Name = "importWatchOnlyAddressToolStripMenuItem";
+            this.importWatchOnlyAddressToolStripMenuItem.Click += new System.EventHandler(this.importWatchOnlyAddressToolStripMenuItem_Click);
             // 
             // 创建智能合约SToolStripMenuItem
             // 
@@ -745,6 +761,8 @@
         private System.Windows.Forms.ToolStripMenuItem requestCertificateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewCertificateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewContractToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripMenuItem importWatchOnlyAddressToolStripMenuItem;
     }
 }
 

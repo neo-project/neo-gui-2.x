@@ -129,6 +129,9 @@
   <data name="AddContractFailedMessage" xml:space="preserve">
     <value>Failed to add smart contract, corresponding private key missing in this wallet.</value>
   </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
   <data name="ChangePasswordSuccessful" xml:space="preserve">
     <value>Change password successful.</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="Failed" xml:space="preserve">
     <value>Failed</value>
+  </data>
+  <data name="ImportWatchOnlyAddress" xml:space="preserve">
+    <value>Import Watch-Only Address</value>
   </data>
   <data name="IncompletedSignatureMessage" xml:space="preserve">
     <value>Transaction initiated, but the signature is incomplete.</value>
@@ -175,7 +181,8 @@
     <value>Migrate Wallet</value>
   </data>
   <data name="MigrateWalletMessage" xml:space="preserve">
-    <value>Opening wallet files in older versions, update to newest format?\nNote: updated files cannot be openned by clients in older versions!</value>
+    <value>Opening wallet files in older versions, update to newest format?
+Note: updated files cannot be openned by clients in older versions!</value>
   </data>
   <data name="MigrateWalletSucceedMessage" xml:space="preserve">
     <value>Wallet files relocated. Old files have been auto-saved at: </value>
