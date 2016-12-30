@@ -117,9 +117,13 @@ namespace AntShares.UI
             listView1.Items.Clear();
             if (Program.CurrentWallet != null)
             {
-                foreach (Contract contract in Program.CurrentWallet.GetContracts())
+                foreach (UInt160 scriptHash in Program.CurrentWallet.GetAddresses().ToArray())
                 {
-                    AddContractToListView(contract);
+                    Contract contract = Program.CurrentWallet.GetContract(scriptHash);
+                    if (contract == null)
+                        AddAddressToListView(scriptHash);
+                    else
+                        AddContractToListView(contract);
                 }
             }
             balance_changed = true;
