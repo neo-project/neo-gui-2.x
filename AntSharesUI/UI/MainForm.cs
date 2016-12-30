@@ -301,7 +301,7 @@ namespace AntShares.UI
                 }
                 else
                 {
-                    result = CertificateQueryService.Query(asset.Issuer, asset.CertUrl);
+                    result = CertificateQueryService.Query(asset.Issuer);
                 }
                 using (result)
                 {

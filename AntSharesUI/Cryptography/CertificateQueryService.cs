@@ -44,12 +44,12 @@ namespace AntShares.Cryptography
             }
         }
 
-        public static CertificateQueryResult Query(ECPoint pubkey, string url)
+        public static CertificateQueryResult Query(ECPoint pubkey)
         {
-            return Query(Contract.CreateSignatureRedeemScript(pubkey).ToScriptHash(), url);
+            return Query(Contract.CreateSignatureRedeemScript(pubkey).ToScriptHash());
         }
 
-        public static CertificateQueryResult Query(UInt160 hash, string url)
+        public static CertificateQueryResult Query(UInt160 hash)
         {
             lock (results)
             {
@@ -67,8 +67,7 @@ namespace AntShares.Cryptography
             }
             else
             {
-                if (string.IsNullOrEmpty(url))
-                    url = $"http://cert.onchain.com/antshares/{address}.cer";
+                string url = $"http://cert.onchain.com/antshares/{address}.cer";
                 web.DownloadDataAsync(new Uri(url), hash);
             }
             return results[hash];

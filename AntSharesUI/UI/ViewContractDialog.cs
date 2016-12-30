@@ -12,7 +12,7 @@ namespace AntShares.UI
             textBox1.Text = contract.Address;
             textBox2.Text = contract.ScriptHash.ToString();
             textBox3.Text = contract.ParameterList.Cast<byte>().ToArray().ToHexString();
-            textBox4.Text = contract.RedeemScript.ToHexString();
+            textBox4.Text = contract.Script.ToHexString();
         }
     }
 }

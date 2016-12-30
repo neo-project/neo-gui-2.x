@@ -10,7 +10,7 @@ namespace AntShares.UI
             InitializeComponent();
             textBox1.Text = Wallet.ToAddress(contract.ScriptHash);
             textBox2.Text = contract.ScriptHash.ToString();
-            textBox3.Text = contract.RedeemScript.ToHexString();
+            textBox3.Text = contract.Script.ToHexString();
         }
     }
 }

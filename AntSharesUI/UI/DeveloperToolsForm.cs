@@ -1,4 +1,5 @@
-﻿using AntShares.Network;
+﻿using AntShares.Core;
+using AntShares.Network;
 using AntShares.Properties;
 using AntShares.Wallets;
 using System;
