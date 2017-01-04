@@ -23,7 +23,7 @@ namespace AntShares.UI
             Fixed8 amount_available = Wallet.CalculateClaimAmount(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference));
             textBox1.Text = amount_available.ToString();
             if (amount_available == Fixed8.Zero) button1.Enabled = false;
-            CalculateClaimAmountUnavailable(Blockchain.Default.Height);
+            CalculateClaimAmountUnavailable(Blockchain.Default.Height + 1);
             Blockchain.PersistCompleted += Blockchain_PersistCompleted;
         }
 
@@ -40,7 +40,7 @@ namespace AntShares.UI
             }
             else
             {
-                CalculateClaimAmountUnavailable(block.Height);
+                CalculateClaimAmountUnavailable(block.Height + 1);
             }
         }
 

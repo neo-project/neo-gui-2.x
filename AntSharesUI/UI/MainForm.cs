@@ -224,7 +224,7 @@ namespace AntShares.UI
             {
                 IEnumerable<Coin> coins = Program.CurrentWallet?.GetCoins().Where(p => !p.State.HasFlag(CoinState.Spent)) ?? Enumerable.Empty<Coin>();
                 Fixed8 anc_claim_available = Wallet.CalculateClaimAmount(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference));
-                Fixed8 anc_claim_unavailable = Wallet.CalculateClaimAmountUnavailable(coins.Where(p => p.State.HasFlag(CoinState.Confirmed) && p.Output.AssetId.Equals(Blockchain.AntShare.Hash)).Select(p => p.Reference), Blockchain.Default.Height);
+                Fixed8 anc_claim_unavailable = Wallet.CalculateClaimAmountUnavailable(coins.Where(p => p.State.HasFlag(CoinState.Confirmed) && p.Output.AssetId.Equals(Blockchain.AntShare.Hash)).Select(p => p.Reference), Blockchain.Default.Height + 1);
                 Fixed8 anc_claim = anc_claim_available + anc_claim_unavailable;
                 var assets = coins.GroupBy(p => p.Output.AssetId, (k, g) => new
                 {

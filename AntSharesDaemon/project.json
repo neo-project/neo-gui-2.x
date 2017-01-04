@@ -2,7 +2,7 @@
   "authors": [ "The Antshares team" ],
   "copyright": "2016 The Antshares team",
   "title": "AntShares.Daemon",
-  "version": "1.4.0",
+  "version": "1.4.0.1",
   "buildOptions": {
     "emitEntryPoint": true,
     "define": [ "DEBUG" ],
@@ -15,7 +15,7 @@
   },
 
   "dependencies": {
-    "AntShares": "1.4.0",
+    "AntShares": "1.4.0.1",
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
     "Microsoft.NETCore.App": {
       "type": "platform",
