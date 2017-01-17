@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Security;
+using System.Text;
 
 namespace AntShares.Services
 {
@@ -75,6 +76,8 @@ namespace AntShares.Services
 #if NET461
             Console.Title = ServiceName;
 #endif
+            Console.OutputEncoding = Encoding.Unicode;
+
             while (running)
             {
                 if (ShowPrompt) Console.Write($"{Prompt}>");
