@@ -1,6 +1,4 @@
-﻿using AntShares.Cryptography;
-using System;
-using System.Linq;
+﻿using System;
 using System.Windows.Forms;
 
 namespace AntShares.UI
@@ -12,29 +10,21 @@ namespace AntShares.UI
             InitializeComponent();
         }
 
-        public string WIF
+        public string[] WifStrings
         {
             get
             {
-                return textBox1.Text;
+                return textBox1.Lines;
             }
             set
             {
-                textBox1.Text = value;
+                textBox1.Lines = value;
             }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            foreach (char c in textBox1.Text)
-            {
-                if (!Base58.Alphabet.Contains(c))
-                {
-                    button1.Enabled = false;
-                    return;
-                }
-            }
-            button1.Enabled = true;
+            button1.Enabled = textBox1.TextLength > 0;
         }
     }
 }

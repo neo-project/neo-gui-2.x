@@ -540,10 +540,21 @@ namespace AntShares.UI
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
                 listView1.SelectedIndices.Clear();
-                Account account = Program.CurrentWallet.Import(dialog.WIF);
-                foreach (Contract contract in Program.CurrentWallet.GetContracts(account.PublicKeyHash))
+                foreach (string wif in dialog.WifStrings)
                 {
-                    AddContractToListView(contract, true);
+                    Account account;
+                    try
+                    {
+                        account = Program.CurrentWallet.Import(wif);
+                    }
+                    catch (FormatException)
+                    {
+                        continue;
+                    }
+                    foreach (Contract contract in Program.CurrentWallet.GetContracts(account.PublicKeyHash))
+                    {
+                        AddContractToListView(contract, true);
+                    }
                 }
             }
         }
