@@ -147,6 +147,12 @@
   <data name="DeleteConfirmation" xml:space="preserve">
     <value>删除确认</value>
   </data>
+  <data name="EnterRemarkMessage" xml:space="preserve">
+    <value>请输入备注信息，该信息将被记录在区块链上</value>
+  </data>
+  <data name="EnterRemarkTitle" xml:space="preserve">
+    <value>交易备注</value>
+  </data>
   <data name="ExpiredCertificate" xml:space="preserve">
     <value>证书已过期</value>
   </data>

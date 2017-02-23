@@ -59,16 +59,16 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AntShares, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AntShares.1.4.1\lib\net461\AntShares.dll</HintPath>
+    <Reference Include="AntShares, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AntShares.1.4.3\lib\net461\AntShares.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AntShares.Compiler, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AntShares.Compiler.1.3.2\lib\net461\AntShares.Compiler.dll</HintPath>
+    <Reference Include="AntShares.Compiler, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AntShares.Compiler.1.4.0\lib\net461\AntShares.Compiler.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AntShares.VM, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AntShares.VM.1.3.2\lib\net461\AntShares.VM.dll</HintPath>
+    <Reference Include="AntShares.VM, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AntShares.VM.1.4.0\lib\net461\AntShares.VM.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Hosting, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
@@ -233,6 +233,7 @@
       <HintPath>..\packages\System.Interactive.Async.3.0.0\lib\net45\System.Interactive.Async.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Net.Sockets, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Sockets.4.1.0\lib\net46\System.Net.Sockets.dll</HintPath>
@@ -614,6 +615,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TxOutListBox.resx">
       <DependentUpon>TxOutListBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\PayToDialog.resx">
       <DependentUpon>PayToDialog.cs</DependentUpon>
@@ -634,6 +636,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TransferDialog.resx">
       <DependentUpon>TransferDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UpdateDialog.resx">
       <DependentUpon>UpdateDialog.cs</DependentUpon>
@@ -696,6 +699,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
+    <None Include="Resources\remark.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="CERTENROLLLib">

@@ -151,6 +151,24 @@ namespace AntShares.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter remark here, which will be recorded on the blockchain.
+        /// </summary>
+        internal static string EnterRemarkMessage {
+            get {
+                return ResourceManager.GetString("EnterRemarkMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transaction Remark.
+        /// </summary>
+        internal static string EnterRemarkTitle {
+            get {
+                return ResourceManager.GetString("EnterRemarkTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expired.
         /// </summary>
         internal static string ExpiredCertificate {

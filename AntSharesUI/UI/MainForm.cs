@@ -1,5 +1,6 @@
 ﻿using AntShares.Core;
 using AntShares.Cryptography;
+using AntShares.Implementations.Blockchains.LevelDB;
 using AntShares.Implementations.Wallets.EntityFramework;
 using AntShares.IO;
 using AntShares.Properties;
@@ -11,10 +12,12 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
@@ -22,7 +25,7 @@ namespace AntShares.UI
 {
     internal partial class MainForm : Form
     {
-        private static readonly UInt160 RecycleScriptHash = new[] { (byte)ScriptOp.OP_TRUE }.ToScriptHash();
+        private static readonly UInt160 RecycleScriptHash = new[] { (byte)OpCode.OP_TRUE }.ToScriptHash();
         private bool balance_changed = false;
         private DateTime persistence_time = DateTime.MinValue;
 
@@ -192,10 +195,53 @@ namespace AntShares.UI
             }
         }
 
+        private void ImportBlocks(Stream stream)
+        {
+            LevelDBBlockchain blockchain = (LevelDBBlockchain)Blockchain.Default;
+            blockchain.VerifyBlocks = false;
+            using (BinaryReader r = new BinaryReader(stream))
+            {
+                uint count = r.ReadUInt32();
+                for (int height = 0; height < count; height++)
+                {
+                    byte[] array = r.ReadBytes(r.ReadInt32());
+                    if (height > Blockchain.Default.Height)
+                    {
+                        Block block = array.AsSerializable<Block>();
+                        Blockchain.Default.AddBlock(block);
+                    }
+                }
+            }
+            blockchain.VerifyBlocks = true;
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Program.LocalNode.Start(Settings.Default.NodePort);
-            Blockchain.PersistCompleted += Blockchain_PersistCompleted;
+            Task.Run(() =>
+            {
+                const string acc_path = "chain.acc";
+                const string acc_zip_path = acc_path + ".zip";
+                if (File.Exists(acc_path))
+                {
+                    using (FileStream fs = new FileStream(acc_path, FileMode.Open, FileAccess.Read, FileShare.None))
+                    {
+                        ImportBlocks(fs);
+                    }
+                    File.Delete(acc_path);
+                }
+                else if (File.Exists(acc_zip_path))
+                {
+                    using (FileStream fs = new FileStream(acc_zip_path, FileMode.Open, FileAccess.Read, FileShare.None))
+                    using (ZipArchive zip = new ZipArchive(fs, ZipArchiveMode.Read))
+                    using (Stream zs = zip.GetEntry(acc_path).Open())
+                    {
+                        ImportBlocks(zs);
+                    }
+                    File.Delete(acc_path);
+                }
+                Blockchain.PersistCompleted += Blockchain_PersistCompleted;
+                Program.LocalNode.Start(Settings.Default.NodePort);
+            });
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

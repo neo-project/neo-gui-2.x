@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TransferDialog));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.txOutListBox1 = new AntShares.UI.TxOutListBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -39,9 +40,18 @@
             // groupBox3
             // 
             resources.ApplyResources(this.groupBox3, "groupBox3");
+            this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.txOutListBox1);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
+            // 
+            // button1
+            // 
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Image = global::AntShares.Properties.Resources.remark;
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // txOutListBox1
             // 
@@ -87,5 +97,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private TxOutListBox txOutListBox1;
+        private System.Windows.Forms.Button button1;
     }
 }

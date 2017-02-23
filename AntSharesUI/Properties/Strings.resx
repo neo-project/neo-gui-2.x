@@ -147,6 +147,12 @@
   <data name="DeleteConfirmation" xml:space="preserve">
     <value>Confirmation</value>
   </data>
+  <data name="EnterRemarkMessage" xml:space="preserve">
+    <value>Enter remark here, which will be recorded on the blockchain</value>
+  </data>
+  <data name="EnterRemarkTitle" xml:space="preserve">
+    <value>Transaction Remark</value>
+  </data>
   <data name="ExpiredCertificate" xml:space="preserve">
     <value>Expired</value>
   </data>
