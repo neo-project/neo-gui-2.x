@@ -237,7 +237,7 @@ namespace AntShares.UI
                     {
                         ImportBlocks(zs);
                     }
-                    File.Delete(acc_path);
+                    File.Delete(acc_zip_path);
                 }
                 Blockchain.PersistCompleted += Blockchain_PersistCompleted;
                 Program.LocalNode.Start(Settings.Default.NodePort);
