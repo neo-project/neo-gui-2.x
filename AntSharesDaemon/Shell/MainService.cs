@@ -591,7 +591,7 @@ namespace AntShares.Shell
                     }
                     File.Delete(acc_zip_path);
                 }
-                LocalNode.Start(Settings.Default.NodePort);
+                LocalNode.Start(Settings.Default.NodePort, Settings.Default.WsPort);
                 if (args.Length >= 1 && args[0] == "/rpc")
                 {
                     rpc = new RpcServerWithWallet(LocalNode);

@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("AntShares")]
+[assembly: AssemblyTitle("AntSharesCore-GUI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AntShares")]
-[assembly: AssemblyCopyright("© AntShares Project 2015 Released under the MIT license")]
+[assembly: AssemblyProduct("AntSharesCore-GUI")]
+[assembly: AssemblyCopyright("© AntShares Project 2015-2017 Released under the MIT license")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -1,8 +1,8 @@
 {
   "authors": [ "The Antshares team" ],
-  "copyright": "2016 The Antshares team",
-  "title": "AntShares.Daemon",
-  "version": "1.4.5",
+  "copyright": "2016-2017 The Antshares team",
+  "title": "AntSharesCore-CLI",
+  "version": "1.4.6",
   "buildOptions": {
     "emitEntryPoint": true,
     "define": [ "DEBUG" ],
@@ -15,11 +15,11 @@
   },
 
   "dependencies": {
-    "AntShares": "1.4.5",
+    "AntShares": "1.4.6",
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
     "Microsoft.NETCore.App": {
       "type": "platform",
-      "version": "1.0.1"
+      "version": "1.1.1"
     }
   },
 

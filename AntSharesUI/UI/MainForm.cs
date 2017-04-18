@@ -25,7 +25,7 @@ namespace AntShares.UI
 {
     internal partial class MainForm : Form
     {
-        private static readonly UInt160 RecycleScriptHash = new[] { (byte)OpCode.OP_TRUE }.ToScriptHash();
+        private static readonly UInt160 RecycleScriptHash = new[] { (byte)OpCode.PUSHT }.ToScriptHash();
         private bool balance_changed = false;
         private DateTime persistence_time = DateTime.MinValue;
 
@@ -240,7 +240,7 @@ namespace AntShares.UI
                     File.Delete(acc_zip_path);
                 }
                 Blockchain.PersistCompleted += Blockchain_PersistCompleted;
-                Program.LocalNode.Start(Settings.Default.NodePort);
+                Program.LocalNode.Start(Settings.Default.NodePort, Settings.Default.WsPort);
             });
         }
 
