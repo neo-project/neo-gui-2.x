@@ -17,7 +17,7 @@ namespace AntShares.UI
 
         private void CertificateRequestWizard_Load(object sender, EventArgs e)
         {
-            comboBox1.Items.AddRange(Program.CurrentWallet.GetContracts().Where(p => p.IsStandard).Select(p => Program.CurrentWallet.GetAccount(p.PublicKeyHash).PublicKey).ToArray());
+            comboBox1.Items.AddRange(Program.CurrentWallet.GetContracts().Where(p => p.IsStandard).Select(p => Program.CurrentWallet.GetKey(p.PublicKeyHash).PublicKey).ToArray());
         }
 
         private void textBox_TextChanged(object sender, EventArgs e)
@@ -29,13 +29,13 @@ namespace AntShares.UI
         {
             if (saveFileDialog1.ShowDialog() != DialogResult.OK) return;
             ECPoint point = (ECPoint)comboBox1.SelectedItem;
-            Account account = Program.CurrentWallet.GetAccount(point);
+            KeyPair key = Program.CurrentWallet.GetKey(point);
             byte[] pubkey = point.EncodePoint(false).Skip(1).ToArray();
             byte[] prikey;
-            using (account.Decrypt())
+            using (key.Decrypt())
             {
                 const int ECDSA_PRIVATE_P256_MAGIC = 0x32534345;
-                prikey = BitConverter.GetBytes(ECDSA_PRIVATE_P256_MAGIC).Concat(BitConverter.GetBytes(32)).Concat(pubkey).Concat(account.PrivateKey).ToArray();
+                prikey = BitConverter.GetBytes(ECDSA_PRIVATE_P256_MAGIC).Concat(BitConverter.GetBytes(32)).Concat(pubkey).Concat(key.PrivateKey).ToArray();
             }
             CX509PrivateKey x509key = new CX509PrivateKey();
             x509key.AlgorithmName = "ECDSA_P256";

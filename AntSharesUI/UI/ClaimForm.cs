@@ -1,5 +1,4 @@
 ﻿using AntShares.Core;
-using AntShares.Wallets;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,17 +12,17 @@ namespace AntShares.UI
             InitializeComponent();
         }
 
-        private void CalculateClaimAmountUnavailable(uint height)
+        private void CalculateBonusUnavailable(uint height)
         {
-            textBox2.Text = Wallet.CalculateClaimAmountUnavailable(Program.CurrentWallet.FindUnspentCoins().Where(p => p.Output.AssetId.Equals(Blockchain.AntShare.Hash)).Select(p => p.Reference), height).ToString();
+            textBox2.Text = Blockchain.CalculateBonus(Program.CurrentWallet.FindUnspentCoins().Where(p => p.Output.AssetId.Equals(Blockchain.SystemShare.Hash)).Select(p => p.Reference), height).ToString();
         }
 
         private void ClaimForm_Load(object sender, EventArgs e)
         {
-            Fixed8 amount_available = Wallet.CalculateClaimAmount(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference));
-            textBox1.Text = amount_available.ToString();
-            if (amount_available == Fixed8.Zero) button1.Enabled = false;
-            CalculateClaimAmountUnavailable(Blockchain.Default.Height + 1);
+            Fixed8 bonus_available = Blockchain.CalculateBonus(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference));
+            textBox1.Text = bonus_available.ToString();
+            if (bonus_available == Fixed8.Zero) button1.Enabled = false;
+            CalculateBonusUnavailable(Blockchain.Default.Height + 1);
             Blockchain.PersistCompleted += Blockchain_PersistCompleted;
         }
 
@@ -40,7 +39,7 @@ namespace AntShares.UI
             }
             else
             {
-                CalculateClaimAmountUnavailable(block.Height + 1);
+                CalculateBonusUnavailable(block.Index + 1);
             }
         }
 
@@ -57,8 +56,8 @@ namespace AntShares.UI
                 {
                     new TransactionOutput
                     {
-                        AssetId = Blockchain.AntCoin.Hash,
-                        Value = Wallet.CalculateClaimAmount(claims),
+                        AssetId = Blockchain.SystemCoin.Hash,
+                        Value = Blockchain.CalculateBonus(claims),
                         ScriptHash = Program.CurrentWallet.GetChangeAddress()
                     }
                 }

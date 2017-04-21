@@ -23,16 +23,16 @@ namespace AntShares.UI
                 Name = string.IsNullOrWhiteSpace(textBox1.Text) ? string.Empty : $"[{{\"lang\":\"{CultureInfo.CurrentCulture.Name}\",\"name\":\"{textBox1.Text}\"}}]",
                 Amount = checkBox1.Checked ? Fixed8.Parse(textBox2.Text) : -Fixed8.Satoshi,
                 Precision = (byte)numericUpDown1.Value,
-                Issuer = (ECPoint)comboBox2.SelectedItem,
+                Owner = (ECPoint)comboBox2.SelectedItem,
                 Admin = Wallet.ToScriptHash(comboBox3.Text),
                 Outputs = new TransactionOutput[0]
-            }, Fixed8.Zero);
+            }, fee: Fixed8.Zero);
         }
 
         private void AssetRegisterDialog_Load(object sender, EventArgs e)
         {
             comboBox1.Items.AddRange(new object[] { AssetType.Share, AssetType.Token });
-            comboBox2.Items.AddRange(Program.CurrentWallet.GetContracts().Where(p => p.IsStandard).Select(p => Program.CurrentWallet.GetAccount(p.PublicKeyHash).PublicKey).ToArray());
+            comboBox2.Items.AddRange(Program.CurrentWallet.GetContracts().Where(p => p.IsStandard).Select(p => Program.CurrentWallet.GetKey(p.PublicKeyHash).PublicKey).ToArray());
             comboBox3.Items.AddRange(Program.CurrentWallet.GetContracts().Select(p => p.Address).ToArray());
         }
 

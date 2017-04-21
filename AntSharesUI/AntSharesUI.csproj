@@ -59,8 +59,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AntShares, Version=1.4.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AntShares.1.4.6\lib\net461\AntShares.dll</HintPath>
+    <Reference Include="AntShares, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AntShares.1.5.0\lib\net461\AntShares.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AntShares.VM, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -406,12 +406,6 @@
     <Compile Include="UI\IssueDialog.Designer.cs">
       <DependentUpon>IssueDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\OptionsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\OptionsDialog.Designer.cs">
-      <DependentUpon>OptionsDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\RestoreAccountsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -633,13 +627,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OpenWalletDialog.zh-Hans.resx">
       <DependentUpon>OpenWalletDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\OptionsDialog.resx">
-      <DependentUpon>OptionsDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\OptionsDialog.zh-Hans.resx">
-      <DependentUpon>OptionsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\PayToDialog.zh-Hans.resx">
       <DependentUpon>PayToDialog.cs</DependentUpon>

@@ -102,8 +102,8 @@ namespace AntShares.UI
 
         private void button4_Click(object sender, EventArgs e)
         {
-            context.Signable.Scripts = context.GetScripts();
-            IInventory inventory = (IInventory)context.Signable;
+            context.Verifiable.Scripts = context.GetScripts();
+            IInventory inventory = (IInventory)context.Verifiable;
             Program.LocalNode.Relay(inventory);
             InformationBox.Show(inventory.Hash.ToString(), Strings.RelaySuccessText, Strings.RelaySuccessTitle);
         }

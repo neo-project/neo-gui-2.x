@@ -20,9 +20,9 @@ namespace AntShares.UI
 
         private void RestoreAccountsDialog_Load(object sender, EventArgs e)
         {
-            IEnumerable<Account> accounts = Program.CurrentWallet.GetAccounts();
-            accounts = accounts.Where(account => Program.CurrentWallet.GetContracts(account.PublicKeyHash).All(contract => !contract.IsStandard));
-            IEnumerable<Contract> contracts = accounts.Select(p => Contract.CreateSignatureContract(p.PublicKey));
+            IEnumerable<KeyPair> keys = Program.CurrentWallet.GetKeys();
+            keys = keys.Where(account => Program.CurrentWallet.GetContracts(account.PublicKeyHash).All(contract => !contract.IsStandard));
+            IEnumerable<Contract> contracts = keys.Select(p => Contract.CreateSignatureContract(p.PublicKey));
             listView1.Items.AddRange(contracts.Select(p => new ListViewItem(p.Address)
             {
                 Tag = p

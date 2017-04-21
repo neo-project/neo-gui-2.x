@@ -5,16 +5,16 @@ namespace AntShares.UI
 {
     internal partial class ViewPrivateKeyDialog : Form
     {
-        public ViewPrivateKeyDialog(Account account, UInt160 scriptHash)
+        public ViewPrivateKeyDialog(KeyPair key, UInt160 scriptHash)
         {
             InitializeComponent();
             textBox3.Text = Wallet.ToAddress(scriptHash);
-            textBox4.Text = account.PublicKey.EncodePoint(true).ToHexString();
-            using (account.Decrypt())
+            textBox4.Text = key.PublicKey.EncodePoint(true).ToHexString();
+            using (key.Decrypt())
             {
-                textBox1.Text = account.PrivateKey.ToHexString();
+                textBox1.Text = key.PrivateKey.ToHexString();
             }
-            textBox2.Text = account.Export();
+            textBox2.Text = key.Export();
         }
     }
 }

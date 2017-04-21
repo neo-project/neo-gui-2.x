@@ -84,7 +84,7 @@ namespace AntShares.UI
         private void Blockchain_PersistCompleted(object sender, Block block)
         {
             persistence_time = DateTime.Now;
-            if (Program.CurrentWallet?.GetCoins().Any(p => !p.State.HasFlag(CoinState.Spent) && p.Output.AssetId.Equals(Blockchain.AntShare.Hash)) == true)
+            if (Program.CurrentWallet?.GetCoins().Any(p => !p.State.HasFlag(CoinState.Spent) && p.Output.AssetId.Equals(Blockchain.SystemShare.Hash)) == true)
                 balance_changed = true;
             CurrentWallet_TransactionsChanged(null, Enumerable.Empty<TransactionInfo>());
         }
@@ -269,37 +269,37 @@ namespace AntShares.UI
             if (balance_changed)
             {
                 IEnumerable<Coin> coins = Program.CurrentWallet?.GetCoins().Where(p => !p.State.HasFlag(CoinState.Spent)) ?? Enumerable.Empty<Coin>();
-                Fixed8 anc_claim_available = Wallet.CalculateClaimAmount(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference));
-                Fixed8 anc_claim_unavailable = Wallet.CalculateClaimAmountUnavailable(coins.Where(p => p.State.HasFlag(CoinState.Confirmed) && p.Output.AssetId.Equals(Blockchain.AntShare.Hash)).Select(p => p.Reference), Blockchain.Default.Height + 1);
-                Fixed8 anc_claim = anc_claim_available + anc_claim_unavailable;
+                Fixed8 bonus_available = Blockchain.CalculateBonus(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference));
+                Fixed8 bonus_unavailable = Blockchain.CalculateBonus(coins.Where(p => p.State.HasFlag(CoinState.Confirmed) && p.Output.AssetId.Equals(Blockchain.SystemShare.Hash)).Select(p => p.Reference), Blockchain.Default.Height + 1);
+                Fixed8 bonus = bonus_available + bonus_unavailable;
                 var assets = coins.GroupBy(p => p.Output.AssetId, (k, g) => new
                 {
-                    Asset = (RegisterTransaction)Blockchain.Default.GetTransaction(k),
+                    Asset = Blockchain.Default.GetAssetState(k),
                     Value = g.Sum(p => p.Output.Value),
-                    Claim = k.Equals(Blockchain.AntCoin.Hash) ? anc_claim : Fixed8.Zero
-                }).ToDictionary(p => p.Asset.Hash);
-                if (anc_claim != Fixed8.Zero && !assets.ContainsKey(Blockchain.AntCoin.Hash))
+                    Claim = k.Equals(Blockchain.SystemCoin.Hash) ? bonus : Fixed8.Zero
+                }).ToDictionary(p => p.Asset.AssetId);
+                if (bonus != Fixed8.Zero && !assets.ContainsKey(Blockchain.SystemCoin.Hash))
                 {
-                    assets[Blockchain.AntCoin.Hash] = new
+                    assets[Blockchain.SystemCoin.Hash] = new
                     {
-                        Asset = Blockchain.AntCoin,
+                        Asset = Blockchain.Default.GetAssetState(Blockchain.SystemCoin.Hash),
                         Value = Fixed8.Zero,
-                        Claim = anc_claim
+                        Claim = bonus
                     };
                 }
-                foreach (RegisterTransaction tx in listView2.Items.OfType<ListViewItem>().Select(p => (RegisterTransaction)p.Tag).ToArray())
+                foreach (AssetState asset in listView2.Items.OfType<ListViewItem>().Select(p => (AssetState)p.Tag).ToArray())
                 {
-                    if (!assets.ContainsKey(tx.Hash))
+                    if (!assets.ContainsKey(asset.AssetId))
                     {
-                        listView2.Items.RemoveByKey(tx.Hash.ToString());
+                        listView2.Items.RemoveByKey(asset.AssetId.ToString());
                     }
                 }
                 foreach (var asset in assets.Values)
                 {
-                    string value_text = asset.Value.ToString() + (asset.Asset.Hash.Equals(Blockchain.AntCoin.Hash) ? $"+({asset.Claim})" : "");
-                    if (listView2.Items.ContainsKey(asset.Asset.Hash.ToString()))
+                    string value_text = asset.Value.ToString() + (asset.Asset.AssetId.Equals(Blockchain.SystemCoin.Hash) ? $"+({asset.Claim})" : "");
+                    if (listView2.Items.ContainsKey(asset.Asset.AssetId.ToString()))
                     {
-                        listView2.Items[asset.Asset.Hash.ToString()].SubItems["value"].Text = value_text;
+                        listView2.Items[asset.Asset.AssetId.ToString()].SubItems["value"].Text = value_text;
                     }
                     else
                     {
@@ -324,11 +324,11 @@ namespace AntShares.UI
                             {
                                 ForeColor = Color.Gray,
                                 Name = "issuer",
-                                Text = $"{Strings.UnknownIssuer}[{asset.Asset.Issuer}]"
+                                Text = $"{Strings.UnknownIssuer}[{asset.Asset.Owner}]"
                             }
                         }, -1, listView2.Groups["unchecked"])
                         {
-                            Name = asset.Asset.Hash.ToString(),
+                            Name = asset.Asset.AssetId.ToString(),
                             Tag = asset.Asset,
                             UseItemStyleForSubItems = false
                         });
@@ -339,15 +339,15 @@ namespace AntShares.UI
             foreach (ListViewItem item in listView2.Groups["unchecked"].Items.OfType<ListViewItem>().ToArray())
             {
                 ListViewItem.ListViewSubItem subitem = item.SubItems["issuer"];
-                RegisterTransaction asset = (RegisterTransaction)item.Tag;
+                AssetState asset = (AssetState)item.Tag;
                 CertificateQueryResult result;
-                if (asset.AssetType == AssetType.AntShare || asset.AssetType == AssetType.AntCoin)
+                if (asset.AssetType == AssetType.SystemShare || asset.AssetType == AssetType.SystemCoin)
                 {
                     result = new CertificateQueryResult { Type = CertificateQueryResultType.System };
                 }
                 else
                 {
-                    result = CertificateQueryService.Query(asset.Issuer);
+                    result = CertificateQueryService.Query(asset.Owner);
                 }
                 using (result)
                 {
@@ -363,15 +363,15 @@ namespace AntShares.UI
                             break;
                         case CertificateQueryResultType.Invalid:
                             subitem.ForeColor = Color.Red;
-                            subitem.Text = $"[{Strings.InvalidCertificate}][{asset.Issuer}]";
+                            subitem.Text = $"[{Strings.InvalidCertificate}][{asset.Owner}]";
                             break;
                         case CertificateQueryResultType.Expired:
                             subitem.ForeColor = Color.Yellow;
-                            subitem.Text = $"[{Strings.ExpiredCertificate}]{result.Certificate.Subject}[{asset.Issuer}]";
+                            subitem.Text = $"[{Strings.ExpiredCertificate}]{result.Certificate.Subject}[{asset.Owner}]";
                             break;
                         case CertificateQueryResultType.Good:
                             subitem.ForeColor = Color.Black;
-                            subitem.Text = $"{result.Certificate.Subject}[{asset.Issuer}]";
+                            subitem.Text = $"{result.Certificate.Subject}[{asset.Owner}]";
                             break;
                     }
                     switch (result.Type)
@@ -536,10 +536,6 @@ namespace AntShares.UI
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (OptionsDialog dialog = new OptionsDialog())
-            {
-                dialog.ShowDialog();
-            }
         }
 
         private void 官网WToolStripMenuItem_Click(object sender, EventArgs e)
@@ -573,8 +569,8 @@ namespace AntShares.UI
         private void 创建新地址NToolStripMenuItem_Click(object sender, EventArgs e)
         {
             listView1.SelectedIndices.Clear();
-            Account account = Program.CurrentWallet.CreateAccount();
-            foreach (Contract contract in Program.CurrentWallet.GetContracts(account.PublicKeyHash))
+            KeyPair key = Program.CurrentWallet.CreateKey();
+            foreach (Contract contract in Program.CurrentWallet.GetContracts(key.PublicKeyHash))
             {
                 AddContractToListView(contract, true);
             }
@@ -588,16 +584,16 @@ namespace AntShares.UI
                 listView1.SelectedIndices.Clear();
                 foreach (string wif in dialog.WifStrings)
                 {
-                    Account account;
+                    KeyPair key;
                     try
                     {
-                        account = Program.CurrentWallet.Import(wif);
+                        key = Program.CurrentWallet.Import(wif);
                     }
                     catch (FormatException)
                     {
                         continue;
                     }
-                    foreach (Contract contract in Program.CurrentWallet.GetContracts(account.PublicKeyHash))
+                    foreach (Contract contract in Program.CurrentWallet.GetContracts(key.PublicKeyHash))
                     {
                         AddContractToListView(contract, true);
                     }
@@ -611,8 +607,8 @@ namespace AntShares.UI
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
                 listView1.SelectedIndices.Clear();
-                Account account = Program.CurrentWallet.Import(dialog.SelectedCertificate);
-                foreach (Contract contract in Program.CurrentWallet.GetContracts(account.PublicKeyHash))
+                KeyPair key = Program.CurrentWallet.Import(dialog.SelectedCertificate);
+                foreach (Contract contract in Program.CurrentWallet.GetContracts(key.PublicKeyHash))
                 {
                     AddContractToListView(contract, true);
                 }
@@ -678,8 +674,8 @@ namespace AntShares.UI
         private void 查看私钥VToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Contract contract = (Contract)listView1.SelectedItems[0].Tag;
-            Account account = Program.CurrentWallet.GetAccountByScriptHash(contract.ScriptHash);
-            using (ViewPrivateKeyDialog dialog = new ViewPrivateKeyDialog(account, contract.ScriptHash))
+            KeyPair key = Program.CurrentWallet.GetKeyByScriptHash(contract.ScriptHash);
+            using (ViewPrivateKeyDialog dialog = new ViewPrivateKeyDialog(key, contract.ScriptHash))
             {
                 dialog.ShowDialog();
             }
@@ -728,14 +724,14 @@ namespace AntShares.UI
             删除DToolStripMenuItem1.Enabled = listView2.SelectedIndices.Count > 0;
             if (删除DToolStripMenuItem1.Enabled)
             {
-                删除DToolStripMenuItem1.Enabled = listView2.SelectedItems.OfType<ListViewItem>().Select(p => (RegisterTransaction)p.Tag).All(p => p.AssetType != AssetType.AntShare && p.AssetType != AssetType.AntCoin);
+                删除DToolStripMenuItem1.Enabled = listView2.SelectedItems.OfType<ListViewItem>().Select(p => (AssetState)p.Tag).All(p => p.AssetType != AssetType.SystemShare && p.AssetType != AssetType.SystemCoin);
             }
         }
 
         private void viewCertificateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RegisterTransaction asset = (RegisterTransaction)listView2.SelectedItems[0].Tag;
-            UInt160 hash = Contract.CreateSignatureRedeemScript(asset.Issuer).ToScriptHash();
+            AssetState asset = (AssetState)listView2.SelectedItems[0].Tag;
+            UInt160 hash = Contract.CreateSignatureRedeemScript(asset.Owner).ToScriptHash();
             string address = Wallet.ToAddress(hash);
             string path = Path.Combine(Settings.Default.CertCachePath, $"{address}.cer");
             Process.Start(path);
@@ -744,10 +740,10 @@ namespace AntShares.UI
         private void 删除DToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (listView2.SelectedIndices.Count == 0) return;
-            var delete = listView2.SelectedItems.OfType<ListViewItem>().Select(p => (RegisterTransaction)p.Tag).Select(p => new
+            var delete = listView2.SelectedItems.OfType<ListViewItem>().Select(p => (AssetState)p.Tag).Select(p => new
             {
                 Asset = p,
-                Value = Program.CurrentWallet.GetAvailable(p.Hash)
+                Value = Program.CurrentWallet.GetAvailable(p.AssetId)
             }).ToArray();
             if (MessageBox.Show($"{Strings.DeleteAssetConfirmationMessage}\n"
                 + string.Join("\n", delete.Select(p => $"{p.Asset.GetName()}:{p.Value}"))
@@ -757,11 +753,11 @@ namespace AntShares.UI
             {
                 Outputs = delete.Select(p => new TransactionOutput
                 {
-                    AssetId = p.Asset.Hash,
+                    AssetId = p.Asset.AssetId,
                     Value = p.Value,
                     ScriptHash = RecycleScriptHash
                 }).ToArray()
-            }, Fixed8.Zero);
+            }, fee: Fixed8.Zero);
             Helper.SignAndShowInformation(tx);
         }
 

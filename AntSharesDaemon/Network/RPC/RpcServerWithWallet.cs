@@ -51,7 +51,7 @@ namespace AntShares.Network.RPC
                                     ScriptHash = scriptHash
                                 }
                             }
-                        }, fee);
+                        }, fee: fee);
                         if (tx == null)
                             throw new RpcException(-300, "Insufficient funds");
                         SignatureContext context = new SignatureContext(tx);

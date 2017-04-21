@@ -34,7 +34,7 @@ namespace AntShares.UI
                     Value = g.Sum(p => p.Output.Value),
                     ScriptHash = g.Key.ScriptHash
                 }).ToArray()
-            }, Fixed8.Zero);
+            }, fee: Fixed8.Zero);
         }
 
         private void txOutListBox1_ItemsChanged(object sender, EventArgs e)

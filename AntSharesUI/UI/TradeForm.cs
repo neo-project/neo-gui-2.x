@@ -64,7 +64,7 @@ namespace AntShares.UI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ContractTransaction tx = Program.CurrentWallet.MakeTransaction(new ContractTransaction { Outputs = txOutListBox1.Items.Select(p => p.Output).ToArray() }, Fixed8.Zero);
+            ContractTransaction tx = Program.CurrentWallet.MakeTransaction(new ContractTransaction { Outputs = txOutListBox1.Items.Select(p => p.Output).ToArray() }, fee: Fixed8.Zero);
             textBox3.Text = RequestToJson(tx).ToString();
             InformationBox.Show(textBox3.Text, Strings.TradeRequestCreatedMessage, Strings.TradeRequestCreatedCaption);
             tabControl1.SelectedTab = tabPage2;
@@ -83,7 +83,7 @@ namespace AntShares.UI
             if (json.ContainsProperty("hex"))
             {
                 ContractTransaction tx_mine = JsonToRequest(JObject.Parse(textBox3.Text));
-                ContractTransaction tx_others = (ContractTransaction)SignatureContext.FromJson(json).Signable;
+                ContractTransaction tx_others = (ContractTransaction)SignatureContext.FromJson(json).Verifiable;
                 inputs = tx_others.Inputs.Except(tx_mine.Inputs);
                 List<TransactionOutput> outputs_others = new List<TransactionOutput>(tx_others.Outputs);
                 foreach (TransactionOutput output_mine in tx_mine.Outputs)
@@ -146,8 +146,8 @@ namespace AntShares.UI
             Program.CurrentWallet.Sign(context);
             if (context.Completed)
             {
-                context.Signable.Scripts = context.GetScripts();
-                ContractTransaction tx = (ContractTransaction)context.Signable;
+                context.Verifiable.Scripts = context.GetScripts();
+                ContractTransaction tx = (ContractTransaction)context.Verifiable;
                 Program.CurrentWallet.SaveTransaction(tx);
                 Program.LocalNode.Relay(tx);
                 InformationBox.Show(tx.Hash.ToString(), Strings.TradeSuccessMessage, Strings.TradeSuccessCaption);

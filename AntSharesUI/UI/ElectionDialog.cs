@@ -1,6 +1,5 @@
 ﻿using AntShares.Core;
 using AntShares.Cryptography.ECC;
-using AntShares.Wallets;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -19,27 +18,18 @@ namespace AntShares.UI
             return Program.CurrentWallet.MakeTransaction(new EnrollmentTransaction
             {
                 PublicKey = (ECPoint)comboBox1.SelectedItem,
-                Outputs = new[]
-                {
-                    new TransactionOutput
-                    {
-                        AssetId = Blockchain.AntCoin.Hash,
-                        Value = Fixed8.Parse(textBox1.Text),
-                        ScriptHash = Contract.CreateSignatureRedeemScript((ECPoint)comboBox1.SelectedItem).ToScriptHash()
-                    }
-                }
-            }, Fixed8.Zero);
+            }, fee: Fixed8.Zero);
         }
 
         private void ElectionDialog_Load(object sender, EventArgs e)
         {
-            comboBox1.Items.AddRange(Program.CurrentWallet.GetContracts().Where(p => p.IsStandard).Select(p => Program.CurrentWallet.GetAccount(p.PublicKeyHash).PublicKey).ToArray());
+            comboBox1.Items.AddRange(Program.CurrentWallet.GetContracts().Where(p => p.IsStandard).Select(p => Program.CurrentWallet.GetKey(p.PublicKeyHash).PublicKey).ToArray());
             label4.Text = $"{new EnrollmentTransaction { }.SystemFee } ANC";
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            button1.Enabled = comboBox1.SelectedIndex >= 0 && textBox1.TextLength > 0;
+            button1.Enabled = comboBox1.SelectedIndex >= 0;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace AntShares.UI
     {
         public event EventHandler ItemsChanged;
 
-        public RegisterTransaction Asset { get; set; }
+        public AssetState Asset { get; set; }
         public int ItemCount => listBox1.Items.Count;
         public IEnumerable<TxOutListBoxItem> Items => listBox1.Items.OfType<TxOutListBoxItem>();
         public bool ReadOnly
@@ -48,11 +48,11 @@ namespace AntShares.UI
             listBox1.Items.Clear();
             foreach (TransactionOutput output in outputs)
             {
-                RegisterTransaction asset = (RegisterTransaction)Blockchain.Default.GetTransaction(output.AssetId);
+                AssetState asset = Blockchain.Default.GetAssetState(output.AssetId);
                 listBox1.Items.Add(new TxOutListBoxItem
                 {
                     Output = output,
-                    AssetName = $"{asset.GetName()} ({asset.Issuer})"
+                    AssetName = $"{asset.GetName()} ({asset.Owner})"
                 });
             }
             ItemsChanged?.Invoke(this, EventArgs.Empty);

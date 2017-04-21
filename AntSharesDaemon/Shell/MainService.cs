@@ -20,7 +20,7 @@ namespace AntShares.Shell
     internal class MainService : ConsoleServiceBase
     {
         private RpcServerWithWallet rpc;
-        private ConsensusService consensus;
+        private ConsensusWithPolicy consensus;
 
         protected LocalNode LocalNode { get; private set; }
         protected override string Prompt => "ant";
@@ -108,8 +108,8 @@ namespace AntShares.Shell
             List<string> addresses = new List<string>();
             for (int i = 1; i <= count; i++)
             {
-                Account account = Program.Wallet.CreateAccount();
-                Contract contract = Program.Wallet.GetContracts(account.PublicKeyHash).First(p => p.IsStandard);
+                KeyPair key = Program.Wallet.CreateKey();
+                Contract contract = Program.Wallet.GetContracts(key.PublicKeyHash).First(p => p.IsStandard);
                 addresses.Add(contract.Address);
                 Console.SetCursorPosition(0, Console.CursorTop);
                 Console.Write($"[{i}/{count}]");
@@ -139,9 +139,9 @@ namespace AntShares.Shell
                 Program.Wallet = UserWallet.Create(args[2], password);
             }
             Contract contract = Program.Wallet.GetContracts().First(p => p.IsStandard);
-            Account account = Program.Wallet.GetAccount(contract.PublicKeyHash);
+            KeyPair key = Program.Wallet.GetKey(contract.PublicKeyHash);
             Console.WriteLine($"address: {contract.Address}");
-            Console.WriteLine($" pubkey: {account.PublicKey.EncodePoint(true).ToHexString()}");
+            Console.WriteLine($" pubkey: {key.PublicKey.EncodePoint(true).ToHexString()}");
             return true;
         }
 
@@ -227,16 +227,16 @@ namespace AntShares.Shell
                     return true;
                 }
             }
-            IEnumerable<Account> accounts;
+            IEnumerable<KeyPair> keys;
             if (scriptHash == null)
-                accounts = Program.Wallet.GetAccounts();
+                keys = Program.Wallet.GetKeys();
             else
-                accounts = new[] { Program.Wallet.GetAccountByScriptHash(scriptHash) };
+                keys = new[] { Program.Wallet.GetKeyByScriptHash(scriptHash) };
             if (path == null)
-                foreach (Account account in accounts)
-                    Console.WriteLine(account.Export());
+                foreach (KeyPair key in keys)
+                    Console.WriteLine(key.Export());
             else
-                File.WriteAllLines(path, accounts.Select(p => p.Export()));
+                File.WriteAllLines(path, keys.Select(p => p.Export()));
             return true;
         }
 
@@ -252,9 +252,9 @@ namespace AntShares.Shell
                 "\tcreate wallet <path>\n" +
                 "\topen wallet <path>\n" +
                 "\trebuild index\n" +
-                "\tlist account\n" +
                 "\tlist address\n" +
                 "\tlist asset\n" +
+                "\tlist key\n" +
                 "\tcreate address [n=1]\n" +
                 "\timport key <wif|path>\n" +
                 "\texport key [address] [path]\n" +
@@ -301,7 +301,7 @@ namespace AntShares.Shell
                         prikey = lines[i].HexToBytes();
                     else
                         prikey = Wallet.GetPrivateKeyFromWIF(lines[i]);
-                    Program.Wallet.CreateAccount(prikey);
+                    Program.Wallet.CreateKey(prikey);
                     Array.Clear(prikey, 0, prikey.Length);
                     Console.SetCursorPosition(0, Console.CursorTop);
                     Console.Write($"[{i + 1}/{lines.Length}]");
@@ -310,11 +310,11 @@ namespace AntShares.Shell
             }
             else
             {
-                Account account = Program.Wallet.CreateAccount(prikey);
+                KeyPair key = Program.Wallet.CreateKey(prikey);
                 Array.Clear(prikey, 0, prikey.Length);
-                Contract contract = Program.Wallet.GetContracts(account.PublicKeyHash).First(p => p.IsStandard);
+                Contract contract = Program.Wallet.GetContracts(key.PublicKeyHash).First(p => p.IsStandard);
                 Console.WriteLine($"address: {contract.Address}");
-                Console.WriteLine($" pubkey: {account.PublicKey.EncodePoint(true).ToHexString()}");
+                Console.WriteLine($" pubkey: {key.PublicKey.EncodePoint(true).ToHexString()}");
             }
             return true;
         }
@@ -323,23 +323,23 @@ namespace AntShares.Shell
         {
             switch (args[1].ToLower())
             {
-                case "account":
-                    return OnListAccountCommand(args);
                 case "address":
                     return OnListAddressCommand(args);
                 case "asset":
                     return OnListAssetCommand(args);
+                case "key":
+                    return OnListKeyCommand(args);
                 default:
                     return base.OnCommand(args);
             }
         }
 
-        private bool OnListAccountCommand(string[] args)
+        private bool OnListKeyCommand(string[] args)
         {
             if (Program.Wallet == null) return true;
-            foreach (Account account in Program.Wallet.GetAccounts())
+            foreach (KeyPair key in Program.Wallet.GetKeys())
             {
-                Console.WriteLine(account.PublicKey);
+                Console.WriteLine(key.PublicKey);
             }
             return true;
         }
@@ -359,12 +359,12 @@ namespace AntShares.Shell
             if (Program.Wallet == null) return true;
             foreach (var item in Program.Wallet.GetCoins().Where(p => !p.State.HasFlag(CoinState.Spent)).GroupBy(p => p.Output.AssetId, (k, g) => new
             {
-                Asset = (RegisterTransaction)Blockchain.Default.GetTransaction(k),
+                Asset = Blockchain.Default.GetAssetState(k),
                 Balance = g.Sum(p => p.Output.Value),
                 Confirmed = g.Where(p => p.State.HasFlag(CoinState.Confirmed)).Sum(p => p.Output.Value)
             }))
             {
-                Console.WriteLine($"       id:{item.Asset.Hash}");
+                Console.WriteLine($"       id:{item.Asset.AssetId}");
                 Console.WriteLine($"     name:{item.Asset.GetName()}");
                 Console.WriteLine($"  balance:{item.Balance}");
                 Console.WriteLine($"confirmed:{item.Confirmed}");
@@ -466,10 +466,10 @@ namespace AntShares.Shell
             switch (args[1].ToLower())
             {
                 case "ans":
-                    assetId = Blockchain.AntShare.Hash;
+                    assetId = Blockchain.SystemShare.Hash;
                     break;
                 case "anc":
-                    assetId = Blockchain.AntCoin.Hash;
+                    assetId = Blockchain.SystemCoin.Hash;
                     break;
                 default:
                     assetId = UInt256.Parse(args[1]);
@@ -489,7 +489,7 @@ namespace AntShares.Shell
                         ScriptHash = scriptHash
                     }
                 }
-            }, fee);
+            }, fee: fee);
             if (tx == null)
             {
                 Console.WriteLine("Insufficient funds");
@@ -620,7 +620,7 @@ namespace AntShares.Shell
                 return true;
             }
             string log_dictionary = Path.Combine(AppContext.BaseDirectory, "Logs");
-            consensus = new ConsensusService(LocalNode, Program.Wallet, log_dictionary);
+            consensus = new ConsensusWithPolicy(LocalNode, Program.Wallet, log_dictionary);
             ShowPrompt = false;
             consensus.Start();
             return true;

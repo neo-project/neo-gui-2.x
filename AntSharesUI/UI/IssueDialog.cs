@@ -8,7 +8,7 @@ namespace AntShares.UI
 {
     internal partial class IssueDialog : Form
     {
-        public IssueDialog(RegisterTransaction asset = null)
+        public IssueDialog(AssetState asset = null)
         {
             InitializeComponent();
             if (asset == null)
@@ -28,16 +28,16 @@ namespace AntShares.UI
             {
                 Outputs = txOutListBox1.Items.GroupBy(p => p.Output.ScriptHash).Select(g => new TransactionOutput
                 {
-                    AssetId = txOutListBox1.Asset.Hash,
+                    AssetId = txOutListBox1.Asset.AssetId,
                     Value = g.Sum(p => p.Output.Value),
                     ScriptHash = g.Key
                 }).ToArray()
-            }, Fixed8.Zero);
+            }, fee: Fixed8.Zero);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txOutListBox1.Asset = comboBox1.SelectedItem as RegisterTransaction;
+            txOutListBox1.Asset = comboBox1.SelectedItem as AssetState;
             if (txOutListBox1.Asset == null)
             {
                 textBox1.Text = "";
@@ -48,11 +48,11 @@ namespace AntShares.UI
             }
             else
             {
-                textBox1.Text = txOutListBox1.Asset.Issuer.ToString();
+                textBox1.Text = txOutListBox1.Asset.Owner.ToString();
                 textBox2.Text = Wallet.ToAddress(txOutListBox1.Asset.Admin);
                 textBox3.Text = txOutListBox1.Asset.Amount == -Fixed8.Satoshi ? "+\u221e" : txOutListBox1.Asset.Amount.ToString();
-                textBox4.Text = Blockchain.Default.GetQuantityIssued(txOutListBox1.Asset.Hash).ToString();
-                label6.Text = $"{new IssueTransaction { Outputs = new[] { new TransactionOutput { AssetId = txOutListBox1.Asset.Hash } } }.SystemFee } ANC";
+                textBox4.Text = txOutListBox1.Asset.Available.ToString();
+                label6.Text = $"{new IssueTransaction { Outputs = new[] { new TransactionOutput { AssetId = txOutListBox1.Asset.AssetId } } }.SystemFee } ANC";
                 groupBox3.Enabled = true;
             }
             txOutListBox1.Clear();
