@@ -445,7 +445,7 @@ namespace AntShares.Shell
 
         private bool OnRefreshPolicyCommand(string[] args)
         {
-            if (consensus != null) return true;
+            if (consensus == null) return true;
             consensus.RefreshPolicy();
             return true;
         }
