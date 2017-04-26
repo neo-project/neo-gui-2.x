@@ -347,7 +347,13 @@
     <value>163, 22</value>
   </data>
   <data name="viewContractToolStripMenuItem.Text" xml:space="preserve">
-    <value>查看合约(&amp;V)</value>
+    <value>查看合约(&amp;O)</value>
+  </data>
+  <data name="voteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 22</value>
+  </data>
+  <data name="voteToolStripMenuItem.Text" xml:space="preserve">
+    <value>投票(&amp;V)...</value>
   </data>
   <data name="复制到剪贴板CToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>163, 22</value>
@@ -362,7 +368,7 @@
     <value>删除(&amp;D)...</value>
   </data>
   <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 164</value>
+    <value>164, 186</value>
   </data>
   <data name="listView1.Groups" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>

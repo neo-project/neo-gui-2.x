@@ -64,6 +64,8 @@
             this.关于AntSharesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.创建新地址NToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导入私钥IToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,6 +79,7 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.查看私钥VToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewContractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.voteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.复制到剪贴板CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除DToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -336,7 +339,9 @@
             // 
             resources.ApplyResources(this.listView1, "listView1");
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
+            this.columnHeader1,
+            this.columnHeader4,
+            this.columnHeader11});
             this.listView1.ContextMenuStrip = this.contextMenuStrip1;
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
@@ -355,6 +360,14 @@
             // 
             resources.ApplyResources(this.columnHeader1, "columnHeader1");
             // 
+            // columnHeader4
+            // 
+            resources.ApplyResources(this.columnHeader4, "columnHeader4");
+            // 
+            // columnHeader11
+            // 
+            resources.ApplyResources(this.columnHeader11, "columnHeader11");
+            // 
             // contextMenuStrip1
             // 
             resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
@@ -365,6 +378,7 @@
             this.toolStripSeparator6,
             this.查看私钥VToolStripMenuItem,
             this.viewContractToolStripMenuItem,
+            this.voteToolStripMenuItem,
             this.复制到剪贴板CToolStripMenuItem,
             this.删除DToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -445,6 +459,12 @@
             resources.ApplyResources(this.viewContractToolStripMenuItem, "viewContractToolStripMenuItem");
             this.viewContractToolStripMenuItem.Name = "viewContractToolStripMenuItem";
             this.viewContractToolStripMenuItem.Click += new System.EventHandler(this.viewContractToolStripMenuItem_Click);
+            // 
+            // voteToolStripMenuItem
+            // 
+            resources.ApplyResources(this.voteToolStripMenuItem, "voteToolStripMenuItem");
+            this.voteToolStripMenuItem.Name = "voteToolStripMenuItem";
+            this.voteToolStripMenuItem.Click += new System.EventHandler(this.voteToolStripMenuItem_Click);
             // 
             // 复制到剪贴板CToolStripMenuItem
             // 
@@ -763,6 +783,9 @@
         private System.Windows.Forms.ToolStripMenuItem viewContractToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripMenuItem importWatchOnlyAddressToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem voteToolStripMenuItem;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
     }
 }
 

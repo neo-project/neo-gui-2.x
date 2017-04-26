@@ -52,7 +52,22 @@ namespace AntShares.UI
             if (item == null)
             {
                 ListViewGroup group = listView1.Groups["watchOnlyGroup"];
-                item = listView1.Items.Add(new ListViewItem(address, group)
+                item = listView1.Items.Add(new ListViewItem(new[]
+                {
+                    new ListViewItem.ListViewSubItem
+                    {
+                        Name = "address",
+                        Text = address
+                    },
+                    new ListViewItem.ListViewSubItem
+                    {
+                        Name = "ans"
+                    },
+                    new ListViewItem.ListViewSubItem
+                    {
+                        Name = "anc"
+                    }
+                }, -1, group)
                 {
                     Name = address,
                     Tag = scriptHash
@@ -72,7 +87,22 @@ namespace AntShares.UI
             if (item == null)
             {
                 ListViewGroup group = contract.IsStandard ? listView1.Groups["standardContractGroup"] : listView1.Groups["nonstandardContractGroup"];
-                item = listView1.Items.Add(new ListViewItem(contract.Address, group)
+                item = listView1.Items.Add(new ListViewItem(new[]
+                {
+                    new ListViewItem.ListViewSubItem
+                    {
+                        Name = "address",
+                        Text = contract.Address
+                    },
+                    new ListViewItem.ListViewSubItem
+                    {
+                        Name = "ans"
+                    },
+                    new ListViewItem.ListViewSubItem
+                    {
+                        Name = "anc"
+                    }
+                }, -1, group)
                 {
                     Name = contract.Address,
                     Tag = contract
@@ -286,6 +316,16 @@ namespace AntShares.UI
                         Value = Fixed8.Zero,
                         Claim = bonus
                     };
+                }
+                var balance_ans = coins.Where(p => p.Output.AssetId.Equals(Blockchain.SystemShare.Hash)).GroupBy(p => p.Output.ScriptHash).ToDictionary(p => p.Key, p => p.Sum(i => i.Output.Value));
+                var balance_anc = coins.Where(p => p.Output.AssetId.Equals(Blockchain.SystemCoin.Hash)).GroupBy(p => p.Output.ScriptHash).ToDictionary(p => p.Key, p => p.Sum(i => i.Output.Value));
+                foreach (ListViewItem item in listView1.Items)
+                {
+                    UInt160 script_hash = Wallet.ToScriptHash(item.Name);
+                    Fixed8 ans = balance_ans.ContainsKey(script_hash) ? balance_ans[script_hash] : Fixed8.Zero;
+                    Fixed8 anc = balance_anc.ContainsKey(script_hash) ? balance_anc[script_hash] : Fixed8.Zero;
+                    item.SubItems["ans"].Text = ans.ToString();
+                    item.SubItems["anc"].Text = anc.ToString();
                 }
                 foreach (AssetState asset in listView2.Items.OfType<ListViewItem>().Select(p => (AssetState)p.Tag).ToArray())
                 {
@@ -562,6 +602,10 @@ namespace AntShares.UI
             viewContractToolStripMenuItem.Enabled =
                 listView1.SelectedIndices.Count == 1 &&
                 listView1.SelectedItems[0].Tag is Contract;
+            voteToolStripMenuItem.Enabled =
+                listView1.SelectedIndices.Count == 1 &&
+                listView1.SelectedItems[0].Tag is Contract &&
+                decimal.Parse(listView1.SelectedItems[0].SubItems["ans"].Text) > 0;
             复制到剪贴板CToolStripMenuItem.Enabled = listView1.SelectedIndices.Count == 1;
             删除DToolStripMenuItem.Enabled = listView1.SelectedIndices.Count > 0;
         }
@@ -687,6 +731,16 @@ namespace AntShares.UI
             using (ViewContractDialog dialog = new ViewContractDialog(contract))
             {
                 dialog.ShowDialog();
+            }
+        }
+
+        private void voteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Contract contract = (Contract)listView1.SelectedItems[0].Tag;
+            using (VotingDialog dialog = new VotingDialog(contract.ScriptHash))
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+                Helper.SignAndShowInformation(dialog.GetTransaction());
             }
         }
 

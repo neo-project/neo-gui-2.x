@@ -59,8 +59,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AntShares, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AntShares.1.5.0\lib\net461\AntShares.dll</HintPath>
+    <Reference Include="AntShares, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AntShares.1.6.0-preview1\lib\net461\AntShares.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AntShares.VM, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -517,6 +517,12 @@
     <Compile Include="UI\ViewPrivateKeyDialog.designer.cs">
       <DependentUpon>ViewPrivateKeyDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\VotingDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\VotingDialog.Designer.cs">
+      <DependentUpon>VotingDialog.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -704,6 +710,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ViewPrivateKeyDialog.zh-Hans.resx">
       <DependentUpon>ViewPrivateKeyDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\VotingDialog.resx">
+      <DependentUpon>VotingDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\VotingDialog.zh-Hans.resx">
+      <DependentUpon>VotingDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config">
       <SubType>Designer</SubType>
