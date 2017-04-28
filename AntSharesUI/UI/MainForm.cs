@@ -824,21 +824,21 @@ namespace AntShares.UI
         private void listView1_DoubleClick(object sender, EventArgs e)
         {
             if (listView1.SelectedIndices.Count == 0) return;
-            string url = "http://antcha.in/address/info/" + listView1.SelectedItems[0].Text;
+            string url = string.Format(Settings.Default.BrowserUrlAddress, listView1.SelectedItems[0].Text);
             Process.Start(url);
         }
 
         private void listView2_DoubleClick(object sender, EventArgs e)
         {
             if (listView2.SelectedIndices.Count == 0) return;
-            string url = "http://antcha.in/tokens/hash/" + listView2.SelectedItems[0].Name;
+            string url = string.Format(Settings.Default.BrowserUrlAsset, listView2.SelectedItems[0].Name);
             Process.Start(url);
         }
 
         private void listView3_DoubleClick(object sender, EventArgs e)
         {
             if (listView3.SelectedIndices.Count == 0) return;
-            string url = "http://antcha.in/tx/hash/" + listView3.SelectedItems[0].Name;
+            string url = string.Format(Settings.Default.BrowserUrlTransaction, listView3.SelectedItems[0].Name);
             Process.Start(url);
         }
 

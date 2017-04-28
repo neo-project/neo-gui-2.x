@@ -34,6 +34,15 @@ namespace AntShares.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".\\Certs")]
+        public string CertCachePath {
+            get {
+                return ((string)(this["CertCachePath"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10333")]
         public ushort NodePort {
             get {
@@ -52,10 +61,28 @@ namespace AntShares.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(".\\Certs")]
-        public string CertCachePath {
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.antchain.xyz/address/{0}")]
+        public string BrowserUrlAddress {
             get {
-                return ((string)(this["CertCachePath"]));
+                return ((string)(this["BrowserUrlAddress"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.antchain.xyz/asset/hash/{0}")]
+        public string BrowserUrlAsset {
+            get {
+                return ((string)(this["BrowserUrlAsset"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.antchain.xyz/tx/hash/{0}")]
+        public string BrowserUrlTransaction {
+            get {
+                return ((string)(this["BrowserUrlTransaction"]));
             }
         }
         

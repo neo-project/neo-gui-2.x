@@ -13,33 +13,34 @@ namespace AntShares.Cryptography
 {
     internal static class CertificateQueryService
     {
-        private static WebClient web = new WebClient();
         private static Dictionary<UInt160, CertificateQueryResult> results = new Dictionary<UInt160, CertificateQueryResult>();
 
         static CertificateQueryService()
         {
             Directory.CreateDirectory(Settings.Default.CertCachePath);
-            web.DownloadDataCompleted += Web_DownloadDataCompleted;
         }
 
         private static void Web_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
         {
-            UInt160 hash = (UInt160)e.UserState;
-            if (e.Cancelled || e.Error != null)
+            using ((WebClient)sender)
             {
-                lock (results)
+                UInt160 hash = (UInt160)e.UserState;
+                if (e.Cancelled || e.Error != null)
                 {
-                    results[hash].Type = CertificateQueryResultType.Missing;
+                    lock (results)
+                    {
+                        results[hash].Type = CertificateQueryResultType.Missing;
+                    }
                 }
-            }
-            else
-            {
-                string address = Wallet.ToAddress(hash);
-                string path = Path.Combine(Settings.Default.CertCachePath, $"{address}.cer");
-                File.WriteAllBytes(path, e.Result);
-                lock (results)
+                else
                 {
-                    UpdateResultFromFile(hash);
+                    string address = Wallet.ToAddress(hash);
+                    string path = Path.Combine(Settings.Default.CertCachePath, $"{address}.cer");
+                    File.WriteAllBytes(path, e.Result);
+                    lock (results)
+                    {
+                        UpdateResultFromFile(hash);
+                    }
                 }
             }
         }
@@ -68,6 +69,8 @@ namespace AntShares.Cryptography
             else
             {
                 string url = $"http://cert.onchain.com/antshares/{address}.cer";
+                WebClient web = new WebClient();
+                web.DownloadDataCompleted += Web_DownloadDataCompleted;
                 web.DownloadDataAsync(new Uri(url), hash);
             }
             return results[hash];
