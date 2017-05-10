@@ -576,6 +576,15 @@ namespace AntShares.UI
             }
         }
 
+        private void invokeContractToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (InvokeContractDialog dialog = new InvokeContractDialog())
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+                Helper.SignAndShowInformation(dialog.GetTransaction());
+            }
+        }
+
         private void 选举EToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (ElectionDialog dialog = new ElectionDialog())

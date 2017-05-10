@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace AntShares.UI
 {
-    public partial class DeployContractDialog : Form
+    internal partial class DeployContractDialog : Form
     {
         public DeployContractDialog()
         {

@@ -24,7 +24,7 @@ namespace AntShares.UI
 
         private void ImportCustomContractDialog_Load(object sender, EventArgs e)
         {
-            comboBox1.Items.AddRange(Program.CurrentWallet.GetKeys().Select(p => p.PublicKey).ToArray());
+            comboBox1.Items.AddRange(Program.CurrentWallet.GetContracts().Where(p => p.IsStandard).Select(p => Program.CurrentWallet.GetKey(p.PublicKeyHash).PublicKey).ToArray());
         }
 
         private void Input_Changed(object sender, EventArgs e)

@@ -60,11 +60,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AntShares, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AntShares.1.6.0-preview4\lib\net461\AntShares.dll</HintPath>
+      <HintPath>..\packages\AntShares.1.6.0-preview6\lib\net461\AntShares.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AntShares.VM, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AntShares.VM.1.6.2\lib\net461\AntShares.VM.dll</HintPath>
+    <Reference Include="AntShares.VM, Version=1.6.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AntShares.VM.1.6.4\lib\net461\AntShares.VM.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Hosting, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
@@ -346,6 +346,7 @@
     <Compile Include="Properties\Settings.cs">
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SmartContract\ContractParameter.cs" />
     <Compile Include="UI\AssetRegisterDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -412,11 +413,23 @@
     <Compile Include="UI\InputBox.Designer.cs">
       <DependentUpon>InputBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\InvokeContractDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InvokeContractDialog.Designer.cs">
+      <DependentUpon>InvokeContractDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\IssueDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\IssueDialog.Designer.cs">
       <DependentUpon>IssueDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ParametersEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ParametersEditor.Designer.cs">
+      <DependentUpon>ParametersEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\RestoreAccountsDialog.cs">
       <SubType>Form</SubType>
@@ -642,6 +655,12 @@
     <EmbeddedResource Include="UI\InputBox.zh-Hans.resx">
       <DependentUpon>InputBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\InvokeContractDialog.resx">
+      <DependentUpon>InvokeContractDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\InvokeContractDialog.zh-Hans.resx">
+      <DependentUpon>InvokeContractDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\IssueDialog.resx">
       <DependentUpon>IssueDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -658,6 +677,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OpenWalletDialog.zh-Hans.resx">
       <DependentUpon>OpenWalletDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ParametersEditor.resx">
+      <DependentUpon>ParametersEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ParametersEditor.zh-Hans.resx">
+      <DependentUpon>ParametersEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\PayToDialog.zh-Hans.resx">
       <DependentUpon>PayToDialog.cs</DependentUpon>
@@ -782,6 +807,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
+    <None Include="Resources\search.png" />
     <None Include="Resources\add2.png" />
     <None Include="Resources\remove.png" />
     <None Include="Resources\add.png" />

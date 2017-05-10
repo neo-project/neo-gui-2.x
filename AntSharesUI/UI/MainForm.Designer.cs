@@ -289,6 +289,7 @@
             // 
             resources.ApplyResources(this.invokeContractToolStripMenuItem, "invokeContractToolStripMenuItem");
             this.invokeContractToolStripMenuItem.Name = "invokeContractToolStripMenuItem";
+            this.invokeContractToolStripMenuItem.Click += new System.EventHandler(this.invokeContractToolStripMenuItem_Click);
             // 
             // toolStripSeparator11
             // 
