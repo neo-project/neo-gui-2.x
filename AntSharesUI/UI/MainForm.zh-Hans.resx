@@ -229,6 +229,21 @@
   <data name="选举EToolStripMenuItem.Text" xml:space="preserve">
     <value>选举(&amp;E)...</value>
   </data>
+  <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>158, 6</value>
+  </data>
+  <data name="deployContractToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 22</value>
+  </data>
+  <data name="deployContractToolStripMenuItem.Text" xml:space="preserve">
+    <value>部署合约(&amp;D)...</value>
+  </data>
+  <data name="invokeContractToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 22</value>
+  </data>
+  <data name="invokeContractToolStripMenuItem.Text" xml:space="preserve">
+    <value>调用合约(&amp;V)...</value>
+  </data>
   <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
     <value>158, 6</value>
   </data>
@@ -284,7 +299,7 @@
     <value>地址</value>
   </data>
   <data name="创建新地址NToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 22</value>
+    <value>164, 22</value>
   </data>
   <data name="创建新地址NToolStripMenuItem.Text" xml:space="preserve">
     <value>创建新地址(&amp;N)</value>
@@ -311,7 +326,7 @@
     <value>导入监视地址(&amp;A)...</value>
   </data>
   <data name="导入私钥IToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 22</value>
+    <value>164, 22</value>
   </data>
   <data name="导入私钥IToolStripMenuItem.Text" xml:space="preserve">
     <value>导入(&amp;I)</value>
@@ -329,46 +344,46 @@
     <value>自定义(&amp;C)...</value>
   </data>
   <data name="创建智能合约SToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 22</value>
+    <value>164, 22</value>
   </data>
   <data name="创建智能合约SToolStripMenuItem.Text" xml:space="preserve">
-    <value>创建智能合约(&amp;S)</value>
+    <value>创建合约地址(&amp;A)</value>
   </data>
   <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 6</value>
+    <value>161, 6</value>
   </data>
   <data name="查看私钥VToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 22</value>
+    <value>164, 22</value>
   </data>
   <data name="查看私钥VToolStripMenuItem.Text" xml:space="preserve">
     <value>查看私钥(&amp;P)</value>
   </data>
   <data name="viewContractToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 22</value>
+    <value>164, 22</value>
   </data>
   <data name="viewContractToolStripMenuItem.Text" xml:space="preserve">
     <value>查看合约(&amp;O)</value>
   </data>
   <data name="voteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 22</value>
+    <value>164, 22</value>
   </data>
   <data name="voteToolStripMenuItem.Text" xml:space="preserve">
     <value>投票(&amp;V)...</value>
   </data>
   <data name="复制到剪贴板CToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 22</value>
+    <value>164, 22</value>
   </data>
   <data name="复制到剪贴板CToolStripMenuItem.Text" xml:space="preserve">
     <value>复制到剪贴板(&amp;C)</value>
   </data>
   <data name="删除DToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 22</value>
+    <value>164, 22</value>
   </data>
   <data name="删除DToolStripMenuItem.Text" xml:space="preserve">
     <value>删除(&amp;D)...</value>
   </data>
   <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 186</value>
+    <value>165, 186</value>
   </data>
   <data name="listView1.Groups" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>

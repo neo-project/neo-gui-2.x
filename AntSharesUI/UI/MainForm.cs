@@ -143,6 +143,8 @@ namespace AntShares.UI
             requestCertificateToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             注册资产RToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             资产分发IToolStripMenuItem.Enabled = Program.CurrentWallet != null;
+            deployContractToolStripMenuItem.Enabled = Program.CurrentWallet != null;
+            invokeContractToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             选举EToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             创建新地址NToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             导入私钥IToolStripMenuItem.Enabled = Program.CurrentWallet != null;
@@ -565,6 +567,15 @@ namespace AntShares.UI
             }
         }
 
+        private void deployContractToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (DeployContractDialog dialog = new DeployContractDialog())
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+                Helper.SignAndShowInformation(dialog.GetTransaction());
+            }
+        }
+
         private void 选举EToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (ElectionDialog dialog = new ElectionDialog())
@@ -605,6 +616,7 @@ namespace AntShares.UI
             voteToolStripMenuItem.Enabled =
                 listView1.SelectedIndices.Count == 1 &&
                 listView1.SelectedItems[0].Tag is Contract &&
+                !string.IsNullOrEmpty(listView1.SelectedItems[0].SubItems["ans"].Text) &&
                 decimal.Parse(listView1.SelectedItems[0].SubItems["ans"].Text) > 0;
             复制到剪贴板CToolStripMenuItem.Enabled = listView1.SelectedIndices.Count == 1;
             删除DToolStripMenuItem.Enabled = listView1.SelectedIndices.Count > 0;

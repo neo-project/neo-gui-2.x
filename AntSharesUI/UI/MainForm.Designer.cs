@@ -52,6 +52,9 @@
             this.注册资产RToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.资产分发IToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.deployContractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.invokeContractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.选举EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -234,6 +237,9 @@
             this.注册资产RToolStripMenuItem,
             this.资产分发IToolStripMenuItem,
             this.toolStripSeparator8,
+            this.deployContractToolStripMenuItem,
+            this.invokeContractToolStripMenuItem,
+            this.toolStripSeparator11,
             this.选举EToolStripMenuItem,
             this.toolStripSeparator9,
             this.optionsToolStripMenuItem});
@@ -272,6 +278,22 @@
             // 
             resources.ApplyResources(this.toolStripSeparator8, "toolStripSeparator8");
             this.toolStripSeparator8.Name = "toolStripSeparator8";
+            // 
+            // deployContractToolStripMenuItem
+            // 
+            resources.ApplyResources(this.deployContractToolStripMenuItem, "deployContractToolStripMenuItem");
+            this.deployContractToolStripMenuItem.Name = "deployContractToolStripMenuItem";
+            this.deployContractToolStripMenuItem.Click += new System.EventHandler(this.deployContractToolStripMenuItem_Click);
+            // 
+            // invokeContractToolStripMenuItem
+            // 
+            resources.ApplyResources(this.invokeContractToolStripMenuItem, "invokeContractToolStripMenuItem");
+            this.invokeContractToolStripMenuItem.Name = "invokeContractToolStripMenuItem";
+            // 
+            // toolStripSeparator11
+            // 
+            resources.ApplyResources(this.toolStripSeparator11, "toolStripSeparator11");
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
             // 
             // 选举EToolStripMenuItem
             // 
@@ -786,6 +808,9 @@
         private System.Windows.Forms.ToolStripMenuItem voteToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
+        private System.Windows.Forms.ToolStripMenuItem deployContractToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem invokeContractToolStripMenuItem;
     }
 }
 

@@ -13,8 +13,11 @@ namespace AntShares.UI
         public event EventHandler ItemsChanged;
 
         public AssetState Asset { get; set; }
+
         public int ItemCount => listBox1.Items.Count;
+
         public IEnumerable<TxOutListBoxItem> Items => listBox1.Items.OfType<TxOutListBoxItem>();
+
         public bool ReadOnly
         {
             get
@@ -26,7 +29,20 @@ namespace AntShares.UI
                 panel1.Enabled = !value;
             }
         }
-        public UInt160 ScriptHash { get; set; }
+
+        private UInt160 _script_hash = null;
+        public UInt160 ScriptHash
+        {
+            get
+            {
+                return _script_hash;
+            }
+            set
+            {
+                _script_hash = value;
+                button3.Enabled = value == null;
+            }
+        }
 
         public TxOutListBox()
         {
@@ -84,6 +100,20 @@ namespace AntShares.UI
                 listBox1.Items.RemoveAt(listBox1.SelectedIndices[0]);
             }
             ItemsChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            using (BulkPayDialog dialog = new BulkPayDialog(Asset))
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+                listBox1.Items.AddRange(dialog.GetOutputs().Select(p => new TxOutListBoxItem
+                {
+                    Output = p,
+                    AssetName = dialog.AssetName
+                }).ToArray());
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
     }
 }

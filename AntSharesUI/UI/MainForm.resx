@@ -251,6 +251,27 @@
   <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
     <value>191, 6</value>
   </data>
+  <data name="deployContractToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="deployContractToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="deployContractToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Deploy Contract...</value>
+  </data>
+  <data name="invokeContractToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="invokeContractToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="invokeContractToolStripMenuItem.Text" xml:space="preserve">
+    <value>In&amp;voke Contract...</value>
+  </data>
+  <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>191, 6</value>
+  </data>
   <data name="选举EToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -370,7 +391,7 @@
     <value>False</value>
   </data>
   <data name="创建新地址NToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
+    <value>198, 22</value>
   </data>
   <data name="创建新地址NToolStripMenuItem.Text" xml:space="preserve">
     <value>Create &amp;New Add.</value>
@@ -400,7 +421,7 @@
     <value>False</value>
   </data>
   <data name="导入私钥IToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
+    <value>198, 22</value>
   </data>
   <data name="导入私钥IToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Import</value>
@@ -421,19 +442,19 @@
     <value>False</value>
   </data>
   <data name="创建智能合约SToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
+    <value>198, 22</value>
   </data>
   <data name="创建智能合约SToolStripMenuItem.Text" xml:space="preserve">
-    <value>Create &amp;Smart Contract</value>
+    <value>Create Contract &amp;Add.</value>
   </data>
   <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 6</value>
+    <value>195, 6</value>
   </data>
   <data name="查看私钥VToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="查看私钥VToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
+    <value>198, 22</value>
   </data>
   <data name="查看私钥VToolStripMenuItem.Text" xml:space="preserve">
     <value>View &amp;Private Key</value>
@@ -442,7 +463,7 @@
     <value>False</value>
   </data>
   <data name="viewContractToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
+    <value>198, 22</value>
   </data>
   <data name="viewContractToolStripMenuItem.Text" xml:space="preserve">
     <value>View C&amp;ontract</value>
@@ -451,7 +472,7 @@
     <value>False</value>
   </data>
   <data name="voteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
+    <value>198, 22</value>
   </data>
   <data name="voteToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Vote...</value>
@@ -466,7 +487,7 @@
     <value>False</value>
   </data>
   <data name="复制到剪贴板CToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
+    <value>198, 22</value>
   </data>
   <data name="复制到剪贴板CToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Copy to Clipboard</value>
@@ -475,13 +496,13 @@
     <value>False</value>
   </data>
   <data name="删除DToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 22</value>
+    <value>198, 22</value>
   </data>
   <data name="删除DToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Delete...</value>
   </data>
   <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 186</value>
+    <value>199, 186</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip1.Name" xml:space="preserve">
     <value>contextMenuStrip1</value>
@@ -8235,16 +8256,34 @@
   <data name="&gt;&gt;toolStripSeparator8.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;选举EToolStripMenuItem.Name" xml:space="preserve">
-    <value>选举EToolStripMenuItem</value>
+  <data name="&gt;&gt;deployContractToolStripMenuItem.Name" xml:space="preserve">
+    <value>deployContractToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;选举EToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;deployContractToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;invokeContractToolStripMenuItem.Name" xml:space="preserve">
+    <value>invokeContractToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;invokeContractToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator9.Name" xml:space="preserve">
     <value>toolStripSeparator9</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;选举EToolStripMenuItem.Name" xml:space="preserve">
+    <value>选举EToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;选举EToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator11.Name" xml:space="preserve">
+    <value>toolStripSeparator11</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator11.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;optionsToolStripMenuItem.Name" xml:space="preserve">
@@ -8299,6 +8338,18 @@
     <value>columnHeader1</value>
   </data>
   <data name="&gt;&gt;columnHeader1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnHeader4.Name" xml:space="preserve">
+    <value>columnHeader4</value>
+  </data>
+  <data name="&gt;&gt;columnHeader4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnHeader11.Name" xml:space="preserve">
+    <value>columnHeader11</value>
+  </data>
+  <data name="&gt;&gt;columnHeader11.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;创建新地址NToolStripMenuItem.Name" xml:space="preserve">
@@ -8504,18 +8555,6 @@
   </data>
   <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;columnHeader4.Name" xml:space="preserve">
-    <value>columnHeader4</value>
-  </data>
-  <data name="&gt;&gt;columnHeader4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;columnHeader11.Name" xml:space="preserve">
-    <value>columnHeader11</value>
-  </data>
-  <data name="&gt;&gt;columnHeader11.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>
