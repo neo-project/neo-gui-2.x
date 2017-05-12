@@ -23,7 +23,7 @@ namespace AntShares.UI
                 {
                     Script = textBox8.Text.HexToBytes(),
                     ParameterList = textBox6.Text.HexToBytes().Select(p => (ContractParameterType)p).ToArray(),
-                    ReturnType = (ContractParameterType)textBox7.Text.HexToBytes()[0]
+                    ReturnType = textBox7.Text.HexToBytes().Select(p => (ContractParameterType?)p).FirstOrDefault() ?? ContractParameterType.Void
                 },
                 NeedStorage = checkBox1.Checked,
                 Name = textBox1.Text,
@@ -41,8 +41,6 @@ namespace AntShares.UI
                 && textBox3.TextLength > 0
                 && textBox4.TextLength > 0
                 && textBox5.TextLength > 0
-                && textBox6.TextLength > 0
-                && textBox7.TextLength > 0
                 && textBox8.TextLength > 0;
         }
 
