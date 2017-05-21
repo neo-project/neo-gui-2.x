@@ -72,6 +72,8 @@ namespace AntShares.Shell
                     return OnShowCommand(args);
                 case "start":
                     return OnStartCommand(args);
+                case "upgrade":
+                    return OnUpgradeCommand(args);
                 default:
                     return base.OnCommand(args);
             }
@@ -632,6 +634,39 @@ namespace AntShares.Shell
             if (rpc != null) rpc.Dispose();
             LocalNode.Dispose();
             Blockchain.Default.Dispose();
+        }
+
+        private bool OnUpgradeCommand(string[] args)
+        {
+            switch (args[1].ToLower())
+            {
+                case "wallet":
+                    return OnUpgradeWalletCommand(args);
+                default:
+                    return base.OnCommand(args);
+            }
+        }
+
+        private bool OnUpgradeWalletCommand(string[] args)
+        {
+            if (args.Length < 3)
+            {
+                Console.WriteLine("error");
+                return true;
+            }
+            string path = args[2];
+            if (!File.Exists(path))
+            {
+                Console.WriteLine("error");
+                return true;
+            }
+            string path_old = Path.ChangeExtension(path, ".old.db3");
+            string path_new = Path.ChangeExtension(path, ".new.db3");
+            UserWallet.Migrate(path, path_new);
+            File.Move(path, path_old);
+            File.Move(path_new, path);
+            Console.WriteLine($"Wallet file upgrade complete. Old file has been auto-saved at: {path_old}");
+            return true;
         }
     }
 }

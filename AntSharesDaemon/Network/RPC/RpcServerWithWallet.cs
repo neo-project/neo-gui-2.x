@@ -38,6 +38,7 @@ namespace AntShares.Network.RPC
                         UInt160 scriptHash = Wallet.ToScriptHash(_params[1].AsString());
                         Fixed8 value = Fixed8.Parse(_params[2].AsString());
                         Fixed8 fee = _params.Count >= 4 ? Fixed8.Parse(_params[3].AsString()) : Fixed8.Zero;
+                        UInt160 change_address = _params.Count >= 5 ? Wallet.ToScriptHash(_params[4].AsString()) : null;
                         if (value <= Fixed8.Zero)
                             throw new RpcException(-32602, "Invalid params");
                         ContractTransaction tx = Program.Wallet.MakeTransaction(new ContractTransaction
@@ -51,7 +52,7 @@ namespace AntShares.Network.RPC
                                     ScriptHash = scriptHash
                                 }
                             }
-                        }, fee: fee);
+                        }, change_address: change_address, fee: fee);
                         if (tx == null)
                             throw new RpcException(-300, "Insufficient funds");
                         SignatureContext context = new SignatureContext(tx);
