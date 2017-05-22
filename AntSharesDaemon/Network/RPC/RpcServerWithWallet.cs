@@ -69,6 +69,51 @@ namespace AntShares.Network.RPC
                             return context.ToJson();
                         }
                     }
+                    
+				case "getnewaddress":
+                    {
+                        if (Program.Wallet == null)
+                                throw new RpcException(-400, "Access denied");
+                        else
+                        {
+                                Account account = Program.Wallet.CreateAccount();
+                                Contract contract = Program.Wallet.GetContracts(account.PublicKeyHash).First(p => p.IsStandard);
+                                return contract.Address;
+                        }
+                    }
+                    
+				case "dumpprivkey":
+                    {
+                        if (Program.Wallet == null)
+                                throw new RpcException(-400, "Access denied");
+                        else
+                        {
+                                UInt160 scriptHash = null;
+                                scriptHash = Wallet.ToScriptHash(_params[0].AsString());
+                                Account account = Program.Wallet.GetAccountByScriptHash(scriptHash);
+                                return account.Export();
+                        }
+                    }
+                    
+				case "validateaddress":
+                    {
+                        JObject json = new JObject();
+                        UInt160 scriptHash = null;
+
+                        try
+                        {
+                                scriptHash = Wallet.ToScriptHash(_params[0].AsString());
+                        }
+                        catch
+                        {
+                                scriptHash = null;
+                        }
+                        json["address"] = _params[0].AsString();
+                        json["isvalid"] = (scriptHash == null) ? false : true;
+
+                        return json;
+                    }    
+                    
                 default:
                     return base.Process(method, _params);
             }
