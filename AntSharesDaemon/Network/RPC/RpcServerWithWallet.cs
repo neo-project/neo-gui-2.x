@@ -69,6 +69,40 @@ namespace AntShares.Network.RPC
                             return context.ToJson();
                         }
                     }
+                case "getnewaddress":
+                    if (Program.Wallet == null)
+                        throw new RpcException(-400, "Access denied");
+                    else
+                    {
+                        KeyPair key = Program.Wallet.CreateKey();
+                        Contract contract = Program.Wallet.GetContracts(key.PublicKeyHash).First(p => p.IsStandard);
+                        return contract.Address;
+                    }
+                case "dumpprivkey":
+                    if (Program.Wallet == null)
+                        throw new RpcException(-400, "Access denied");
+                    else
+                    {
+                        UInt160 scriptHash = Wallet.ToScriptHash(_params[0].AsString());
+                        KeyPair key = Program.Wallet.GetKeyByScriptHash(scriptHash);
+                        return key.Export();
+                    }
+                case "validateaddress":
+                    {
+                        JObject json = new JObject();
+                        UInt160 scriptHash;
+                        try
+                        {
+                            scriptHash = Wallet.ToScriptHash(_params[0].AsString());
+                        }
+                        catch
+                        {
+                            scriptHash = null;
+                        }
+                        json["address"] = _params[0];
+                        json["isvalid"] = scriptHash != null;
+                        return json;
+                    }
                 default:
                     return base.Process(method, _params);
             }
