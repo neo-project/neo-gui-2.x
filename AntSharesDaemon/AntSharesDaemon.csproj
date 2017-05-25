@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Copyright>2016-2017 The Antshares team</Copyright>
+    <AssemblyTitle>AntSharesCore-CLI</AssemblyTitle>
+    <VersionPrefix>1.6.1</VersionPrefix>
+    <Authors>The Antshares team</Authors>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+    <AssemblyName>AntSharesDaemon</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>AntSharesDaemon</PackageId>
+    <RuntimeFrameworkVersion>1.1.1</RuntimeFrameworkVersion>
+    <RootNamespace>AntShares</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>RELEASE;NETCOREAPP1_0</DefineConstants>
+    <DebugType>none</DebugType>
+    <DebugSymbols>False</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="config.json;protocol.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AntShares" Version="1.6.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.0.2" />
+  </ItemGroup>
+
+</Project>
