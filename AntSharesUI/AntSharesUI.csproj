@@ -59,12 +59,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AntShares, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AntShares.1.6.0\lib\net461\AntShares.dll</HintPath>
+    <Reference Include="AntShares, Version=1.6.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AntShares.1.6.1\lib\net461\AntShares.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AntShares.VM, Version=1.6.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AntShares.VM.1.6.4\lib\net461\AntShares.VM.dll</HintPath>
+    <Reference Include="AntShares.VM, Version=1.6.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AntShares.VM.1.6.5\lib\net461\AntShares.VM.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Hosting, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">

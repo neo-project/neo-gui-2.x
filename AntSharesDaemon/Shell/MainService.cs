@@ -168,11 +168,21 @@ namespace AntShares.Shell
                 return true;
             }
             string path = args.Length >= 3 ? args[2] : "chain.acc";
-            using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
+            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
             {
                 uint count = Blockchain.Default.Height + 1;
-                fs.Write(BitConverter.GetBytes(count), 0, sizeof(uint));
-                for (uint i = 0; i < count; i++)
+                uint start = 0;
+                if (fs.Length > 0)
+                {
+                    byte[] buffer = new byte[sizeof(uint)];
+                    fs.Read(buffer, 0, buffer.Length);
+                    start = BitConverter.ToUInt32(buffer, 0);
+                    fs.Seek(0, SeekOrigin.Begin);
+                }
+                if (start < count)
+                    fs.Write(BitConverter.GetBytes(count), 0, sizeof(uint));
+                fs.Seek(0, SeekOrigin.End);
+                for (uint i = start; i < count; i++)
                 {
                     Block block = Blockchain.Default.GetBlock(i);
                     byte[] array = block.ToArray();

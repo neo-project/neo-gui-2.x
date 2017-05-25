@@ -14,16 +14,18 @@ namespace AntShares.UI
         {
             using (ScriptBuilder sb = new ScriptBuilder())
             {
-                sb.EmitPush(script_hash.ToArray());
-                sb.EmitSysCall("AntShares.Blockchain.GetAccount");
-                foreach (string line in textBox1.Lines)
+                foreach (string line in textBox1.Lines.Reverse())
                     sb.EmitPush(line.HexToBytes());
                 sb.EmitPush(textBox1.Lines.Length);
                 sb.Emit(OpCode.PACK);
+                sb.EmitPush(script_hash.ToArray());
+                sb.EmitSysCall("AntShares.Blockchain.GetAccount");
                 sb.EmitSysCall("AntShares.Account.SetVotes");
                 return Program.CurrentWallet.MakeTransaction(new InvocationTransaction
                 {
+                    Version = 1,
                     Script = sb.ToArray(),
+                    Gas = Fixed8.Zero,
                     Attributes = new[]
                     {
                         new TransactionAttribute

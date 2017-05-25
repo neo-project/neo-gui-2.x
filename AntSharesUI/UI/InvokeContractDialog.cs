@@ -23,7 +23,9 @@ namespace AntShares.UI
         {
             return Program.CurrentWallet.MakeTransaction(new InvocationTransaction
             {
-                Script = textBox6.Text.HexToBytes()
+                Version = 1,
+                Script = textBox6.Text.HexToBytes(),
+                Gas = Fixed8.Zero
             });
         }
 

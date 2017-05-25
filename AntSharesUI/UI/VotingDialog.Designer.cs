@@ -58,19 +58,23 @@
             // button1
             // 
             resources.ApplyResources(this.button1, "button1");
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.button1.Name = "button1";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
             resources.ApplyResources(this.button2, "button2");
+            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button2.Name = "button2";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // VotingDialog
             // 
             resources.ApplyResources(this, "$this");
+            this.AcceptButton = this.button1;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.button2;
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
