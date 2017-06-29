@@ -10,8 +10,8 @@
 
 namespace AntShares.Properties {
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -31,7 +31,7 @@ namespace AntShares.Properties {
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Strings() {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -45,7 +45,7 @@ namespace AntShares.Properties {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -59,7 +59,7 @@ namespace AntShares.Properties {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
@@ -68,7 +68,7 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("About", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to AntShares.
         /// </summary>
@@ -77,7 +77,7 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("AboutMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Version:.
         /// </summary>
@@ -86,7 +86,7 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("AboutVersion", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Failed to add smart contract, corresponding private key missing in this wallet..
         /// </summary>
@@ -95,7 +95,7 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("AddContractFailedMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Address.
         /// </summary>
@@ -104,7 +104,7 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("Address", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Change password successful..
         /// </summary>
@@ -113,7 +113,7 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("ChangePasswordSuccessful", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Confirmation.
         /// </summary>
@@ -122,7 +122,7 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("DeleteAddressConfirmationCaption", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Upon deletion, assets in these addresses will be permanently lost, are you sure to proceed?.
         /// </summary>
@@ -131,7 +131,7 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("DeleteAddressConfirmationMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Assets cannot be recovered once deleted, are you sure to delete the assets?.
         /// </summary>
@@ -140,7 +140,7 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("DeleteAssetConfirmationMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Confirmation.
         /// </summary>
@@ -149,7 +149,7 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("DeleteConfirmation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Enter remark here, which will be recorded on the blockchain.
         /// </summary>
@@ -158,7 +158,7 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("EnterRemarkMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Transaction Remark.
         /// </summary>
@@ -167,7 +167,16 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("EnterRemarkTitle", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Execution terminated in fault state..
+        /// </summary>
+        internal static string ExecutionFailed {
+            get {
+                return ResourceManager.GetString("ExecutionFailed", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Expired.
         /// </summary>
@@ -176,7 +185,7 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("ExpiredCertificate", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Failed.
         /// </summary>
@@ -185,7 +194,7 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("Failed", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Import Watch-Only Address.
         /// </summary>
@@ -194,7 +203,7 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("ImportWatchOnlyAddress", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Transaction initiated, but the signature is incomplete..
         /// </summary>
@@ -203,7 +212,7 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("IncompletedSignatureMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Incomplete signature.
         /// </summary>
@@ -212,7 +221,7 @@ namespace AntShares.Properties {
                 return ResourceManager.GetString("IncompletedSignatureTitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to You have cancelled the certificate installation..
         /// </summary>

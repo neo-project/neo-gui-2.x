@@ -13,7 +13,7 @@ namespace AntShares.UI
             InitializeComponent();
             if (asset == null)
             {
-                comboBox1.Items.AddRange(Program.CurrentWallet.GetTransactions<RegisterTransaction>().Select(p => Blockchain.Default.GetAssetState(p.Hash)).Where(p => Program.CurrentWallet.ContainsAddress(p.Issuer)).ToArray());
+                comboBox1.Items.AddRange(Program.CurrentWallet.GetTransactions<RegisterTransaction>().Select(p => Blockchain.Default.GetAssetState(p.Hash)).Where(p => p != null && Program.CurrentWallet.ContainsAddress(p.Issuer)).ToArray());
             }
             else
             {

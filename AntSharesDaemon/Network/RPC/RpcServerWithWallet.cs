@@ -87,22 +87,6 @@ namespace AntShares.Network.RPC
                         KeyPair key = Program.Wallet.GetKeyByScriptHash(scriptHash);
                         return key.Export();
                     }
-                case "validateaddress":
-                    {
-                        JObject json = new JObject();
-                        UInt160 scriptHash;
-                        try
-                        {
-                            scriptHash = Wallet.ToScriptHash(_params[0].AsString());
-                        }
-                        catch
-                        {
-                            scriptHash = null;
-                        }
-                        json["address"] = _params[0];
-                        json["isvalid"] = scriptHash != null;
-                        return json;
-                    }
                 default:
                     return base.Process(method, _params);
             }

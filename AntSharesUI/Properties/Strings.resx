@@ -153,6 +153,9 @@
   <data name="EnterRemarkTitle" xml:space="preserve">
     <value>Transaction Remark</value>
   </data>
+  <data name="ExecutionFailed" xml:space="preserve">
+    <value>Execution terminated in fault state.</value>
+  </data>
   <data name="ExpiredCertificate" xml:space="preserve">
     <value>Expired</value>
   </data>

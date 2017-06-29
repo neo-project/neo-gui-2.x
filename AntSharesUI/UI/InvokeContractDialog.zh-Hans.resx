@@ -166,11 +166,35 @@
   <data name="radioButton2.Text" xml:space="preserve">
     <value>自定义</value>
   </data>
+  <data name="button6.Text" xml:space="preserve">
+    <value>加载</value>
+  </data>
   <data name="button3.Text" xml:space="preserve">
     <value>调用</value>
   </data>
   <data name="button4.Text" xml:space="preserve">
     <value>取消</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 17</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>手续费:</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>65, 482</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 17</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>未评估</value>
+  </data>
+  <data name="button5.Text" xml:space="preserve">
+    <value>试运行</value>
+  </data>
+  <data name="openFileDialog1.Filter" xml:space="preserve">
+    <value>AVM文件|*.avm</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>调用合约</value>

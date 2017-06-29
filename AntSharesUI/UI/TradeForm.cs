@@ -28,7 +28,7 @@ namespace AntShares.UI
                 Outputs = ((JArray)json["vout"]).Select(p => new TransactionOutput
                 {
                     AssetId = UInt256.Parse(p["asset"].AsString()),
-                    Value = new Fixed8((long)p["high"].AsNumber() << 32 | (long)p["low"].AsNumber()),
+                    Value = Fixed8.Parse(p["value"].AsString()),
                     ScriptHash = Wallet.ToScriptHash(p["address"].AsString())
                 }).ToArray()
             };

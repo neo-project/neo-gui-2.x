@@ -1,8 +1,12 @@
 ﻿using AntShares.Core;
 using AntShares.Cryptography.ECC;
+using AntShares.Implementations.Blockchains.LevelDB;
+using AntShares.IO.Caching;
+using AntShares.Properties;
 using AntShares.SmartContract;
 using AntShares.VM;
 using System;
+using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Windows.Forms;
@@ -13,6 +17,7 @@ namespace AntShares.UI
     {
         private UInt160 script_hash;
         private ContractParameter[] parameters;
+        private Fixed8 fee;
 
         public InvokeContractDialog()
         {
@@ -25,7 +30,7 @@ namespace AntShares.UI
             {
                 Version = 1,
                 Script = textBox6.Text.HexToBytes(),
-                Gas = Fixed8.Zero
+                Gas = fee
             });
         }
 
@@ -104,7 +109,40 @@ namespace AntShares.UI
 
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
-            button3.Enabled = textBox6.TextLength > 0;
+            button3.Enabled = false;
+            button5.Enabled = textBox6.TextLength > 0;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            byte[] script = textBox6.Text.HexToBytes();
+            LevelDBBlockchain blockchain = (LevelDBBlockchain)Blockchain.Default;
+            DataCache<UInt160, AccountState> accounts = blockchain.GetTable<UInt160, AccountState>();
+            DataCache<ECPoint, ValidatorState> validators = blockchain.GetTable<ECPoint, ValidatorState>();
+            DataCache<UInt256, AssetState> assets = blockchain.GetTable<UInt256, AssetState>();
+            DataCache<UInt160, ContractState> contracts = blockchain.GetTable<UInt160, ContractState>();
+            DataCache<StorageKey, StorageItem> storages = blockchain.GetTable<StorageKey, StorageItem>();
+            CachedScriptTable script_table = new CachedScriptTable(contracts);
+            StateMachine service = new StateMachine(accounts, validators, assets, contracts, storages);
+            ApplicationEngine engine = new ApplicationEngine(null, script_table, service, Fixed8.Zero, true);
+            engine.LoadScript(script, false);
+            if (engine.Execute())
+            {
+                fee = engine.GasConsumed - Fixed8.FromDecimal(10);
+                if (fee < Fixed8.Zero) fee = Fixed8.Zero;
+                label7.Text = fee + " ANC";
+                button3.Enabled = true;
+            }
+            else
+            {
+                MessageBox.Show(Strings.ExecutionFailed);
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() != DialogResult.OK) return;
+            textBox6.Text = File.ReadAllBytes(openFileDialog1.FileName).ToHexString();
         }
     }
 }

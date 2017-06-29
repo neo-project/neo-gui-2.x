@@ -30,10 +30,10 @@ namespace AntShares.UI
 
         public TransactionOutput[] GetOutputs()
         {
-            return textBox1.Lines.Select(p =>
+            return textBox1.Lines.Where(p => !string.IsNullOrWhiteSpace(p)).Select(p =>
             {
                 UInt256 asset_id = (comboBox1.SelectedItem as AssetState).AssetId;
-                string[] line = p.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] line = p.Split(new[] { ' ', '\t', ',' }, StringSplitOptions.RemoveEmptyEntries);
                 return new TransactionOutput
                 {
                     AssetId = asset_id,

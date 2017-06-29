@@ -153,6 +153,9 @@
   <data name="EnterRemarkTitle" xml:space="preserve">
     <value>交易备注</value>
   </data>
+  <data name="ExecutionFailed" xml:space="preserve">
+    <value>合约执行遇到错误并退出。</value>
+  </data>
   <data name="ExpiredCertificate" xml:space="preserve">
     <value>证书已过期</value>
   </data>
