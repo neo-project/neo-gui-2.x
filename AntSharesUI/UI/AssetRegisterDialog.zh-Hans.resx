@@ -208,17 +208,20 @@
   <data name="numericUpDown1.Location" type="System.Drawing.Point, System.Drawing">
     <value>80, 108</value>
   </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 211</value>
+  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 208</value>
   </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 17</value>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 17</value>
   </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>手续费:</value>
+  <data name="label9.Text" xml:space="preserve">
+    <value>分发:</value>
   </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>78, 211</value>
+  <data name="comboBox4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>80, 205</value>
+  </data>
+  <data name="comboBox4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>455, 25</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>注册资产</value>

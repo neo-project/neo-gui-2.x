@@ -15,23 +15,24 @@ namespace AntShares.UI
 {
     internal partial class InvokeContractDialog : Form
     {
+        private InvocationTransaction tx;
         private UInt160 script_hash;
         private ContractParameter[] parameters;
-        private Fixed8 fee;
 
-        public InvokeContractDialog()
+        public InvokeContractDialog(InvocationTransaction tx = null)
         {
             InitializeComponent();
+            this.tx = tx;
+            if (tx != null)
+            {
+                radioButton2.Checked = true;
+                textBox6.Text = tx.Script.ToHexString();
+            }
         }
 
         public InvocationTransaction GetTransaction()
         {
-            return Program.CurrentWallet.MakeTransaction(new InvocationTransaction
-            {
-                Version = 1,
-                Script = textBox6.Text.HexToBytes(),
-                Gas = fee
-            });
+            return Program.CurrentWallet.MakeTransaction(tx);
         }
 
         private void UpdateScript()
@@ -84,6 +85,7 @@ namespace AntShares.UI
         {
             script_hash = UInt160.Parse(textBox1.Text);
             ContractState contract = Blockchain.Default.GetContract(script_hash);
+            if (contract == null) return;
             parameters = contract.Code.ParameterList.Select(p => new ContractParameter { Type = p }).ToArray();
             textBox2.Text = contract.Name;
             textBox3.Text = contract.CodeVersion;
@@ -115,7 +117,12 @@ namespace AntShares.UI
 
         private void button5_Click(object sender, EventArgs e)
         {
-            byte[] script = textBox6.Text.HexToBytes();
+            if (tx == null) tx = new InvocationTransaction { Version = 1 };
+            tx.Script = textBox6.Text.HexToBytes();
+            if (tx.Attributes == null) tx.Attributes = new TransactionAttribute[0];
+            if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
+            if (tx.Outputs == null) tx.Outputs = new TransactionOutput[0];
+            if (tx.Scripts == null) tx.Scripts = new Witness[0];
             LevelDBBlockchain blockchain = (LevelDBBlockchain)Blockchain.Default;
             DataCache<UInt160, AccountState> accounts = blockchain.GetTable<UInt160, AccountState>();
             DataCache<ECPoint, ValidatorState> validators = blockchain.GetTable<ECPoint, ValidatorState>();
@@ -124,13 +131,13 @@ namespace AntShares.UI
             DataCache<StorageKey, StorageItem> storages = blockchain.GetTable<StorageKey, StorageItem>();
             CachedScriptTable script_table = new CachedScriptTable(contracts);
             StateMachine service = new StateMachine(accounts, validators, assets, contracts, storages);
-            ApplicationEngine engine = new ApplicationEngine(null, script_table, service, Fixed8.Zero, true);
-            engine.LoadScript(script, false);
+            ApplicationEngine engine = new ApplicationEngine(tx, script_table, service, Fixed8.Zero, true);
+            engine.LoadScript(tx.Script, false);
             if (engine.Execute())
             {
-                fee = engine.GasConsumed - Fixed8.FromDecimal(10);
-                if (fee < Fixed8.Zero) fee = Fixed8.Zero;
-                label7.Text = fee + " ANC";
+                tx.Gas = engine.GasConsumed - Fixed8.FromDecimal(10);
+                if (tx.Gas < Fixed8.Zero) tx.Gas = Fixed8.Zero;
+                label7.Text = tx.Gas + " ANC";
                 button3.Enabled = true;
             }
             else

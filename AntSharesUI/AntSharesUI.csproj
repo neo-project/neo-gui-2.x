@@ -61,7 +61,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AntShares, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AntShares.2.0.0-preview2\lib\net461\AntShares.dll</HintPath>
+      <HintPath>..\packages\AntShares.2.0.0-preview2-04\lib\net461\AntShares.dll</HintPath>
     </Reference>
     <Reference Include="AntShares.VM, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AntShares.VM.1.8.0\lib\net461\AntShares.VM.dll</HintPath>

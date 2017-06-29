@@ -551,11 +551,18 @@ namespace AntShares.UI
 
         private void 注册资产RToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            InvocationTransaction tx;
             using (AssetRegisterDialog dialog = new AssetRegisterDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                Helper.SignAndShowInformation(dialog.GetTransaction());
+                tx = dialog.GetTransaction();
             }
+            using (InvokeContractDialog dialog = new InvokeContractDialog(tx))
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+                tx = dialog.GetTransaction();
+            }
+            Helper.SignAndShowInformation(tx);
         }
 
         private void 资产分发IToolStripMenuItem_Click(object sender, EventArgs e)
