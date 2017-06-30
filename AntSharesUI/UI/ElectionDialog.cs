@@ -1,5 +1,7 @@
 ﻿using AntShares.Core;
 using AntShares.Cryptography.ECC;
+using AntShares.VM;
+using AntShares.Wallets;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,18 +15,31 @@ namespace AntShares.UI
             InitializeComponent();
         }
 
-        public EnrollmentTransaction GetTransaction()
+        public InvocationTransaction GetTransaction()
         {
-            return Program.CurrentWallet.MakeTransaction(new EnrollmentTransaction
+            ECPoint pubkey = (ECPoint)comboBox1.SelectedItem;
+            using (ScriptBuilder sb = new ScriptBuilder())
             {
-                PublicKey = (ECPoint)comboBox1.SelectedItem,
-            }, fee: Fixed8.Zero);
+                sb.EmitPush(pubkey.EncodePoint(true));
+                sb.EmitSysCall("AntShares.Validator.Register");
+                return new InvocationTransaction
+                {
+                    Attributes = new[]
+                    {
+                        new TransactionAttribute
+                        {
+                            Usage = TransactionAttributeUsage.Script,
+                            Data = Contract.CreateSignatureRedeemScript(pubkey).ToScriptHash().ToArray()
+                        }
+                    },
+                    Script = sb.ToArray()
+                };
+            }
         }
 
         private void ElectionDialog_Load(object sender, EventArgs e)
         {
             comboBox1.Items.AddRange(Program.CurrentWallet.GetContracts().Where(p => p.IsStandard).Select(p => Program.CurrentWallet.GetKey(p.PublicKeyHash).PublicKey).ToArray());
-            label4.Text = $"{new EnrollmentTransaction { }.SystemFee } ANC";
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

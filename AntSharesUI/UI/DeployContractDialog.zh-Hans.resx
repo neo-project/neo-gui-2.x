@@ -247,15 +247,6 @@
   <data name="openFileDialog1.Filter" xml:space="preserve">
     <value>AVM文件|*.avm</value>
   </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 17</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>手续费:</value>
-  </data>
-  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>65, 533</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>部署合约</value>
   </data>

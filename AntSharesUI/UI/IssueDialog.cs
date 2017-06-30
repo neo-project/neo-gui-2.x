@@ -11,13 +11,10 @@ namespace AntShares.UI
         public IssueDialog(AssetState asset = null)
         {
             InitializeComponent();
-            if (asset == null)
+            if (asset != null)
             {
-                comboBox1.Items.AddRange(Program.CurrentWallet.GetTransactions<RegisterTransaction>().Select(p => Blockchain.Default.GetAssetState(p.Hash)).Where(p => p != null && Program.CurrentWallet.ContainsAddress(p.Issuer)).ToArray());
-            }
-            else
-            {
-                comboBox1.Items.Add(asset);
+                textBox5.Text = asset.AssetId.ToString();
+                textBox5.Enabled = false;
             }
         }
 
@@ -35,9 +32,12 @@ namespace AntShares.UI
             }, fee: Fixed8.Zero);
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void textBox5_TextChanged(object sender, EventArgs e)
         {
-            txOutListBox1.Asset = comboBox1.SelectedItem as AssetState;
+            if (UInt256.TryParse(textBox5.Text, out UInt256 asset_id))
+                txOutListBox1.Asset = Blockchain.Default.GetAssetState(asset_id);
+            else
+                txOutListBox1.Asset = null;
             if (txOutListBox1.Asset == null)
             {
                 textBox1.Text = "";
@@ -52,7 +52,6 @@ namespace AntShares.UI
                 textBox2.Text = Wallet.ToAddress(txOutListBox1.Asset.Admin);
                 textBox3.Text = txOutListBox1.Asset.Amount == -Fixed8.Satoshi ? "+\u221e" : txOutListBox1.Asset.Amount.ToString();
                 textBox4.Text = txOutListBox1.Asset.Available.ToString();
-                label6.Text = $"{new IssueTransaction { Outputs = new[] { new TransactionOutput { AssetId = txOutListBox1.Asset.AssetId } } }.SystemFee } ANC";
                 groupBox3.Enabled = true;
             }
             txOutListBox1.Clear();

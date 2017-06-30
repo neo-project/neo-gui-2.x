@@ -146,7 +146,7 @@
     <value>已发行:</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
-    <value>资产名称</value>
+    <value>资产ID</value>
   </data>
   <data name="groupBox2.Text" xml:space="preserve">
     <value>资产详情</value>
@@ -159,15 +159,6 @@
   </data>
   <data name="button4.Text" xml:space="preserve">
     <value>取消</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 17</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>手续费:</value>
-  </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>62, 421</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>资产分发</value>

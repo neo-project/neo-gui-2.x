@@ -32,7 +32,15 @@ namespace AntShares.UI
 
         public InvocationTransaction GetTransaction()
         {
-            return Program.CurrentWallet.MakeTransaction(tx);
+            return Program.CurrentWallet.MakeTransaction(new InvocationTransaction
+            {
+                Version = tx.Version,
+                Script = tx.Script,
+                Gas = tx.Gas,
+                Attributes = tx.Attributes,
+                Inputs = tx.Inputs,
+                Outputs = tx.Outputs
+            });
         }
 
         private void UpdateScript()
@@ -117,7 +125,8 @@ namespace AntShares.UI
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if (tx == null) tx = new InvocationTransaction { Version = 1 };
+            if (tx == null) tx = new InvocationTransaction();
+            tx.Version = 1;
             tx.Script = textBox6.Text.HexToBytes();
             if (tx.Attributes == null) tx.Attributes = new TransactionAttribute[0];
             if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
