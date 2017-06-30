@@ -488,7 +488,18 @@ namespace AntShares.Shell
                     break;
             }
             UInt160 scriptHash = Wallet.ToScriptHash(args[2]);
-            Fixed8 value = Fixed8.Parse(args[3]);
+            Fixed8 amount;
+            if (!Fixed8.TryParse(args[3], out amount))
+            {
+                Console.WriteLine("Incorrect Amount Format");
+                return true;
+            }
+            if (amount.GetData() % (long)Math.Pow(10, 8 - Blockchain.Default.GetAssetState(assetId).Precision) != 0)
+            {
+                Console.WriteLine("Incorrect Amount Precision");
+                return true;
+            }
+
             Fixed8 fee = args.Length >= 5 ? Fixed8.Parse(args[4]) : Fixed8.Zero;
             ContractTransaction tx = Program.Wallet.MakeTransaction(new ContractTransaction
             {
@@ -497,7 +508,7 @@ namespace AntShares.Shell
                     new TransactionOutput
                     {
                         AssetId = assetId,
-                        Value = value,
+                        Value = amount,
                         ScriptHash = scriptHash
                     }
                 }
