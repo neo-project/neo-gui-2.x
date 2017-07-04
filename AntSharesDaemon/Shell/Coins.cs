@@ -105,9 +105,17 @@ namespace AntShares.Shell
             {
                 context.Verifiable.Scripts = context.GetScripts();
                 current_wallet.SaveTransaction(tx);
-                local_node.Relay(tx);
-                Console.WriteLine($"Transaction Suceeded: {tx.Hash.ToString()}");
-                return true;
+
+                bool relay_result = local_node.Relay(tx);
+
+                if( relay_result ) 
+                {
+                    Console.WriteLine($"Transaction Suceeded: {tx.Hash.ToString()}");
+					return true;
+				} else 
+                {
+					Console.WriteLine($"Local Node could not relay transaction: {tx.Hash.ToString()}");
+				}
             }
             else
             {
