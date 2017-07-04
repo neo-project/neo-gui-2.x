@@ -111,11 +111,11 @@ namespace AntShares.Shell
                 if( relay_result ) 
                 {
                     Console.WriteLine($"Transaction Suceeded: {tx.Hash.ToString()}");
-					return true;
-				} else 
+                    return true;
+                } else 
                 {
-					Console.WriteLine($"Local Node could not relay transaction: {tx.Hash.ToString()}");
-				}
+                    Console.WriteLine($"Local Node could not relay transaction: {tx.Hash.ToString()}");
+                }
             }
             else
             {
