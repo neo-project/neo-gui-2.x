@@ -21,7 +21,18 @@ namespace AntShares.Shell
         public Fixed8 UnavailableBonus()
         {
             uint height = Blockchain.Default.Height + 1;
-            return Blockchain.CalculateBonus(current_wallet.FindUnspentCoins().Where(p => p.Output.AssetId.Equals(Blockchain.SystemShare.Hash)).Select(p => p.Reference), height);
+            Fixed8 unavailable;
+
+            try
+            {
+                unavailable = Blockchain.CalculateBonus(current_wallet.FindUnspentCoins().Where(p => p.Output.AssetId.Equals(Blockchain.SystemShare.Hash)).Select(p => p.Reference), height);
+            }
+            catch (Exception)
+            {
+                unavailable = Fixed8.Zero;
+            }
+
+            return unavailable;
         }
 
 
