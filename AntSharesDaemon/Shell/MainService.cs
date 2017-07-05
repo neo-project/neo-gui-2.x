@@ -14,6 +14,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
+using AntShares.Shell;
 
 namespace AntShares.Shell
 {
@@ -60,6 +61,8 @@ namespace AntShares.Shell
                     return OnImportCommand(args);
                 case "list":
                     return OnListCommand(args);
+                case "coin":
+                    return OnCoinCommand(args);
                 case "open":
                     return OnOpenCommand(args);
                 case "rebuild":
@@ -267,6 +270,8 @@ namespace AntShares.Shell
                 "\tlist address\n" +
                 "\tlist asset\n" +
                 "\tlist key\n" +
+                "\tcoin check\n" +
+                "\tcoin claim\n" +
                 "\tcreate address [n=1]\n" +
                 "\timport key <wif|path>\n" +
                 "\texport key [address] [path]\n" +
@@ -343,6 +348,31 @@ namespace AntShares.Shell
                     return OnListKeyCommand(args);
                 default:
                     return base.OnCommand(args);
+            }
+        }
+
+        private bool OnCoinCommand(string[] args)
+        {
+            if (Program.Wallet == null)
+            {
+                Console.WriteLine($"Please open a wallet");
+                return true;
+            }
+
+            Coins coins = new Coins(Program.Wallet, LocalNode);
+
+            switch (args[1].ToLower())
+            {
+                case "check":
+                    Console.WriteLine($"unavailable: {coins.UnavailableBonus().ToString()}");
+                    Console.WriteLine($"  available: {coins.AvailableBonus().ToString()}");
+                    return true;
+                case "claim":
+                    coins.Claim();
+                    return true;
+
+                default:
+                    return false;
             }
         }
 
