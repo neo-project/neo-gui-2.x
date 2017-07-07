@@ -367,7 +367,7 @@ namespace AntShares.Shell
                     coins.Claim();
                     return true;
                 default:
-                    return false;
+                    return base.OnCommand(args);
             }
         }
 
