@@ -47,7 +47,7 @@ namespace AntShares.Shell
 
             if (this.AvailableBonus() == Fixed8.Zero)
             {
-                Console.WriteLine($"no coins to claim");
+                Console.WriteLine($"no gas to claim");
                 return true;
             }
 
