@@ -63,11 +63,36 @@ namespace AntShares.UI
         {
             numericUpDown1.Enabled = (AssetType)comboBox1.SelectedItem != AssetType.Share;
             if (!numericUpDown1.Enabled) numericUpDown1.Value = 0;
+            CheckForm(sender, e);
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             textBox2.Enabled = checkBox1.Checked;
+            CheckForm(sender, e);
+        }
+
+        private void CheckForm(object sender, EventArgs e)
+        {
+            bool enabled = comboBox1.SelectedIndex >= 0 &&
+                              textBox1.TextLength > 0 &&
+                              (!checkBox1.Checked || textBox2.TextLength > 0) &&
+                              comboBox2.SelectedIndex >= 0 &&
+                              !string.IsNullOrWhiteSpace(comboBox3.Text) &&
+                              !string.IsNullOrWhiteSpace(comboBox4.Text);
+            if (enabled)
+            {
+                try
+                {
+                    Wallet.ToScriptHash(comboBox3.Text);
+                    Wallet.ToScriptHash(comboBox4.Text);
+                }
+                catch (FormatException)
+                {
+                    enabled = false;
+                }
+            }
+            button1.Enabled = enabled;
         }
     }
 }

@@ -146,6 +146,7 @@ namespace AntShares.UI
             {
                 tx.Gas = engine.GasConsumed - Fixed8.FromDecimal(10);
                 if (tx.Gas < Fixed8.Zero) tx.Gas = Fixed8.Zero;
+                tx.Gas = tx.Gas.Ceiling();
                 label7.Text = tx.Gas + " ANC";
                 button3.Enabled = true;
             }

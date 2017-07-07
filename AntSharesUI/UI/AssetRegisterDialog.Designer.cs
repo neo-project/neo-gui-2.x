@@ -70,6 +70,7 @@
             // 
             resources.ApplyResources(this.textBox1, "textBox1");
             this.textBox1.Name = "textBox1";
+            this.textBox1.TextChanged += new System.EventHandler(this.CheckForm);
             // 
             // label3
             // 
@@ -87,6 +88,7 @@
             // 
             resources.ApplyResources(this.textBox2, "textBox2");
             this.textBox2.Name = "textBox2";
+            this.textBox2.TextChanged += new System.EventHandler(this.CheckForm);
             // 
             // label4
             // 
@@ -99,6 +101,7 @@
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Name = "comboBox2";
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.CheckForm);
             // 
             // label5
             // 
@@ -110,6 +113,8 @@
             resources.ApplyResources(this.comboBox3, "comboBox3");
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Name = "comboBox3";
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.CheckForm);
+            this.comboBox3.TextUpdate += new System.EventHandler(this.CheckForm);
             // 
             // button1
             // 
@@ -148,6 +153,8 @@
             resources.ApplyResources(this.comboBox4, "comboBox4");
             this.comboBox4.FormattingEnabled = true;
             this.comboBox4.Name = "comboBox4";
+            this.comboBox4.SelectedIndexChanged += new System.EventHandler(this.CheckForm);
+            this.comboBox4.TextUpdate += new System.EventHandler(this.CheckForm);
             // 
             // AssetRegisterDialog
             // 

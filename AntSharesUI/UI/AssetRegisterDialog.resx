@@ -211,7 +211,7 @@
     <value>Asset Registration</value>
   </data>
   <data name="button1.Text" xml:space="preserve">
-    <value>Confirm</value>
+    <value>OK</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>15</value>
@@ -413,6 +413,9 @@
   </data>
   <data name="comboBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 13</value>
+  </data>
+  <data name="button1.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;label3.Name" xml:space="preserve">
     <value>label3</value>
