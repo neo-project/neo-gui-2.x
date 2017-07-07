@@ -270,7 +270,7 @@ namespace AntShares.Shell
                 "\tlist address\n" +
                 "\tlist asset\n" +
                 "\tlist key\n" +
-                "\tcheck gas\n" +
+                "\tshow gas\n" +
                 "\tclaim gas\n" +
                 "\tcreate address [n=1]\n" +
                 "\timport key <wif|path>\n" +
