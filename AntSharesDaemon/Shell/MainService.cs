@@ -364,7 +364,11 @@ namespace AntShares.Shell
             switch (args[1].ToLower())
             {
                 case "gas":
-                    coins.Claim();
+                    ClaimTransaction tx = coins.Claim();
+                    if (tx is ClaimTransaction)
+                    {
+                        Console.WriteLine($"Tranaction Suceeded: {tx.Hash.ToString()}");
+                    }
                     return true;
                 default:
                     return base.OnCommand(args);
