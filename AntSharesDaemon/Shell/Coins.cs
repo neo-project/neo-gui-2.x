@@ -42,18 +42,17 @@ namespace AntShares.Shell
         }
 
 
-        public bool Claim()
+        public ClaimTransaction Claim()
         {
 
             if (this.AvailableBonus() == Fixed8.Zero)
             {
                 Console.WriteLine($"no gas to claim");
-                return true;
+                return null;
             }
 
             CoinReference[] claims = current_wallet.GetUnclaimedCoins().Select(p => p.Reference).ToArray();
-            if (claims.Length == 0) return false;
-
+            if (claims.Length == 0) return null;
 
             ClaimTransaction tx = new ClaimTransaction
             {
@@ -72,19 +71,16 @@ namespace AntShares.Shell
 
             };
 
-            Console.WriteLine($"Will sign tx: {tx}");
-            bool result = SignTransaction(tx);
-
-            return result;
+            return (ClaimTransaction)SignTransaction(tx);
         }
 
 
-        private bool SignTransaction(Transaction tx)
+        private Transaction SignTransaction(Transaction tx)
         {
             if (tx == null)
             {
                 Console.WriteLine($"no transaction specified");
-                return false;
+                return null;
             }
             SignatureContext context;
 
@@ -96,7 +92,7 @@ namespace AntShares.Shell
             {
                 Console.WriteLine($"unsynchronized block");
 
-                return false;
+                return null;
             }
 
             current_wallet.Sign(context);
@@ -110,8 +106,8 @@ namespace AntShares.Shell
 
                 if( relay_result ) 
                 {
-                    Console.WriteLine($"Transaction Suceeded: {tx.Hash.ToString()}");
-                    return true;
+                    return tx;
+                    
                 } else 
                 {
                     Console.WriteLine($"Local Node could not relay transaction: {tx.Hash.ToString()}");
@@ -122,7 +118,7 @@ namespace AntShares.Shell
                 Console.WriteLine($"Incomplete Signature: {context.ToString()}");
             }
 
-            return false;
+            return null;
         }
     }
 }
