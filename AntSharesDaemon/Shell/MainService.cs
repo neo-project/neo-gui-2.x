@@ -14,6 +14,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Security;
 using System.Threading.Tasks;
+using AntShares.Shell;
 
 namespace AntShares.Shell
 {
@@ -60,6 +61,8 @@ namespace AntShares.Shell
                     return OnImportCommand(args);
                 case "list":
                     return OnListCommand(args);
+                case "claim":
+                    return OnClaimCommand(args);
                 case "open":
                     return OnOpenCommand(args);
                 case "rebuild":
@@ -267,6 +270,8 @@ namespace AntShares.Shell
                 "\tlist address\n" +
                 "\tlist asset\n" +
                 "\tlist key\n" +
+                "\tshow gas\n" +
+                "\tclaim gas\n" +
                 "\tcreate address [n=1]\n" +
                 "\timport key <wif|path>\n" +
                 "\texport key [address] [path]\n" +
@@ -344,6 +349,44 @@ namespace AntShares.Shell
                 default:
                     return base.OnCommand(args);
             }
+        }
+
+        private bool OnClaimCommand(string[] args)
+        {
+            if (Program.Wallet == null)
+            {
+                Console.WriteLine($"Please open a wallet");
+                return true;
+            }
+
+            Coins coins = new Coins(Program.Wallet, LocalNode);
+
+            switch (args[1].ToLower())
+            {
+                case "gas":
+                    ClaimTransaction tx = coins.Claim();
+                    if (tx is ClaimTransaction)
+                    {
+                        Console.WriteLine($"Tranaction Suceeded: {tx.Hash.ToString()}");
+                    }
+                    return true;
+                default:
+                    return base.OnCommand(args);
+            }
+        }
+
+        private bool OnShowGasCommand(string [] args)
+        {
+            if (Program.Wallet == null)
+            {
+                Console.WriteLine($"Please open a wallet");
+                return true;
+            }
+
+            Coins coins = new Coins(Program.Wallet, LocalNode);
+            Console.WriteLine($"unavailable: {coins.UnavailableBonus().ToString()}");
+            Console.WriteLine($"  available: {coins.AvailableBonus().ToString()}");
+            return true;
         }
 
         private bool OnListKeyCommand(string[] args)
@@ -552,6 +595,8 @@ namespace AntShares.Shell
         {
             switch (args[1].ToLower())
             {
+                case "gas":
+                    return OnShowGasCommand(args);
                 case "node":
                     return OnShowNodeCommand(args);
                 case "pool":
