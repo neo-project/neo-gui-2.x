@@ -1,34 +1,43 @@
-﻿namespace Neo.Properties {
-    
-    
-    // 通过此类可以处理设置类的特定事件: 
-    //  在更改某个设置的值之前将引发 SettingChanging 事件。
-    //  在更改某个设置的值之后将引发 PropertyChanged 事件。
-    //  在加载设置值之后将引发 SettingsLoaded 事件。
-    //  在保存设置值之前将引发 SettingsSaving 事件。
-    internal sealed partial class Settings {
-        
-        public Settings() {
-            // // 若要为保存和更改设置添加事件处理程序，请取消注释下列行: 
-            //
-            // this.SettingChanging += this.SettingChangingEventHandler;
-            //
-            // this.SettingsSaving += this.SettingsSavingEventHandler;
-            //
+﻿using Microsoft.Extensions.Configuration;
+
+namespace Neo.Properties
+{
+    internal sealed partial class Settings
+    {
+        public string DataDirectoryPath { get; }
+        public string CertCachePath { get; }
+        public ushort NodePort { get; }
+        public ushort WsPort { get; }
+        public BrowserSettings Urls { get; }
+
+        public Settings()
+        {
             if (NeedUpgrade)
             {
                 Upgrade();
                 NeedUpgrade = false;
                 Save();
             }
+            IConfigurationSection section = new ConfigurationBuilder().AddJsonFile("config.json").Build().GetSection("ApplicationConfiguration");
+            this.DataDirectoryPath = section.GetSection("DataDirectoryPath").Value;
+            this.CertCachePath = section.GetSection("CertCachePath").Value;
+            this.NodePort = ushort.Parse(section.GetSection("NodePort").Value);
+            this.WsPort = ushort.Parse(section.GetSection("WsPort").Value);
+            this.Urls = new BrowserSettings(section.GetSection("Urls"));
         }
-        
-        private void SettingChangingEventHandler(object sender, System.Configuration.SettingChangingEventArgs e) {
-            // 在此处添加用于处理 SettingChangingEvent 事件的代码。
-        }
-        
-        private void SettingsSavingEventHandler(object sender, System.ComponentModel.CancelEventArgs e) {
-            // 在此处添加用于处理 SettingsSaving 事件的代码。
+    }
+
+    internal class BrowserSettings
+    {
+        public string AddressUrl { get; }
+        public string AssetUrl { get; }
+        public string TransactionUrl { get; }
+
+        public BrowserSettings(IConfigurationSection section)
+        {
+            this.AddressUrl = section.GetSection("AddressUrl").Value;
+            this.AssetUrl = section.GetSection("AssetUrl").Value;
+            this.TransactionUrl = section.GetSection("TransactionUrl").Value;
         }
     }
 }

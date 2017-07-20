@@ -1,0 +1,16 @@
+﻿{
+  "ApplicationConfiguration": {
+    "DataDirectoryPath": "ChainTestNet",
+    "CertCachePath": "Certs",
+    "NodePort": 20333,
+    "WsPort": 20334,
+    "UriPrefix": [ "http://*:20332" ],
+    "SslCert": "",
+    "SslCertPassword": "",
+    "Urls": {
+      "AddressUrl": "http://testnet.antchain.xyz/address/{0}",
+      "AssetUrl": "http://testnet.antchain.xyz/asset/hash/{0}",
+      "TransactionUrl": "http://testnet.antchain.xyz/tx/hash/{0}"
+    }
+  }
+}

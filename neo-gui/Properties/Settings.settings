@@ -2,27 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Neo.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="DataDirectoryPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">.\Chain</Value>
-    </Setting>
-    <Setting Name="CertCachePath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">.\Certs</Value>
-    </Setting>
-    <Setting Name="NodePort" Type="System.UInt16" Scope="Application">
-      <Value Profile="(Default)">10333</Value>
-    </Setting>
-    <Setting Name="WsPort" Type="System.UInt16" Scope="Application">
-      <Value Profile="(Default)">10334</Value>
-    </Setting>
-    <Setting Name="BrowserUrlAddress" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://www.antchain.xyz/address/{0}</Value>
-    </Setting>
-    <Setting Name="BrowserUrlAsset" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://www.antchain.xyz/asset/hash/{0}</Value>
-    </Setting>
-    <Setting Name="BrowserUrlTransaction" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://www.antchain.xyz/tx/hash/{0}</Value>
-    </Setting>
     <Setting Name="LastWalletPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>

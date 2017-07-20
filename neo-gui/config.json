@@ -1,0 +1,16 @@
+﻿{
+  "ApplicationConfiguration": {
+    "DataDirectoryPath": "Chain",
+    "CertCachePath": "Certs",
+    "NodePort": 10333,
+    "WsPort": 10334,
+    "UriPrefix": [ "http://*:10332" ],
+    "SslCert": "",
+    "SslCertPassword": "",
+    "Urls": {
+      "AddressUrl": "https://www.antchain.xyz/address/{0}",
+      "AssetUrl": "https://www.antchain.xyz/asset/hash/{0}",
+      "TransactionUrl": "https://www.antchain.xyz/tx/hash/{0}"
+    }
+  }
+}
