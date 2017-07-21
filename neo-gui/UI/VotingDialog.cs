@@ -21,11 +21,9 @@ namespace Neo.UI
                 sb.EmitPush(script_hash.ToArray());
                 sb.EmitSysCall("Neo.Blockchain.GetAccount");
                 sb.EmitSysCall("Neo.Account.SetVotes");
-                return Program.CurrentWallet.MakeTransaction(new InvocationTransaction
+                return new InvocationTransaction
                 {
-                    Version = 1,
                     Script = sb.ToArray(),
-                    Gas = Fixed8.Zero,
                     Attributes = new[]
                     {
                         new TransactionAttribute
@@ -34,7 +32,7 @@ namespace Neo.UI
                             Data = script_hash.ToArray()
                         }
                     }
-                }, fee: Fixed8.One);
+                };
             }
         }
 
