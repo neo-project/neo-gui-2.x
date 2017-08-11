@@ -144,8 +144,7 @@ namespace Neo.UI
             engine.LoadScript(tx.Script, false);
             if (engine.Execute())
             {
-                tx.Gas = engine.GasConsumed - Fixed8.FromDecimal(10);
-                if (tx.Gas < Fixed8.One) tx.Gas = Fixed8.One;
+                tx.Gas = (engine.GasConsumed < Fixed8.FromDecimal(10)) ? Fixed8.One : engine.GasConsumed;
                 tx.Gas = tx.Gas.Ceiling();
                 label7.Text = tx.Gas + " gas";
                 button3.Enabled = true;
