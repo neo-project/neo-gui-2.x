@@ -1,5 +1,6 @@
 ﻿using Neo.Core;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -14,7 +15,24 @@ namespace Neo.UI
 
         private void CalculateBonusUnavailable(uint height)
         {
-            textBox2.Text = Blockchain.CalculateBonus(Program.CurrentWallet.FindUnspentCoins().Where(p => p.Output.AssetId.Equals(Blockchain.SystemShare.Hash)).Select(p => p.Reference), height).ToString();
+            var unspent = Program.CurrentWallet.FindUnspentCoins()
+                .Where(p => p.Output.AssetId.Equals(Blockchain.SystemShare.Hash))
+                .Select(p => p.Reference)
+                ;
+
+            ICollection<CoinReference> references = new HashSet<CoinReference>();
+
+            foreach (var group in unspent.GroupBy(p => p.PrevHash))
+            {
+                int height_start;
+                Transaction tx = Blockchain.Default.GetTransaction(group.Key, out height_start);
+                if (tx == null)
+                    continue; // not enough of the chain available
+                foreach (var reference in group)
+                    references.Add(reference);
+            }
+
+            textBox2.Text = Blockchain.CalculateBonus(references, height).ToString();
         }
 
         private void ClaimForm_Load(object sender, EventArgs e)
