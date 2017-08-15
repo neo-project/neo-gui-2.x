@@ -1,6 +1,13 @@
 Project Setup
 =============
 
+On Linux:
+=========
+`yum install leveldb-devel`
+
+On Windows:
+===========
+
 To build and run locally, you need to clone and build https://github.com/neo-project/leveldb first, 
 then copy `libleveldb.dll` to the working directory (i.e. /bin/Debug, /bin/Release)
 
