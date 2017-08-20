@@ -287,6 +287,7 @@ namespace Neo.UI
             lbl_height.Text = $"{Blockchain.Default.Height}/{Blockchain.Default.HeaderHeight}";
             lbl_count_node.Text = Program.LocalNode.RemoteNodeCount.ToString();
             TimeSpan persistence_span = DateTime.Now - persistence_time;
+            if (persistence_span < TimeSpan.Zero) persistence_span = TimeSpan.Zero;
             if (persistence_span > Blockchain.TimePerBlock)
             {
                 toolStripProgressBar1.Style = ProgressBarStyle.Marquee;
@@ -345,8 +346,8 @@ namespace Neo.UI
                     }
                     else
                     {
-                        string asset_name = asset.Asset.AssetType == AssetType.SystemShare ? "NEO" :
-                                            asset.Asset.AssetType == AssetType.SystemCoin ? "NeoGas" :
+                        string asset_name = asset.Asset.AssetType == AssetType.GoverningToken ? "NEO" :
+                                            asset.Asset.AssetType == AssetType.UtilityToken ? "NeoGas" :
                                             asset.Asset.GetName();
                         listView2.Items.Add(new ListViewItem(new[]
                         {
@@ -386,7 +387,7 @@ namespace Neo.UI
                 ListViewItem.ListViewSubItem subitem = item.SubItems["issuer"];
                 AssetState asset = (AssetState)item.Tag;
                 CertificateQueryResult result;
-                if (asset.AssetType == AssetType.SystemShare || asset.AssetType == AssetType.SystemCoin)
+                if (asset.AssetType == AssetType.GoverningToken || asset.AssetType == AssetType.UtilityToken)
                 {
                     result = new CertificateQueryResult { Type = CertificateQueryResultType.System };
                 }
@@ -830,7 +831,7 @@ namespace Neo.UI
             删除DToolStripMenuItem1.Enabled = listView2.SelectedIndices.Count > 0;
             if (删除DToolStripMenuItem1.Enabled)
             {
-                删除DToolStripMenuItem1.Enabled = listView2.SelectedItems.OfType<ListViewItem>().Select(p => (AssetState)p.Tag).All(p => p.AssetType != AssetType.SystemShare && p.AssetType != AssetType.SystemCoin);
+                删除DToolStripMenuItem1.Enabled = listView2.SelectedItems.OfType<ListViewItem>().Select(p => (AssetState)p.Tag).All(p => p.AssetType != AssetType.GoverningToken && p.AssetType != AssetType.UtilityToken);
             }
         }
 

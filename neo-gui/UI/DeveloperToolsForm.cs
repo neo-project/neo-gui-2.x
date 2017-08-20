@@ -57,7 +57,15 @@ namespace Neo.UI
         {
             string input = InputBox.Show("SignatureContext", "SignatureContext");
             if (string.IsNullOrEmpty(input)) return;
-            context = SignatureContext.Parse(input);
+            try
+            {
+                context = SignatureContext.Parse(input);
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
             listBox1.Items.Clear();
             listBox2.Items.Clear();
             textBox1.Clear();

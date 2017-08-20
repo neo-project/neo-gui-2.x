@@ -140,7 +140,7 @@ namespace Neo.UI
             DataCache<StorageKey, StorageItem> storages = blockchain.GetTable<StorageKey, StorageItem>();
             CachedScriptTable script_table = new CachedScriptTable(contracts);
             StateMachine service = new StateMachine(accounts, validators, assets, contracts, storages);
-            ApplicationEngine engine = new ApplicationEngine(tx, script_table, service, Fixed8.Zero, true);
+            ApplicationEngine engine = new ApplicationEngine(TriggerType.Application, tx, script_table, service, Fixed8.Zero, true);
             engine.LoadScript(tx.Script, false);
             if (engine.Execute())
             {

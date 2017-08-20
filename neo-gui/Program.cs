@@ -46,6 +46,7 @@ namespace Neo
 
         private static bool InstallCertificate()
         {
+            if (!Settings.Default.InstallCertificate) return true;
             using (X509Store store = new X509Store(StoreName.Root, StoreLocation.LocalMachine))
             using (X509Certificate2 cert = new X509Certificate2(Resources.OnchainCertificate))
             {
@@ -62,7 +63,12 @@ namespace Neo
                     return true;
                 }
                 catch (CryptographicException) { }
-                if (MessageBox.Show(Strings.InstallCertificateText, Strings.InstallCertificateCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) != DialogResult.Yes) return true;
+                if (MessageBox.Show(Strings.InstallCertificateText, Strings.InstallCertificateCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) != DialogResult.Yes)
+                {
+                    Settings.Default.InstallCertificate = false;
+                    Settings.Default.Save();
+                    return true;
+                }
                 try
                 {
                     Process.Start(new ProcessStartInfo
@@ -106,11 +112,21 @@ namespace Neo
                 }
             }
             if (!InstallCertificate()) return;
+            const string PeerStatePath = "peers.dat";
+            if (File.Exists(PeerStatePath))
+                using (FileStream fs = new FileStream(PeerStatePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    LocalNode.LoadState(fs);
+                }
             using (Blockchain.RegisterBlockchain(new LevelDBBlockchain(Settings.Default.DataDirectoryPath)))
             using (LocalNode = new LocalNode())
             {
                 LocalNode.UpnpEnabled = true;
                 Application.Run(MainForm = new MainForm(xdoc));
+            }
+            using (FileStream fs = new FileStream(PeerStatePath, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                LocalNode.SaveState(fs);
             }
         }
     }
