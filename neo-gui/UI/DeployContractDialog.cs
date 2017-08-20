@@ -53,6 +53,14 @@ namespace Neo.UI
                 && textBox4.TextLength > 0
                 && textBox5.TextLength > 0
                 && textBox8.TextLength > 0;
+            try
+            {
+                textBox9.Text = textBox8.Text.HexToBytes().ToScriptHash().ToString();
+            }
+            catch (FormatException)
+            {
+                textBox9.Text = "";
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

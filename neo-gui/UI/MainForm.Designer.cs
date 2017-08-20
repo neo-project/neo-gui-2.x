@@ -78,6 +78,8 @@
             this.importWatchOnlyAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.创建智能合约SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.多方签名MToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.自定义CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.查看私钥VToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -451,6 +453,8 @@
             resources.ApplyResources(this.创建智能合约SToolStripMenuItem, "创建智能合约SToolStripMenuItem");
             this.创建智能合约SToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.多方签名MToolStripMenuItem,
+            this.lockToolStripMenuItem,
+            this.toolStripSeparator12,
             this.自定义CToolStripMenuItem});
             this.创建智能合约SToolStripMenuItem.Name = "创建智能合约SToolStripMenuItem";
             // 
@@ -459,6 +463,17 @@
             resources.ApplyResources(this.多方签名MToolStripMenuItem, "多方签名MToolStripMenuItem");
             this.多方签名MToolStripMenuItem.Name = "多方签名MToolStripMenuItem";
             this.多方签名MToolStripMenuItem.Click += new System.EventHandler(this.多方签名MToolStripMenuItem_Click);
+            // 
+            // lockToolStripMenuItem
+            // 
+            resources.ApplyResources(this.lockToolStripMenuItem, "lockToolStripMenuItem");
+            this.lockToolStripMenuItem.Name = "lockToolStripMenuItem";
+            this.lockToolStripMenuItem.Click += new System.EventHandler(this.lockToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator12
+            // 
+            resources.ApplyResources(this.toolStripSeparator12, "toolStripSeparator12");
+            this.toolStripSeparator12.Name = "toolStripSeparator12";
             // 
             // 自定义CToolStripMenuItem
             // 
@@ -812,6 +827,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripMenuItem deployContractToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem invokeContractToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lockToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
     }
 }
 

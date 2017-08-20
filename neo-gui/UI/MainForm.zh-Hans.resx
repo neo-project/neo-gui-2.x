@@ -194,61 +194,61 @@
     <value>交易(&amp;T)</value>
   </data>
   <data name="提取小蚁币CToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 22</value>
+    <value>172, 22</value>
   </data>
   <data name="提取小蚁币CToolStripMenuItem.Text" xml:space="preserve">
     <value>提取NeoGas(&amp;A)...</value>
   </data>
   <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 6</value>
+    <value>169, 6</value>
   </data>
   <data name="requestCertificateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 22</value>
+    <value>172, 22</value>
   </data>
   <data name="requestCertificateToolStripMenuItem.Text" xml:space="preserve">
     <value>申请证书(&amp;C)...</value>
   </data>
   <data name="注册资产RToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 22</value>
+    <value>172, 22</value>
   </data>
   <data name="注册资产RToolStripMenuItem.Text" xml:space="preserve">
     <value>注册资产(&amp;R)...</value>
   </data>
   <data name="资产分发IToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 22</value>
+    <value>172, 22</value>
   </data>
   <data name="资产分发IToolStripMenuItem.Text" xml:space="preserve">
     <value>分发资产(&amp;I)...</value>
   </data>
   <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 6</value>
+    <value>169, 6</value>
   </data>
   <data name="选举EToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 22</value>
+    <value>172, 22</value>
   </data>
   <data name="选举EToolStripMenuItem.Text" xml:space="preserve">
     <value>选举(&amp;E)...</value>
   </data>
   <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 6</value>
+    <value>169, 6</value>
   </data>
   <data name="deployContractToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 22</value>
+    <value>172, 22</value>
   </data>
   <data name="deployContractToolStripMenuItem.Text" xml:space="preserve">
     <value>部署合约(&amp;D)...</value>
   </data>
   <data name="invokeContractToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 22</value>
+    <value>172, 22</value>
   </data>
   <data name="invokeContractToolStripMenuItem.Text" xml:space="preserve">
     <value>调用合约(&amp;V)...</value>
   </data>
   <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 6</value>
+    <value>169, 6</value>
   </data>
   <data name="optionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 22</value>
+    <value>172, 22</value>
   </data>
   <data name="optionsToolStripMenuItem.Text" xml:space="preserve">
     <value>选项(&amp;O)...</value>
@@ -337,6 +337,15 @@
   <data name="多方签名MToolStripMenuItem.Text" xml:space="preserve">
     <value>多方签名(&amp;M)...</value>
   </data>
+  <data name="lockToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 22</value>
+  </data>
+  <data name="lockToolStripMenuItem.Text" xml:space="preserve">
+    <value>锁仓(&amp;L)...</value>
+  </data>
+  <data name="toolStripSeparator12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 6</value>
+  </data>
   <data name="自定义CToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>153, 22</value>
   </data>
@@ -383,7 +392,7 @@
     <value>删除(&amp;D)...</value>
   </data>
   <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 186</value>
+    <value>165, 208</value>
   </data>
   <data name="listView1.Groups" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>

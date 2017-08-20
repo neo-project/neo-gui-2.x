@@ -16,7 +16,7 @@ namespace Neo.UI
         private void CalculateBonusUnavailable(uint height)
         {
             var unspent = Program.CurrentWallet.FindUnspentCoins()
-                .Where(p => p.Output.AssetId.Equals(Blockchain.SystemShare.Hash))
+                .Where(p => p.Output.AssetId.Equals(Blockchain.GoverningToken.Hash))
                 .Select(p => p.Reference)
                 ;
 
@@ -74,7 +74,7 @@ namespace Neo.UI
                 {
                     new TransactionOutput
                     {
-                        AssetId = Blockchain.SystemCoin.Hash,
+                        AssetId = Blockchain.UtilityToken.Hash,
                         Value = Blockchain.CalculateBonus(claims),
                         ScriptHash = Program.CurrentWallet.GetChangeAddress()
                     }

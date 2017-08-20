@@ -114,7 +114,7 @@ namespace Neo.UI
         private void Blockchain_PersistCompleted(object sender, Block block)
         {
             persistence_time = DateTime.Now;
-            if (Program.CurrentWallet?.GetCoins().Any(p => !p.State.HasFlag(CoinState.Spent) && p.Output.AssetId.Equals(Blockchain.SystemShare.Hash)) == true)
+            if (Program.CurrentWallet?.GetCoins().Any(p => !p.State.HasFlag(CoinState.Spent) && p.Output.AssetId.Equals(Blockchain.GoverningToken.Hash)) == true)
                 balance_changed = true;
             CurrentWallet_TransactionsChanged(null, Enumerable.Empty<TransactionInfo>());
         }
@@ -303,25 +303,25 @@ namespace Neo.UI
             {
                 IEnumerable<Coin> coins = Program.CurrentWallet?.GetCoins().Where(p => !p.State.HasFlag(CoinState.Spent)) ?? Enumerable.Empty<Coin>();
                 Fixed8 bonus_available = Blockchain.CalculateBonus(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference));
-                Fixed8 bonus_unavailable = Blockchain.CalculateBonus(coins.Where(p => p.State.HasFlag(CoinState.Confirmed) && p.Output.AssetId.Equals(Blockchain.SystemShare.Hash)).Select(p => p.Reference), Blockchain.Default.Height + 1);
+                Fixed8 bonus_unavailable = Blockchain.CalculateBonus(coins.Where(p => p.State.HasFlag(CoinState.Confirmed) && p.Output.AssetId.Equals(Blockchain.GoverningToken.Hash)).Select(p => p.Reference), Blockchain.Default.Height + 1);
                 Fixed8 bonus = bonus_available + bonus_unavailable;
                 var assets = coins.GroupBy(p => p.Output.AssetId, (k, g) => new
                 {
                     Asset = Blockchain.Default.GetAssetState(k),
                     Value = g.Sum(p => p.Output.Value),
-                    Claim = k.Equals(Blockchain.SystemCoin.Hash) ? bonus : Fixed8.Zero
+                    Claim = k.Equals(Blockchain.UtilityToken.Hash) ? bonus : Fixed8.Zero
                 }).ToDictionary(p => p.Asset.AssetId);
-                if (bonus != Fixed8.Zero && !assets.ContainsKey(Blockchain.SystemCoin.Hash))
+                if (bonus != Fixed8.Zero && !assets.ContainsKey(Blockchain.UtilityToken.Hash))
                 {
-                    assets[Blockchain.SystemCoin.Hash] = new
+                    assets[Blockchain.UtilityToken.Hash] = new
                     {
-                        Asset = Blockchain.Default.GetAssetState(Blockchain.SystemCoin.Hash),
+                        Asset = Blockchain.Default.GetAssetState(Blockchain.UtilityToken.Hash),
                         Value = Fixed8.Zero,
                         Claim = bonus
                     };
                 }
-                var balance_ans = coins.Where(p => p.Output.AssetId.Equals(Blockchain.SystemShare.Hash)).GroupBy(p => p.Output.ScriptHash).ToDictionary(p => p.Key, p => p.Sum(i => i.Output.Value));
-                var balance_anc = coins.Where(p => p.Output.AssetId.Equals(Blockchain.SystemCoin.Hash)).GroupBy(p => p.Output.ScriptHash).ToDictionary(p => p.Key, p => p.Sum(i => i.Output.Value));
+                var balance_ans = coins.Where(p => p.Output.AssetId.Equals(Blockchain.GoverningToken.Hash)).GroupBy(p => p.Output.ScriptHash).ToDictionary(p => p.Key, p => p.Sum(i => i.Output.Value));
+                var balance_anc = coins.Where(p => p.Output.AssetId.Equals(Blockchain.UtilityToken.Hash)).GroupBy(p => p.Output.ScriptHash).ToDictionary(p => p.Key, p => p.Sum(i => i.Output.Value));
                 foreach (ListViewItem item in listView1.Items)
                 {
                     UInt160 script_hash = Wallet.ToScriptHash(item.Name);
@@ -339,7 +339,7 @@ namespace Neo.UI
                 }
                 foreach (var asset in assets.Values)
                 {
-                    string value_text = asset.Value.ToString() + (asset.Asset.AssetId.Equals(Blockchain.SystemCoin.Hash) ? $"+({asset.Claim})" : "");
+                    string value_text = asset.Value.ToString() + (asset.Asset.AssetId.Equals(Blockchain.UtilityToken.Hash) ? $"+({asset.Claim})" : "");
                     if (listView2.Items.ContainsKey(asset.Asset.AssetId.ToString()))
                     {
                         listView2.Items[asset.Asset.AssetId.ToString()].SubItems["value"].Text = value_text;
@@ -735,6 +735,23 @@ namespace Neo.UI
         private void 多方签名MToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (CreateMultiSigContractDialog dialog = new CreateMultiSigContractDialog())
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+                Contract contract = dialog.GetContract();
+                if (contract == null)
+                {
+                    MessageBox.Show(Strings.AddContractFailedMessage);
+                    return;
+                }
+                Program.CurrentWallet.AddContract(contract);
+                listView1.SelectedIndices.Clear();
+                AddContractToListView(contract, true);
+            }
+        }
+
+        private void lockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (CreateLockAccountDialog dialog = new CreateLockAccountDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
                 Contract contract = dialog.GetContract();

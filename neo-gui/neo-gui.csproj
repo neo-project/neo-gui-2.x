@@ -92,6 +92,7 @@
     <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.WebUtilities.1.1.1\lib\net451\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.Sqlite, Version=1.0.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.Sqlite.1.0.1\lib\net451\Microsoft.Data.Sqlite.dll</HintPath>
     </Reference>
@@ -164,11 +165,11 @@
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="Neo, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neo.2.1.0\lib\net461\Neo.dll</HintPath>
+    <Reference Include="Neo, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neo.2.2.0\lib\net461\Neo.dll</HintPath>
     </Reference>
-    <Reference Include="Neo.VM, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neo.VM.2.0.0\lib\net461\Neo.VM.dll</HintPath>
+    <Reference Include="Neo.VM, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neo.VM.2.0.1\lib\net461\Neo.VM.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -237,6 +238,7 @@
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
@@ -319,6 +321,12 @@
     </Compile>
     <Compile Include="UI\ClaimForm.Designer.cs">
       <DependentUpon>ClaimForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CreateLockAccountDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CreateLockAccountDialog.designer.cs">
+      <DependentUpon>CreateLockAccountDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\CreateMultiSigContractDialog.cs">
       <SubType>Form</SubType>
@@ -564,6 +572,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ContractDetailsDialog.zh-Hans.resx">
       <DependentUpon>ContractDetailsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CreateLockAccountDialog.resx">
+      <DependentUpon>CreateLockAccountDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\CreateLockAccountDialog.zh-Hans.resx">
+      <DependentUpon>CreateLockAccountDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CreateMultiSigContractDialog.es-ES.resx">
       <DependentUpon>CreateMultiSigContractDialog.cs</DependentUpon>
