@@ -51,8 +51,8 @@
             // 
             // textBox1
             // 
-            resources.ApplyResources(this.textBox1, "textBox1");
             this.textBox1.AcceptsReturn = true;
+            resources.ApplyResources(this.textBox1, "textBox1");
             this.textBox1.Name = "textBox1";
             // 
             // button1
@@ -71,8 +71,8 @@
             // 
             // VotingDialog
             // 
-            resources.ApplyResources(this, "$this");
             this.AcceptButton = this.button1;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button2;
             this.Controls.Add(this.button2);

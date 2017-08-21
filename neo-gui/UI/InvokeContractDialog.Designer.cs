@@ -215,13 +215,13 @@
             // 
             // openFileDialog1
             // 
-            resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
             this.openFileDialog1.DefaultExt = "avm";
+            resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
             // 
             // InvokeContractDialog
             // 
-            resources.ApplyResources(this, "$this");
             this.AcceptButton = this.button3;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button4;
             this.Controls.Add(this.button5);
