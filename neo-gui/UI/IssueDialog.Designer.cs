@@ -129,8 +129,8 @@
             // 
             // txOutListBox1
             // 
-            resources.ApplyResources(this.txOutListBox1, "txOutListBox1");
             this.txOutListBox1.Asset = null;
+            resources.ApplyResources(this.txOutListBox1, "txOutListBox1");
             this.txOutListBox1.Name = "txOutListBox1";
             this.txOutListBox1.ReadOnly = false;
             this.txOutListBox1.ScriptHash = null;
