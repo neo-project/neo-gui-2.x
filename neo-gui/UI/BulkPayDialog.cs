@@ -6,10 +6,8 @@ using System.Windows.Forms;
 
 namespace Neo.UI
 {
-    public partial class BulkPayDialog : Form
+    internal partial class BulkPayDialog : Form
     {
-        public string AssetName => (comboBox1.SelectedItem as AssetState).GetName();
-
         public BulkPayDialog(AssetState asset = null)
         {
             InitializeComponent();
@@ -28,16 +26,17 @@ namespace Neo.UI
             }
         }
 
-        public TransactionOutput[] GetOutputs()
+        public TxOutListBoxItem[] GetOutputs()
         {
+            AssetState asset = (AssetState)comboBox1.SelectedItem;
             return textBox1.Lines.Where(p => !string.IsNullOrWhiteSpace(p)).Select(p =>
             {
-                UInt256 asset_id = (comboBox1.SelectedItem as AssetState).AssetId;
                 string[] line = p.Split(new[] { ' ', '\t', ',' }, StringSplitOptions.RemoveEmptyEntries);
-                return new TransactionOutput
+                return new TxOutListBoxItem
                 {
-                    AssetId = asset_id,
-                    Value = Fixed8.Parse(line[1]),
+                    AssetName = asset.GetName(),
+                    AssetId = asset.AssetId,
+                    Value = new BigDecimal(Fixed8.Parse(line[1]).GetData(), 8),
                     ScriptHash = Wallet.ToScriptHash(line[0])
                 };
             }).ToArray();

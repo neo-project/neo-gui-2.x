@@ -1,10 +1,8 @@
 ﻿using Neo.Core;
 using Neo.Cryptography;
-using Neo.Cryptography.ECC;
 using Neo.Implementations.Blockchains.LevelDB;
 using Neo.Implementations.Wallets.EntityFramework;
 using Neo.IO;
-using Neo.IO.Caching;
 using Neo.Properties;
 using Neo.SmartContract;
 using Neo.VM;
@@ -21,7 +19,6 @@ using System.Numerics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -115,14 +112,6 @@ namespace Neo.UI
                 });
             }
             item.Selected = selected;
-        }
-
-        private string BigDecimalToString(BigInteger value, byte decimals)
-        {
-            BigInteger divisor = BigInteger.Pow(10, decimals);
-            BigInteger result = BigInteger.DivRem(value, divisor, out BigInteger remainder);
-            if (remainder == 0) return result.ToString();
-            return $"{result}.{remainder}".TrimEnd('0');
         }
 
         private void Blockchain_PersistCompleted(object sender, Block block)
@@ -468,34 +457,26 @@ namespace Neo.UI
                                 sb.EmitPush(address.ToArray());
                                 sb.EmitPush(1);
                                 sb.Emit(OpCode.PACK);
-                                sb.EmitPush(Encoding.UTF8.GetBytes("balanceOf"));
+                                sb.EmitPush("balanceOf");
                                 sb.EmitAppCall(script_hash.ToArray());
                             }
                             sb.Emit(OpCode.DEPTH);
                             sb.Emit(OpCode.PACK);
                             sb.EmitPush(0);
-                            sb.EmitPush(Encoding.UTF8.GetBytes("decimals"));
+                            sb.EmitPush("decimals");
                             sb.EmitAppCall(script_hash.ToArray());
                             sb.EmitPush(0);
-                            sb.EmitPush(Encoding.UTF8.GetBytes("name"));
+                            sb.EmitPush("name");
                             sb.EmitAppCall(script_hash.ToArray());
                             script = sb.ToArray();
                         }
-                        LevelDBBlockchain blockchain = (LevelDBBlockchain)Blockchain.Default;
-                        DataCache<UInt160, AccountState> accounts = blockchain.GetTable<UInt160, AccountState>();
-                        DataCache<ECPoint, ValidatorState> validators = blockchain.GetTable<ECPoint, ValidatorState>();
-                        DataCache<UInt256, AssetState> assets = blockchain.GetTable<UInt256, AssetState>();
-                        DataCache<UInt160, ContractState> contracts = blockchain.GetTable<UInt160, ContractState>();
-                        DataCache<StorageKey, StorageItem> storages = blockchain.GetTable<StorageKey, StorageItem>();
-                        CachedScriptTable script_table = new CachedScriptTable(contracts);
-                        StateMachine service = new StateMachine(accounts, validators, assets, contracts, storages);
-                        ApplicationEngine engine = new ApplicationEngine(TriggerType.Application, null, script_table, service, Fixed8.Zero, true);
-                        engine.LoadScript(script, false);
-                        if (!engine.Execute()) continue;
-                        string name = Encoding.UTF8.GetString(engine.EvaluationStack.Pop().GetByteArray());
+                        ApplicationEngine engine = TestEngine.Run(null, script);
+                        if (engine == null) continue;
+                        string name = engine.EvaluationStack.Pop().GetString();
                         byte decimals = (byte)engine.EvaluationStack.Pop().GetBigInteger();
                         BigInteger amount = engine.EvaluationStack.Pop().GetArray().Aggregate(BigInteger.Zero, (x, y) => x + y.GetBigInteger());
-                        string value_text = BigDecimalToString(amount, decimals);
+                        BigDecimal balance = new BigDecimal(amount, decimals);
+                        string value_text = balance.ToString();
                         if (listView2.Items.ContainsKey(script_hash.ToString()))
                         {
                             listView2.Items[script_hash.ToString()].SubItems["value"].Text = value_text;
@@ -620,11 +601,21 @@ namespace Neo.UI
 
         private void 转账TToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Transaction tx;
             using (TransferDialog dialog = new TransferDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                Helper.SignAndShowInformation(dialog.GetTransaction());
+                tx = dialog.GetTransaction();
             }
+            if (tx is InvocationTransaction itx)
+            {
+                using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
+                {
+                    if (dialog.ShowDialog() != DialogResult.OK) return;
+                    tx = dialog.GetTransaction();
+                }
+            }
+            Helper.SignAndShowInformation(tx);
         }
 
         private void 交易TToolStripMenuItem1_Click(object sender, EventArgs e)

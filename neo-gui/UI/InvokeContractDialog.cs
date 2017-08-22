@@ -1,7 +1,5 @@
 ﻿using Neo.Core;
 using Neo.Cryptography.ECC;
-using Neo.Implementations.Blockchains.LevelDB;
-using Neo.IO.Caching;
 using Neo.Properties;
 using Neo.SmartContract;
 using Neo.VM;
@@ -132,17 +130,8 @@ namespace Neo.UI
             if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
             if (tx.Outputs == null) tx.Outputs = new TransactionOutput[0];
             if (tx.Scripts == null) tx.Scripts = new Witness[0];
-            LevelDBBlockchain blockchain = (LevelDBBlockchain)Blockchain.Default;
-            DataCache<UInt160, AccountState> accounts = blockchain.GetTable<UInt160, AccountState>();
-            DataCache<ECPoint, ValidatorState> validators = blockchain.GetTable<ECPoint, ValidatorState>();
-            DataCache<UInt256, AssetState> assets = blockchain.GetTable<UInt256, AssetState>();
-            DataCache<UInt160, ContractState> contracts = blockchain.GetTable<UInt160, ContractState>();
-            DataCache<StorageKey, StorageItem> storages = blockchain.GetTable<StorageKey, StorageItem>();
-            CachedScriptTable script_table = new CachedScriptTable(contracts);
-            StateMachine service = new StateMachine(accounts, validators, assets, contracts, storages);
-            ApplicationEngine engine = new ApplicationEngine(TriggerType.Application, tx, script_table, service, Fixed8.Zero, true);
-            engine.LoadScript(tx.Script, false);
-            if (engine.Execute())
+            ApplicationEngine engine = TestEngine.Run(tx, tx.Script);
+            if (engine != null)
             {
                 tx.Gas = engine.GasConsumed - Fixed8.FromDecimal(10);
                 if (tx.Gas < Fixed8.One) tx.Gas = Fixed8.One;

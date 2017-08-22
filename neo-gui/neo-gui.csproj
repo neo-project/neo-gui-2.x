@@ -168,8 +168,8 @@
     <Reference Include="Neo, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Neo.2.2.0\lib\net461\Neo.dll</HintPath>
     </Reference>
-    <Reference Include="Neo.VM, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neo.VM.2.0.1\lib\net461\Neo.VM.dll</HintPath>
+    <Reference Include="Neo.VM, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neo.VM.2.0.3\lib\net461\Neo.VM.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -274,6 +274,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BigDecimal.cs" />
     <Compile Include="Cryptography\CertificateQueryResult.cs" />
     <Compile Include="Cryptography\CertificateQueryResultType.cs" />
     <Compile Include="Cryptography\CertificateQueryService.cs" />
@@ -292,6 +293,7 @@
     </Compile>
     <Compile Include="SmartContract\CachedScriptTable.cs" />
     <Compile Include="SmartContract\ContractParameter.cs" />
+    <Compile Include="SmartContract\TestEngine.cs" />
     <Compile Include="UI\AssetRegisterDialog.cs">
       <SubType>Form</SubType>
     </Compile>

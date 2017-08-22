@@ -8,8 +8,6 @@ namespace Neo.UI
 {
     internal partial class PayToDialog : Form
     {
-        public string AssetName => (comboBox1.SelectedItem as AssetState).GetName();
-
         public PayToDialog(AssetState asset = null, UInt160 scriptHash = null)
         {
             InitializeComponent();
@@ -33,12 +31,14 @@ namespace Neo.UI
             }
         }
 
-        public TransactionOutput GetOutput()
+        public TxOutListBoxItem GetOutput()
         {
-            return new TransactionOutput
+            AssetState asset = (AssetState)comboBox1.SelectedItem;
+            return new TxOutListBoxItem
             {
-                AssetId = (comboBox1.SelectedItem as AssetState).AssetId,
-                Value = Fixed8.Parse(textBox2.Text),
+                AssetName = asset.GetName(),
+                AssetId = asset.AssetId,
+                Value = new BigDecimal(Fixed8.Parse(textBox2.Text).GetData(), 8),
                 ScriptHash = Wallet.ToScriptHash(textBox1.Text)
             };
         }

@@ -24,10 +24,10 @@ namespace Neo.UI
             return Program.CurrentWallet.MakeTransaction(new IssueTransaction
             {
                 Version = 1,
-                Outputs = txOutListBox1.Items.GroupBy(p => p.Output.ScriptHash).Select(g => new TransactionOutput
+                Outputs = txOutListBox1.Items.GroupBy(p => p.ScriptHash).Select(g => new TransactionOutput
                 {
                     AssetId = txOutListBox1.Asset.AssetId,
-                    Value = g.Sum(p => p.Output.Value),
+                    Value = g.Sum(p => new Fixed8((long)p.Value.Value)),
                     ScriptHash = g.Key
                 }).ToArray()
             }, fee: Fixed8.One);

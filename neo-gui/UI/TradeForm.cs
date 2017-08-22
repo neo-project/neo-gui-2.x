@@ -64,7 +64,10 @@ namespace Neo.UI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ContractTransaction tx = Program.CurrentWallet.MakeTransaction(new ContractTransaction { Outputs = txOutListBox1.Items.Select(p => p.Output).ToArray() }, fee: Fixed8.Zero);
+            ContractTransaction tx = Program.CurrentWallet.MakeTransaction(new ContractTransaction
+            {
+                Outputs = txOutListBox1.Items.Select(p => p.ToTxOutput()).ToArray()
+            }, fee: Fixed8.Zero);
             textBox3.Text = RequestToJson(tx).ToString();
             InformationBox.Show(textBox3.Text, Strings.TradeRequestCreatedMessage, Strings.TradeRequestCreatedCaption);
             tabControl1.SelectedTab = tabPage2;
