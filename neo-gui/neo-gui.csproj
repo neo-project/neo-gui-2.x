@@ -376,6 +376,12 @@
     <Compile Include="UI\IssueDialog.Designer.cs">
       <DependentUpon>IssueDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\OptionsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\OptionsDialog.Designer.cs">
+      <DependentUpon>OptionsDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ParametersEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -698,6 +704,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OpenWalletDialog.zh-Hans.resx">
       <DependentUpon>OpenWalletDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\OptionsDialog.resx">
+      <DependentUpon>OptionsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\OptionsDialog.zh-Hans.resx">
+      <DependentUpon>OptionsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ParametersEditor.es-ES.resx">
       <DependentUpon>ParametersEditor.cs</DependentUpon>
