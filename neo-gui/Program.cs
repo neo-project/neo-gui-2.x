@@ -24,23 +24,10 @@ namespace Neo
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Exception ex = (Exception)e.ExceptionObject;
             using (FileStream fs = new FileStream("error.log", FileMode.Create, FileAccess.Write, FileShare.None))
             using (StreamWriter w = new StreamWriter(fs))
             {
-                w.WriteLine(ex.GetType());
-                w.WriteLine(ex.Message);
-                w.WriteLine(ex.StackTrace);
-                AggregateException ex2 = ex as AggregateException;
-                if (ex2 != null)
-                {
-                    foreach (Exception inner in ex2.InnerExceptions)
-                    {
-                        w.WriteLine();
-                        w.WriteLine(inner.Message);
-                        w.WriteLine(inner.StackTrace);
-                    }
-                }
+                PrintErrorLogs(w, (Exception)e.ExceptionObject);
             }
         }
 
@@ -127,6 +114,26 @@ namespace Neo
             using (FileStream fs = new FileStream(PeerStatePath, FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 LocalNode.SaveState(fs);
+            }
+        }
+
+        private static void PrintErrorLogs(StreamWriter writer, Exception ex)
+        {
+            writer.WriteLine(ex.GetType());
+            writer.WriteLine(ex.Message);
+            writer.WriteLine(ex.StackTrace);
+            if (ex is AggregateException ex2)
+            {
+                foreach (Exception inner in ex2.InnerExceptions)
+                {
+                    writer.WriteLine();
+                    PrintErrorLogs(writer, inner);
+                }
+            }
+            else if (ex.InnerException != null)
+            {
+                writer.WriteLine();
+                PrintErrorLogs(writer, ex.InnerException);
             }
         }
     }
