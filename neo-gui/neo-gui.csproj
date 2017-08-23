@@ -165,8 +165,8 @@
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="Neo, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neo.2.2.0\lib\net461\Neo.dll</HintPath>
+    <Reference Include="Neo, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neo.2.2.1\lib\net461\Neo.dll</HintPath>
     </Reference>
     <Reference Include="Neo.VM, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Neo.VM.2.0.3\lib\net461\Neo.VM.dll</HintPath>
@@ -176,6 +176,9 @@
     </Reference>
     <Reference Include="Remotion.Linq, Version=2.1.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
       <HintPath>..\packages\Remotion.Linq.2.1.1\lib\net45\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Replicon.Cryptography.SCrypt, Version=1.1.6.13, Culture=neutral, PublicKeyToken=4e0c787cc79e77b2, processorArchitecture=MSIL">
+      <HintPath>..\packages\Replicon.Cryptography.SCrypt.1.1.6.13\lib\net40\Replicon.Cryptography.SCrypt.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
