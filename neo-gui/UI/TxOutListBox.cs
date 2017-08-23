@@ -12,7 +12,7 @@ namespace Neo.UI
     {
         public event EventHandler ItemsChanged;
 
-        public AssetState Asset { get; set; }
+        public AssetDescriptor Asset { get; set; }
 
         public int ItemCount => listBox1.Items.Count;
 

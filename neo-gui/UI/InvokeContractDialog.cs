@@ -61,13 +61,13 @@ namespace Neo.UI
                             sb.EmitPush((BigInteger)parameter.Value);
                             break;
                         case ContractParameterType.Hash160:
-                            sb.EmitPush(((UInt160)parameter.Value).ToArray());
+                            sb.EmitPush((UInt160)parameter.Value);
                             break;
                         case ContractParameterType.Hash256:
-                            sb.EmitPush(((UInt256)parameter.Value).ToArray());
+                            sb.EmitPush((UInt256)parameter.Value);
                             break;
                         case ContractParameterType.PublicKey:
-                            sb.EmitPush(((ECPoint)parameter.Value).EncodePoint(true));
+                            sb.EmitPush((ECPoint)parameter.Value);
                             break;
                     }
                 }
@@ -130,7 +130,7 @@ namespace Neo.UI
             if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
             if (tx.Outputs == null) tx.Outputs = new TransactionOutput[0];
             if (tx.Scripts == null) tx.Scripts = new Witness[0];
-            ApplicationEngine engine = TestEngine.Run(tx, tx.Script);
+            ApplicationEngine engine = TestEngine.Run(tx.Script, tx);
             if (engine != null)
             {
                 tx.Gas = engine.GasConsumed - Fixed8.FromDecimal(10);

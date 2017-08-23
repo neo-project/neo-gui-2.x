@@ -3,6 +3,7 @@ using Neo.Cryptography.ECC;
 using Neo.Implementations.Blockchains.LevelDB;
 using Neo.IO.Caching;
 using Neo.VM;
+using System;
 
 namespace Neo.SmartContract
 {
@@ -10,7 +11,19 @@ namespace Neo.SmartContract
     {
         private static readonly LevelDBBlockchain blockchain = (LevelDBBlockchain)Blockchain.Default;
 
-        public static ApplicationEngine Run(IScriptContainer container, byte[] script)
+        public static StackItem Call(UInt160 scriptHash, string operation, params object[] args)
+        {
+            byte[] script;
+            using (ScriptBuilder sb = new ScriptBuilder())
+            {
+                script = sb.EmitAppCall(scriptHash, operation, args).ToArray();
+            }
+            ApplicationEngine engine = Run(script);
+            if (engine == null) throw new Exception();
+            return engine.EvaluationStack.Pop();
+        }
+
+        public static ApplicationEngine Run(byte[] script, IScriptContainer container = null)
         {
             DataCache<UInt160, AccountState> accounts = blockchain.GetTable<UInt160, AccountState>();
             DataCache<ECPoint, ValidatorState> validators = blockchain.GetTable<ECPoint, ValidatorState>();

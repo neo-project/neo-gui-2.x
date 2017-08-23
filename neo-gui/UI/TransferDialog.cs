@@ -50,18 +50,11 @@ namespace Neo.UI
                         using (ScriptBuilder sb2 = new ScriptBuilder())
                         {
                             foreach (UInt160 address in addresses)
-                            {
-                                sb2.EmitPush(address.ToArray());
-                                sb2.EmitPush(1);
-                                sb2.Emit(OpCode.PACK);
-                                sb2.EmitPush("balanceOf");
-                                sb2.EmitAppCall(output.AssetId.ToArray());
-                            }
-                            sb2.Emit(OpCode.DEPTH);
-                            sb2.Emit(OpCode.PACK);
+                                sb2.EmitAppCall(output.AssetId, "balanceOf", address);
+                            sb2.Emit(OpCode.DEPTH, OpCode.PACK);
                             script = sb2.ToArray();
                         }
-                        ApplicationEngine engine = TestEngine.Run(null, script);
+                        ApplicationEngine engine = TestEngine.Run(script);
                         if (engine == null) return null;
                         var balances = engine.EvaluationStack.Pop().GetArray().Reverse().Zip(addresses, (i, a) => new
                         {
@@ -92,13 +85,7 @@ namespace Neo.UI
                                 BigInteger change = sum - output.Value;
                                 if (change > 0) value -= change;
                             }
-                            sb.EmitPush(value);
-                            sb.EmitPush(output.Account.ToArray());
-                            sb.EmitPush(balances[i].Account.ToArray());
-                            sb.EmitPush(3);
-                            sb.Emit(OpCode.PACK);
-                            sb.EmitPush("transfer");
-                            sb.EmitAppCall(output.AssetId.ToArray());
+                            sb.EmitAppCall(output.AssetId, "transfer", balances[i].Account, output.Account, value);
                             sb.Emit(OpCode.THROWIFNOT);
                         }
                     }

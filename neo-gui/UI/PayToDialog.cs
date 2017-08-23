@@ -1,4 +1,5 @@
 ﻿using Neo.Core;
+using Neo.Properties;
 using Neo.Wallets;
 using System;
 using System.Linq;
@@ -8,14 +9,20 @@ namespace Neo.UI
 {
     internal partial class PayToDialog : Form
     {
-        public PayToDialog(AssetState asset = null, UInt160 scriptHash = null)
+        public PayToDialog(AssetDescriptor asset = null, UInt160 scriptHash = null)
         {
             InitializeComponent();
             if (asset == null)
             {
                 foreach (UInt256 asset_id in Program.CurrentWallet.FindUnspentCoins().Select(p => p.Output.AssetId).Distinct())
                 {
-                    comboBox1.Items.Add(Blockchain.Default.GetAssetState(asset_id));
+                    AssetState state = Blockchain.Default.GetAssetState(asset_id);
+                    comboBox1.Items.Add(new AssetDescriptor(state));
+                }
+                foreach (string s in Settings.Default.NEP5Watched)
+                {
+                    UInt160 asset_id = UInt160.Parse(s);
+                    comboBox1.Items.Add(new AssetDescriptor(asset_id));
                 }
             }
             else
@@ -33,10 +40,10 @@ namespace Neo.UI
 
         public TxOutListBoxItem GetOutput()
         {
-            AssetState asset = (AssetState)comboBox1.SelectedItem;
+            AssetDescriptor asset = (AssetDescriptor)comboBox1.SelectedItem;
             return new TxOutListBoxItem
             {
-                AssetName = asset.GetName(),
+                AssetName = asset.AssetName,
                 AssetId = asset.AssetId,
                 Value = new BigDecimal(Fixed8.Parse(textBox2.Text).GetData(), 8),
                 ScriptHash = Wallet.ToScriptHash(textBox1.Text)
@@ -45,14 +52,14 @@ namespace Neo.UI
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            AssetState asset = comboBox1.SelectedItem as AssetState;
+            AssetDescriptor asset = comboBox1.SelectedItem as AssetDescriptor;
             if (asset == null)
             {
                 textBox3.Text = "";
             }
             else
             {
-                textBox3.Text = Program.CurrentWallet.GetAvailable(asset.AssetId).ToString();
+                textBox3.Text = asset.GetAvailable().ToString();
             }
             textBox_TextChanged(this, EventArgs.Empty);
         }
@@ -73,13 +80,12 @@ namespace Neo.UI
                 button1.Enabled = false;
                 return;
             }
-            Fixed8 amount;
-            if (!Fixed8.TryParse(textBox2.Text, out amount))
+            if (!Fixed8.TryParse(textBox2.Text, out Fixed8 amount))
             {
                 button1.Enabled = false;
                 return;
             }
-            if (amount.GetData() % (long)Math.Pow(10, 8 - (comboBox1.SelectedItem as AssetState).Precision) != 0)
+            if (amount.GetData() % (long)Math.Pow(10, 8 - (comboBox1.SelectedItem as AssetDescriptor).Precision) != 0)
             {
                 button1.Enabled = false;
                 return;

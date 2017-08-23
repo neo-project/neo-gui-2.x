@@ -453,28 +453,18 @@ namespace Neo.UI
                         using (ScriptBuilder sb = new ScriptBuilder())
                         {
                             foreach (UInt160 address in addresses)
-                            {
-                                sb.EmitPush(address.ToArray());
-                                sb.EmitPush(1);
-                                sb.Emit(OpCode.PACK);
-                                sb.EmitPush("balanceOf");
-                                sb.EmitAppCall(script_hash.ToArray());
-                            }
-                            sb.Emit(OpCode.DEPTH);
-                            sb.Emit(OpCode.PACK);
-                            sb.EmitPush(0);
-                            sb.EmitPush("decimals");
-                            sb.EmitAppCall(script_hash.ToArray());
-                            sb.EmitPush(0);
-                            sb.EmitPush("name");
-                            sb.EmitAppCall(script_hash.ToArray());
+                                sb.EmitAppCall(script_hash, "balanceOf", address);
+                            sb.Emit(OpCode.DEPTH, OpCode.PACK);
+                            sb.EmitAppCall(script_hash, "decimals");
+                            sb.EmitAppCall(script_hash, "name");
                             script = sb.ToArray();
                         }
-                        ApplicationEngine engine = TestEngine.Run(null, script);
+                        ApplicationEngine engine = TestEngine.Run(script);
                         if (engine == null) continue;
                         string name = engine.EvaluationStack.Pop().GetString();
                         byte decimals = (byte)engine.EvaluationStack.Pop().GetBigInteger();
                         BigInteger amount = engine.EvaluationStack.Pop().GetArray().Aggregate(BigInteger.Zero, (x, y) => x + y.GetBigInteger());
+                        if (amount == 0) continue;
                         BigDecimal balance = new BigDecimal(amount, decimals);
                         string value_text = balance.ToString();
                         if (listView2.Items.ContainsKey(script_hash.ToString()))
@@ -940,13 +930,13 @@ namespace Neo.UI
             viewCertificateToolStripMenuItem.Enabled = listView2.SelectedIndices.Count == 1;
             if (viewCertificateToolStripMenuItem.Enabled)
             {
-                CertificateQueryResultType type = (CertificateQueryResultType)listView2.SelectedItems[0].SubItems["issuer"].Tag;
+                CertificateQueryResultType? type = (CertificateQueryResultType?)listView2.SelectedItems[0].SubItems["issuer"].Tag;
                 viewCertificateToolStripMenuItem.Enabled = type == CertificateQueryResultType.Good || type == CertificateQueryResultType.Expired || type == CertificateQueryResultType.Invalid;
             }
             删除DToolStripMenuItem1.Enabled = listView2.SelectedIndices.Count > 0;
             if (删除DToolStripMenuItem1.Enabled)
             {
-                删除DToolStripMenuItem1.Enabled = listView2.SelectedItems.OfType<ListViewItem>().Select(p => (AssetState)p.Tag).All(p => p.AssetType != AssetType.GoverningToken && p.AssetType != AssetType.UtilityToken);
+                删除DToolStripMenuItem1.Enabled = listView2.SelectedItems.OfType<ListViewItem>().Select(p => p.Tag as AssetState).All(p => p == null || (p.AssetType != AssetType.GoverningToken && p.AssetType != AssetType.UtilityToken));
             }
         }
 
@@ -962,11 +952,12 @@ namespace Neo.UI
         private void 删除DToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (listView2.SelectedIndices.Count == 0) return;
-            var delete = listView2.SelectedItems.OfType<ListViewItem>().Select(p => (AssetState)p.Tag).Select(p => new
+            var delete = listView2.SelectedItems.OfType<ListViewItem>().Select(p => p.Tag as AssetState).Where(p => p != null).Select(p => new
             {
                 Asset = p,
                 Value = Program.CurrentWallet.GetAvailable(p.AssetId)
             }).ToArray();
+            if (delete.Length == 0) return;
             if (MessageBox.Show($"{Strings.DeleteAssetConfirmationMessage}\n"
                 + string.Join("\n", delete.Select(p => $"{p.Asset.GetName()}:{p.Value}"))
                 , Strings.DeleteConfirmation, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
