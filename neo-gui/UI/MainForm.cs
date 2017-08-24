@@ -1008,5 +1008,24 @@ namespace Neo.UI
                 dialog.ShowDialog();
             }
         }
+
+        private void iCOToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Transaction tx;
+            using (ICODialog dialog = new ICODialog())
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+                tx = dialog.GetTransaction();
+            }
+            if (tx is InvocationTransaction itx)
+            {
+                using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
+                {
+                    if (dialog.ShowDialog() != DialogResult.OK) return;
+                    tx = dialog.GetTransaction();
+                }
+            }
+            Helper.SignAndShowInformation(tx);
+        }
     }
 }
