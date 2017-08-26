@@ -1027,5 +1027,24 @@ namespace Neo.UI
             }
             Helper.SignAndShowInformation(tx);
         }
+
+        private void contractTransferToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Transaction tx;
+            using (ContractTransferDialog dialog = new ContractTransferDialog())
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+                tx = dialog.GetTransaction();
+            }
+            //if (tx is InvocationTransaction itx)
+            //{
+            //    using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
+            //    {
+            //        if (dialog.ShowDialog() != DialogResult.OK) return;
+            //        tx = dialog.GetTransaction();
+            //    }
+            //}
+            Helper.SignAndShowInformation(tx);
+        }
     }
 }

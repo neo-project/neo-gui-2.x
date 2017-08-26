@@ -166,7 +166,8 @@
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Neo, Version=2.2.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neo.2.2.2\lib\net461\Neo.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\neo\neo\neo\bin\Debug\net461\Neo.dll</HintPath>
     </Reference>
     <Reference Include="Neo.VM, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Neo.VM.2.0.3\lib\net461\Neo.VM.dll</HintPath>
@@ -327,6 +328,12 @@
     </Compile>
     <Compile Include="UI\ClaimForm.Designer.cs">
       <DependentUpon>ClaimForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ContractTransferDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ContractTransferDialog.Designer.cs">
+      <DependentUpon>ContractTransferDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\CreateLockAccountDialog.cs">
       <SubType>Form</SubType>
@@ -590,6 +597,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ContractDetailsDialog.zh-Hans.resx">
       <DependentUpon>ContractDetailsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ContractTransferDialog.resx">
+      <DependentUpon>ContractTransferDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CreateLockAccountDialog.resx">
       <DependentUpon>CreateLockAccountDialog.cs</DependentUpon>

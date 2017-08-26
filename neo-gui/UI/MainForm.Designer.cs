@@ -58,6 +58,7 @@
             this.选举EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iCOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助HToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查看帮助VToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.官网WToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -115,7 +116,7 @@
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.iCOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contractTransferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -246,7 +247,8 @@
             this.选举EToolStripMenuItem,
             this.toolStripSeparator9,
             this.optionsToolStripMenuItem,
-            this.iCOToolStripMenuItem});
+            this.iCOToolStripMenuItem,
+            this.contractTransferToolStripMenuItem});
             this.高级AToolStripMenuItem.Name = "高级AToolStripMenuItem";
             resources.ApplyResources(this.高级AToolStripMenuItem, "高级AToolStripMenuItem");
             // 
@@ -317,6 +319,12 @@
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             resources.ApplyResources(this.optionsToolStripMenuItem, "optionsToolStripMenuItem");
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+            // 
+            // iCOToolStripMenuItem
+            // 
+            this.iCOToolStripMenuItem.Name = "iCOToolStripMenuItem";
+            resources.ApplyResources(this.iCOToolStripMenuItem, "iCOToolStripMenuItem");
+            this.iCOToolStripMenuItem.Click += new System.EventHandler(this.iCOToolStripMenuItem_Click);
             // 
             // 帮助HToolStripMenuItem
             // 
@@ -722,11 +730,11 @@
             resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
-            // iCOToolStripMenuItem
+            // contractTransferToolStripMenuItem
             // 
-            this.iCOToolStripMenuItem.Name = "iCOToolStripMenuItem";
-            resources.ApplyResources(this.iCOToolStripMenuItem, "iCOToolStripMenuItem");
-            this.iCOToolStripMenuItem.Click += new System.EventHandler(this.iCOToolStripMenuItem_Click);
+            this.contractTransferToolStripMenuItem.Name = "contractTransferToolStripMenuItem";
+            resources.ApplyResources(this.contractTransferToolStripMenuItem, "contractTransferToolStripMenuItem");
+            this.contractTransferToolStripMenuItem.Click += new System.EventHandler(this.contractTransferToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -843,6 +851,7 @@
         private System.Windows.Forms.ToolStripMenuItem lockToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.ToolStripMenuItem iCOToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem contractTransferToolStripMenuItem;
     }
 }
 

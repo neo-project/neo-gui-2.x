@@ -296,6 +296,12 @@
   <data name="iCOToolStripMenuItem.Text" xml:space="preserve">
     <value>ICO</value>
   </data>
+  <data name="contractTransferToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 26</value>
+  </data>
+  <data name="contractTransferToolStripMenuItem.Text" xml:space="preserve">
+    <value>ContractTransfer</value>
+  </data>
   <data name="高级AToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 24</value>
   </data>
@@ -763,7 +769,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="listView2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1145, 614</value>
+    <value>1145, 615</value>
   </data>
   <data name="listView2.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -790,7 +796,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1153, 622</value>
+    <value>1153, 623</value>
   </data>
   <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -862,7 +868,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="listView3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1145, 614</value>
+    <value>1145, 615</value>
   </data>
   <data name="listView3.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -889,7 +895,7 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tabPage3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1153, 622</value>
+    <value>1153, 623</value>
   </data>
   <data name="tabPage3.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1406,6 +1412,12 @@
   <data name="&gt;&gt;optionsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;iCOToolStripMenuItem.Name" xml:space="preserve">
+    <value>iCOToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;iCOToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;帮助HToolStripMenuItem.Name" xml:space="preserve">
     <value>帮助HToolStripMenuItem</value>
   </data>
@@ -1682,10 +1694,10 @@
   <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;iCOToolStripMenuItem.Name" xml:space="preserve">
-    <value>iCOToolStripMenuItem</value>
+  <data name="&gt;&gt;contractTransferToolStripMenuItem.Name" xml:space="preserve">
+    <value>contractTransferToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;iCOToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;contractTransferToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
