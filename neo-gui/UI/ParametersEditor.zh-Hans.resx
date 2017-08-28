@@ -132,6 +132,9 @@
   <data name="groupBox3.Text" xml:space="preserve">
     <value>新值</value>
   </data>
+  <data name="button2.Text" xml:space="preserve">
+    <value>编辑数组</value>
+  </data>
   <data name="button1.Text" xml:space="preserve">
     <value>更新</value>
   </data>
