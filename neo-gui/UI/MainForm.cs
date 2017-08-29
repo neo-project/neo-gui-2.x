@@ -25,6 +25,9 @@ namespace Neo.UI
 {
     internal partial class MainForm : Form
     {
+        public SmartContractList scList = new SmartContractList();
+        public static MainForm Instance = null;                                                                 // save a copy of mainform instance to be used by subforms
+
         private static readonly UInt160 RecycleScriptHash = new[] { (byte)OpCode.PUSHT }.ToScriptHash();
         private bool balance_changed = false;
         private DateTime persistence_time = DateTime.MinValue;
@@ -32,6 +35,7 @@ namespace Neo.UI
         public MainForm(XDocument xdoc = null)
         {
             InitializeComponent();
+            Instance = this;
             if (xdoc != null)
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -145,6 +149,7 @@ namespace Neo.UI
             资产分发IToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             deployContractToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             invokeContractToolStripMenuItem.Enabled = Program.CurrentWallet != null;
+            listContractsToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             选举EToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             创建新地址NToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             导入私钥IToolStripMenuItem.Enabled = Program.CurrentWallet != null;
@@ -431,6 +436,12 @@ namespace Neo.UI
                             break;
                     }
                 }
+            }
+
+            // update the smart contract list if it is being displayed
+            if (scList.Visible)
+            {
+                scList.updateStatus();
             }
         }
 
@@ -918,6 +929,14 @@ namespace Neo.UI
             {
                 dialog.ShowDialog();
             }
+        }
+
+        /**
+         * menu item for List Contracts was clicked
+         */
+        private void listContractsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            scList.Show();
         }
     }
 }
