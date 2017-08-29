@@ -68,5 +68,15 @@ namespace Neo.UI
             if (openFileDialog1.ShowDialog() != DialogResult.OK) return;
             textBox8.Text = File.ReadAllBytes(openFileDialog1.FileName).ToHexString();
         }
+
+        private void textBox5_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == 9)
+            {
+                // tab in description should just jump to the next control
+                e.SuppressKeyPress = true;
+                SelectNextControl((Control)sender, true, true, true, true);
+            }
+        }
     }
 }
