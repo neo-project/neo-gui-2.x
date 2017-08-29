@@ -1030,5 +1030,32 @@ namespace Neo.UI
                 AddEventLog_RowItem(newLogRow);
             }
         }
+
+        /**
+         * event log context menu handler - clear listview of all events
+         */
+        private void clearLogMenuItem_Click(object sender, EventArgs e)
+        {
+            listView4.Items.Clear();
+        }
+
+        /**
+         * event log context menu handler - copy script hash for selected item
+         */
+        private void CopySHtoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listView4.SelectedItems.Count == 0) return;
+            Clipboard.SetDataObject(listView4.SelectedItems[0].SubItems[2].Text);
+        }
+
+        /**
+         * event log context menu handler - copy message for selected item
+         */
+        private void CopyMessagetoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listView4.SelectedItems.Count == 0) return;
+            Clipboard.SetDataObject(listView4.SelectedItems[0].SubItems[5].Text);
+        }
+
     }
 }

@@ -740,6 +740,7 @@
             this.columnHeader15,
             this.eventLogMessageType,
             this.columnHeader16});
+            this.listView4.ContextMenuStrip = this.contextMenuStrip4;
             resources.ApplyResources(this.listView4, "listView4");
             this.listView4.FullRowSelect = true;
             this.listView4.GridLines = true;
@@ -773,6 +774,34 @@
             // columnHeader16
             // 
             resources.ApplyResources(this.columnHeader16, "columnHeader16");
+            // 
+            // contextMenuStrip4
+            // 
+            this.contextMenuStrip4.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.contextMenuStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.CopySHtoolStripMenuItem,
+            this.CopyMessagetoolStripMenuItem,
+            this.clearLogToolStripMenuItem});
+            this.contextMenuStrip4.Name = "contextMenuStrip4";
+            resources.ApplyResources(this.contextMenuStrip4, "contextMenuStrip4");
+            // 
+            // CopySHtoolStripMenuItem
+            // 
+            this.CopySHtoolStripMenuItem.Name = "CopySHtoolStripMenuItem";
+            resources.ApplyResources(this.CopySHtoolStripMenuItem, "CopySHtoolStripMenuItem");
+            this.CopySHtoolStripMenuItem.Click += new System.EventHandler(this.CopySHtoolStripMenuItem_Click);
+            // 
+            // CopyMessagetoolStripMenuItem
+            // 
+            this.CopyMessagetoolStripMenuItem.Name = "CopyMessagetoolStripMenuItem";
+            resources.ApplyResources(this.CopyMessagetoolStripMenuItem, "CopyMessagetoolStripMenuItem");
+            this.CopyMessagetoolStripMenuItem.Click += new System.EventHandler(this.CopyMessagetoolStripMenuItem_Click);
+            // 
+            // clearLogToolStripMenuItem
+            // 
+            this.clearLogToolStripMenuItem.Name = "clearLogToolStripMenuItem";
+            resources.ApplyResources(this.clearLogToolStripMenuItem, "clearLogToolStripMenuItem");
+            this.clearLogToolStripMenuItem.Click += new System.EventHandler(this.clearLogMenuItem_Click);
             // 
             // MainForm
             // 
@@ -895,6 +924,11 @@
         private System.Windows.Forms.ColumnHeader columnHeader13;
         private System.Windows.Forms.ColumnHeader columnHeader14;
         private System.Windows.Forms.ColumnHeader columnHeader15;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip4;
+        private System.Windows.Forms.ToolStripMenuItem CopySHtoolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CopyMessagetoolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem smartContractWatchlistToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearLogToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader eventLogMessageType;
         private System.Windows.Forms.ColumnHeader columnHeader16;
     }
