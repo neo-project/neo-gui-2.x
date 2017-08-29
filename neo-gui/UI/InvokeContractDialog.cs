@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Neo.UI
@@ -24,7 +25,7 @@ namespace Neo.UI
             this.tx = tx;
             if (tx != null)
             {
-                radioButton2.Checked = true;
+                tabControl1.SelectedTab = tabPage2;
                 textBox6.Text = tx.Script.ToHexString();
             }
         }
@@ -40,6 +41,32 @@ namespace Neo.UI
                 Inputs = tx.Inputs,
                 Outputs = tx.Outputs
             });
+        }
+
+        private void PrintStack(StringBuilder sb, IList<StackItem> items)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].IsArray)
+                {
+                    sb.Append('[');
+                    PrintStack(sb, items[i].GetArray());
+                    sb.Append(']');
+                }
+                else
+                {
+                    try
+                    {
+                        sb.Append(items[i].GetByteArray().ToHexString());
+                    }
+                    catch (NotSupportedException)
+                    {
+                        sb.Append("(interface)");
+                    }
+                }
+                sb.Append(", ");
+            }
+            if (items.Count > 0) sb.Length -= 2;
         }
 
         private void PushParameters(ScriptBuilder sb, IList<ContractParameter> parameters)
@@ -93,11 +120,6 @@ namespace Neo.UI
             }
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            panel1.Enabled = radioButton1.Checked;
-        }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             button1.Enabled = UInt160.TryParse(textBox1.Text, out _);
@@ -126,11 +148,6 @@ namespace Neo.UI
             UpdateScript();
         }
 
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            panel2.Enabled = radioButton2.Checked;
-        }
-
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
             button3.Enabled = false;
@@ -154,6 +171,13 @@ namespace Neo.UI
                 tx.Gas = tx.Gas.Ceiling();
                 label7.Text = tx.Gas + " gas";
                 button3.Enabled = true;
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine($"VM State: {engine.State}");
+                sb.AppendLine($"Gas Consumed: {engine.GasConsumed}");
+                sb.Append("Evaluation Stack: ");
+                PrintStack(sb, engine.EvaluationStack.ToArray());
+                sb.AppendLine();
+                textBox7.Text = sb.ToString();
             }
             else
             {

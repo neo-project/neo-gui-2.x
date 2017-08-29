@@ -1,5 +1,6 @@
 ﻿using Neo.Core;
 using Neo.Cryptography.ECC;
+using System.Collections.Generic;
 
 namespace Neo.SmartContract
 {
@@ -40,14 +41,9 @@ namespace Neo.SmartContract
                     this.Value = "";
                     break;
                 case ContractParameterType.Array:
-                    this.Value = new ContractParameter[0];
+                    this.Value = new List<ContractParameter>();
                     break;
             }
-        }
-
-        public override string ToString()
-        {
-            return Value.ToString();
         }
     }
 }
