@@ -302,11 +302,35 @@
   <data name="contractTransferToolStripMenuItem.Text" xml:space="preserve">
     <value>ContractTransfer</value>
   </data>
+  <data name="inflationRateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 26</value>
+  </data>
+  <data name="inflationRateToolStripMenuItem.Text" xml:space="preserve">
+    <value>InflationRate</value>
+  </data>
+  <data name="inflationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 26</value>
+  </data>
+  <data name="inflationToolStripMenuItem.Text" xml:space="preserve">
+    <value>Inflation</value>
+  </data>
+  <data name="inflationStartTimeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 26</value>
+  </data>
+  <data name="inflationStartTimeToolStripMenuItem.Text" xml:space="preserve">
+    <value>InflationStartTime</value>
+  </data>
   <data name="高级AToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 24</value>
   </data>
   <data name="高级AToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Advanced</value>
+  </data>
+  <data name="smartContractToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 24</value>
+  </data>
+  <data name="smartContractToolStripMenuItem.Text" xml:space="preserve">
+    <value>Smart Contract</value>
   </data>
   <data name="查看帮助VToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 26</value>
@@ -1418,6 +1442,30 @@
   <data name="&gt;&gt;iCOToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;contractTransferToolStripMenuItem.Name" xml:space="preserve">
+    <value>contractTransferToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;contractTransferToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inflationRateToolStripMenuItem.Name" xml:space="preserve">
+    <value>inflationRateToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;inflationRateToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inflationToolStripMenuItem.Name" xml:space="preserve">
+    <value>inflationToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;inflationToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;smartContractToolStripMenuItem.Name" xml:space="preserve">
+    <value>smartContractToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;smartContractToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;帮助HToolStripMenuItem.Name" xml:space="preserve">
     <value>帮助HToolStripMenuItem</value>
   </data>
@@ -1694,10 +1742,10 @@
   <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;contractTransferToolStripMenuItem.Name" xml:space="preserve">
-    <value>contractTransferToolStripMenuItem</value>
+  <data name="&gt;&gt;inflationStartTimeToolStripMenuItem.Name" xml:space="preserve">
+    <value>inflationStartTimeToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;contractTransferToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;inflationStartTimeToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

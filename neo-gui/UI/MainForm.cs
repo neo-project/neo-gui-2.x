@@ -19,6 +19,7 @@ using System.Numerics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -35,6 +36,7 @@ namespace Neo.UI
         public MainForm(XDocument xdoc = null)
         {
             InitializeComponent();
+            StateReader.Notify += RuntimeNotify;
             if (xdoc != null)
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -45,6 +47,47 @@ namespace Neo.UI
                     toolStripStatusLabel3.Text += $": {latest}";
                     toolStripStatusLabel3.Visible = true;
                 }
+            }
+        }
+
+        private static void RuntimeNotify(object sender, NotifyEventArgs args)
+        {
+            string filePath = Directory.GetCurrentDirectory();
+            var arr = args.State.GetArray();
+            string eventName = Encoding.Default.GetString(arr[0].GetByteArray());
+            switch (eventName)
+            {
+                case "refund":
+                    byte[] accountScriptHash = arr[1].GetByteArray();
+                    BigInteger amount = arr[2].GetBigInteger();
+                    string msgRefund1 = "scriptHash: " + args.ScriptHash.ToString() + ", ";
+                    string msgRefund2 = "account: " + accountScriptHash.ToHexString() + ", ";
+                    string msgRefund3 = "amount: " + amount.ToString() + "\r\n";
+                    string msgRefund = msgRefund1 + msgRefund2 + msgRefund3;
+                    byte[] refundByte = Encoding.UTF8.GetBytes(msgRefund);
+                    using (FileStream fsWrite = new FileStream(filePath + "/refund.txt", FileMode.Append))
+                    {
+                        fsWrite.Write(refundByte, 0, refundByte.Length);
+                    };
+                    break;
+                case "transfer":
+                    byte[] fromScriptHash = arr[1].GetByteArray();
+                    byte[] toScriptHash = arr[2].GetByteArray();
+                    BigInteger amountTransfer = arr[3].GetBigInteger();
+                    string msgTransfer1 = "scriptHash: " + args.ScriptHash.ToString() + ", ";
+                    string msgTransfer2 = "from: " + fromScriptHash.ToHexString() + ", ";
+                    string msgTransfer3 = "to: " + toScriptHash.ToHexString() + ", ";
+                    string msgTransfer4 = "amount: " + amountTransfer.ToString() + "\r\n";
+                    string msgTransfer = msgTransfer1 + msgTransfer2 + msgTransfer3 + msgTransfer4;
+                    byte[] transferByte = Encoding.UTF8.GetBytes(msgTransfer);
+                    using (FileStream fsWrite = new FileStream(filePath + "/transfer.txt", FileMode.Append))
+                    {
+                        fsWrite.Write(transferByte, 0, transferByte.Length);
+                    };
+                    break;
+                default:
+                    Debug.WriteLine(args.ScriptHash.ToString());
+                    break;
             }
         }
 
@@ -1044,6 +1087,79 @@ namespace Neo.UI
             //        tx = dialog.GetTransaction();
             //    }
             //}
+            Helper.SignAndShowInformation(tx);
+        }
+
+        private void inflationRateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Transaction tx;
+            using (InflationRateDialog dialog = new InflationRateDialog())
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+                tx = dialog.GetTransaction();
+            }
+            if (tx is InvocationTransaction itx)
+            {
+                using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
+                {
+                    if (dialog.ShowDialog() != DialogResult.OK) return;
+                    tx = dialog.GetTransaction();
+                }
+            }
+            Helper.SignAndShowInformation(tx);
+        }
+
+        private void inflationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Transaction tx;
+            string command = "inflation";
+            string scriptHash = Settings.Default.NEP5Watched.OfType<string>().ToArray()[0];
+            Debug.WriteLine(scriptHash);
+            UInt160 script_hash = UInt160.Parse(scriptHash);
+            string address = Wallet.ToAddress(script_hash);
+            Debug.WriteLine(address);
+
+            byte[] script;
+            using (ScriptBuilder sb = new ScriptBuilder())
+            {
+                sb.EmitPush(0);
+                sb.EmitPush(command);
+                sb.EmitAppCall(script_hash.ToArray());
+                script = sb.ToArray();
+            }
+
+            tx = Program.CurrentWallet.MakeTransaction(new InvocationTransaction
+            {
+                Script = script
+            });
+
+            if (tx is InvocationTransaction itx)
+            {
+                using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
+                {
+                    if (dialog.ShowDialog() != DialogResult.OK) return;
+                    tx = dialog.GetTransaction();
+                }
+            }
+            Helper.SignAndShowInformation(tx);
+        }
+
+        private void inflationStartTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Transaction tx;
+            using (InflationStartTimeDialog dialog = new InflationStartTimeDialog())
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+                tx = dialog.GetTransaction();
+            }
+            if (tx is InvocationTransaction itx)
+            {
+                using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
+                {
+                    if (dialog.ShowDialog() != DialogResult.OK) return;
+                    tx = dialog.GetTransaction();
+                }
+            }
             Helper.SignAndShowInformation(tx);
         }
     }

@@ -59,6 +59,10 @@
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iCOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contractTransferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inflationRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inflationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.smartContractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助HToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查看帮助VToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.官网WToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -116,7 +120,7 @@
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.contractTransferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inflationStartTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -135,6 +139,7 @@
             this.钱包WToolStripMenuItem,
             this.交易TToolStripMenuItem,
             this.高级AToolStripMenuItem,
+            this.smartContractToolStripMenuItem,
             this.帮助HToolStripMenuItem});
             resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
@@ -248,7 +253,10 @@
             this.toolStripSeparator9,
             this.optionsToolStripMenuItem,
             this.iCOToolStripMenuItem,
-            this.contractTransferToolStripMenuItem});
+            this.contractTransferToolStripMenuItem,
+            this.inflationRateToolStripMenuItem,
+            this.inflationToolStripMenuItem,
+            this.inflationStartTimeToolStripMenuItem});
             this.高级AToolStripMenuItem.Name = "高级AToolStripMenuItem";
             resources.ApplyResources(this.高级AToolStripMenuItem, "高级AToolStripMenuItem");
             // 
@@ -325,6 +333,29 @@
             this.iCOToolStripMenuItem.Name = "iCOToolStripMenuItem";
             resources.ApplyResources(this.iCOToolStripMenuItem, "iCOToolStripMenuItem");
             this.iCOToolStripMenuItem.Click += new System.EventHandler(this.iCOToolStripMenuItem_Click);
+            // 
+            // contractTransferToolStripMenuItem
+            // 
+            this.contractTransferToolStripMenuItem.Name = "contractTransferToolStripMenuItem";
+            resources.ApplyResources(this.contractTransferToolStripMenuItem, "contractTransferToolStripMenuItem");
+            this.contractTransferToolStripMenuItem.Click += new System.EventHandler(this.contractTransferToolStripMenuItem_Click);
+            // 
+            // inflationRateToolStripMenuItem
+            // 
+            this.inflationRateToolStripMenuItem.Name = "inflationRateToolStripMenuItem";
+            resources.ApplyResources(this.inflationRateToolStripMenuItem, "inflationRateToolStripMenuItem");
+            this.inflationRateToolStripMenuItem.Click += new System.EventHandler(this.inflationRateToolStripMenuItem_Click);
+            // 
+            // inflationToolStripMenuItem
+            // 
+            this.inflationToolStripMenuItem.Name = "inflationToolStripMenuItem";
+            resources.ApplyResources(this.inflationToolStripMenuItem, "inflationToolStripMenuItem");
+            this.inflationToolStripMenuItem.Click += new System.EventHandler(this.inflationToolStripMenuItem_Click);
+            // 
+            // smartContractToolStripMenuItem
+            // 
+            this.smartContractToolStripMenuItem.Name = "smartContractToolStripMenuItem";
+            resources.ApplyResources(this.smartContractToolStripMenuItem, "smartContractToolStripMenuItem");
             // 
             // 帮助HToolStripMenuItem
             // 
@@ -730,11 +761,11 @@
             resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
-            // contractTransferToolStripMenuItem
+            // inflationStartTimeToolStripMenuItem
             // 
-            this.contractTransferToolStripMenuItem.Name = "contractTransferToolStripMenuItem";
-            resources.ApplyResources(this.contractTransferToolStripMenuItem, "contractTransferToolStripMenuItem");
-            this.contractTransferToolStripMenuItem.Click += new System.EventHandler(this.contractTransferToolStripMenuItem_Click);
+            this.inflationStartTimeToolStripMenuItem.Name = "inflationStartTimeToolStripMenuItem";
+            resources.ApplyResources(this.inflationStartTimeToolStripMenuItem, "inflationStartTimeToolStripMenuItem");
+            this.inflationStartTimeToolStripMenuItem.Click += new System.EventHandler(this.inflationStartTimeToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -852,6 +883,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private System.Windows.Forms.ToolStripMenuItem iCOToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem contractTransferToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem smartContractToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inflationRateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inflationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inflationStartTimeToolStripMenuItem;
     }
 }
 

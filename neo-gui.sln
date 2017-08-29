@@ -5,10 +5,13 @@ VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neo-gui", "neo-gui\neo-gui.csproj", "{CFC243F0-F4E3-4754-8E21-8BA17E1C1788}"
 	ProjectSection(ProjectDependencies) = postProject
+		{8C320671-0915-4CDB-80BC-7689112960D5} = {8C320671-0915-4CDB-80BC-7689112960D5}
 		{F16BBFF5-7777-4DD6-A6C7-191D02114A61} = {F16BBFF5-7777-4DD6-A6C7-191D02114A61}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "neo", "..\..\..\..\neo\neo\neo\neo.csproj", "{F16BBFF5-7777-4DD6-A6C7-191D02114A61}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "neo-vm", "..\..\..\..\vm\code\neo-vm\src\neo-vm\neo-vm.csproj", "{8C320671-0915-4CDB-80BC-7689112960D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +27,10 @@ Global
 		{F16BBFF5-7777-4DD6-A6C7-191D02114A61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F16BBFF5-7777-4DD6-A6C7-191D02114A61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F16BBFF5-7777-4DD6-A6C7-191D02114A61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C320671-0915-4CDB-80BC-7689112960D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C320671-0915-4CDB-80BC-7689112960D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C320671-0915-4CDB-80BC-7689112960D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C320671-0915-4CDB-80BC-7689112960D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

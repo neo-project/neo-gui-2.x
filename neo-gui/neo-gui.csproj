@@ -170,7 +170,8 @@
       <HintPath>..\..\..\..\..\neo\neo\neo\bin\Debug\net461\Neo.dll</HintPath>
     </Reference>
     <Reference Include="Neo.VM, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neo.VM.2.0.3\lib\net461\Neo.VM.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\vm\code\neo-vm\src\neo-vm\bin\Debug\net461\Neo.VM.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -376,6 +377,18 @@
     </Compile>
     <Compile Include="UI\ImportPrivateKeyDialog.designer.cs">
       <DependentUpon>ImportPrivateKeyDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\InflationRateDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InflationRateDialog.Designer.cs">
+      <DependentUpon>InflationRateDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\InflationStartTimeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InflationStartTimeDialog.Designer.cs">
+      <DependentUpon>InflationStartTimeDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\InputBox.cs">
       <SubType>Form</SubType>
@@ -674,6 +687,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ImportPrivateKeyDialog.zh-Hans.resx">
       <DependentUpon>ImportPrivateKeyDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\InflationRateDialog.resx">
+      <DependentUpon>InflationRateDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\InflationStartTimeDialog.resx">
+      <DependentUpon>InflationStartTimeDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\InformationBox.es-ES.resx">
       <DependentUpon>InformationBox.cs</DependentUpon>
