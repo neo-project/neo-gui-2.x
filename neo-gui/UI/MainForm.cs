@@ -52,6 +52,9 @@ namespace Neo.UI
 
         private static void RuntimeNotify(object sender, NotifyEventArgs args)
         {
+            Transaction tx = (Transaction)args.ScriptContainer;
+            string txid = tx.Hash.ToString();
+            if (txid == InvokeContractDialog.testTxid) return;
             string filePath = Directory.GetCurrentDirectory();
             var arr = args.State.GetArray();
             string eventName = Encoding.Default.GetString(arr[0].GetByteArray());
@@ -82,11 +85,12 @@ namespace Neo.UI
                             byte[] toScriptHash = arr[2].GetByteArray();
                             BigInteger _amountTransfer = arr[3].GetBigInteger();
                             BigDecimal amountTransfer = new BigDecimal(_amountTransfer, asset.Precision);
-                            string msgTransfer1 = "scriptHash: " + args.ScriptHash.ToString() + "\r\n";
-                            string msgTransfer2 = "from: " + fromScriptHash.ToHexString() + "\r\n";
-                            string msgTransfer3 = "to: " + toScriptHash.ToHexString() + "\r\n";
-                            string msgTransfer4 = "amount: " + amountTransfer.ToString() + "\r\n" + "\r\n";
-                            string msgTransfer = msgTransfer1 + msgTransfer2 + msgTransfer3 + msgTransfer4;
+                            string msgTransfer1 = "txid: " + txid + "\r\n";
+                            string msgTransfer2 = "scriptHash: " + args.ScriptHash.ToString() + "\r\n";
+                            string msgTransfer3 = "from: " + fromScriptHash.ToHexString() + "\r\n";
+                            string msgTransfer4 = "to: " + toScriptHash.ToHexString() + "\r\n";
+                            string msgTransfer5 = "amount: " + amountTransfer.ToString() + "\r\n" + "\r\n";
+                            string msgTransfer = msgTransfer1 + msgTransfer2 + msgTransfer3 + msgTransfer4 + msgTransfer5;
                             byte[] transferByte = Encoding.UTF8.GetBytes(msgTransfer);
                             using (FileStream fsWrite = new FileStream(filePath + "/transfer.txt", FileMode.Append))
                             {
