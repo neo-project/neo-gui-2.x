@@ -123,6 +123,10 @@
             this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.eventLogMessageType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip4 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.CopySHtoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CopyMessagetoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -132,6 +136,8 @@
             this.contextMenuStrip2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.contextMenuStrip3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.contextMenuStrip4.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -826,6 +832,7 @@
             this.tabPage3.ResumeLayout(false);
             this.contextMenuStrip3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
+            this.contextMenuStrip4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -927,7 +934,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip4;
         private System.Windows.Forms.ToolStripMenuItem CopySHtoolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem CopyMessagetoolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem smartContractWatchlistToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearLogToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader eventLogMessageType;
         private System.Windows.Forms.ColumnHeader columnHeader16;
