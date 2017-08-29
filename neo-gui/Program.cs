@@ -105,15 +105,21 @@ namespace Neo
                 {
                     LocalNode.LoadState(fs);
                 }
-            using (Blockchain.RegisterBlockchain(new LevelDBBlockchain(Settings.Default.DataDirectoryPath)))
-            using (LocalNode = new LocalNode())
+            try
             {
-                LocalNode.UpnpEnabled = true;
-                Application.Run(MainForm = new MainForm(xdoc));
-            }
-            using (FileStream fs = new FileStream(PeerStatePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (Blockchain.RegisterBlockchain(new LevelDBBlockchain(Settings.Default.DataDirectoryPath)))
+                using (LocalNode = new LocalNode())
+                {
+                    LocalNode.UpnpEnabled = true;
+                    Application.Run(MainForm = new MainForm(xdoc));
+                }
+                using (FileStream fs = new FileStream(PeerStatePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    LocalNode.SaveState(fs);
+                }
+            } catch (DllNotFoundException)
             {
-                LocalNode.SaveState(fs);
+                MessageBox.Show(Strings.MissingLibLevelDB);
             }
         }
 
