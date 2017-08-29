@@ -55,40 +55,52 @@ namespace Neo.UI
             string filePath = Directory.GetCurrentDirectory();
             var arr = args.State.GetArray();
             string eventName = Encoding.Default.GetString(arr[0].GetByteArray());
-            switch (eventName)
+            foreach (string s in Settings.Default.NEP5Watched)
             {
-                case "refund":
-                    byte[] accountScriptHash = arr[1].GetByteArray();
-                    BigInteger amount = arr[2].GetBigInteger();
-                    string msgRefund1 = "scriptHash: " + args.ScriptHash.ToString() + ", ";
-                    string msgRefund2 = "account: " + accountScriptHash.ToHexString() + ", ";
-                    string msgRefund3 = "amount: " + amount.ToString() + "\r\n";
-                    string msgRefund = msgRefund1 + msgRefund2 + msgRefund3;
-                    byte[] refundByte = Encoding.UTF8.GetBytes(msgRefund);
-                    using (FileStream fsWrite = new FileStream(filePath + "/refund.txt", FileMode.Append))
+                UInt160 asset_id = UInt160.Parse(s);
+                if (args.ScriptHash == asset_id)
+                {
+                    AssetDescriptor asset = new AssetDescriptor(asset_id);
+                    switch (eventName)
                     {
-                        fsWrite.Write(refundByte, 0, refundByte.Length);
-                    };
-                    break;
-                case "transfer":
-                    byte[] fromScriptHash = arr[1].GetByteArray();
-                    byte[] toScriptHash = arr[2].GetByteArray();
-                    BigInteger amountTransfer = arr[3].GetBigInteger();
-                    string msgTransfer1 = "scriptHash: " + args.ScriptHash.ToString() + ", ";
-                    string msgTransfer2 = "from: " + fromScriptHash.ToHexString() + ", ";
-                    string msgTransfer3 = "to: " + toScriptHash.ToHexString() + ", ";
-                    string msgTransfer4 = "amount: " + amountTransfer.ToString() + "\r\n";
-                    string msgTransfer = msgTransfer1 + msgTransfer2 + msgTransfer3 + msgTransfer4;
-                    byte[] transferByte = Encoding.UTF8.GetBytes(msgTransfer);
-                    using (FileStream fsWrite = new FileStream(filePath + "/transfer.txt", FileMode.Append))
-                    {
-                        fsWrite.Write(transferByte, 0, transferByte.Length);
-                    };
-                    break;
-                default:
-                    Debug.WriteLine(args.ScriptHash.ToString());
-                    break;
+                        case "refund":
+                            byte[] accountScriptHash = arr[1].GetByteArray();
+                            BigInteger _amountRefund = arr[2].GetBigInteger();
+                            BigDecimal amountRefund = new BigDecimal(_amountRefund, asset.Precision);
+                            string msgRefund1 = "scriptHash: " + args.ScriptHash.ToString() + "\r\n";
+                            string msgRefund2 = "account: " + accountScriptHash.ToHexString() + "\r\n";
+                            string msgRefund3 = "amount: " + amountRefund.ToString() + "\r\n" + "\r\n";
+                            string msgRefund = msgRefund1 + msgRefund2 + msgRefund3;
+                            byte[] refundByte = Encoding.UTF8.GetBytes(msgRefund);
+                            using (FileStream fsWrite = new FileStream(filePath + "/refund.txt", FileMode.Append))
+                            {
+                                fsWrite.Write(refundByte, 0, refundByte.Length);
+                            };
+                            break;
+                        case "transfer":
+                            byte[] fromScriptHash = arr[1].GetByteArray();
+                            byte[] toScriptHash = arr[2].GetByteArray();
+                            BigInteger _amountTransfer = arr[3].GetBigInteger();
+                            BigDecimal amountTransfer = new BigDecimal(_amountTransfer, asset.Precision);
+                            string msgTransfer1 = "scriptHash: " + args.ScriptHash.ToString() + "\r\n";
+                            string msgTransfer2 = "from: " + fromScriptHash.ToHexString() + "\r\n";
+                            string msgTransfer3 = "to: " + toScriptHash.ToHexString() + "\r\n";
+                            string msgTransfer4 = "amount: " + amountTransfer.ToString() + "\r\n" + "\r\n";
+                            string msgTransfer = msgTransfer1 + msgTransfer2 + msgTransfer3 + msgTransfer4;
+                            byte[] transferByte = Encoding.UTF8.GetBytes(msgTransfer);
+                            using (FileStream fsWrite = new FileStream(filePath + "/transfer.txt", FileMode.Append))
+                            {
+                                fsWrite.Write(transferByte, 0, transferByte.Length);
+                            };
+                            break;
+                        default:
+                            Debug.WriteLine(args.ScriptHash.ToString());
+                            break;
+                    }
+                }
             }
+
+            
         }
 
         private void AddAddressToListView(UInt160 scriptHash, bool selected = false)

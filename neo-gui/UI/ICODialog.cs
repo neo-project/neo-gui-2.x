@@ -240,6 +240,7 @@ namespace Neo.UI
             string command = "balanceOf";
             string scriptHash = Settings.Default.NEP5Watched.OfType<string>().ToArray()[0];
             UInt160 script_hash = UInt160.Parse(scriptHash);
+            AssetDescriptor asset = new AssetDescriptor(script_hash);
 
             UInt160[] addresses = Program.CurrentWallet.GetAddresses().ToArray();
             object[] param = { addresses[0] };
@@ -252,8 +253,62 @@ namespace Neo.UI
             ApplicationEngine engine = TestEngine.Run(script);
             if (engine != null)
             {
-                BigInteger balance = engine.EvaluationStack.Pop().GetBigInteger();
+                BigInteger _balance = engine.EvaluationStack.Pop().GetBigInteger();
+                BigDecimal balance = new BigDecimal(_balance, asset.Precision);
                 this.textBox7.Text = balance.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Query Failed");
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string command = "totalIcoNeo";
+            string scriptHash = Settings.Default.NEP5Watched.OfType<string>().ToArray()[0];
+            UInt160 script_hash = UInt160.Parse(scriptHash);
+            AssetDescriptor asset = new AssetDescriptor(script_hash);
+
+            byte[] script;
+            using (ScriptBuilder sb = new ScriptBuilder())
+            {
+                sb.EmitAppCall(script_hash, command);
+                script = sb.ToArray();
+            }
+            ApplicationEngine engine = TestEngine.Run(script);
+            if (engine != null)
+            {
+                BigInteger _totalIcoNeo = engine.EvaluationStack.Pop().GetBigInteger();
+                BigDecimal totalIcoNeo = new BigDecimal(_totalIcoNeo, asset.Precision);
+                this.textBox8.Text = totalIcoNeo.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Query Failed");
+            }
+        }
+
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            string command = "icoNeo";
+            string scriptHash = Settings.Default.NEP5Watched.OfType<string>().ToArray()[0];
+            UInt160 script_hash = UInt160.Parse(scriptHash);
+            AssetDescriptor asset = new AssetDescriptor(script_hash);
+
+            byte[] script;
+            using (ScriptBuilder sb = new ScriptBuilder())
+            {
+                sb.EmitAppCall(script_hash, command);
+                script = sb.ToArray();
+            }
+            ApplicationEngine engine = TestEngine.Run(script);
+            if (engine != null)
+            {
+                BigInteger _icoNeo = engine.EvaluationStack.Pop().GetBigInteger();
+                BigDecimal icoNeo = new BigDecimal(_icoNeo, asset.Precision);
+                this.textBox9.Text = icoNeo.ToString();
             }
             else
             {

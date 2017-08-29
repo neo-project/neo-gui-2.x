@@ -39,6 +39,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.balanceOf = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -50,7 +51,12 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.balanceOf = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -155,6 +161,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button7);
+            this.groupBox2.Controls.Add(this.button6);
+            this.groupBox2.Controls.Add(this.textBox9);
+            this.groupBox2.Controls.Add(this.textBox8);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.balanceOf);
             this.groupBox2.Controls.Add(this.button5);
             this.groupBox2.Controls.Add(this.button4);
@@ -169,14 +181,23 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Location = new System.Drawing.Point(12, 29);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(400, 378);
+            this.groupBox2.Size = new System.Drawing.Size(415, 378);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Queries";
             // 
+            // balanceOf
+            // 
+            this.balanceOf.AutoSize = true;
+            this.balanceOf.Location = new System.Drawing.Point(29, 201);
+            this.balanceOf.Name = "balanceOf";
+            this.balanceOf.Size = new System.Drawing.Size(73, 17);
+            this.balanceOf.TabIndex = 11;
+            this.balanceOf.Text = "balanceOf";
+            // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(306, 199);
+            this.button5.Location = new System.Drawing.Point(313, 195);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(78, 28);
             this.button5.TabIndex = 18;
@@ -186,7 +207,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(306, 141);
+            this.button4.Location = new System.Drawing.Point(313, 141);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(78, 28);
             this.button4.TabIndex = 17;
@@ -196,7 +217,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(306, 93);
+            this.button3.Location = new System.Drawing.Point(313, 93);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(78, 28);
             this.button3.TabIndex = 16;
@@ -206,21 +227,21 @@
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(101, 202);
+            this.textBox7.Location = new System.Drawing.Point(108, 198);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(199, 22);
             this.textBox7.TabIndex = 15;
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(101, 142);
+            this.textBox6.Location = new System.Drawing.Point(108, 142);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(199, 22);
             this.textBox6.TabIndex = 14;
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(101, 96);
+            this.textBox5.Location = new System.Drawing.Point(108, 96);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(199, 22);
             this.textBox5.TabIndex = 11;
@@ -228,7 +249,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(11, 147);
+            this.label8.Location = new System.Drawing.Point(18, 147);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(84, 17);
             this.label8.TabIndex = 13;
@@ -236,7 +257,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(306, 37);
+            this.button2.Location = new System.Drawing.Point(313, 37);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(78, 28);
             this.button2.TabIndex = 11;
@@ -246,7 +267,7 @@
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(101, 40);
+            this.textBox4.Location = new System.Drawing.Point(108, 40);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(199, 22);
             this.textBox4.TabIndex = 11;
@@ -254,7 +275,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 96);
+            this.label6.Location = new System.Drawing.Point(15, 96);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(87, 17);
             this.label6.TabIndex = 11;
@@ -263,20 +284,63 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 43);
+            this.label5.Location = new System.Drawing.Point(24, 43);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(78, 17);
             this.label5.TabIndex = 11;
             this.label5.Text = "totalSupply";
             // 
-            // balanceOf
+            // label7
             // 
-            this.balanceOf.AutoSize = true;
-            this.balanceOf.Location = new System.Drawing.Point(22, 205);
-            this.balanceOf.Name = "balanceOf";
-            this.balanceOf.Size = new System.Drawing.Size(73, 17);
-            this.balanceOf.TabIndex = 11;
-            this.balanceOf.Text = "balanceOf";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(13, 253);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(93, 17);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "TotalICONEO";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(41, 303);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(61, 17);
+            this.label9.TabIndex = 11;
+            this.label9.Text = "ICONEO";
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(108, 248);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(199, 22);
+            this.textBox8.TabIndex = 11;
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(108, 298);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(199, 22);
+            this.textBox9.TabIndex = 19;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(313, 245);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(78, 28);
+            this.button6.TabIndex = 20;
+            this.button6.Text = "Query";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(313, 295);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(78, 28);
+            this.button7.TabIndex = 21;
+            this.button7.Text = "Query";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // ICODialog
             // 
@@ -319,5 +383,11 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label balanceOf;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label7;
     }
 }
