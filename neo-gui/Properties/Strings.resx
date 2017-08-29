@@ -259,4 +259,7 @@ Note: updated files cannot be openned by clients in older versions!</value>
   <data name="UnsynchronizedBlock" xml:space="preserve">
     <value>Blockchain unsynchronized, transaction cannot be sent.</value>
   </data>
+  <data name="MissingLibLevelDB" xml:space="preserve">
+    <value>Unable to start NEO. Missing libleveldb.dll</value>
+  </data>
 </root>
