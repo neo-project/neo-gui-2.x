@@ -54,6 +54,7 @@
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.deployContractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.invokeContractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listContractsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.选举EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
@@ -241,6 +242,7 @@
             this.toolStripSeparator8,
             this.deployContractToolStripMenuItem,
             this.invokeContractToolStripMenuItem,
+            this.listContractsToolStripMenuItem,
             this.toolStripSeparator11,
             this.选举EToolStripMenuItem,
             this.toolStripSeparator9,
@@ -292,6 +294,12 @@
             resources.ApplyResources(this.invokeContractToolStripMenuItem, "invokeContractToolStripMenuItem");
             this.invokeContractToolStripMenuItem.Name = "invokeContractToolStripMenuItem";
             this.invokeContractToolStripMenuItem.Click += new System.EventHandler(this.invokeContractToolStripMenuItem_Click);
+            // 
+            // listContractsToolStripMenuItem
+            // 
+            resources.ApplyResources(this.listContractsToolStripMenuItem, "listContractsToolStripMenuItem");
+            this.listContractsToolStripMenuItem.Name = "listContractsToolStripMenuItem";
+            this.listContractsToolStripMenuItem.Click += new System.EventHandler(this.listContractsToolStripMenuItem_Click);
             // 
             // toolStripSeparator11
             // 
@@ -829,6 +837,7 @@
         private System.Windows.Forms.ToolStripMenuItem invokeContractToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lockToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
+        private System.Windows.Forms.ToolStripMenuItem listContractsToolStripMenuItem;
     }
 }
 

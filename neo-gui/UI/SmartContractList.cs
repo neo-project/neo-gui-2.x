@@ -172,6 +172,12 @@ namespace Neo.UI
                 return;
             }
 
+            if (!File.Exists(smartContractJSON))
+            {
+                File.Create(smartContractJSON);
+                return;
+            }
+
             listLoaded = true;
 
             UInt160 ignore;
@@ -196,11 +202,6 @@ namespace Neo.UI
          */
         public void writeSmartContractList()
         {
-            if (!File.Exists(smartContractJSON))
-            {
-                File.Create(smartContractJSON);
-            }
-
             int numContracts = smartContractList.Count;
             if (numContracts > 0)
             {
