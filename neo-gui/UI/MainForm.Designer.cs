@@ -115,6 +115,18 @@
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.listView4 = new System.Windows.Forms.ListView();
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.eventLogMessageType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip4 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.CopySHtoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CopyMessagetoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -124,6 +136,8 @@
             this.contextMenuStrip2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.contextMenuStrip3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.contextMenuStrip4.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -584,6 +598,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             // 
@@ -715,6 +730,85 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.listView4);
+            resources.ApplyResources(this.tabPage4, "tabPage4");
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // listView4
+            // 
+            this.listView4.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader12,
+            this.columnHeader13,
+            this.columnHeader14,
+            this.columnHeader15,
+            this.eventLogMessageType,
+            this.columnHeader16});
+            this.listView4.ContextMenuStrip = this.contextMenuStrip4;
+            resources.ApplyResources(this.listView4, "listView4");
+            this.listView4.FullRowSelect = true;
+            this.listView4.GridLines = true;
+            this.listView4.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listView4.HideSelection = false;
+            this.listView4.Name = "listView4";
+            this.listView4.ShowGroups = false;
+            this.listView4.UseCompatibleStateImageBehavior = false;
+            this.listView4.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader12
+            // 
+            resources.ApplyResources(this.columnHeader12, "columnHeader12");
+            // 
+            // columnHeader13
+            // 
+            resources.ApplyResources(this.columnHeader13, "columnHeader13");
+            // 
+            // columnHeader14
+            // 
+            resources.ApplyResources(this.columnHeader14, "columnHeader14");
+            // 
+            // columnHeader15
+            // 
+            resources.ApplyResources(this.columnHeader15, "columnHeader15");
+            // 
+            // eventLogMessageType
+            // 
+            resources.ApplyResources(this.eventLogMessageType, "eventLogMessageType");
+            // 
+            // columnHeader16
+            // 
+            resources.ApplyResources(this.columnHeader16, "columnHeader16");
+            // 
+            // contextMenuStrip4
+            // 
+            this.contextMenuStrip4.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.contextMenuStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.CopySHtoolStripMenuItem,
+            this.CopyMessagetoolStripMenuItem,
+            this.clearLogToolStripMenuItem});
+            this.contextMenuStrip4.Name = "contextMenuStrip4";
+            resources.ApplyResources(this.contextMenuStrip4, "contextMenuStrip4");
+            // 
+            // CopySHtoolStripMenuItem
+            // 
+            this.CopySHtoolStripMenuItem.Name = "CopySHtoolStripMenuItem";
+            resources.ApplyResources(this.CopySHtoolStripMenuItem, "CopySHtoolStripMenuItem");
+            this.CopySHtoolStripMenuItem.Click += new System.EventHandler(this.CopySHtoolStripMenuItem_Click);
+            // 
+            // CopyMessagetoolStripMenuItem
+            // 
+            this.CopyMessagetoolStripMenuItem.Name = "CopyMessagetoolStripMenuItem";
+            resources.ApplyResources(this.CopyMessagetoolStripMenuItem, "CopyMessagetoolStripMenuItem");
+            this.CopyMessagetoolStripMenuItem.Click += new System.EventHandler(this.CopyMessagetoolStripMenuItem_Click);
+            // 
+            // clearLogToolStripMenuItem
+            // 
+            this.clearLogToolStripMenuItem.Name = "clearLogToolStripMenuItem";
+            resources.ApplyResources(this.clearLogToolStripMenuItem, "clearLogToolStripMenuItem");
+            this.clearLogToolStripMenuItem.Click += new System.EventHandler(this.clearLogMenuItem_Click);
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -737,6 +831,8 @@
             this.contextMenuStrip2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.contextMenuStrip3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.contextMenuStrip4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -829,6 +925,18 @@
         private System.Windows.Forms.ToolStripMenuItem invokeContractToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lockToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.ListView listView4;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.ColumnHeader columnHeader13;
+        private System.Windows.Forms.ColumnHeader columnHeader14;
+        private System.Windows.Forms.ColumnHeader columnHeader15;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip4;
+        private System.Windows.Forms.ToolStripMenuItem CopySHtoolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CopyMessagetoolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearLogToolStripMenuItem;
+        private System.Windows.Forms.ColumnHeader eventLogMessageType;
+        private System.Windows.Forms.ColumnHeader columnHeader16;
     }
 }
 
