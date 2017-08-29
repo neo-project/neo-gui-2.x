@@ -4,6 +4,7 @@ using Neo.Properties;
 using Neo.SmartContract;
 using Neo.VM;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
@@ -41,37 +42,53 @@ namespace Neo.UI
             });
         }
 
+        private void PushParameters(ScriptBuilder sb, IList<ContractParameter> parameters)
+        {
+            for (int i = parameters.Count - 1; i >= 0; i--)
+            {
+                switch (parameters[i].Type)
+                {
+                    case ContractParameterType.Signature:
+                    case ContractParameterType.ByteArray:
+                        sb.EmitPush((byte[])parameters[i].Value);
+                        break;
+                    case ContractParameterType.Boolean:
+                        sb.EmitPush((bool)parameters[i].Value);
+                        break;
+                    case ContractParameterType.Integer:
+                        sb.EmitPush((BigInteger)parameters[i].Value);
+                        break;
+                    case ContractParameterType.Hash160:
+                        sb.EmitPush((UInt160)parameters[i].Value);
+                        break;
+                    case ContractParameterType.Hash256:
+                        sb.EmitPush((UInt256)parameters[i].Value);
+                        break;
+                    case ContractParameterType.PublicKey:
+                        sb.EmitPush((ECPoint)parameters[i].Value);
+                        break;
+                    case ContractParameterType.String:
+                        sb.EmitPush((string)parameters[i].Value);
+                        break;
+                    case ContractParameterType.Array:
+                        {
+                            IList<ContractParameter> ps = (IList<ContractParameter>)parameters[i].Value;
+                            PushParameters(sb, ps);
+                            sb.EmitPush(ps.Count);
+                            sb.Emit(OpCode.PACK);
+                        }
+                        break;
+                }
+            }
+        }
+
         private void UpdateScript()
         {
             if (parameters.Any(p => p.Value == null)) return;
             using (ScriptBuilder sb = new ScriptBuilder())
             {
-                foreach (ContractParameter parameter in parameters.Reverse())
-                {
-                    switch (parameter.Type)
-                    {
-                        case ContractParameterType.Signature:
-                        case ContractParameterType.ByteArray:
-                            sb.EmitPush((byte[])parameter.Value);
-                            break;
-                        case ContractParameterType.Boolean:
-                            sb.EmitPush((bool)parameter.Value);
-                            break;
-                        case ContractParameterType.Integer:
-                            sb.EmitPush((BigInteger)parameter.Value);
-                            break;
-                        case ContractParameterType.Hash160:
-                            sb.EmitPush((UInt160)parameter.Value);
-                            break;
-                        case ContractParameterType.Hash256:
-                            sb.EmitPush((UInt256)parameter.Value);
-                            break;
-                        case ContractParameterType.PublicKey:
-                            sb.EmitPush((ECPoint)parameter.Value);
-                            break;
-                    }
-                }
-                sb.EmitAppCall(script_hash.ToArray(), true);
+                PushParameters(sb, parameters);
+                sb.EmitAppCall(script_hash, true);
                 textBox6.Text = sb.ToArray().ToHexString();
             }
         }
@@ -83,8 +100,7 @@ namespace Neo.UI
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            UInt160 ignore;
-            button1.Enabled = UInt160.TryParse(textBox1.Text, out ignore);
+            button1.Enabled = UInt160.TryParse(textBox1.Text, out _);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -92,7 +108,7 @@ namespace Neo.UI
             script_hash = UInt160.Parse(textBox1.Text);
             ContractState contract = Blockchain.Default.GetContract(script_hash);
             if (contract == null) return;
-            parameters = contract.Code.ParameterList.Select(p => new ContractParameter { Type = p }).ToArray();
+            parameters = contract.Code.ParameterList.Select(p => new ContractParameter(p)).ToArray();
             textBox2.Text = contract.Name;
             textBox3.Text = contract.CodeVersion;
             textBox4.Text = contract.Author;
