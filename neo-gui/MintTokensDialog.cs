@@ -26,6 +26,10 @@ namespace Neo
             this.textBox1.Text = scriptHash;
             string address = Wallet.ToAddress(UInt160.Parse(scriptHash));
             this.textBox4.Text = address;
+            foreach (UInt256 asset_id in Program.CurrentWallet.FindUnspentCoins().Select(p => p.Output.AssetId).Distinct())
+            {
+                comboBox1.Items.Add(Blockchain.Default.GetAssetState(asset_id));
+            }
         }
 
         public Transaction GetTransaction()
