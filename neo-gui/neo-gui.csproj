@@ -420,6 +420,12 @@
     <Compile Include="UI\ParametersEditor.Designer.cs">
       <DependentUpon>ParametersEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\QueryDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\QueryDialog.Designer.cs">
+      <DependentUpon>QueryDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\RestoreAccountsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -536,6 +542,12 @@
     </Compile>
     <Compile Include="UI\VotingDialog.Designer.cs">
       <DependentUpon>VotingDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WatchDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WatchDialog.Designer.cs">
+      <DependentUpon>WatchDialog.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -770,6 +782,9 @@
     <EmbeddedResource Include="UI\PayToDialog.zh-Hans.resx">
       <DependentUpon>PayToDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\QueryDialog.resx">
+      <DependentUpon>QueryDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\RestoreAccountsDialog.es-ES.resx">
       <DependentUpon>RestoreAccountsDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -879,6 +894,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\VotingDialog.zh-Hans.resx">
       <DependentUpon>VotingDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WatchDialog.resx">
+      <DependentUpon>WatchDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="config.testnet.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -62,7 +62,11 @@
             this.contractTransferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inflationRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inflationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inflationStartTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smartContractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.watchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.queryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.executeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助HToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查看帮助VToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.官网WToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -120,7 +124,6 @@
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.inflationStartTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -352,10 +355,37 @@
             resources.ApplyResources(this.inflationToolStripMenuItem, "inflationToolStripMenuItem");
             this.inflationToolStripMenuItem.Click += new System.EventHandler(this.inflationToolStripMenuItem_Click);
             // 
+            // inflationStartTimeToolStripMenuItem
+            // 
+            this.inflationStartTimeToolStripMenuItem.Name = "inflationStartTimeToolStripMenuItem";
+            resources.ApplyResources(this.inflationStartTimeToolStripMenuItem, "inflationStartTimeToolStripMenuItem");
+            this.inflationStartTimeToolStripMenuItem.Click += new System.EventHandler(this.inflationStartTimeToolStripMenuItem_Click);
+            // 
             // smartContractToolStripMenuItem
             // 
+            this.smartContractToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.watchToolStripMenuItem,
+            this.queryToolStripMenuItem,
+            this.executeToolStripMenuItem});
             this.smartContractToolStripMenuItem.Name = "smartContractToolStripMenuItem";
             resources.ApplyResources(this.smartContractToolStripMenuItem, "smartContractToolStripMenuItem");
+            // 
+            // watchToolStripMenuItem
+            // 
+            this.watchToolStripMenuItem.Name = "watchToolStripMenuItem";
+            resources.ApplyResources(this.watchToolStripMenuItem, "watchToolStripMenuItem");
+            this.watchToolStripMenuItem.Click += new System.EventHandler(this.watchToolStripMenuItem_Click);
+            // 
+            // queryToolStripMenuItem
+            // 
+            this.queryToolStripMenuItem.Name = "queryToolStripMenuItem";
+            resources.ApplyResources(this.queryToolStripMenuItem, "queryToolStripMenuItem");
+            this.queryToolStripMenuItem.Click += new System.EventHandler(this.queryToolStripMenuItem_Click);
+            // 
+            // executeToolStripMenuItem
+            // 
+            this.executeToolStripMenuItem.Name = "executeToolStripMenuItem";
+            resources.ApplyResources(this.executeToolStripMenuItem, "executeToolStripMenuItem");
             // 
             // 帮助HToolStripMenuItem
             // 
@@ -761,12 +791,6 @@
             resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
-            // inflationStartTimeToolStripMenuItem
-            // 
-            this.inflationStartTimeToolStripMenuItem.Name = "inflationStartTimeToolStripMenuItem";
-            resources.ApplyResources(this.inflationStartTimeToolStripMenuItem, "inflationStartTimeToolStripMenuItem");
-            this.inflationStartTimeToolStripMenuItem.Click += new System.EventHandler(this.inflationStartTimeToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -887,6 +911,9 @@
         private System.Windows.Forms.ToolStripMenuItem inflationRateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inflationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inflationStartTimeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem watchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem queryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem executeToolStripMenuItem;
     }
 }
 

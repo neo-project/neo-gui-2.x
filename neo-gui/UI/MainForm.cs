@@ -1178,5 +1178,21 @@ namespace Neo.UI
             }
             Helper.SignAndShowInformation(tx);
         }
+
+        private void watchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (WatchDialog dialog = new WatchDialog())
+            {
+                dialog.ShowDialog();
+            }
+        }
+
+        private void queryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (QueryDialog dialog = new QueryDialog())
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+            }
+        }
     }
 }
