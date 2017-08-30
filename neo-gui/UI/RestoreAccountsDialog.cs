@@ -13,16 +13,16 @@ namespace Neo.UI
             InitializeComponent();
         }
 
-        public IEnumerable<Contract> GetContracts()
+        public IEnumerable<VerificationContract> GetContracts()
         {
-            return listView1.CheckedItems.OfType<ListViewItem>().Select(p => (Contract)p.Tag);
+            return listView1.CheckedItems.OfType<ListViewItem>().Select(p => (VerificationContract)p.Tag);
         }
 
         private void RestoreAccountsDialog_Load(object sender, EventArgs e)
         {
             IEnumerable<KeyPair> keys = Program.CurrentWallet.GetKeys();
             keys = keys.Where(account => Program.CurrentWallet.GetContracts(account.PublicKeyHash).All(contract => !contract.IsStandard));
-            IEnumerable<Contract> contracts = keys.Select(p => Contract.CreateSignatureContract(p.PublicKey));
+            IEnumerable<VerificationContract> contracts = keys.Select(p => VerificationContract.CreateSignatureContract(p.PublicKey));
             listView1.Items.AddRange(contracts.Select(p => new ListViewItem(p.Address)
             {
                 Tag = p

@@ -1,6 +1,6 @@
 ﻿using Neo.Network;
 using Neo.Properties;
-using Neo.Wallets;
+using Neo.SmartContract;
 using System;
 using System.Windows.Forms;
 
@@ -20,7 +20,7 @@ namespace Neo.UI
                 MessageBox.Show(Strings.SigningFailedNoDataMessage);
                 return;
             }
-            SignatureContext context = SignatureContext.Parse(textBox1.Text);
+            ContractParametersContext context = ContractParametersContext.Parse(textBox1.Text);
             if (!Program.CurrentWallet.Sign(context))
             {
                 MessageBox.Show(Strings.SigningFailedKeyNotFoundMessage);
@@ -38,7 +38,7 @@ namespace Neo.UI
 
         private void button4_Click(object sender, EventArgs e)
         {
-            SignatureContext context = SignatureContext.Parse(textBox2.Text);
+            ContractParametersContext context = ContractParametersContext.Parse(textBox2.Text);
             context.Verifiable.Scripts = context.GetScripts();
             IInventory inventory = (IInventory)context.Verifiable;
             Program.LocalNode.Relay(inventory);

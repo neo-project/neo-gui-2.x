@@ -1,4 +1,5 @@
 ﻿using Neo.Core;
+using Neo.SmartContract;
 using Neo.VM;
 using System;
 using System.IO;

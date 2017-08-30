@@ -130,11 +130,11 @@ namespace Neo.UI
             script_hash = UInt160.Parse(textBox1.Text);
             ContractState contract = Blockchain.Default.GetContract(script_hash);
             if (contract == null) return;
-            parameters = contract.Code.ParameterList.Select(p => new ContractParameter(p)).ToArray();
+            parameters = contract.ParameterList.Select(p => new ContractParameter(p)).ToArray();
             textBox2.Text = contract.Name;
             textBox3.Text = contract.CodeVersion;
             textBox4.Text = contract.Author;
-            textBox5.Text = string.Join(", ", contract.Code.ParameterList);
+            textBox5.Text = string.Join(", ", contract.ParameterList);
             button2.Enabled = parameters.Length > 0;
             UpdateScript();
         }

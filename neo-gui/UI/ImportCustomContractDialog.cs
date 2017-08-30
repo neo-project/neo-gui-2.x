@@ -1,5 +1,6 @@
 ﻿using Neo.Core;
 using Neo.Cryptography.ECC;
+using Neo.SmartContract;
 using Neo.Wallets;
 using System;
 using System.Linq;
@@ -9,12 +10,12 @@ namespace Neo.UI
 {
     internal partial class ImportCustomContractDialog : Form
     {
-        public Contract GetContract()
+        public VerificationContract GetContract()
         {
             UInt160 publicKeyHash = ((ECPoint)comboBox1.SelectedItem).EncodePoint(true).ToScriptHash();
             ContractParameterType[] parameterList = textBox1.Text.HexToBytes().Select(p => (ContractParameterType)p).ToArray();
             byte[] redeemScript = textBox2.Text.HexToBytes();
-            return Contract.Create(publicKeyHash, parameterList, redeemScript);
+            return VerificationContract.Create(publicKeyHash, parameterList, redeemScript);
         }
 
         public ImportCustomContractDialog()

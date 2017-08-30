@@ -79,7 +79,7 @@ namespace Neo.UI
             item.Selected = selected;
         }
 
-        private void AddContractToListView(Contract contract, bool selected = false)
+        private void AddContractToListView(VerificationContract contract, bool selected = false)
         {
             ListViewItem item = listView1.Items[contract.Address];
             if (item?.Tag is UInt160)
@@ -161,7 +161,7 @@ namespace Neo.UI
             {
                 foreach (UInt160 scriptHash in Program.CurrentWallet.GetAddresses().ToArray())
                 {
-                    Contract contract = Program.CurrentWallet.GetContract(scriptHash);
+                    VerificationContract contract = Program.CurrentWallet.GetContract(scriptHash);
                     if (contract == null)
                         AddAddressToListView(scriptHash);
                     else
@@ -576,7 +576,7 @@ namespace Neo.UI
             using (RestoreAccountsDialog dialog = new RestoreAccountsDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                foreach (Contract contract in dialog.GetContracts())
+                foreach (VerificationContract contract in dialog.GetContracts())
                 {
                     Program.CurrentWallet.AddContract(contract);
                     AddContractToListView(contract, true);
@@ -748,7 +748,7 @@ namespace Neo.UI
         {
             listView1.SelectedIndices.Clear();
             KeyPair key = Program.CurrentWallet.CreateKey();
-            foreach (Contract contract in Program.CurrentWallet.GetContracts(key.PublicKeyHash))
+            foreach (VerificationContract contract in Program.CurrentWallet.GetContracts(key.PublicKeyHash))
             {
                 AddContractToListView(contract, true);
             }
@@ -771,7 +771,7 @@ namespace Neo.UI
                     {
                         continue;
                     }
-                    foreach (Contract contract in Program.CurrentWallet.GetContracts(key.PublicKeyHash))
+                    foreach (VerificationContract contract in Program.CurrentWallet.GetContracts(key.PublicKeyHash))
                     {
                         AddContractToListView(contract, true);
                     }
@@ -786,7 +786,7 @@ namespace Neo.UI
                 if (dialog.ShowDialog() != DialogResult.OK) return;
                 listView1.SelectedIndices.Clear();
                 KeyPair key = Program.CurrentWallet.Import(dialog.SelectedCertificate);
-                foreach (Contract contract in Program.CurrentWallet.GetContracts(key.PublicKeyHash))
+                foreach (VerificationContract contract in Program.CurrentWallet.GetContracts(key.PublicKeyHash))
                 {
                     AddContractToListView(contract, true);
                 }
@@ -825,7 +825,7 @@ namespace Neo.UI
             using (CreateMultiSigContractDialog dialog = new CreateMultiSigContractDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                Contract contract = dialog.GetContract();
+                VerificationContract contract = dialog.GetContract();
                 if (contract == null)
                 {
                     MessageBox.Show(Strings.AddContractFailedMessage);
@@ -842,7 +842,7 @@ namespace Neo.UI
             using (CreateLockAccountDialog dialog = new CreateLockAccountDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                Contract contract = dialog.GetContract();
+                VerificationContract contract = dialog.GetContract();
                 if (contract == null)
                 {
                     MessageBox.Show(Strings.AddContractFailedMessage);
@@ -859,7 +859,7 @@ namespace Neo.UI
             using (ImportCustomContractDialog dialog = new ImportCustomContractDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                Contract contract = dialog.GetContract();
+                VerificationContract contract = dialog.GetContract();
                 Program.CurrentWallet.AddContract(contract);
                 listView1.SelectedIndices.Clear();
                 AddContractToListView(contract, true);
@@ -878,7 +878,7 @@ namespace Neo.UI
 
         private void viewContractToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Contract contract = (Contract)listView1.SelectedItems[0].Tag;
+            VerificationContract contract = (VerificationContract)listView1.SelectedItems[0].Tag;
             using (ViewContractDialog dialog = new ViewContractDialog(contract))
             {
                 dialog.ShowDialog();
