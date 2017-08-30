@@ -1,12 +1,10 @@
-﻿using Neo.Core;
-using Neo.Cryptography.ECC;
+﻿using Neo.Cryptography.ECC;
 using Neo.SmartContract;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Numerics;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Neo.UI
@@ -34,40 +32,13 @@ namespace Neo.UI
                 new ListViewItem.ListViewSubItem
                 {
                     Name = "value",
-                    Text = GetValueString(p.Value)
+                    Text = p.ToString()
                 }
             }, -1)
             {
                 Tag = p
             }).ToArray());
             panel1.Enabled = !parameters.IsReadOnly;
-        }
-
-        private static string GetValueString(object value)
-        {
-            switch (value)
-            {
-                case null:
-                    return "(null)";
-                case byte[] data:
-                    return data.ToHexString();
-                case UIntBase data:
-                    return $"0x{data}";
-                case IList<ContractParameter> data:
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append('[');
-                    foreach (ContractParameter item in data)
-                    {
-                        sb.Append(GetValueString(item.Value));
-                        sb.Append(", ");
-                    }
-                    if (data.Count > 0)
-                        sb.Length -= 2;
-                    sb.Append(']');
-                    return sb.ToString();
-                default:
-                    return value.ToString();
-            }
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -99,65 +70,8 @@ namespace Neo.UI
         {
             if (listView1.SelectedIndices.Count == 0) return;
             ContractParameter parameter = (ContractParameter)listView1.SelectedItems[0].Tag;
-            switch (parameter.Type)
-            {
-                case ContractParameterType.Signature:
-                    try
-                    {
-                        byte[] signature = textBox2.Text.HexToBytes();
-                        if (signature.Length != 64) return;
-                        parameter.Value = signature;
-                    }
-                    catch (FormatException)
-                    {
-                        return;
-                    }
-                    break;
-                case ContractParameterType.Boolean:
-                    parameter.Value = string.Equals(textBox2.Text, bool.TrueString, StringComparison.OrdinalIgnoreCase);
-                    break;
-                case ContractParameterType.Integer:
-                    parameter.Value = BigInteger.Parse(textBox2.Text);
-                    break;
-                case ContractParameterType.Hash160:
-                    {
-                        UInt160 hash;
-                        if (!UInt160.TryParse(textBox2.Text, out hash)) return;
-                        parameter.Value = hash;
-                    }
-                    break;
-                case ContractParameterType.Hash256:
-                    {
-                        UInt256 hash;
-                        if (!UInt256.TryParse(textBox2.Text, out hash)) return;
-                        parameter.Value = hash;
-                    }
-                    break;
-                case ContractParameterType.ByteArray:
-                    try
-                    {
-                        parameter.Value = textBox2.Text.HexToBytes();
-                    }
-                    catch (FormatException)
-                    {
-                        return;
-                    }
-                    break;
-                case ContractParameterType.PublicKey:
-                    try
-                    {
-                        parameter.Value = ECPoint.Parse(textBox2.Text, ECCurve.Secp256r1);
-                    }
-                    catch (FormatException)
-                    {
-                        return;
-                    }
-                    break;
-                case ContractParameterType.String:
-                    parameter.Value = textBox2.Text;
-                    break;
-            }
-            listView1.SelectedItems[0].SubItems["value"].Text = GetValueString(parameter.Value);
+            parameter.SetValue(textBox2.Text);
+            listView1.SelectedItems[0].SubItems["value"].Text = parameter.ToString();
             textBox1.Text = listView1.SelectedItems[0].SubItems["value"].Text;
             textBox2.Clear();
         }
@@ -169,7 +83,7 @@ namespace Neo.UI
             using (ParametersEditor dialog = new ParametersEditor((IList<ContractParameter>)parameter.Value))
             {
                 dialog.ShowDialog();
-                listView1.SelectedItems[0].SubItems["value"].Text = GetValueString(parameter.Value);
+                listView1.SelectedItems[0].SubItems["value"].Text = parameter.ToString();
                 textBox1.Text = listView1.SelectedItems[0].SubItems["value"].Text;
             }
         }
@@ -250,7 +164,7 @@ namespace Neo.UI
                 new ListViewItem.ListViewSubItem
                 {
                     Name = "value",
-                    Text = GetValueString(parameter.Value)
+                    Text = parameter.ToString()
                 }
             }, -1)
             {

@@ -15,7 +15,7 @@ namespace Neo.SmartContract
 
         byte[] IScriptTable.GetScript(byte[] script_hash)
         {
-            return contracts[new UInt160(script_hash)].Code.Script;
+            return contracts[new UInt160(script_hash)].Script;
         }
     }
 }

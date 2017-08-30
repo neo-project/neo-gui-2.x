@@ -6,7 +6,7 @@ namespace Neo.UI
 {
     public partial class ViewContractDialog : Form
     {
-        public ViewContractDialog(Contract contract)
+        public ViewContractDialog(VerificationContract contract)
         {
             InitializeComponent();
             textBox1.Text = contract.Address;

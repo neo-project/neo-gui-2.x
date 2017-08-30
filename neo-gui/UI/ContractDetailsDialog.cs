@@ -5,7 +5,7 @@ namespace Neo.UI
 {
     internal partial class ContractDetailsDialog : Form
     {
-        public ContractDetailsDialog(Contract contract)
+        public ContractDetailsDialog(VerificationContract contract)
         {
             InitializeComponent();
             textBox1.Text = Wallet.ToAddress(contract.ScriptHash);

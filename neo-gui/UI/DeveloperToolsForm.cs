@@ -1,17 +1,16 @@
-﻿using Neo.Core;
-using Neo.Network;
+﻿using Neo.Network;
 using Neo.Properties;
+using Neo.SmartContract;
 using Neo.Wallets;
 using System;
 using System.Linq;
-using System.Numerics;
 using System.Windows.Forms;
 
 namespace Neo.UI
 {
     internal partial class DeveloperToolsForm : Form
     {
-        private SignatureContext context;
+        private ContractParametersContext context;
 
         public DeveloperToolsForm()
         {
@@ -23,34 +22,15 @@ namespace Neo.UI
             if (listBox1.SelectedIndex < 0) return;
             listBox2.Items.Clear();
             if (Program.CurrentWallet == null) return;
-            Contract contract = Program.CurrentWallet.GetContract(Wallet.ToScriptHash((string)listBox1.SelectedItem));
-            if (contract == null) return;
-            listBox2.Items.AddRange(contract.ParameterList.OfType<object>().ToArray());
+            UInt160 hash = Wallet.ToScriptHash((string)listBox1.SelectedItem);
+            listBox2.Items.AddRange(context.GetParameters(hash).ToArray());
         }
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBox2.SelectedIndex < 0) return;
-            textBox1.Clear();
+            textBox1.Text = listBox2.SelectedItem.ToString();
             textBox2.Clear();
-            byte[] parameter = context.GetParameter(Wallet.ToScriptHash((string)listBox1.SelectedItem), listBox2.SelectedIndex);
-            if (parameter == null) return;
-            ContractParameterType type = (ContractParameterType)listBox2.SelectedItem;
-            switch (type)
-            {
-                case ContractParameterType.Integer:
-                    textBox1.Text = new BigInteger(parameter).ToString();
-                    break;
-                case ContractParameterType.Hash160:
-                    textBox1.Text = new UInt160(parameter).ToString();
-                    break;
-                case ContractParameterType.Hash256:
-                    textBox1.Text = new UInt256(parameter).ToString();
-                    break;
-                default:
-                    textBox1.Text = parameter.ToHexString();
-                    break;
-            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -59,7 +39,7 @@ namespace Neo.UI
             if (string.IsNullOrEmpty(input)) return;
             try
             {
-                context = SignatureContext.Parse(input);
+                context = ContractParametersContext.Parse(input);
             }
             catch (FormatException ex)
             {
@@ -84,26 +64,9 @@ namespace Neo.UI
         {
             if (listBox1.SelectedIndex < 0) return;
             if (listBox2.SelectedIndex < 0) return;
-            byte[] parameter;
-            ContractParameterType type = (ContractParameterType)listBox2.SelectedItem;
-            switch (type)
-            {
-                case ContractParameterType.Integer:
-                    parameter = BigInteger.Parse(textBox2.Text).ToByteArray();
-                    break;
-                case ContractParameterType.Hash160:
-                    parameter = UInt160.Parse(textBox2.Text).ToArray();
-                    break;
-                case ContractParameterType.Hash256:
-                    parameter = UInt256.Parse(textBox2.Text).ToArray();
-                    break;
-                default:
-                    parameter = textBox2.Text.HexToBytes();
-                    break;
-            }
-            Contract contract = Program.CurrentWallet.GetContract(Wallet.ToScriptHash((string)listBox1.SelectedItem));
-            if (!context.Add(contract, listBox2.SelectedIndex, parameter))
-                throw new InvalidOperationException();
+            ContractParameter parameter = (ContractParameter)listBox2.SelectedItem;
+            parameter.SetValue(textBox2.Text);
+            listBox2.Items[listBox2.SelectedIndex] = parameter;
             textBox1.Text = textBox2.Text;
             button4.Visible = context.Completed;
         }

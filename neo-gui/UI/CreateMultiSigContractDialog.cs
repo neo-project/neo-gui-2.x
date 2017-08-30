@@ -14,7 +14,7 @@ namespace Neo.UI
             InitializeComponent();
         }
 
-        public Contract GetContract()
+        public VerificationContract GetContract()
         {
             ECPoint[] publicKeys = listBox1.Items.OfType<string>().Select(p => ECPoint.DecodePoint(p.HexToBytes(), ECCurve.Secp256r1)).ToArray();
             foreach (ECPoint publicKey in publicKeys)
@@ -22,7 +22,7 @@ namespace Neo.UI
                 KeyPair key = Program.CurrentWallet.GetKey(publicKey.EncodePoint(true).ToScriptHash());
                 if (key != null)
                 {
-                    return Contract.CreateMultiSigContract(key.PublicKeyHash, (int)numericUpDown2.Value, publicKeys);
+                    return VerificationContract.CreateMultiSigContract(key.PublicKeyHash, (int)numericUpDown2.Value, publicKeys);
                 }
             }
             return null;
