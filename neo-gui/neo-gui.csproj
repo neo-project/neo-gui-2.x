@@ -334,12 +334,6 @@
     <Compile Include="UI\ClaimForm.Designer.cs">
       <DependentUpon>ClaimForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\ContractTransferDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\ContractTransferDialog.Designer.cs">
-      <DependentUpon>ContractTransferDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\CreateLockAccountDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -635,9 +629,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ContractDetailsDialog.zh-Hans.resx">
       <DependentUpon>ContractDetailsDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\ContractTransferDialog.resx">
-      <DependentUpon>ContractTransferDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CreateLockAccountDialog.resx">
       <DependentUpon>CreateLockAccountDialog.cs</DependentUpon>

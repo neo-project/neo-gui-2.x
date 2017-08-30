@@ -1148,7 +1148,7 @@ namespace Neo.UI
             }
             if (tx is InvocationTransaction itx)
             {
-                using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
+                using (InvokeContractDialog dialog = new InvokeContractDialog(itx, Fixed8.Zero))
                 {
                     if (dialog.ShowDialog() != DialogResult.OK) return;
                     tx = dialog.GetTransaction();

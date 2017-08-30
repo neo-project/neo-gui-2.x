@@ -19,11 +19,20 @@ namespace Neo.UI
         private InvocationTransaction tx;
         private UInt160 script_hash;
         private ContractParameter[] parameters;
+        private Fixed8? gas;
 
-        public InvokeContractDialog(InvocationTransaction tx = null)
+        public InvokeContractDialog(InvocationTransaction tx = null, Fixed8? gas = null)
         {
             InitializeComponent();
             this.tx = tx;
+            if (gas != null)
+            {
+                this.gas = gas.Value;
+            }
+            else
+            {
+                this.gas = null;
+            }
             if (tx != null)
             {
                 tabControl1.SelectedTab = tabPage2;
@@ -168,8 +177,15 @@ namespace Neo.UI
             ApplicationEngine engine = TestEngine.Run(tx.Script, tx);
             if (engine != null)
             {
-                tx.Gas = engine.GasConsumed - Fixed8.FromDecimal(10);
-                if (tx.Gas < Fixed8.One) tx.Gas = Fixed8.One;
+                if (this.gas != null)
+                {
+                    tx.Gas = gas.Value;
+                }
+                else
+                {
+                    tx.Gas = engine.GasConsumed - Fixed8.FromDecimal(10);
+                    if (tx.Gas < Fixed8.One) tx.Gas = Fixed8.One;
+                }
                 tx.Gas = tx.Gas.Ceiling();
                 label7.Text = tx.Gas + " gas";
                 button3.Enabled = true;
