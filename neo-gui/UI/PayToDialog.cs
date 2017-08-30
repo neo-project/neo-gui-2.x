@@ -22,7 +22,14 @@ namespace Neo.UI
                 foreach (string s in Settings.Default.NEP5Watched)
                 {
                     UInt160 asset_id = UInt160.Parse(s);
-                    comboBox1.Items.Add(new AssetDescriptor(asset_id));
+                    try
+                    {
+                        comboBox1.Items.Add(new AssetDescriptor(asset_id));
+                    }
+                    catch (ArgumentException)
+                    {
+                        continue;
+                    }
                 }
             }
             else

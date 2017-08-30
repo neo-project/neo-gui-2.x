@@ -1,6 +1,7 @@
 ﻿using Neo.Core;
 using Neo.SmartContract;
 using Neo.VM;
+using System;
 using System.Linq;
 using System.Numerics;
 
@@ -22,6 +23,7 @@ namespace Neo.UI
                 script = sb.ToArray();
             }
             ApplicationEngine engine = TestEngine.Run(script);
+            if (engine == null) throw new ArgumentException();
             this.AssetId = asset_id;
             this.AssetName = engine.EvaluationStack.Pop().GetString();
             this.Precision = (byte)engine.EvaluationStack.Pop().GetBigInteger();
