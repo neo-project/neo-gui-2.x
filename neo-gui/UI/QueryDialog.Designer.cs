@@ -99,18 +99,18 @@
             // 
             // txtbx_totalSupply
             // 
-            this.txtbx_totalSupply.Location = new System.Drawing.Point(114, 25);
+            this.txtbx_totalSupply.Location = new System.Drawing.Point(104, 25);
             this.txtbx_totalSupply.Name = "txtbx_totalSupply";
             this.txtbx_totalSupply.ReadOnly = true;
-            this.txtbx_totalSupply.Size = new System.Drawing.Size(125, 22);
+            this.txtbx_totalSupply.Size = new System.Drawing.Size(135, 22);
             this.txtbx_totalSupply.TabIndex = 24;
             // 
             // txtbx_inflationRate
             // 
-            this.txtbx_inflationRate.Location = new System.Drawing.Point(114, 73);
+            this.txtbx_inflationRate.Location = new System.Drawing.Point(104, 73);
             this.txtbx_inflationRate.Name = "txtbx_inflationRate";
             this.txtbx_inflationRate.ReadOnly = true;
-            this.txtbx_inflationRate.Size = new System.Drawing.Size(125, 22);
+            this.txtbx_inflationRate.Size = new System.Drawing.Size(135, 22);
             this.txtbx_inflationRate.TabIndex = 23;
             // 
             // txtbx_icoNeo
@@ -118,7 +118,7 @@
             this.txtbx_icoNeo.Location = new System.Drawing.Point(362, 73);
             this.txtbx_icoNeo.Name = "txtbx_icoNeo";
             this.txtbx_icoNeo.ReadOnly = true;
-            this.txtbx_icoNeo.Size = new System.Drawing.Size(127, 22);
+            this.txtbx_icoNeo.Size = new System.Drawing.Size(134, 22);
             this.txtbx_icoNeo.TabIndex = 22;
             // 
             // txtbx_totalIcoNeo
@@ -126,22 +126,22 @@
             this.txtbx_totalIcoNeo.Location = new System.Drawing.Point(362, 25);
             this.txtbx_totalIcoNeo.Name = "txtbx_totalIcoNeo";
             this.txtbx_totalIcoNeo.ReadOnly = true;
-            this.txtbx_totalIcoNeo.Size = new System.Drawing.Size(127, 22);
+            this.txtbx_totalIcoNeo.Size = new System.Drawing.Size(134, 22);
             this.txtbx_totalIcoNeo.TabIndex = 21;
             // 
             // txtbx_infStartTime
             // 
-            this.txtbx_infStartTime.Location = new System.Drawing.Point(114, 122);
+            this.txtbx_infStartTime.Location = new System.Drawing.Point(104, 122);
             this.txtbx_infStartTime.Name = "txtbx_infStartTime";
             this.txtbx_infStartTime.ReadOnly = true;
-            this.txtbx_infStartTime.Size = new System.Drawing.Size(125, 22);
+            this.txtbx_infStartTime.Size = new System.Drawing.Size(135, 22);
             this.txtbx_infStartTime.TabIndex = 20;
             // 
             // Query
             // 
             this.Query.Location = new System.Drawing.Point(395, 171);
             this.Query.Name = "Query";
-            this.Query.Size = new System.Drawing.Size(94, 28);
+            this.Query.Size = new System.Drawing.Size(101, 28);
             this.Query.TabIndex = 18;
             this.Query.Text = "Query";
             this.Query.UseVisualStyleBackColor = true;
@@ -150,7 +150,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(24, 127);
+            this.label8.Location = new System.Drawing.Point(14, 127);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(84, 17);
             this.label8.TabIndex = 17;
@@ -159,7 +159,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(21, 78);
+            this.label6.Location = new System.Drawing.Point(11, 76);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(87, 17);
             this.label6.TabIndex = 15;
@@ -168,7 +168,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(30, 27);
+            this.label5.Location = new System.Drawing.Point(20, 28);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(78, 17);
             this.label5.TabIndex = 16;

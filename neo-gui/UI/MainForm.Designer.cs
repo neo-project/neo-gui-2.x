@@ -58,11 +58,6 @@
             this.选举EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.iCOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contractTransferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.inflationRateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.inflationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.inflationStartTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smartContractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.watchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.queryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -254,12 +249,7 @@
             this.toolStripSeparator11,
             this.选举EToolStripMenuItem,
             this.toolStripSeparator9,
-            this.optionsToolStripMenuItem,
-            this.iCOToolStripMenuItem,
-            this.contractTransferToolStripMenuItem,
-            this.inflationRateToolStripMenuItem,
-            this.inflationToolStripMenuItem,
-            this.inflationStartTimeToolStripMenuItem});
+            this.optionsToolStripMenuItem});
             this.高级AToolStripMenuItem.Name = "高级AToolStripMenuItem";
             resources.ApplyResources(this.高级AToolStripMenuItem, "高级AToolStripMenuItem");
             // 
@@ -330,36 +320,6 @@
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             resources.ApplyResources(this.optionsToolStripMenuItem, "optionsToolStripMenuItem");
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
-            // 
-            // iCOToolStripMenuItem
-            // 
-            this.iCOToolStripMenuItem.Name = "iCOToolStripMenuItem";
-            resources.ApplyResources(this.iCOToolStripMenuItem, "iCOToolStripMenuItem");
-            this.iCOToolStripMenuItem.Click += new System.EventHandler(this.iCOToolStripMenuItem_Click);
-            // 
-            // contractTransferToolStripMenuItem
-            // 
-            this.contractTransferToolStripMenuItem.Name = "contractTransferToolStripMenuItem";
-            resources.ApplyResources(this.contractTransferToolStripMenuItem, "contractTransferToolStripMenuItem");
-            this.contractTransferToolStripMenuItem.Click += new System.EventHandler(this.contractTransferToolStripMenuItem_Click);
-            // 
-            // inflationRateToolStripMenuItem
-            // 
-            this.inflationRateToolStripMenuItem.Name = "inflationRateToolStripMenuItem";
-            resources.ApplyResources(this.inflationRateToolStripMenuItem, "inflationRateToolStripMenuItem");
-            //this.inflationRateToolStripMenuItem.Click += new System.EventHandler(this.inflationRateToolStripMenuItem_Click);
-            // 
-            // inflationToolStripMenuItem
-            // 
-            this.inflationToolStripMenuItem.Name = "inflationToolStripMenuItem";
-            resources.ApplyResources(this.inflationToolStripMenuItem, "inflationToolStripMenuItem");
-            this.inflationToolStripMenuItem.Click += new System.EventHandler(this.inflationToolStripMenuItem_Click);
-            // 
-            // inflationStartTimeToolStripMenuItem
-            // 
-            this.inflationStartTimeToolStripMenuItem.Name = "inflationStartTimeToolStripMenuItem";
-            resources.ApplyResources(this.inflationStartTimeToolStripMenuItem, "inflationStartTimeToolStripMenuItem");
-            //this.inflationStartTimeToolStripMenuItem.Click += new System.EventHandler(this.inflationStartTimeToolStripMenuItem_Click);
             // 
             // smartContractToolStripMenuItem
             // 
@@ -906,12 +866,7 @@
         private System.Windows.Forms.ToolStripMenuItem invokeContractToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lockToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
-        private System.Windows.Forms.ToolStripMenuItem iCOToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem contractTransferToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem smartContractToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem inflationRateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem inflationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem inflationStartTimeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem watchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem queryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem executeToolStripMenuItem;
