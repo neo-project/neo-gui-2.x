@@ -32,9 +32,7 @@ namespace Neo.UI
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string str = comboBox1.SelectedItem as string;
-            //this.scriptHash = UInt160.parse(comboBox1.SelectedItem as string);
-            this.scriptHash = UInt160.Parse(str);
+            this.scriptHash = UInt160.parse(comboBox1.SelectedItem as string);
             this.asset = new AssetDescriptor(this.scriptHash);
         }
 

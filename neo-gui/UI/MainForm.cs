@@ -1106,24 +1106,24 @@ namespace Neo.UI
             Helper.SignAndShowInformation(tx);
         }
 
-        private void inflationRateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Transaction tx;
-            using (InflationRateDialog dialog = new InflationRateDialog())
-            {
-                if (dialog.ShowDialog() != DialogResult.OK) return;
-                tx = dialog.GetTransaction();
-            }
-            if (tx is InvocationTransaction itx)
-            {
-                using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
-                {
-                    if (dialog.ShowDialog() != DialogResult.OK) return;
-                    tx = dialog.GetTransaction();
-                }
-            }
-            Helper.SignAndShowInformation(tx);
-        }
+        //private void inflationRateToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    Transaction tx;
+        //    using (InflationRateDialog dialog = new InflationRateDialog())
+        //    {
+        //        if (dialog.ShowDialog() != DialogResult.OK) return;
+        //        tx = dialog.GetTransaction();
+        //    }
+        //    if (tx is InvocationTransaction itx)
+        //    {
+        //        using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
+        //        {
+        //            if (dialog.ShowDialog() != DialogResult.OK) return;
+        //            tx = dialog.GetTransaction();
+        //        }
+        //    }
+        //    Helper.SignAndShowInformation(tx);
+        //}
 
         private void inflationToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1160,24 +1160,24 @@ namespace Neo.UI
             Helper.SignAndShowInformation(tx);
         }
 
-        private void inflationStartTimeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Transaction tx;
-            using (InflationStartTimeDialog dialog = new InflationStartTimeDialog())
-            {
-                if (dialog.ShowDialog() != DialogResult.OK) return;
-                tx = dialog.GetTransaction();
-            }
-            if (tx is InvocationTransaction itx)
-            {
-                using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
-                {
-                    if (dialog.ShowDialog() != DialogResult.OK) return;
-                    tx = dialog.GetTransaction();
-                }
-            }
-            Helper.SignAndShowInformation(tx);
-        }
+        //private void inflationStartTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    Transaction tx;
+        //    using (InflationStartTimeDialog dialog = new InflationStartTimeDialog())
+        //    {
+        //        if (dialog.ShowDialog() != DialogResult.OK) return;
+        //        tx = dialog.GetTransaction();
+        //    }
+        //    if (tx is InvocationTransaction itx)
+        //    {
+        //        using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
+        //        {
+        //            if (dialog.ShowDialog() != DialogResult.OK) return;
+        //            tx = dialog.GetTransaction();
+        //        }
+        //    }
+        //    Helper.SignAndShowInformation(tx);
+        //}
 
         private void watchToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1193,6 +1193,82 @@ namespace Neo.UI
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
             }
+        }
+
+        private Transaction inflationMethod(string scriptHash)
+        {
+            string command = "inflation";
+            UInt160 script_hash = UInt160.Parse(scriptHash);
+
+            byte[] script;
+            using (ScriptBuilder sb = new ScriptBuilder())
+            {
+                sb.EmitPush(0);
+                sb.EmitPush(command);
+                sb.EmitAppCall(script_hash.ToArray());
+                script = sb.ToArray();
+            }
+
+            return Program.CurrentWallet.MakeTransaction(new InvocationTransaction
+            {
+                Script = script
+            });
+        }
+
+        private void executeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string scriptHash, command;
+            using (ExecuteDialog dialog = new ExecuteDialog())
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+                dialog.GetCommand(out scriptHash, out command);
+                Debug.WriteLine(scriptHash);
+                Debug.WriteLine(command);
+            }
+            string address = Wallet.ToAddress(UInt160.Parse(scriptHash));
+            Debug.WriteLine(address);
+
+            Transaction tx;
+            switch (command)
+            {
+                case "mintTokens":
+                    using (MintTokensDialog dialog = new MintTokensDialog(scriptHash))
+                    {
+                        if (dialog.ShowDialog() != DialogResult.OK) return;
+                        tx = dialog.GetTransaction();
+                    }
+                    break;
+                case "inflation":
+                    tx = inflationMethod(scriptHash);
+                    break;
+                case "inflationRate":
+                    using (InflationRateDialog dialog = new InflationRateDialog(scriptHash))
+                    {
+                        if (dialog.ShowDialog() != DialogResult.OK) return;
+                        tx = dialog.GetTransaction();
+                    }
+                    break;
+                case "inflationStartTime":
+                    using (InflationStartTimeDialog dialog = new InflationStartTimeDialog(scriptHash))
+                    {
+                        if (dialog.ShowDialog() != DialogResult.OK) return;
+                        tx = dialog.GetTransaction();
+                    }
+                    break;
+                default:
+                    tx = null;
+                    break;
+            }
+            if (tx is InvocationTransaction itx)
+            {
+                using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
+                {
+                    if (dialog.ShowDialog() != DialogResult.OK) return;
+                    tx = dialog.GetTransaction();
+                }
+            }
+            Helper.SignAndShowInformation(tx);
+
         }
     }
 }

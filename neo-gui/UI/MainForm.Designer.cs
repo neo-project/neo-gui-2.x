@@ -347,7 +347,7 @@
             // 
             this.inflationRateToolStripMenuItem.Name = "inflationRateToolStripMenuItem";
             resources.ApplyResources(this.inflationRateToolStripMenuItem, "inflationRateToolStripMenuItem");
-            this.inflationRateToolStripMenuItem.Click += new System.EventHandler(this.inflationRateToolStripMenuItem_Click);
+            //this.inflationRateToolStripMenuItem.Click += new System.EventHandler(this.inflationRateToolStripMenuItem_Click);
             // 
             // inflationToolStripMenuItem
             // 
@@ -359,7 +359,7 @@
             // 
             this.inflationStartTimeToolStripMenuItem.Name = "inflationStartTimeToolStripMenuItem";
             resources.ApplyResources(this.inflationStartTimeToolStripMenuItem, "inflationStartTimeToolStripMenuItem");
-            this.inflationStartTimeToolStripMenuItem.Click += new System.EventHandler(this.inflationStartTimeToolStripMenuItem_Click);
+            //this.inflationStartTimeToolStripMenuItem.Click += new System.EventHandler(this.inflationStartTimeToolStripMenuItem_Click);
             // 
             // smartContractToolStripMenuItem
             // 
@@ -386,6 +386,7 @@
             // 
             this.executeToolStripMenuItem.Name = "executeToolStripMenuItem";
             resources.ApplyResources(this.executeToolStripMenuItem, "executeToolStripMenuItem");
+            this.executeToolStripMenuItem.Click += new System.EventHandler(this.executeToolStripMenuItem_Click);
             // 
             // 帮助HToolStripMenuItem
             // 

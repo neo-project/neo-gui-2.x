@@ -19,19 +19,18 @@ namespace Neo.UI
 {
     public partial class InflationStartTimeDialog : Form
     {
-        public InflationStartTimeDialog()
+        private string scriptHash;
+
+        public InflationStartTimeDialog(string scriptHash)
         {
             InitializeComponent();
+            this.scriptHash = scriptHash;
         }
 
         public Core.Transaction GetTransaction()
         {
             string command = "inflationStartTime";
-            string scriptHash = Settings.Default.NEP5Watched.OfType<string>().ToArray()[0];
-            Debug.WriteLine(scriptHash);
-            UInt160 script_hash = UInt160.Parse(scriptHash);
-            string address = Wallet.ToAddress(script_hash);
-            Debug.WriteLine(address);
+            UInt160 script_hash = UInt160.Parse(this.scriptHash);
 
             uint timestamp = dateTimePicker1.Value.ToTimestamp();
             object[] param = { timestamp };
@@ -47,7 +46,6 @@ namespace Neo.UI
             {
                 Script = script
             });
-
 
         }
     }

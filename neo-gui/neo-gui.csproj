@@ -283,6 +283,12 @@
     <Compile Include="Cryptography\CertificateQueryResult.cs" />
     <Compile Include="Cryptography\CertificateQueryResultType.cs" />
     <Compile Include="Cryptography\CertificateQueryService.cs" />
+    <Compile Include="MintTokensDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MintTokensDialog.Designer.cs">
+      <DependentUpon>MintTokensDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -359,6 +365,12 @@
     </Compile>
     <Compile Include="UI\ElectionDialog.Designer.cs">
       <DependentUpon>ElectionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ExecuteDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ExecuteDialog.Designer.cs">
+      <DependentUpon>ExecuteDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ICODialog.cs">
       <SubType>Form</SubType>
@@ -549,6 +561,9 @@
     <Compile Include="UI\WatchDialog.Designer.cs">
       <DependentUpon>WatchDialog.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="MintTokensDialog.resx">
+      <DependentUpon>MintTokensDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -678,6 +693,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ElectionDialog.zh-Hans.resx">
       <DependentUpon>ElectionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ExecuteDialog.resx">
+      <DependentUpon>ExecuteDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ICODialog.resx">
       <DependentUpon>ICODialog.cs</DependentUpon>

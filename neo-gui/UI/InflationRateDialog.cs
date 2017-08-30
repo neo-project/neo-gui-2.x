@@ -12,22 +12,19 @@ namespace Neo.UI
 {
     public partial class InflationRateDialog : Form
     {
-        public InflationRateDialog()
+        private string scriptHash;
+        public InflationRateDialog(string scriptHash)
         {
             InitializeComponent();
+            this.scriptHash = scriptHash;
         }
 
         public Transaction GetTransaction()
         {
             string command = "inflationRate";
-            string scriptHash = Settings.Default.NEP5Watched.OfType<string>().ToArray()[0];
-            Debug.WriteLine(scriptHash);
-            UInt160 script_hash = UInt160.Parse(scriptHash);
-            string address = Wallet.ToAddress(script_hash);
-            Debug.WriteLine(address);
-
+            UInt160 script_hash = UInt160.Parse(this.scriptHash);
             BigInteger iRate = BigInteger.Parse(this.textBox1.Text);
-            object[] param = { iRate};
+            object[] param = { iRate };
             byte[] script;
 
             using (ScriptBuilder sb = new ScriptBuilder())
@@ -35,7 +32,6 @@ namespace Neo.UI
                 sb.EmitAppCall(script_hash, command, param);
                 script = sb.ToArray();
             }
-
 
             return Program.CurrentWallet.MakeTransaction(new InvocationTransaction
             {
