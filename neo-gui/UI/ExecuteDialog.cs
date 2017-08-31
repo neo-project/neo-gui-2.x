@@ -30,8 +30,10 @@ namespace Neo.UI
 
         public void GetCommand(out string scriptHash, out string command)
         {
+            
             scriptHash = comboBox1.SelectedItem as string;
             command = comboBox2.SelectedItem as string;
+            
         }
     }
 }

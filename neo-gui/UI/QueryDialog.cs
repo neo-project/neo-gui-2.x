@@ -38,6 +38,11 @@ namespace Neo.UI
 
         private void Query_Click(object sender, EventArgs e)
         {
+            if (comboBox1.SelectedItem == null)
+            {
+                MessageBox.Show("请选择脚本哈希！");
+                return;
+            }
             byte[] script;
             using (ScriptBuilder sb = new ScriptBuilder())
             {

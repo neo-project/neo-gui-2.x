@@ -344,8 +344,8 @@
             // 
             // executeToolStripMenuItem
             // 
-            this.executeToolStripMenuItem.Name = "executeToolStripMenuItem";
             resources.ApplyResources(this.executeToolStripMenuItem, "executeToolStripMenuItem");
+            this.executeToolStripMenuItem.Name = "executeToolStripMenuItem";
             this.executeToolStripMenuItem.Click += new System.EventHandler(this.executeToolStripMenuItem_Click);
             // 
             // 帮助HToolStripMenuItem

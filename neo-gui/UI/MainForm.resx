@@ -300,25 +300,28 @@
     <value>181, 26</value>
   </data>
   <data name="watchToolStripMenuItem.Text" xml:space="preserve">
-    <value>Watch</value>
+    <value>&amp;Watch</value>
   </data>
   <data name="queryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>181, 26</value>
   </data>
   <data name="queryToolStripMenuItem.Text" xml:space="preserve">
-    <value>Query</value>
+    <value>&amp;Query</value>
+  </data>
+  <data name="executeToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="executeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>181, 26</value>
   </data>
   <data name="executeToolStripMenuItem.Text" xml:space="preserve">
-    <value>Execute</value>
+    <value>&amp;Execute</value>
   </data>
   <data name="smartContractToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 24</value>
   </data>
   <data name="smartContractToolStripMenuItem.Text" xml:space="preserve">
-    <value>Smart Contract</value>
+    <value>&amp;Smart Contract</value>
   </data>
   <data name="查看帮助VToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 26</value>

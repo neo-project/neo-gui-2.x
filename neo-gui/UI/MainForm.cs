@@ -54,7 +54,10 @@ namespace Neo.UI
         {
             Transaction tx = (Transaction)args.ScriptContainer;
             string txid = tx.Hash.ToString();
-            if (txid == InvokeContractDialog.testTxid) return;
+            if (txid == InvokeContractDialog.testTxid) {
+                InvokeContractDialog.testTxid = "";
+                return;
+            }
             string filePath = Directory.GetCurrentDirectory();
             var arr = args.State.GetArray();
             string eventName = Encoding.Default.GetString(arr[0].GetByteArray());
@@ -71,9 +74,10 @@ namespace Neo.UI
                             BigInteger _amountRefund = arr[2].GetBigInteger();
                             BigDecimal amountRefund = new BigDecimal(_amountRefund, asset.Precision);
                             string msgRefund1 = "scriptHash: " + args.ScriptHash.ToString() + "\r\n";
-                            string msgRefund2 = "account: " + accountScriptHash.ToHexString() + "\r\n";
-                            string msgRefund3 = "amount: " + amountRefund.ToString() + "\r\n" + "\r\n";
-                            string msgRefund = msgRefund1 + msgRefund2 + msgRefund3;
+                            string msgRefund2 = "address: " + Wallet.ToAddress(args.ScriptHash) + "\r\n";
+                            string msgRefund3 = "account: " + accountScriptHash.ToHexString() + "\r\n";
+                            string msgRefund4 = "amount: " + amountRefund.ToString() + "\r\n" + "\r\n";
+                            string msgRefund = msgRefund1 + msgRefund2 + msgRefund3 + msgRefund4;
                             byte[] refundByte = Encoding.UTF8.GetBytes(msgRefund);
                             using (FileStream fsWrite = new FileStream(filePath + "/refund.txt", FileMode.Append))
                             {
@@ -87,8 +91,8 @@ namespace Neo.UI
                             BigDecimal amountTransfer = new BigDecimal(_amountTransfer, asset.Precision);
                             string msgTransfer1 = "txid: " + txid + "\r\n";
                             string msgTransfer2 = "scriptHash: " + args.ScriptHash.ToString() + "\r\n";
-                            string msgTransfer3 = "from: " + fromScriptHash.ToHexString() + "\r\n";
-                            string msgTransfer4 = "to: " + toScriptHash.ToHexString() + "\r\n";
+                            string msgTransfer3 = "from: " + Wallet.ToAddress(UInt160.Parse(fromScriptHash.ToHexString())) + "\r\n";
+                            string msgTransfer4 = "to: " + Wallet.ToAddress(UInt160.Parse(toScriptHash.ToHexString())) + "\r\n";
                             string msgTransfer5 = "amount: " + amountTransfer.ToString() + "\r\n" + "\r\n";
                             string msgTransfer = msgTransfer1 + msgTransfer2 + msgTransfer3 + msgTransfer4 + msgTransfer5;
                             byte[] transferByte = Encoding.UTF8.GetBytes(msgTransfer);
@@ -215,6 +219,7 @@ namespace Neo.UI
             创建新地址NToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             导入私钥IToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             创建智能合约SToolStripMenuItem.Enabled = Program.CurrentWallet != null;
+            executeToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             listView1.Items.Clear();
             if (Program.CurrentWallet != null)
             {
@@ -1111,8 +1116,16 @@ namespace Neo.UI
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
                 dialog.GetCommand(out scriptHash, out command);
-                Debug.WriteLine(scriptHash);
-                Debug.WriteLine(command);
+                if (scriptHash == null)
+                {
+                    MessageBox.Show("请选择脚本哈希！");
+                    return;
+                }
+                if (command == null)
+                {
+                    MessageBox.Show("请选择指令！");
+                    return;
+                }
             }
 
             Transaction tx;
