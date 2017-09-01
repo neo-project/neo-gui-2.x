@@ -446,6 +446,14 @@
     <Compile Include="UI\DeveloperToolsForm.Designer.cs">
       <DependentUpon>DeveloperToolsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\DeveloperToolsForm.TxBuilder.cs">
+      <DependentUpon>DeveloperToolsForm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DeveloperToolsForm.ContractParameters.cs">
+      <DependentUpon>DeveloperToolsForm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UI\Helper.cs" />
     <Compile Include="UI\InformationBox.cs">
       <SubType>Form</SubType>
@@ -510,6 +518,19 @@
     <Compile Include="UI\VotingDialog.Designer.cs">
       <DependentUpon>VotingDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Wrappers\ClaimTransactionWrapper.cs" />
+    <Compile Include="UI\Wrappers\CoinReferenceWrapper.cs" />
+    <Compile Include="UI\Wrappers\ContractTransactionWrapper.cs" />
+    <Compile Include="UI\Wrappers\Fixed8Converter.cs" />
+    <Compile Include="UI\Wrappers\HexConverter.cs" />
+    <Compile Include="UI\Wrappers\HexEditor.cs" />
+    <Compile Include="UI\Wrappers\InvocationTransactionWrapper.cs" />
+    <Compile Include="UI\Wrappers\IssueTransactionWrapper.cs" />
+    <Compile Include="UI\Wrappers\TransactionAttributeWrapper.cs" />
+    <Compile Include="UI\Wrappers\TransactionOutputWrapper.cs" />
+    <Compile Include="UI\Wrappers\TransactionWrapper.cs" />
+    <Compile Include="UI\Wrappers\UIntBaseConverter.cs" />
+    <Compile Include="UI\Wrappers\WitnessWrapper.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
