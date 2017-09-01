@@ -686,6 +686,9 @@
     <EmbeddedResource Include="UI\ExecuteDialog.resx">
       <DependentUpon>ExecuteDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\ExecuteDialog.zh-Hans.resx">
+      <DependentUpon>ExecuteDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\ICODialog.resx">
       <DependentUpon>ICODialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -790,6 +793,9 @@
       <DependentUpon>PayToDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\QueryDialog.resx">
+      <DependentUpon>QueryDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\QueryDialog.zh-Hans.resx">
       <DependentUpon>QueryDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\RestoreAccountsDialog.es-ES.resx">
@@ -903,6 +909,9 @@
       <DependentUpon>VotingDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\WatchDialog.resx">
+      <DependentUpon>WatchDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WatchDialog.zh-Hans.resx">
       <DependentUpon>WatchDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="config.testnet.json">

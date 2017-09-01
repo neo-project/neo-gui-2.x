@@ -40,7 +40,7 @@ namespace Neo.UI
         {
             if (comboBox1.SelectedItem == null)
             {
-                MessageBox.Show("请选择脚本哈希！");
+                MessageBox.Show(Strings.ChooseScriptHash);
                 return;
             }
             byte[] script;

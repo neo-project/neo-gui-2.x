@@ -525,4 +525,13 @@
   <data name="tabPage3.Text" xml:space="preserve">
     <value>交易记录</value>
   </data>
+  <data name="executeToolStripMenuItem.Text" xml:space="preserve">
+    <value>执行</value>
+  </data>
+  <data name="queryToolStripMenuItem.Text" xml:space="preserve">
+    <value>查询</value>
+  </data>
+  <data name="watchToolStripMenuItem.Text" xml:space="preserve">
+    <value>监视</value>
+  </data>
 </root>

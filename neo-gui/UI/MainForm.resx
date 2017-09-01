@@ -297,13 +297,13 @@
     <value>&amp;Advanced</value>
   </data>
   <data name="watchToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 26</value>
+    <value>135, 26</value>
   </data>
   <data name="watchToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Watch</value>
   </data>
   <data name="queryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 26</value>
+    <value>135, 26</value>
   </data>
   <data name="queryToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Query</value>
@@ -312,7 +312,7 @@
     <value>False</value>
   </data>
   <data name="executeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 26</value>
+    <value>135, 26</value>
   </data>
   <data name="executeToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Execute</value>
