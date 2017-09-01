@@ -178,7 +178,7 @@
     <value>Install the certificate</value>
   </data>
   <data name="InstallCertificateText" xml:space="preserve">
-    <value>Anthares must install Onchain root certificate to validate assets on the blockchain, install it now?</value>
+    <value>NEO must install Onchain root certificate to validate assets on the blockchain, install it now?</value>
   </data>
   <data name="InsufficientFunds" xml:space="preserve">
     <value>Insufficient funds, transaction cannot be initiated.</value>
