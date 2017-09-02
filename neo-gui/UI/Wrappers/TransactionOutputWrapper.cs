@@ -1,4 +1,5 @@
 ﻿using Neo.Core;
+using Neo.Wallets;
 using System.ComponentModel;
 
 namespace Neo.UI.Wrappers
@@ -11,6 +12,19 @@ namespace Neo.UI.Wrappers
         public Fixed8 Value { get; set; }
         [TypeConverter(typeof(UIntBaseConverter))]
         public UInt160 ScriptHash { get; set; }
+
+        public string Address
+        {
+            get
+            {
+                if (ScriptHash == null) return null;
+                return Wallet.ToAddress(ScriptHash);
+            }
+            set
+            {
+                ScriptHash = Wallet.ToScriptHash(value);
+            }
+        }
 
         public TransactionOutput Unwrap()
         {

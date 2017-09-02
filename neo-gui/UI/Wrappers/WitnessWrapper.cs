@@ -6,10 +6,10 @@ namespace Neo.UI.Wrappers
 {
     internal class WitnessWrapper
     {
-        [Editor(typeof(HexEditor), typeof(UITypeEditor))]
+        [Editor(typeof(ScriptEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(HexConverter))]
         public byte[] InvocationScript { get; set; }
-        [Editor(typeof(HexEditor), typeof(UITypeEditor))]
+        [Editor(typeof(ScriptEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(HexConverter))]
         public byte[] VerificationScript { get; set; }
 

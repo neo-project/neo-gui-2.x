@@ -523,9 +523,9 @@
     <Compile Include="UI\Wrappers\ContractTransactionWrapper.cs" />
     <Compile Include="UI\Wrappers\Fixed8Converter.cs" />
     <Compile Include="UI\Wrappers\HexConverter.cs" />
-    <Compile Include="UI\Wrappers\HexEditor.cs" />
     <Compile Include="UI\Wrappers\InvocationTransactionWrapper.cs" />
     <Compile Include="UI\Wrappers\IssueTransactionWrapper.cs" />
+    <Compile Include="UI\Wrappers\ScriptEditor.cs" />
     <Compile Include="UI\Wrappers\TransactionAttributeWrapper.cs" />
     <Compile Include="UI\Wrappers\TransactionOutputWrapper.cs" />
     <Compile Include="UI\Wrappers\TransactionWrapper.cs" />
