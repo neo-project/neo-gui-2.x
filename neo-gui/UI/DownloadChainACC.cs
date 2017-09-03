@@ -244,7 +244,7 @@ namespace Neo.UI
 
         private void DownloadChainACC_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(downloadClient.IsBusy)
+            if(downloadClient != null && downloadClient.IsBusy)
             {
                 downloadClient.CancelAsync();
             }
