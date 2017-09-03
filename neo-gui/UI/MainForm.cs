@@ -252,24 +252,38 @@ namespace Neo.UI
             Task.Run(() =>
             {
                 const string acc_path = "chain.acc";
-                const string acc_zip_path = acc_path + ".zip";
+                string acc_zip_path = Settings.Default.BootstrapFile;
                 if (File.Exists(acc_path))
                 {
-                    using (FileStream fs = new FileStream(acc_path, FileMode.Open, FileAccess.Read, FileShare.None))
+                    try
                     {
-                        ImportBlocks(fs);
+                        using (FileStream fs = new FileStream(acc_path, FileMode.Open, FileAccess.Read, FileShare.None))
+                        {
+                            ImportBlocks(fs);
+                        }
+                        File.Delete(acc_path);
                     }
-                    File.Delete(acc_path);
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("There was a problem extracting your chain bootstrap data: " + ex.Message);
+                    }
                 }
                 else if (File.Exists(acc_zip_path))
                 {
-                    using (FileStream fs = new FileStream(acc_zip_path, FileMode.Open, FileAccess.Read, FileShare.None))
-                    using (ZipArchive zip = new ZipArchive(fs, ZipArchiveMode.Read))
-                    using (Stream zs = zip.GetEntry(acc_path).Open())
+                    try
                     {
-                        ImportBlocks(zs);
+                        using (FileStream fs = new FileStream(acc_zip_path, FileMode.Open, FileAccess.Read, FileShare.None))
+                        using (ZipArchive zip = new ZipArchive(fs, ZipArchiveMode.Read))
+                        using (Stream zs = zip.GetEntry(acc_path).Open())
+                        {
+                            ImportBlocks(zs);
+                        }
+                        File.Delete(acc_zip_path);
                     }
-                    File.Delete(acc_zip_path);
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("There was a problem extracting your chain bootstrap data: " + ex.Message);
+                    }
                 }
                 Blockchain.PersistCompleted += Blockchain_PersistCompleted;
                 Program.LocalNode.Start(Settings.Default.NodePort, Settings.Default.WsPort);

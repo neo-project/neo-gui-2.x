@@ -132,6 +132,33 @@
   <data name="Address" xml:space="preserve">
     <value>Address</value>
   </data>
+  <data name="BoostrapNeoBlockchain" xml:space="preserve">
+    <value>Do you wish to download a blockchain bootstrap zip file? (select no to download via peers)</value>
+  </data>
+  <data name="BoostrapNeoBlockchainTitle" xml:space="preserve">
+    <value>Welcome to NEO</value>
+  </data>
+  <data name="BoostrapNeoBlockchainDownloadSigs" xml:space="preserve">
+    <value>Downloading file signatures from neo.org</value>
+  </data>
+  <data name="BoostrapNeoBlockchainDownload" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="BoostrapNeoBlockchainCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="BoostrapNeoBlockchainDownloadCancelled" xml:space="preserve">
+    <value>Download Cancelled</value>
+  </data>
+  <data name="BoostrapNeoBlockchainDownloadFailed" xml:space="preserve">
+    <value>Download Failed: </value>
+  </data>
+  <data name="BoostrapNeoBlockchainDownloadSuccessful" xml:space="preserve">
+    <value>Download Successful</value>
+  </data>
+  <data name="BoostrapNeoBlockchainSignatureInvalid" xml:space="preserve">
+    <value>Signature of downloaded file is invalid - please download again</value>
+  </data>
   <data name="ChangePasswordSuccessful" xml:space="preserve">
     <value>Change password successful.</value>
   </data>

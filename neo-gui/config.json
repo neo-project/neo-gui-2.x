@@ -11,6 +11,14 @@
       "AddressUrl": "https://www.antchain.xyz/address/{0}",
       "AssetUrl": "https://www.antchain.xyz/asset/hash/{0}",
       "TransactionUrl": "https://www.antchain.xyz/tx/hash/{0}"
+    },
+    "BootstrapDownload": {
+      "file": "chain.acc.zip",
+      "hashList": "https://www.neo.org/client/chain-hash.json",
+      "mirrors": [
+        "https://neo.org/client",
+        "https://s3-ap-southeast-2.amazonaws.com/neo-chain-mirror"
+      ]
     }
   }
 }

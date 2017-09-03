@@ -340,6 +340,12 @@
     <Compile Include="UI\DeployContractDialog.Designer.cs">
       <DependentUpon>DeployContractDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\DownloadChainACC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DownloadChainACC.Designer.cs">
+      <DependentUpon>DownloadChainACC.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\ElectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -615,6 +621,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\DeveloperToolsForm.zh-Hans.resx">
       <DependentUpon>DeveloperToolsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\DownloadChainACC.resx">
+      <DependentUpon>DownloadChainACC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ElectionDialog.es-ES.resx">
       <DependentUpon>ElectionDialog.cs</DependentUpon>

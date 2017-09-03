@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Neo.Properties
 {
@@ -9,6 +11,9 @@ namespace Neo.Properties
         public ushort NodePort { get; }
         public ushort WsPort { get; }
         public BrowserSettings Urls { get; }
+        public string[] BootstrapMirrorUrls { get; }                            // a list of urls that chain.acc is stored on
+        public string BootstrapFile { get; }                                    // mainnet and testnet chain.acc filenames
+        public string BootstrapHashListURL { get; }                             // official neo file hash list
 
         public Settings()
         {
@@ -24,6 +29,11 @@ namespace Neo.Properties
             this.NodePort = ushort.Parse(section.GetSection("NodePort").Value);
             this.WsPort = ushort.Parse(section.GetSection("WsPort").Value);
             this.Urls = new BrowserSettings(section.GetSection("Urls"));
+
+            IConfigurationSection bootstrapData = section.GetSection("BootstrapDownload");
+            this.BootstrapMirrorUrls = bootstrapData.GetSection("mirrors").GetChildren().Select(n => n.Value).ToArray();
+            this.BootstrapFile = bootstrapData.GetSection("file").Value;
+            this.BootstrapHashListURL = bootstrapData.GetSection("hashList").Value;
         }
     }
 

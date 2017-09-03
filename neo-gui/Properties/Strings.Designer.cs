@@ -10,8 +10,8 @@
 
 namespace Neo.Properties {
     using System;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -31,7 +31,7 @@ namespace Neo.Properties {
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Strings() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -45,7 +45,7 @@ namespace Neo.Properties {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -59,7 +59,7 @@ namespace Neo.Properties {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
@@ -68,16 +68,16 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("About", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to AntShares.
+        ///   Looks up a localized string similar to NEO.
         /// </summary>
         internal static string AboutMessage {
             get {
                 return ResourceManager.GetString("AboutMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Version:.
         /// </summary>
@@ -86,7 +86,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("AboutVersion", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Failed to add smart contract, corresponding private key missing in this wallet..
         /// </summary>
@@ -95,7 +95,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("AddContractFailedMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Address.
         /// </summary>
@@ -104,7 +104,88 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("Address", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you wish to download a blockchain bootstrap zip file? (select no to download via peers).
+        /// </summary>
+        internal static string BoostrapNeoBlockchain {
+            get {
+                return ResourceManager.GetString("BoostrapNeoBlockchain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string BoostrapNeoBlockchainCancel {
+            get {
+                return ResourceManager.GetString("BoostrapNeoBlockchainCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download.
+        /// </summary>
+        internal static string BoostrapNeoBlockchainDownload {
+            get {
+                return ResourceManager.GetString("BoostrapNeoBlockchainDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Cancelled.
+        /// </summary>
+        internal static string BoostrapNeoBlockchainDownloadCancelled {
+            get {
+                return ResourceManager.GetString("BoostrapNeoBlockchainDownloadCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Failed: .
+        /// </summary>
+        internal static string BoostrapNeoBlockchainDownloadFailed {
+            get {
+                return ResourceManager.GetString("BoostrapNeoBlockchainDownloadFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading file signatures from neo.org.
+        /// </summary>
+        internal static string BoostrapNeoBlockchainDownloadSigs {
+            get {
+                return ResourceManager.GetString("BoostrapNeoBlockchainDownloadSigs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Successful.
+        /// </summary>
+        internal static string BoostrapNeoBlockchainDownloadSuccessful {
+            get {
+                return ResourceManager.GetString("BoostrapNeoBlockchainDownloadSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signature of downloaded file is invalid - please download again.
+        /// </summary>
+        internal static string BoostrapNeoBlockchainSignatureInvalid {
+            get {
+                return ResourceManager.GetString("BoostrapNeoBlockchainSignatureInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to NEO.
+        /// </summary>
+        internal static string BoostrapNeoBlockchainTitle {
+            get {
+                return ResourceManager.GetString("BoostrapNeoBlockchainTitle", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Change password successful..
         /// </summary>
@@ -113,7 +194,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("ChangePasswordSuccessful", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Confirmation.
         /// </summary>
@@ -122,7 +203,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("DeleteAddressConfirmationCaption", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Upon deletion, assets in these addresses will be permanently lost, are you sure to proceed?.
         /// </summary>
@@ -131,7 +212,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("DeleteAddressConfirmationMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Assets cannot be recovered once deleted, are you sure to delete the assets?.
         /// </summary>
@@ -140,7 +221,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("DeleteAssetConfirmationMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Confirmation.
         /// </summary>
@@ -149,7 +230,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("DeleteConfirmation", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Enter remark here, which will be recorded on the blockchain.
         /// </summary>
@@ -158,7 +239,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("EnterRemarkMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Transaction Remark.
         /// </summary>
@@ -167,7 +248,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("EnterRemarkTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Execution terminated in fault state..
         /// </summary>
@@ -176,7 +257,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("ExecutionFailed", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Expired.
         /// </summary>
@@ -185,7 +266,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("ExpiredCertificate", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Failed.
         /// </summary>
@@ -194,7 +275,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("Failed", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Import Watch-Only Address.
         /// </summary>
@@ -203,7 +284,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("ImportWatchOnlyAddress", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Transaction initiated, but the signature is incomplete..
         /// </summary>
@@ -212,7 +293,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("IncompletedSignatureMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Incomplete signature.
         /// </summary>
@@ -221,7 +302,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("IncompletedSignatureTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to You have cancelled the certificate installation..
         /// </summary>
@@ -230,7 +311,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("InstallCertificateCancel", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Install the certificate.
         /// </summary>
@@ -239,7 +320,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("InstallCertificateCaption", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Anthares must install Onchain root certificate to validate assets on the blockchain, install it now?.
         /// </summary>
@@ -248,7 +329,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("InstallCertificateText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Insufficient funds, transaction cannot be initiated..
         /// </summary>
@@ -257,7 +338,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("InsufficientFunds", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Invalid.
         /// </summary>
@@ -266,7 +347,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("InvalidCertificate", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Migrate Wallet.
         /// </summary>
@@ -275,7 +356,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("MigrateWalletCaption", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Opening wallet files in older versions, update to newest format?
         ///Note: updated files cannot be openned by clients in older versions!.
@@ -285,7 +366,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("MigrateWalletMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Wallet files relocated. Old files have been auto-saved at: .
         /// </summary>
@@ -294,7 +375,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("MigrateWalletSucceedMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Password Incorrect.
         /// </summary>
@@ -303,7 +384,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("PasswordIncorrect", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Data broadcast success, the hash is shown as follows:.
         /// </summary>
@@ -312,7 +393,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("RelaySuccessText", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Broadcast Success.
         /// </summary>
@@ -321,7 +402,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("RelaySuccessTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Raw:.
         /// </summary>
@@ -330,7 +411,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("RelayTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Transaction sent, TXID:.
         /// </summary>
@@ -339,7 +420,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("SendTxSucceedMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Transaction successful.
         /// </summary>
@@ -348,7 +429,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("SendTxSucceedTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to The private key that can sign the data is not found..
         /// </summary>
@@ -357,7 +438,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("SigningFailedKeyNotFoundMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to You must input JSON object pending signature data..
         /// </summary>
@@ -366,7 +447,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("SigningFailedNoDataMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to System.
         /// </summary>
@@ -375,7 +456,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("SystemIssuer", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Validation failed, the counterparty falsified the transaction content!.
         /// </summary>
@@ -384,7 +465,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("TradeFailedFakeDataMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Validation failed, the counterparty generated illegal transaction content!.
         /// </summary>
@@ -393,7 +474,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("TradeFailedInvalidDataMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Validation failed, invalid transaction or unsynchronized blockchain, please try again when synchronized!.
         /// </summary>
@@ -402,7 +483,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("TradeFailedNoSyncMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Need Signature.
         /// </summary>
@@ -411,7 +492,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("TradeNeedSignatureCaption", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Transaction generated, please send the following information to the counterparty for signing:.
         /// </summary>
@@ -420,7 +501,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("TradeNeedSignatureMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Trade Request.
         /// </summary>
@@ -429,7 +510,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("TradeRequestCreatedCaption", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Transaction request generated, please send it to the counterparty or merge it with the counterparty&apos;s request..
         /// </summary>
@@ -438,7 +519,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("TradeRequestCreatedMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Trade Success.
         /// </summary>
@@ -447,7 +528,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("TradeSuccessCaption", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Transaction sent, this is the TXID:.
         /// </summary>
@@ -456,7 +537,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("TradeSuccessMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to unconfirmed.
         /// </summary>
@@ -465,7 +546,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("Unconfirmed", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to unknown issuer.
         /// </summary>
@@ -474,7 +555,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("UnknownIssuer", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Blockchain unsynchronized, transaction cannot be sent..
         /// </summary>

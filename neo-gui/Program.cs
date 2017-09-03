@@ -99,6 +99,35 @@ namespace Neo
                 }
             }
             if (!InstallCertificate()) return;
+
+            // test whether or not the data directory exists
+            if(!Directory.Exists(Settings.Default.DataDirectoryPath))
+            {
+                // prompt the user for a bootstrap download
+                DialogResult dialogResult = MessageBox.Show(Strings.BoostrapNeoBlockchain, Strings.BoostrapNeoBlockchainTitle, MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    using (DownloadChainACC downloadChain = new DownloadChainACC())
+                    {
+                        downloadChain.ShowDialog();
+                        if(downloadChain.DialogResult != DialogResult.OK)
+                        {
+                            try
+                            {
+                                // user cancelled download or form closed without success, cleanup invalid file
+                                if (File.Exists(Settings.Default.BootstrapFile))
+                                {
+                                    File.Delete(Settings.Default.BootstrapFile);
+                                }
+                            } catch (Exception)
+                            {
+                               // Debug.WriteLine("unable to delete busy file");
+                            }
+                        }
+                    }
+                }
+            }
+
             const string PeerStatePath = "peers.dat";
             if (File.Exists(PeerStatePath))
                 using (FileStream fs = new FileStream(PeerStatePath, FileMode.Open, FileAccess.Read, FileShare.Read))
