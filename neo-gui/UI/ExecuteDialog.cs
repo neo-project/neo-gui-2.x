@@ -21,7 +21,7 @@ namespace Neo.UI
             {
                 comboBox1.Items.Add(item);
             }
-            string[] arrCommand = { "mintTokens", "inflation", "inflationRate", "inflationStartTime" };
+            string[] arrCommand = { "deploy", "mintTokens", "inflation", "inflationRate", "inflationStartTime", "inner" };
             foreach (string item in arrCommand)
             {
                 comboBox2.Items.Add(item);

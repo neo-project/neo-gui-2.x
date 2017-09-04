@@ -51,11 +51,18 @@ namespace Neo.UI
                 sb.EmitAppCall(scriptHash, "queryInflationStartTime");
                 sb.EmitAppCall(scriptHash, "totalIcoNeo");
                 sb.EmitAppCall(scriptHash, "icoNeo");
+                sb.EmitAppCall(scriptHash, "symbol");
                 script = sb.ToArray();
             }
             ApplicationEngine engine = TestEngine.Run(script);
             if (engine != null)
             {
+                this.txtbx_name.Text = asset.AssetName;
+                this.txtbx_precision.Text = asset.Precision.ToString();
+
+                //symbol
+                this.txtbx_symbol.Text = engine.EvaluationStack.Pop().GetString();
+
                 //icoNeo
                 BigInteger _icoNeo = engine.EvaluationStack.Pop().GetBigInteger();
                 BigDecimal icoNeo = new BigDecimal(_icoNeo, asset.Precision);

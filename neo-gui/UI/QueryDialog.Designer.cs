@@ -33,6 +33,12 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtbx_name = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtbx_precision = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtbx_symbol = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.txtbx_totalSupply = new System.Windows.Forms.TextBox();
             this.txtbx_inflationRate = new System.Windows.Forms.TextBox();
             this.txtbx_icoNeo = new System.Windows.Forms.TextBox();
@@ -44,10 +50,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtbx_symbol = new System.Windows.Forms.TextBox();
-            this.txtbx_precision = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -75,6 +77,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtbx_name);
+            this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.txtbx_precision);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.txtbx_symbol);
@@ -93,6 +97,39 @@
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
+            // 
+            // txtbx_name
+            // 
+            resources.ApplyResources(this.txtbx_name, "txtbx_name");
+            this.txtbx_name.Name = "txtbx_name";
+            this.txtbx_name.ReadOnly = true;
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            // 
+            // txtbx_precision
+            // 
+            resources.ApplyResources(this.txtbx_precision, "txtbx_precision");
+            this.txtbx_precision.Name = "txtbx_precision";
+            this.txtbx_precision.ReadOnly = true;
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // txtbx_symbol
+            // 
+            resources.ApplyResources(this.txtbx_symbol, "txtbx_symbol");
+            this.txtbx_symbol.Name = "txtbx_symbol";
+            this.txtbx_symbol.ReadOnly = true;
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
             // 
             // txtbx_totalSupply
             // 
@@ -156,28 +193,6 @@
             resources.ApplyResources(this.label7, "label7");
             this.label7.Name = "label7";
             // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // txtbx_symbol
-            // 
-            resources.ApplyResources(this.txtbx_symbol, "txtbx_symbol");
-            this.txtbx_symbol.Name = "txtbx_symbol";
-            this.txtbx_symbol.ReadOnly = true;
-            // 
-            // txtbx_precision
-            // 
-            resources.ApplyResources(this.txtbx_precision, "txtbx_precision");
-            this.txtbx_precision.Name = "txtbx_precision";
-            this.txtbx_precision.ReadOnly = true;
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            // 
             // QueryDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -214,5 +229,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtbx_symbol;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtbx_name;
+        private System.Windows.Forms.Label label4;
     }
 }

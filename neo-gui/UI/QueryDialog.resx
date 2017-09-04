@@ -191,8 +191,60 @@
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="txtbx_name.Location" type="System.Drawing.Point, System.Drawing">
+    <value>110, 26</value>
+  </data>
+  <data name="txtbx_name.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 22</value>
+  </data>
+  <data name="txtbx_name.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="&gt;&gt;txtbx_name.Name" xml:space="preserve">
+    <value>txtbx_name</value>
+  </data>
+  <data name="&gt;&gt;txtbx_name.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtbx_name.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;txtbx_name.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>53, 26</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 17</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="txtbx_precision.Location" type="System.Drawing.Point, System.Drawing">
-    <value>387, 27</value>
+    <value>387, 71</value>
   </data>
   <data name="txtbx_precision.Size" type="System.Drawing.Size, System.Drawing">
     <value>134, 22</value>
@@ -210,17 +262,16 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;txtbx_precision.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>312, 30</value>
+    <value>312, 74</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>66, 17</value>
@@ -241,10 +292,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="txtbx_symbol.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 27</value>
+    <value>386, 21</value>
   </data>
   <data name="txtbx_symbol.Size" type="System.Drawing.Size, System.Drawing">
     <value>135, 22</value>
@@ -262,7 +313,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;txtbx_symbol.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -271,7 +322,7 @@
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>44, 30</value>
+    <value>320, 24</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>54, 17</value>
@@ -292,10 +343,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="txtbx_totalSupply.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 71</value>
+    <value>110, 75</value>
   </data>
   <data name="txtbx_totalSupply.Size" type="System.Drawing.Size, System.Drawing">
     <value>135, 22</value>
@@ -313,10 +364,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;txtbx_totalSupply.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="txtbx_inflationRate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 117</value>
+    <value>110, 121</value>
   </data>
   <data name="txtbx_inflationRate.Size" type="System.Drawing.Size, System.Drawing">
     <value>135, 22</value>
@@ -334,10 +385,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;txtbx_inflationRate.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="txtbx_icoNeo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>387, 116</value>
+    <value>387, 163</value>
   </data>
   <data name="txtbx_icoNeo.Size" type="System.Drawing.Size, System.Drawing">
     <value>134, 22</value>
@@ -355,10 +406,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;txtbx_icoNeo.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="txtbx_totalIcoNeo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>387, 71</value>
+    <value>387, 118</value>
   </data>
   <data name="txtbx_totalIcoNeo.Size" type="System.Drawing.Size, System.Drawing">
     <value>134, 22</value>
@@ -376,10 +427,10 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;txtbx_totalIcoNeo.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="txtbx_infStartTime.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 163</value>
+    <value>110, 167</value>
   </data>
   <data name="txtbx_infStartTime.Size" type="System.Drawing.Size, System.Drawing">
     <value>135, 22</value>
@@ -397,7 +448,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;txtbx_infStartTime.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="Query.Location" type="System.Drawing.Point, System.Drawing">
     <value>420, 209</value>
@@ -421,13 +472,13 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;Query.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 166</value>
+    <value>6, 170</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
     <value>92, 17</value>
@@ -448,13 +499,13 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 119</value>
+    <value>7, 123</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>91, 17</value>
@@ -475,13 +526,13 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 71</value>
+    <value>11, 75</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
     <value>87, 17</value>
@@ -502,13 +553,13 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>313, 119</value>
+    <value>313, 166</value>
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 17</value>
@@ -529,13 +580,13 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>277, 74</value>
+    <value>277, 121</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 17</value>
@@ -556,7 +607,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>16</value>
   </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 106</value>

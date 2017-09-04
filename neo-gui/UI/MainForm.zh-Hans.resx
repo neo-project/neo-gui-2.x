@@ -534,4 +534,7 @@
   <data name="watchToolStripMenuItem.Text" xml:space="preserve">
     <value>监视</value>
   </data>
+  <data name="smartContractToolStripMenuItem.Text" xml:space="preserve">
+    <value>智能合约(&amp;S)</value>
+  </data>
 </root>

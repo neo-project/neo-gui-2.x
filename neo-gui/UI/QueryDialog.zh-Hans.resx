@@ -129,4 +129,25 @@
   <data name="Query.Text" xml:space="preserve">
     <value>查询</value>
   </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>单位</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>精度</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>供应量</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>通胀率</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>ICO NEO总量</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>通胀率起始时间</value>
+  </data>
 </root>

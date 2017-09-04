@@ -1089,9 +1089,9 @@ namespace Neo.UI
             }
         }
 
-        private Transaction inflationMethod(string scriptHash)
+        private Transaction commandMethod(string scriptHash, string command)
         {
-            string command = "inflation";
+            //string command = "inflation";
             UInt160 script_hash = UInt160.Parse(scriptHash);
 
             byte[] script;
@@ -1131,6 +1131,9 @@ namespace Neo.UI
             Transaction tx;
             switch (command)
             {
+                case "deploy":
+                    tx = commandMethod(scriptHash, "deploy");
+                    break;
                 case "mintTokens":
                     using (MintTokensDialog dialog = new MintTokensDialog(scriptHash))
                     {
@@ -1139,7 +1142,7 @@ namespace Neo.UI
                     }
                     break;
                 case "inflation":
-                    tx = inflationMethod(scriptHash);
+                    tx = commandMethod(scriptHash, "inflation");
                     break;
                 case "inflationRate":
                     using (InflationRateDialog dialog = new InflationRateDialog(scriptHash))
@@ -1155,6 +1158,9 @@ namespace Neo.UI
                         tx = dialog.GetTransaction();
                     }
                     break;
+                case "inner":
+                    tx = commandMethod(scriptHash, "inner");
+                    break;
                 default:
                     tx = null;
                     break;
@@ -1162,6 +1168,25 @@ namespace Neo.UI
             if (tx is InvocationTransaction itx)
             {
                 using (InvokeContractDialog dialog = new InvokeContractDialog(itx, Fixed8.Zero))
+                {
+                    if (dialog.ShowDialog() != DialogResult.OK) return;
+                    tx = dialog.GetTransaction();
+                }
+            }
+            Helper.SignAndShowInformation(tx);
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Transaction tx;
+            using (ICODialog dialog = new ICODialog())
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+                tx = dialog.GetTransaction();
+            }
+            if (tx is InvocationTransaction itx)
+            {
+                using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
                 {
                     if (dialog.ShowDialog() != DialogResult.OK) return;
                     tx = dialog.GetTransaction();
