@@ -10,8 +10,14 @@ namespace Neo.UI
         public OpenWalletDialog()
         {
             InitializeComponent();
+
             if (File.Exists(Settings.Default.LastWalletPath))
+            {
                 textBox1.Text = Settings.Default.LastWalletPath;
+
+                // focus in password input if wallet has been set
+                this.ActiveControl = textBox2;
+            }
         }
 
         public string Password
