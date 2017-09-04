@@ -1,6 +1,7 @@
 ﻿using Neo.Core;
 using Neo.IO.Json;
 using Neo.Properties;
+using Neo.SmartContract;
 using Neo.Wallets;
 using System;
 using System.Collections.Generic;
@@ -64,7 +65,10 @@ namespace Neo.UI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ContractTransaction tx = Program.CurrentWallet.MakeTransaction(new ContractTransaction { Outputs = txOutListBox1.Items.Select(p => p.Output).ToArray() }, fee: Fixed8.Zero);
+            ContractTransaction tx = Program.CurrentWallet.MakeTransaction(new ContractTransaction
+            {
+                Outputs = txOutListBox1.Items.Select(p => p.ToTxOutput()).ToArray()
+            }, fee: Fixed8.Zero);
             textBox3.Text = RequestToJson(tx).ToString();
             InformationBox.Show(textBox3.Text, Strings.TradeRequestCreatedMessage, Strings.TradeRequestCreatedCaption);
             tabControl1.SelectedTab = tabPage2;
@@ -83,7 +87,7 @@ namespace Neo.UI
             if (json.ContainsProperty("hex"))
             {
                 ContractTransaction tx_mine = JsonToRequest(JObject.Parse(textBox3.Text));
-                ContractTransaction tx_others = (ContractTransaction)SignatureContext.FromJson(json).Verifiable;
+                ContractTransaction tx_others = (ContractTransaction)ContractParametersContext.FromJson(json).Verifiable;
                 inputs = tx_others.Inputs.Except(tx_mine.Inputs);
                 List<TransactionOutput> outputs_others = new List<TransactionOutput>(tx_others.Outputs);
                 foreach (TransactionOutput output_mine in tx_mine.Outputs)
@@ -126,17 +130,17 @@ namespace Neo.UI
 
         private void button3_Click(object sender, EventArgs e)
         {
-            SignatureContext context;
+            ContractParametersContext context;
             JObject json1 = JObject.Parse(textBox2.Text);
             if (json1.ContainsProperty("hex"))
             {
-                context = SignatureContext.FromJson(json1);
+                context = ContractParametersContext.FromJson(json1);
             }
             else
             {
                 ContractTransaction tx1 = JsonToRequest(json1);
                 ContractTransaction tx2 = JsonToRequest(JObject.Parse(textBox3.Text));
-                context = new SignatureContext(new ContractTransaction
+                context = new ContractParametersContext(new ContractTransaction
                 {
                     Attributes = new TransactionAttribute[0],
                     Inputs = tx1.Inputs.Concat(tx2.Inputs).ToArray(),

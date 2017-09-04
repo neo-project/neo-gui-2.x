@@ -1,7 +1,7 @@
 ﻿using Neo.Core;
 using Neo.Cryptography.ECC;
+using Neo.SmartContract;
 using Neo.VM;
-using Neo.Wallets;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -20,8 +20,7 @@ namespace Neo.UI
             ECPoint pubkey = (ECPoint)comboBox1.SelectedItem;
             using (ScriptBuilder sb = new ScriptBuilder())
             {
-                sb.EmitPush(pubkey.EncodePoint(true));
-                sb.EmitSysCall("Neo.Validator.Register");
+                sb.EmitSysCall("Neo.Validator.Register", pubkey);
                 return new InvocationTransaction
                 {
                     Attributes = new[]

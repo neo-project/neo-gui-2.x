@@ -24,10 +24,10 @@ namespace Neo.UI
             return Program.CurrentWallet.MakeTransaction(new IssueTransaction
             {
                 Version = 1,
-                Outputs = txOutListBox1.Items.GroupBy(p => p.Output.ScriptHash).Select(g => new TransactionOutput
+                Outputs = txOutListBox1.Items.GroupBy(p => p.ScriptHash).Select(g => new TransactionOutput
                 {
-                    AssetId = txOutListBox1.Asset.AssetId,
-                    Value = g.Sum(p => p.Output.Value),
+                    AssetId = (UInt256)txOutListBox1.Asset.AssetId,
+                    Value = g.Sum(p => new Fixed8((long)p.Value.Value)),
                     ScriptHash = g.Key
                 }).ToArray()
             }, fee: Fixed8.One);
@@ -35,11 +35,18 @@ namespace Neo.UI
 
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
+            AssetState state;
             if (UInt256.TryParse(textBox5.Text, out UInt256 asset_id))
-                txOutListBox1.Asset = Blockchain.Default.GetAssetState(asset_id);
+            {
+                state = Blockchain.Default.GetAssetState(asset_id);
+                txOutListBox1.Asset = new AssetDescriptor(state);
+            }
             else
+            {
+                state = null;
                 txOutListBox1.Asset = null;
-            if (txOutListBox1.Asset == null)
+            }
+            if (state == null)
             {
                 textBox1.Text = "";
                 textBox2.Text = "";
@@ -49,10 +56,10 @@ namespace Neo.UI
             }
             else
             {
-                textBox1.Text = txOutListBox1.Asset.Owner.ToString();
-                textBox2.Text = Wallet.ToAddress(txOutListBox1.Asset.Admin);
-                textBox3.Text = txOutListBox1.Asset.Amount == -Fixed8.Satoshi ? "+\u221e" : txOutListBox1.Asset.Amount.ToString();
-                textBox4.Text = txOutListBox1.Asset.Available.ToString();
+                textBox1.Text = state.Owner.ToString();
+                textBox2.Text = Wallet.ToAddress(state.Admin);
+                textBox3.Text = state.Amount == -Fixed8.Satoshi ? "+\u221e" : state.Amount.ToString();
+                textBox4.Text = state.Available.ToString();
                 groupBox3.Enabled = true;
             }
             txOutListBox1.Clear();

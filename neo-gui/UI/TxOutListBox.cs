@@ -12,7 +12,7 @@ namespace Neo.UI
     {
         public event EventHandler ItemsChanged;
 
-        public AssetState Asset { get; set; }
+        public AssetDescriptor Asset { get; set; }
 
         public int ItemCount => listBox1.Items.Count;
 
@@ -67,8 +67,10 @@ namespace Neo.UI
                 AssetState asset = Blockchain.Default.GetAssetState(output.AssetId);
                 listBox1.Items.Add(new TxOutListBoxItem
                 {
-                    Output = output,
-                    AssetName = $"{asset.GetName()} ({asset.Owner})"
+                    AssetName = $"{asset.GetName()} ({asset.Owner})",
+                    AssetId = output.AssetId,
+                    Value = new BigDecimal(output.Value.GetData(), 8),
+                    ScriptHash = output.ScriptHash
                 });
             }
             ItemsChanged?.Invoke(this, EventArgs.Empty);
@@ -84,11 +86,7 @@ namespace Neo.UI
             using (PayToDialog dialog = new PayToDialog(asset: Asset, scriptHash: ScriptHash))
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                listBox1.Items.Add(new TxOutListBoxItem
-                {
-                    Output = dialog.GetOutput(),
-                    AssetName = dialog.AssetName
-                });
+                listBox1.Items.Add(dialog.GetOutput());
                 ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -107,11 +105,7 @@ namespace Neo.UI
             using (BulkPayDialog dialog = new BulkPayDialog(Asset))
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                listBox1.Items.AddRange(dialog.GetOutputs().Select(p => new TxOutListBoxItem
-                {
-                    Output = p,
-                    AssetName = dialog.AssetName
-                }).ToArray());
+                listBox1.Items.AddRange(dialog.GetOutputs());
                 ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
         }
