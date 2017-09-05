@@ -54,10 +54,12 @@ namespace Neo.UI
         {
             Transaction tx = (Transaction)args.ScriptContainer;
             string txid = tx.Hash.ToString();
-            if (txid == InvokeContractDialog.testTxid) {
-                InvokeContractDialog.testTxid = "";
-                return;
-            }
+            
+            //if (txid == InvokeContractDialog.testTxid)
+            //{
+            //    InvokeContractDialog.testTxid = "";
+            //    return;
+            //}
             string filePath = Directory.GetCurrentDirectory();
             var arr = args.State.GetArray();
             string eventName = Encoding.Default.GetString(arr[0].GetByteArray());
@@ -85,14 +87,32 @@ namespace Neo.UI
                             };
                             break;
                         case "transfer":
-                            byte[] fromScriptHash = arr[1].GetByteArray();
-                            byte[] toScriptHash = arr[2].GetByteArray();
+                            string strFromScriptHash, strToScriptHash;
+                            byte[] _fromScriptHash = arr[1].GetByteArray();
+                            byte[] _toScriptHash = arr[2].GetByteArray();
                             BigInteger _amountTransfer = arr[3].GetBigInteger();
+
+                            if (isByteEmpty(_fromScriptHash)) {
+                                strFromScriptHash = "";
+                            }
+                            else
+                            {
+                                strFromScriptHash = Wallet.ToAddress(UInt160.Parse(_fromScriptHash.ToHexString()));
+                            }
+
+                            if (isByteEmpty(_toScriptHash))
+                            {
+                                strToScriptHash = "";
+                            }
+                            else
+                            {
+                                strToScriptHash = Wallet.ToAddress(UInt160.Parse(_toScriptHash.ToHexString()));
+                            }
                             BigDecimal amountTransfer = new BigDecimal(_amountTransfer, asset.Precision);
                             string msgTransfer1 = "txid: " + txid + "\r\n";
                             string msgTransfer2 = "scriptHash: " + args.ScriptHash.ToString() + "\r\n";
-                            string msgTransfer3 = "from: " + Wallet.ToAddress(UInt160.Parse(fromScriptHash.ToHexString())) + "\r\n";
-                            string msgTransfer4 = "to: " + Wallet.ToAddress(UInt160.Parse(toScriptHash.ToHexString())) + "\r\n";
+                            string msgTransfer3 = "from: " + strFromScriptHash + "\r\n";
+                            string msgTransfer4 = "to: " + strToScriptHash + "\r\n";
                             string msgTransfer5 = "amount: " + amountTransfer.ToString() + "\r\n" + "\r\n";
                             string msgTransfer = msgTransfer1 + msgTransfer2 + msgTransfer3 + msgTransfer4 + msgTransfer5;
                             byte[] transferByte = Encoding.UTF8.GetBytes(msgTransfer);
@@ -108,7 +128,25 @@ namespace Neo.UI
                 }
             }
 
-            
+
+        }
+
+        private static bool isByteEmpty(byte[] param) {
+            if (param != null)
+            {
+                if (param.Length == 0)
+                {
+                    //空数组
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else
+            {
+                return true;
+            }
         }
 
         private void AddAddressToListView(UInt160 scriptHash, bool selected = false)

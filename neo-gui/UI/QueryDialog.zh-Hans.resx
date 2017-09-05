@@ -145,9 +145,12 @@
     <value>通胀率</value>
   </data>
   <data name="label7.Text" xml:space="preserve">
-    <value>ICO NEO总量</value>
+    <value>NEO总量</value>
   </data>
   <data name="label8.Text" xml:space="preserve">
     <value>通胀率起始时间</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>获取的NEO</value>
   </data>
 </root>
