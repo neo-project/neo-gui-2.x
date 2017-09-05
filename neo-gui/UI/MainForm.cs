@@ -1092,14 +1092,14 @@ namespace Neo.UI
         private void listView2_DoubleClick(object sender, EventArgs e)
         {
             if (listView2.SelectedIndices.Count == 0) return;
-            string url = string.Format(Settings.Default.Urls.AssetUrl, listView2.SelectedItems[0].Name);
+            string url = string.Format(Settings.Default.Urls.AssetUrl, listView2.SelectedItems[0].Name.Substring(2));
             Process.Start(url);
         }
 
         private void listView3_DoubleClick(object sender, EventArgs e)
         {
             if (listView3.SelectedIndices.Count == 0) return;
-            string url = string.Format(Settings.Default.Urls.TransactionUrl, listView3.SelectedItems[0].Name);
+            string url = string.Format(Settings.Default.Urls.TransactionUrl, listView3.SelectedItems[0].Name.Substring(2));
             Process.Start(url);
         }
 
