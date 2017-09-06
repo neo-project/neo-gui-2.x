@@ -28,6 +28,8 @@ namespace Neo.UI
 {
     internal partial class MainForm : Form
     {
+        public static string txid;
+
         private static readonly UInt160 RecycleScriptHash = new[] { (byte)OpCode.PUSHT }.ToScriptHash();
         private bool balance_changed = false;
         private bool check_nep5_balance = false;
@@ -36,7 +38,7 @@ namespace Neo.UI
         public MainForm(XDocument xdoc = null)
         {
             InitializeComponent();
-            StateReader.Notify += RuntimeNotify;
+            //StateReader.Notify += RuntimeNotify;
             if (xdoc != null)
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -53,8 +55,8 @@ namespace Neo.UI
         private static void RuntimeNotify(object sender, NotifyEventArgs args)
         {
             Transaction tx = (Transaction)args.ScriptContainer;
-            string txid = tx.Hash.ToString();
-            
+            txid = tx.Hash.ToString();
+            if (txid == InvokeContractDialog.testTxid) return;
             //if (txid == InvokeContractDialog.testTxid)
             //{
             //    InvokeContractDialog.testTxid = "";

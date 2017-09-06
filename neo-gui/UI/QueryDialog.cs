@@ -49,8 +49,8 @@ namespace Neo.UI
                 sb.EmitAppCall(scriptHash, "totalSupply");
                 sb.EmitAppCall(scriptHash, "queryInflationRate");
                 sb.EmitAppCall(scriptHash, "queryInflationStartTime");
-                sb.EmitAppCall(scriptHash, "totalIcoNeo");
-                sb.EmitAppCall(scriptHash, "icoNeo");
+                sb.EmitAppCall(scriptHash, "totalSalesNeo");
+                sb.EmitAppCall(scriptHash, "salesNeo");
                 sb.EmitAppCall(scriptHash, "symbol");
                 script = sb.ToArray();
             }
