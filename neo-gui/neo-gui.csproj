@@ -605,6 +605,9 @@
     <EmbeddedResource Include="UI\ContractDetailsDialog.zh-Hans.resx">
       <DependentUpon>ContractDetailsDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\CreateLockAccountDialog.es-ES.resx">
+      <DependentUpon>CreateLockAccountDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\CreateLockAccountDialog.resx">
       <DependentUpon>CreateLockAccountDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -730,6 +733,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OpenWalletDialog.zh-Hans.resx">
       <DependentUpon>OpenWalletDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\OptionsDialog.es-ES.resx">
+      <DependentUpon>OptionsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OptionsDialog.resx">
       <DependentUpon>OptionsDialog.cs</DependentUpon>

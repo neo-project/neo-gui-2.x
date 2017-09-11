@@ -117,46 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="button8.Text" xml:space="preserve">
-    <value>Parametros de contexto</value>
-  </data>
-  <data name="button7.Text" xml:space="preserve">
-    <value>Monedas no gastadas</value>
-  </data>
-  <data name="button6.Text" xml:space="preserve">
-    <value>Opciones de configuración</value>
-  </data>
-  <data name="button5.Text" xml:space="preserve">
-    <value>Notas Transacción</value>
-  </data>
-  <data name="tabPage2.Text" xml:space="preserve">
-    <value>Parámetros del contrato</value>
-  </data>
-  <data name="button4.Text" xml:space="preserve">
-    <value>Emitir</value>
-  </data>
-  <data name="button3.Text" xml:space="preserve">
-    <value>Actualizar</value>
-  </data>
-  <data name="button2.Text" xml:space="preserve">
-    <value>Mostrar</value>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Lista de contratos NEP-5</value>
   </data>
   <data name="button1.Text" xml:space="preserve">
-    <value>Cargar</value>
+    <value>Aceptar</value>
   </data>
-  <data name="groupBox4.Text" xml:space="preserve">
-    <value>Nuevo valor</value>
+  <data name="button2.Text" xml:space="preserve">
+    <value>Cancelar</value>
   </data>
-  <data name="groupBox3.Text" xml:space="preserve">
-    <value>Valor actual</value>
-  </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>Parámetros</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Hash del script</value>
+  <data name="button3.Text" xml:space="preserve">
+    <value>Aplicar</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Herramienta de desarrollo</value>
+    <value>Optiones</value>
   </data>
 </root>
