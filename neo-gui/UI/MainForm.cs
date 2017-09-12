@@ -459,8 +459,8 @@ namespace Neo.UI
                             sb.EmitAppCall(script_hash, "name");
                             script = sb.ToArray();
                         }
-                        ApplicationEngine engine = TestEngine.Run(script);
-                        if (engine == null) continue;
+                        ApplicationEngine engine = ApplicationEngine.Run(script);
+                        if (engine.State.HasFlag(VMState.FAULT)) continue;
                         string name = engine.EvaluationStack.Pop().GetString();
                         byte decimals = (byte)engine.EvaluationStack.Pop().GetBigInteger();
                         BigInteger amount = engine.EvaluationStack.Pop().GetArray().Aggregate(BigInteger.Zero, (x, y) => x + y.GetBigInteger());
