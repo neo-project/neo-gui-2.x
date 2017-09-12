@@ -42,6 +42,7 @@ namespace Neo.UI
 
         public InvocationTransaction GetTransaction()
         {
+            tx.Version = 1;
             return Program.CurrentWallet.MakeTransaction(new InvocationTransaction
             {
                 Version = tx.Version,

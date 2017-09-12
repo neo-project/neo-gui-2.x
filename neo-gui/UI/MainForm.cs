@@ -57,11 +57,6 @@ namespace Neo.UI
             Transaction tx = (Transaction)args.ScriptContainer;
             txid = tx.Hash.ToString();
             if (txid == InvokeContractDialog.testTxid) return;
-            //if (txid == InvokeContractDialog.testTxid)
-            //{
-            //    InvokeContractDialog.testTxid = "";
-            //    return;
-            //}
             string filePath = Directory.GetCurrentDirectory();
             var arr = args.State.GetArray();
             string eventName = Encoding.Default.GetString(arr[0].GetByteArray());
