@@ -1,6 +1,7 @@
 ﻿using Neo.Properties;
 using Neo.SmartContract;
 using Neo.VM;
+using Neo.Wallets;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -100,5 +101,31 @@ namespace Neo.UI
             return time;
         }
 
+        private void CheckBalance_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem == null)
+            {
+                MessageBox.Show(Strings.ChooseScriptHash);
+                return;
+            }
+            UInt160 address = Wallet.ToScriptHash(txtbx_address.Text);
+            byte[] script;
+            using (ScriptBuilder sb = new ScriptBuilder())
+            {
+                sb.EmitAppCall(scriptHash, "balanceOf", address);
+                script = sb.ToArray();
+            }
+            ApplicationEngine engine = TestEngine.Run(script);
+            if (engine != null)
+            {
+                BigInteger _balance = engine.EvaluationStack.Pop().GetBigInteger();
+                BigDecimal balance = new BigDecimal(_balance, asset.Precision);
+                this.txtbx_balance.Text = balance.ToString()+ asset.AssetName;
+            }
+            else
+            {
+                MessageBox.Show("Query Failed");
+            }
+        }
     }
 }

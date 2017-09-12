@@ -281,10 +281,10 @@
     <Compile Include="Cryptography\CertificateQueryResult.cs" />
     <Compile Include="Cryptography\CertificateQueryResultType.cs" />
     <Compile Include="Cryptography\CertificateQueryService.cs" />
-    <Compile Include="MintTokensDialog.cs">
+    <Compile Include="UI\MintTokensDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MintTokensDialog.Designer.cs">
+    <Compile Include="UI\MintTokensDialog.Designer.cs">
       <DependentUpon>MintTokensDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -560,7 +560,7 @@
     <Compile Include="UI\WatchDialog.Designer.cs">
       <DependentUpon>WatchDialog.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="MintTokensDialog.resx">
+    <EmbeddedResource Include="UI\MintTokensDialog.resx">
       <DependentUpon>MintTokensDialog.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="UI\Wrappers\ClaimTransactionWrapper.cs" />

@@ -38,7 +38,7 @@ namespace Neo.UI
         public MainForm(XDocument xdoc = null)
         {
             InitializeComponent();
-            //StateReader.Notify += RuntimeNotify;
+            StateReader.Notify += RuntimeNotify;
             if (xdoc != null)
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -1218,21 +1218,52 @@ namespace Neo.UI
 
         private void testToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Transaction tx;
-            using (ICODialog dialog = new ICODialog())
-            {
-                if (dialog.ShowDialog() != DialogResult.OK) return;
-                tx = dialog.GetTransaction();
-            }
-            if (tx is InvocationTransaction itx)
-            {
-                using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
-                {
-                    if (dialog.ShowDialog() != DialogResult.OK) return;
-                    tx = dialog.GetTransaction();
-                }
-            }
-            Helper.SignAndShowInformation(tx);
+            //Transaction tx;
+            //using (ICODialog dialog = new ICODialog())
+            //{
+            //    if (dialog.ShowDialog() != DialogResult.OK) return;
+            //    tx = dialog.GetTransaction();
+            //}
+            //if (tx is InvocationTransaction itx)
+            //{
+            //    using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
+            //    {
+            //        if (dialog.ShowDialog() != DialogResult.OK) return;
+            //        tx = dialog.GetTransaction();
+            //    }
+            //}
+            //Helper.SignAndShowInformation(tx);
+
+
+            //Transaction tx;
+            //string[] arrScriptHash = Settings.Default.NEP5Watched.OfType<string>().ToArray();
+            //UInt160 scriptHash = UInt160.Parse(arrScriptHash[0]);
+            //UInt160[] addresses = Program.CurrentWallet.GetAddresses().ToArray();
+            //string _outputAddr = "123";
+            //UInt160 outputAddr = UInt160.Parse(_outputAddr);
+            //HashSet<UInt160> sAttributes = new HashSet<UInt160>();
+            //using (ScriptBuilder sb = new ScriptBuilder())
+            //{
+            //    byte[] script;
+            //    using (ScriptBuilder sb2 = new ScriptBuilder())
+            //    {
+            //        sb2.EmitAppCall(outputAddr, "balanceOf", addresses[0]);
+            //        script = sb2.ToArray();
+            //    }
+            //    ApplicationEngine engine = TestEngine.Run(script);
+            //    if (engine == null) throw new Exception();
+            //    BigInteger sum = engine.EvaluationStack.Pop().GetBigInteger();
+            //    sAttributes.Add(addresses[0]);
+            //    sb.EmitAppCall(output.AssetId, "transfer", balances[i].Account, output.Account, value);
+            //    sb.Emit(OpCode.THROWIFNOT);
+            //    tx = new InvocationTransaction
+            //    {
+            //        Version = 1,
+            //        Script = sb.ToArray()
+            //    };
+
+            //}
+
         }
     }
 }

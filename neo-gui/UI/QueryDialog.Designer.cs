@@ -50,8 +50,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.CheckBalance = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtbx_address = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtbx_balance = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -193,10 +200,50 @@
             resources.ApplyResources(this.label7, "label7");
             this.label7.Name = "label7";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.txtbx_balance);
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Controls.Add(this.txtbx_address);
+            this.groupBox3.Controls.Add(this.label10);
+            this.groupBox3.Controls.Add(this.CheckBalance);
+            resources.ApplyResources(this.groupBox3, "groupBox3");
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.TabStop = false;
+            // 
+            // CheckBalance
+            // 
+            resources.ApplyResources(this.CheckBalance, "CheckBalance");
+            this.CheckBalance.Name = "CheckBalance";
+            this.CheckBalance.UseVisualStyleBackColor = true;
+            this.CheckBalance.Click += new System.EventHandler(this.CheckBalance_Click);
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // txtbx_address
+            // 
+            resources.ApplyResources(this.txtbx_address, "txtbx_address");
+            this.txtbx_address.Name = "txtbx_address";
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
+            // txtbx_balance
+            // 
+            resources.ApplyResources(this.txtbx_balance, "txtbx_balance");
+            this.txtbx_balance.Name = "txtbx_balance";
+            this.txtbx_balance.ReadOnly = true;
+            // 
             // QueryDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "QueryDialog";
@@ -204,6 +251,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -231,5 +280,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtbx_name;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox txtbx_balance;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtbx_address;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button CheckBalance;
     }
 }

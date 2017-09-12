@@ -167,7 +167,7 @@ namespace Neo.UI
         private void button5_Click(object sender, EventArgs e)
         {
             if (tx == null) tx = new InvocationTransaction();
-            tx.Version = 1;
+            tx.Version = 2;
             tx.Script = textBox6.Text.HexToBytes();
             if (tx.Attributes == null) tx.Attributes = new TransactionAttribute[0];
             if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
@@ -203,6 +203,7 @@ namespace Neo.UI
             }
         }
 
+        
         private void button6_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() != DialogResult.OK) return;
