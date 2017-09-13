@@ -1230,34 +1230,57 @@ namespace Neo.UI
             //Helper.SignAndShowInformation(tx);
 
 
-            //Transaction tx;
-            //string[] arrScriptHash = Settings.Default.NEP5Watched.OfType<string>().ToArray();
-            //UInt160 scriptHash = UInt160.Parse(arrScriptHash[0]);
-            //UInt160[] addresses = Program.CurrentWallet.GetAddresses().ToArray();
-            //string _outputAddr = "123";
-            //UInt160 outputAddr = UInt160.Parse(_outputAddr);
-            //HashSet<UInt160> sAttributes = new HashSet<UInt160>();
-            //using (ScriptBuilder sb = new ScriptBuilder())
-            //{
-            //    byte[] script;
-            //    using (ScriptBuilder sb2 = new ScriptBuilder())
-            //    {
-            //        sb2.EmitAppCall(outputAddr, "balanceOf", addresses[0]);
-            //        script = sb2.ToArray();
-            //    }
-            //    ApplicationEngine engine = TestEngine.Run(script);
-            //    if (engine == null) throw new Exception();
-            //    BigInteger sum = engine.EvaluationStack.Pop().GetBigInteger();
-            //    sAttributes.Add(addresses[0]);
-            //    sb.EmitAppCall(output.AssetId, "transfer", balances[i].Account, output.Account, value);
-            //    sb.Emit(OpCode.THROWIFNOT);
-            //    tx = new InvocationTransaction
-            //    {
-            //        Version = 1,
-            //        Script = sb.ToArray()
-            //    };
+            Transaction tx;
+            List<TransactionAttribute> attributes = new List<TransactionAttribute>();
+            string[] arrScriptHash = Settings.Default.NEP5Watched.OfType<string>().ToArray();
+            UInt160 scriptHash = UInt160.Parse(arrScriptHash[0]);
+            UInt160[] addresses = Program.CurrentWallet.GetAddresses().ToArray();
+            string _outputAddr = "ANd64d7o484xL5Da54RqsWQCGGhsvmPQjR";
+            UInt160 outputAddr = Wallet.ToScriptHash(_outputAddr);
+            BigInteger value = 1;
+            HashSet<UInt160> sAttributes = new HashSet<UInt160>();
+            using (ScriptBuilder sb = new ScriptBuilder())
+            {
+                //byte[] script;
+                //using (ScriptBuilder sb2 = new ScriptBuilder())
+                //{
+                //    sb2.EmitAppCall(outputAddr, "balanceOf", addresses[0]);
+                //    script = sb2.ToArray();
+                //}
+                //ApplicationEngine engine = TestEngine.Run(script);
+                //if (engine == null) throw new Exception();
+                //BigInteger sum = engine.EvaluationStack.Pop().GetBigInteger();
 
-            //}
+                sAttributes.Add(addresses[0]);
+                sb.EmitAppCall(scriptHash, "transfer", addresses[0], outputAddr, value);
+                sb.Emit(OpCode.THROWIFNOT);
+                tx = new InvocationTransaction
+                {
+                    Version = 1,
+                    Script = sb.ToArray()
+                };
+
+            }
+            attributes.AddRange(sAttributes.Select(p => new TransactionAttribute
+            {
+                Usage = TransactionAttributeUsage.Script,
+                Data = p.ToArray()
+            }));
+            tx.Attributes = attributes.ToArray();
+            TransactionOutput txOutput = new TransactionOutput();
+            //txOutput.AssetId = scriptHash;
+            //tx.Outputs = txOutListBox1.Items.Where(p => p.AssetId is UInt256).Select(p => p.ToTxOutput()).ToArray();
+
+
+            if (tx is InvocationTransaction itx)
+            {
+                using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
+                {
+                    if (dialog.ShowDialog() != DialogResult.OK) return;
+                    tx = dialog.GetTransaction();
+                }
+            }
+            Helper.SignAndShowInformation(tx);
 
         }
     }

@@ -120,7 +120,7 @@ namespace Neo.UI
             {
                 BigInteger _balance = engine.EvaluationStack.Pop().GetBigInteger();
                 BigDecimal balance = new BigDecimal(_balance, asset.Precision);
-                this.txtbx_balance.Text = balance.ToString()+ asset.AssetName;
+                this.txtbx_balance.Text = balance.ToString()+ " " + asset.AssetName;
             }
             else
             {
