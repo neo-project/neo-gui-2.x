@@ -17,6 +17,8 @@ namespace Neo.UI
         private UInt160 script_hash;
         private ContractParameter[] parameters;
 
+        private static readonly Fixed8 net_fee = Fixed8.FromDecimal(0.001m);
+
         public InvokeContractDialog(InvocationTransaction tx = null)
         {
             InitializeComponent();
@@ -30,6 +32,7 @@ namespace Neo.UI
 
         public InvocationTransaction GetTransaction()
         {
+            Fixed8 fee = tx.Gas.Equals(Fixed8.Zero) ? net_fee : tx.Gas;
             return Program.CurrentWallet.MakeTransaction(new InvocationTransaction
             {
                 Version = tx.Version,
@@ -38,7 +41,7 @@ namespace Neo.UI
                 Attributes = tx.Attributes,
                 Inputs = tx.Inputs,
                 Outputs = tx.Outputs
-            });
+            }, fee: fee);
         }
 
         private void UpdateScript()
@@ -103,9 +106,10 @@ namespace Neo.UI
             if (!engine.State.HasFlag(VMState.FAULT))
             {
                 tx.Gas = engine.GasConsumed - Fixed8.FromDecimal(10);
-                if (tx.Gas < Fixed8.One) tx.Gas = Fixed8.One;
+                if (tx.Gas < Fixed8.Zero) tx.Gas = Fixed8.Zero;
                 tx.Gas = tx.Gas.Ceiling();
-                label7.Text = tx.Gas + " gas";
+                Fixed8 fee = tx.Gas.Equals(Fixed8.Zero) ? net_fee : tx.Gas;
+                label7.Text = fee + " gas";
                 button3.Enabled = true;
             }
             else
