@@ -165,8 +165,8 @@
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="Neo, Version=2.3.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neo.2.3.2\lib\net461\Neo.dll</HintPath>
+    <Reference Include="Neo, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neo.2.3.3\lib\net461\Neo.dll</HintPath>
     </Reference>
     <Reference Include="Neo.VM, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Neo.VM.2.0.3\lib\net461\Neo.VM.dll</HintPath>
@@ -294,8 +294,6 @@
     <Compile Include="Properties\Settings.cs">
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SmartContract\CachedScriptTable.cs" />
-    <Compile Include="SmartContract\TestEngine.cs" />
     <Compile Include="UI\AssetDescriptor.cs" />
     <Compile Include="UI\AssetRegisterDialog.cs">
       <SubType>Form</SubType>
@@ -605,6 +603,9 @@
     <EmbeddedResource Include="UI\ContractDetailsDialog.zh-Hans.resx">
       <DependentUpon>ContractDetailsDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\CreateLockAccountDialog.es-ES.resx">
+      <DependentUpon>CreateLockAccountDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\CreateLockAccountDialog.resx">
       <DependentUpon>CreateLockAccountDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -730,6 +731,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OpenWalletDialog.zh-Hans.resx">
       <DependentUpon>OpenWalletDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\OptionsDialog.es-ES.resx">
+      <DependentUpon>OptionsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\OptionsDialog.resx">
       <DependentUpon>OptionsDialog.cs</DependentUpon>

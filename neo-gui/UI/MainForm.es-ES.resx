@@ -176,7 +176,7 @@
     <value>172, 22</value>
   </data>
   <data name="交易TToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Transacciones(&amp;X)...</value>
+    <value>Transacciones (&amp;X)...</value>
   </data>
   <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 6</value>
@@ -497,7 +497,7 @@
     <value>ID de la transacción</value>
   </data>
   <data name="columnHeader9.Text" xml:space="preserve">
-    <value>confirmación</value>
+    <value>Confirmación</value>
   </data>
   <data name="columnHeader10.Text" xml:space="preserve">
     <value>Tipo</value>
