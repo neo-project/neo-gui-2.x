@@ -167,8 +167,9 @@ namespace Neo.UI
                 sb.EmitAppCall(script_hash, "totalSupply");
                 script = sb.ToArray();
             }
-            ApplicationEngine engine = TestEngine.Run(script);
-            if (engine != null)
+            ApplicationEngine engine = ApplicationEngine.Run(script);
+
+            if (!engine.State.HasFlag(VMState.FAULT))
             {
                 BigInteger _totalSupply = engine.EvaluationStack.Pop().GetBigInteger();
                 byte decimals = (byte)engine.EvaluationStack.Pop().GetBigInteger();
@@ -191,8 +192,9 @@ namespace Neo.UI
                 sb.EmitAppCall(script_hash, "queryInflationRate");
                 script = sb.ToArray();
             }
-            ApplicationEngine engine = TestEngine.Run(script);
-            if (engine != null)
+            ApplicationEngine engine = ApplicationEngine.Run(script);
+
+            if (!engine.State.HasFlag(VMState.FAULT))
             {
                 BigInteger iRate = engine.EvaluationStack.Pop().GetBigInteger();
                 this.textBox5.Text = iRate.ToString();
@@ -222,8 +224,8 @@ namespace Neo.UI
                 sb.EmitAppCall(script_hash, "queryInflationStartTime");
                 script = sb.ToArray();
             }
-            ApplicationEngine engine = TestEngine.Run(script);
-            if (engine != null)
+            ApplicationEngine engine = ApplicationEngine.Run(script);
+            if (!engine.State.HasFlag(VMState.FAULT))
             {
                 BigInteger startTime = engine.EvaluationStack.Pop().GetBigInteger();
 
@@ -250,8 +252,8 @@ namespace Neo.UI
                 sb.EmitAppCall(script_hash, command, param);
                 script = sb.ToArray();
             }
-            ApplicationEngine engine = TestEngine.Run(script);
-            if (engine != null)
+            ApplicationEngine engine = ApplicationEngine.Run(script);
+            if (!engine.State.HasFlag(VMState.FAULT))
             {
                 BigInteger _balance = engine.EvaluationStack.Pop().GetBigInteger();
                 BigDecimal balance = new BigDecimal(_balance, asset.Precision);
@@ -276,8 +278,8 @@ namespace Neo.UI
                 sb.EmitAppCall(script_hash, command);
                 script = sb.ToArray();
             }
-            ApplicationEngine engine = TestEngine.Run(script);
-            if (engine != null)
+            ApplicationEngine engine = ApplicationEngine.Run(script);
+            if (!engine.State.HasFlag(VMState.FAULT))
             {
                 BigInteger _totalIcoNeo = engine.EvaluationStack.Pop().GetBigInteger();
                 BigDecimal totalIcoNeo = new BigDecimal(_totalIcoNeo, asset.Precision);
@@ -303,8 +305,8 @@ namespace Neo.UI
                 sb.EmitAppCall(script_hash, command);
                 script = sb.ToArray();
             }
-            ApplicationEngine engine = TestEngine.Run(script);
-            if (engine != null)
+            ApplicationEngine engine = ApplicationEngine.Run(script);
+            if (!engine.State.HasFlag(VMState.FAULT))
             {
                 BigInteger _icoNeo = engine.EvaluationStack.Pop().GetBigInteger();
                 BigDecimal icoNeo = new BigDecimal(_icoNeo, asset.Precision);

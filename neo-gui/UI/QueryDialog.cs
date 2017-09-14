@@ -55,8 +55,8 @@ namespace Neo.UI
                 sb.EmitAppCall(scriptHash, "symbol");
                 script = sb.ToArray();
             }
-            ApplicationEngine engine = TestEngine.Run(script);
-            if (engine != null)
+            ApplicationEngine engine = ApplicationEngine.Run(script);
+            if (!engine.State.HasFlag(VMState.FAULT))
             {
                 this.txtbx_name.Text = asset.AssetName;
                 this.txtbx_precision.Text = asset.Precision.ToString();
@@ -115,8 +115,8 @@ namespace Neo.UI
                 sb.EmitAppCall(scriptHash, "balanceOf", address);
                 script = sb.ToArray();
             }
-            ApplicationEngine engine = TestEngine.Run(script);
-            if (engine != null)
+            ApplicationEngine engine = ApplicationEngine.Run(script);
+            if (!engine.State.HasFlag(VMState.FAULT))
             {
                 BigInteger _balance = engine.EvaluationStack.Pop().GetBigInteger();
                 BigDecimal balance = new BigDecimal(_balance, asset.Precision);

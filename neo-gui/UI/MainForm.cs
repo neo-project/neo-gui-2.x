@@ -38,7 +38,7 @@ namespace Neo.UI
         public MainForm(XDocument xdoc = null)
         {
             InitializeComponent();
-            StateReader.Notify += RuntimeNotify;
+            //StateReader.Notify += RuntimeNotify;
             if (xdoc != null)
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
