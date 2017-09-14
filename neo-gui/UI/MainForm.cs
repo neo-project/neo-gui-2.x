@@ -38,7 +38,7 @@ namespace Neo.UI
         public MainForm(XDocument xdoc = null)
         {
             InitializeComponent();
-            //StateReader.Notify += RuntimeNotify;
+            StateReader.Notify += RuntimeNotify;
             if (xdoc != null)
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -1202,7 +1202,7 @@ namespace Neo.UI
             }
             if (tx is InvocationTransaction itx)
             {
-                using (InvokeContractDialog dialog = new InvokeContractDialog(itx, Fixed8.Zero))
+                using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
                 {
                     if (dialog.ShowDialog() != DialogResult.OK) return;
                     tx = dialog.GetTransaction();

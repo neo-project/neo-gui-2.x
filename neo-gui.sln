@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neo-gui", "neo-gui\neo-gui.csproj", "{CFC243F0-F4E3-4754-8E21-8BA17E1C1788}"
-	ProjectSection(ProjectDependencies) = postProject
-		{82A10ED2-44EF-4550-A5BB-3F64EDB9D990} = {82A10ED2-44EF-4550-A5BB-3F64EDB9D990}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "neo", "..\..\..\..\neo\neo\neo\neo.csproj", "{82A10ED2-44EF-4550-A5BB-3F64EDB9D990}"
 EndProject

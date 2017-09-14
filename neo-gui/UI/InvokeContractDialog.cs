@@ -17,20 +17,13 @@ namespace Neo.UI
         private InvocationTransaction tx;
         private UInt160 script_hash;
         private ContractParameter[] parameters;
-        private Fixed8? gas;
 
-        public InvokeContractDialog(InvocationTransaction tx = null, Fixed8? gas = null)
+        private static readonly Fixed8 net_fee = Fixed8.FromDecimal(0.001m);
+
+        public InvokeContractDialog(InvocationTransaction tx = null)
         {
             InitializeComponent();
             this.tx = tx;
-            if (gas != null)
-            {
-                this.gas = gas.Value;
-            }
-            else
-            {
-                this.gas = null;
-            }
             if (tx != null)
             {
                 tabControl1.SelectedTab = tabPage2;
@@ -41,6 +34,7 @@ namespace Neo.UI
         public InvocationTransaction GetTransaction()
         {
             tx.Version = 1;
+            Fixed8 fee = tx.Gas.Equals(Fixed8.Zero) ? net_fee : Fixed8.Zero;
             return Program.CurrentWallet.MakeTransaction(new InvocationTransaction
             {
                 Version = tx.Version,
@@ -49,7 +43,7 @@ namespace Neo.UI
                 Attributes = tx.Attributes,
                 Inputs = tx.Inputs,
                 Outputs = tx.Outputs
-            });
+            }, fee: fee);
         }
 
         private void UpdateScript()
@@ -115,17 +109,11 @@ namespace Neo.UI
             textBox7.Text = sb.ToString();
             if (!engine.State.HasFlag(VMState.FAULT))
             {
-                if (this.gas != null)
-                {
-                    tx.Gas = gas.Value;
-                }
-                else
-                {
-                    tx.Gas = engine.GasConsumed - Fixed8.FromDecimal(10);
-                    if (tx.Gas < Fixed8.One) tx.Gas = Fixed8.One;
-                }
+                tx.Gas = engine.GasConsumed - Fixed8.FromDecimal(10);
+                if (tx.Gas < Fixed8.Zero) tx.Gas = Fixed8.Zero;
                 tx.Gas = tx.Gas.Ceiling();
-                label7.Text = tx.Gas + " gas";
+                Fixed8 fee = tx.Gas.Equals(Fixed8.Zero) ? net_fee : tx.Gas;
+                label7.Text = fee + " gas";
                 button3.Enabled = true;
             }
             else
@@ -133,7 +121,6 @@ namespace Neo.UI
                 MessageBox.Show(Strings.ExecutionFailed);
             }
         }
-
         
         private void button6_Click(object sender, EventArgs e)
         {
