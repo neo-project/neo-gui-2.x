@@ -148,10 +148,10 @@
     <value>Confirmación</value>
   </data>
   <data name="EnterRemarkMessage" xml:space="preserve">
-    <value>Introducir aquí la observación que ser grabará en la blockchain</value>
+    <value>Notas de la transacción que se grabará en la blockchain.</value>
   </data>
   <data name="EnterRemarkTitle" xml:space="preserve">
-    <value>Observación de la transacción</value>
+    <value>Notas de la transacción</value>
   </data>
   <data name="ExecutionFailed" xml:space="preserve">
     <value>La ejecución terminó con un estado de error.</value>
@@ -233,28 +233,28 @@ Aviso: los ficheros actualizados no podran ser abiertos por clientes de versione
     <value>¡Falló la validación! Transacción no válida o blockchain sin sincronizar. Inténtalo de nuevo después de sincronizar.</value>
   </data>
   <data name="TradeNeedSignatureCaption" xml:space="preserve">
-    <value>Firma necesaria</value>
+    <value>Firma necesaria.</value>
   </data>
   <data name="TradeNeedSignatureMessage" xml:space="preserve">
     <value>Transacción generada. Por favor, envia la siguiente información al contratante para su firma:</value>
   </data>
   <data name="TradeRequestCreatedCaption" xml:space="preserve">
-    <value>Solicitud de transacción</value>
+    <value>Solicitud de transacción.</value>
   </data>
   <data name="TradeRequestCreatedMessage" xml:space="preserve">
     <value>Solicitud de transacción generada. Por favor, enviala al contratante o incorporala a la solicitud del contratante.</value>
   </data>
   <data name="TradeSuccessCaption" xml:space="preserve">
-    <value>Transacción realizada con éxito</value>
+    <value>Transacción realizada con éxito.</value>
   </data>
   <data name="TradeSuccessMessage" xml:space="preserve">
     <value>Transacción enviada, este es el TXID:</value>
   </data>
   <data name="Unconfirmed" xml:space="preserve">
-    <value>sin confirmar</value>
+    <value>Sin confirmar.</value>
   </data>
   <data name="UnknownIssuer" xml:space="preserve">
-    <value>emisor desconocido</value>
+    <value>Emisor desconocido.</value>
   </data>
   <data name="UnsynchronizedBlock" xml:space="preserve">
     <value>Blockchain sin sincronizar, la transacción no puede ser enviada.</value>

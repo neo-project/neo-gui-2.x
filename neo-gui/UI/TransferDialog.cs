@@ -54,8 +54,8 @@ namespace Neo.UI
                             sb2.Emit(OpCode.DEPTH, OpCode.PACK);
                             script = sb2.ToArray();
                         }
-                        ApplicationEngine engine = TestEngine.Run(script);
-                        if (engine == null) return null;
+                        ApplicationEngine engine = ApplicationEngine.Run(script);
+                        if (engine.State.HasFlag(VMState.FAULT)) return null;
                         var balances = engine.EvaluationStack.Pop().GetArray().Reverse().Zip(addresses, (i, a) => new
                         {
                             Account = a,

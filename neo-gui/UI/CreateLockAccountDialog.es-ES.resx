@@ -117,46 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="button8.Text" xml:space="preserve">
-    <value>Parametros de contexto</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 17</value>
   </data>
-  <data name="button7.Text" xml:space="preserve">
-    <value>Monedas no gastadas</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Cuenta:</value>
   </data>
-  <data name="button6.Text" xml:space="preserve">
-    <value>Opciones de configuración</value>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 17</value>
   </data>
-  <data name="button5.Text" xml:space="preserve">
-    <value>Notas Transacción</value>
-  </data>
-  <data name="tabPage2.Text" xml:space="preserve">
-    <value>Parámetros del contrato</value>
-  </data>
-  <data name="button4.Text" xml:space="preserve">
-    <value>Emitir</value>
-  </data>
-  <data name="button3.Text" xml:space="preserve">
-    <value>Actualizar</value>
-  </data>
-  <data name="button2.Text" xml:space="preserve">
-    <value>Mostrar</value>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Debloqueo:</value>
   </data>
   <data name="button1.Text" xml:space="preserve">
-    <value>Cargar</value>
+    <value>Crear</value>
   </data>
-  <data name="groupBox4.Text" xml:space="preserve">
-    <value>Nuevo valor</value>
-  </data>
-  <data name="groupBox3.Text" xml:space="preserve">
-    <value>Valor actual</value>
-  </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>Parámetros</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Hash del script</value>
+  <data name="button2.Text" xml:space="preserve">
+    <value>Cancelar</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Herramienta de desarrollo</value>
+    <value>Crear cuenta bloqueo</value>
   </data>
 </root>

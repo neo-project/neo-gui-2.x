@@ -22,8 +22,8 @@ namespace Neo.UI
                 sb.EmitAppCall(asset_id, "name");
                 script = sb.ToArray();
             }
-            ApplicationEngine engine = TestEngine.Run(script);
-            if (engine == null) throw new ArgumentException();
+            ApplicationEngine engine = ApplicationEngine.Run(script);
+            if (engine.State.HasFlag(VMState.FAULT)) throw new ArgumentException();
             this.AssetId = asset_id;
             this.AssetName = engine.EvaluationStack.Pop().GetString();
             this.Precision = (byte)engine.EvaluationStack.Pop().GetBigInteger();
@@ -52,7 +52,7 @@ namespace Neo.UI
                     sb.Emit(OpCode.DEPTH, OpCode.PACK);
                     script = sb.ToArray();
                 }
-                ApplicationEngine engine = TestEngine.Run(script);
+                ApplicationEngine engine = ApplicationEngine.Run(script);
                 BigInteger amount = engine.EvaluationStack.Pop().GetArray().Aggregate(BigInteger.Zero, (x, y) => x + y.GetBigInteger());
                 return new BigDecimal(amount, Precision);
             }
