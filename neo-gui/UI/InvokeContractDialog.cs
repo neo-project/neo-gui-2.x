@@ -32,7 +32,7 @@ namespace Neo.UI
 
         public InvocationTransaction GetTransaction()
         {
-            Fixed8 fee = tx.Gas.Equals(Fixed8.Zero) ? net_fee : tx.Gas;
+            Fixed8 fee = tx.Gas.Equals(Fixed8.Zero) ? net_fee : Fixed8.Zero;
             return Program.CurrentWallet.MakeTransaction(new InvocationTransaction
             {
                 Version = tx.Version,
