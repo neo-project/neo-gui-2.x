@@ -7,12 +7,14 @@ using System.Linq;
 using System.Numerics;
 using System.Windows.Forms;
 using Neo.SmartContract;
+using System;
 
 namespace Neo.UI
 {
     public partial class InflationRateDialog : Form
     {
         private string scriptHash;
+        private const long multiplier = 1000000000000;
         public InflationRateDialog(string scriptHash)
         {
             InitializeComponent();
@@ -23,7 +25,11 @@ namespace Neo.UI
         {
             string command = "inflationRate";
             UInt160 script_hash = UInt160.Parse(this.scriptHash);
-            BigInteger iRate = BigInteger.Parse(this.textBox1.Text);
+            string strRate = this.textBox1.Text;
+            double _iRate = double.Parse(strRate);
+            _iRate = Math.Floor(_iRate * multiplier);
+            
+            BigInteger iRate = new BigInteger(_iRate);
             object[] param = { iRate };
             byte[] script;
 
