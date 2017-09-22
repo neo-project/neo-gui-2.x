@@ -1050,12 +1050,12 @@ namespace Neo.UI
                 dialog.GetCommand(out scriptHash, out command);
                 if (scriptHash == null)
                 {
-                    MessageBox.Show("请选择脚本哈希！");
+                    MessageBox.Show(Strings.ChooseScriptHash);
                     return;
                 }
                 if (command == null)
                 {
-                    MessageBox.Show("请选择指令！");
+                    MessageBox.Show(Strings.ChooseCommand);
                     return;
                 }
             }

@@ -115,7 +115,16 @@ namespace Neo.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Please choose script hash. 的本地化字符串。
+        ///   查找类似 Please choose command! 的本地化字符串。
+        /// </summary>
+        internal static string ChooseCommand {
+            get {
+                return ResourceManager.GetString("ChooseCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Please choose script hash! 的本地化字符串。
         /// </summary>
         internal static string ChooseScriptHash {
             get {
@@ -250,7 +259,7 @@ namespace Neo.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Anthares must install Onchain root certificate to validate assets on the blockchain, install it now? 的本地化字符串。
+        ///   查找类似 NEO must install Onchain root certificate to validate assets on the blockchain, install it now? 的本地化字符串。
         /// </summary>
         internal static string InstallCertificateText {
             get {

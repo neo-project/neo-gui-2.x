@@ -135,8 +135,11 @@
   <data name="ChangePasswordSuccessful" xml:space="preserve">
     <value>Change password successful.</value>
   </data>
+  <data name="ChooseCommand" xml:space="preserve">
+    <value>Please choose command!</value>
+  </data>
   <data name="ChooseScriptHash" xml:space="preserve">
-    <value>Please choose script hash.</value>
+    <value>Please choose script hash!</value>
   </data>
   <data name="DeleteAddressConfirmationCaption" xml:space="preserve">
     <value>Confirmation</value>
