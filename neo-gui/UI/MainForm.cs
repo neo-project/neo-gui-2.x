@@ -38,7 +38,6 @@ namespace Neo.UI
         public MainForm(XDocument xdoc = null)
         {
             InitializeComponent();
-            StateReader.Notify += RuntimeNotify;
             if (xdoc != null)
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -49,100 +48,6 @@ namespace Neo.UI
                     toolStripStatusLabel3.Text += $": {latest}";
                     toolStripStatusLabel3.Visible = true;
                 }
-            }
-        }
-
-        private static void RuntimeNotify(object sender, NotifyEventArgs args)
-        {
-            Transaction tx = (Transaction)args.ScriptContainer;
-            txid = tx.Hash.ToString();
-            if (txid == InvokeContractDialog.testTxid) return;
-            string filePath = Directory.GetCurrentDirectory();
-            var arr = args.State.GetArray();
-            string eventName = Encoding.Default.GetString(arr[0].GetByteArray());
-            foreach (string s in Settings.Default.NEP5Watched)
-            {
-                UInt160 asset_id = UInt160.Parse(s);
-                if (args.ScriptHash == asset_id)
-                {
-                    AssetDescriptor asset = new AssetDescriptor(asset_id);
-                    switch (eventName)
-                    {
-                        case "refund":
-                            byte[] accountScriptHash = arr[1].GetByteArray();
-                            BigInteger _amountRefund = arr[2].GetBigInteger();
-                            BigDecimal amountRefund = new BigDecimal(_amountRefund, asset.Precision);
-                            string msgRefund1 = "scriptHash: " + args.ScriptHash.ToString() + "\r\n";
-                            string msgRefund2 = "address: " + Wallet.ToAddress(args.ScriptHash) + "\r\n";
-                            string msgRefund3 = "account: " + accountScriptHash.ToHexString() + "\r\n";
-                            string msgRefund4 = "amount: " + amountRefund.ToString() + "\r\n" + "\r\n";
-                            string msgRefund = msgRefund1 + msgRefund2 + msgRefund3 + msgRefund4;
-                            byte[] refundByte = Encoding.UTF8.GetBytes(msgRefund);
-                            using (FileStream fsWrite = new FileStream(filePath + "/refund.txt", FileMode.Append))
-                            {
-                                fsWrite.Write(refundByte, 0, refundByte.Length);
-                            };
-                            break;
-                        case "transfer":
-                            string strFromScriptHash, strToScriptHash;
-                            byte[] _fromScriptHash = arr[1].GetByteArray();
-                            byte[] _toScriptHash = arr[2].GetByteArray();
-                            BigInteger _amountTransfer = arr[3].GetBigInteger();
-
-                            if (isByteEmpty(_fromScriptHash)) {
-                                strFromScriptHash = "";
-                            }
-                            else
-                            {
-                                strFromScriptHash = Wallet.ToAddress(UInt160.Parse(_fromScriptHash.ToHexString()));
-                            }
-
-                            if (isByteEmpty(_toScriptHash))
-                            {
-                                strToScriptHash = "";
-                            }
-                            else
-                            {
-                                strToScriptHash = Wallet.ToAddress(UInt160.Parse(_toScriptHash.ToHexString()));
-                            }
-                            BigDecimal amountTransfer = new BigDecimal(_amountTransfer, asset.Precision);
-                            string msgTransfer1 = "txid: " + txid + "\r\n";
-                            string msgTransfer2 = "scriptHash: " + args.ScriptHash.ToString() + "\r\n";
-                            string msgTransfer3 = "from: " + strFromScriptHash + "\r\n";
-                            string msgTransfer4 = "to: " + strToScriptHash + "\r\n";
-                            string msgTransfer5 = "amount: " + amountTransfer.ToString() + "\r\n" + "\r\n";
-                            string msgTransfer = msgTransfer1 + msgTransfer2 + msgTransfer3 + msgTransfer4 + msgTransfer5;
-                            byte[] transferByte = Encoding.UTF8.GetBytes(msgTransfer);
-                            using (FileStream fsWrite = new FileStream(filePath + "/transfer.txt", FileMode.Append))
-                            {
-                                fsWrite.Write(transferByte, 0, transferByte.Length);
-                            };
-                            break;
-                        default:
-                            Debug.WriteLine(args.ScriptHash.ToString());
-                            break;
-                    }
-                }
-            }
-
-
-        }
-
-        private static bool isByteEmpty(byte[] param) {
-            if (param != null)
-            {
-                if (param.Length == 0)
-                {
-                    //空数组
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-            else
-            {
-                return true;
             }
         }
 
@@ -1116,14 +1021,6 @@ namespace Neo.UI
             }
         }
 
-        private void queryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (QueryDialog dialog = new QueryDialog())
-            {
-                if (dialog.ShowDialog() != DialogResult.OK) return;
-            }
-        }
-
         private Transaction commandMethod(string scriptHash, string command)
         {
             //string command = "inflation";
@@ -1166,35 +1063,12 @@ namespace Neo.UI
             Transaction tx;
             switch (command)
             {
-                case "deploy":
-                    tx = commandMethod(scriptHash, "deploy");
-                    break;
                 case "mintTokens":
                     using (MintTokensDialog dialog = new MintTokensDialog(scriptHash))
                     {
                         if (dialog.ShowDialog() != DialogResult.OK) return;
                         tx = dialog.GetTransaction();
                     }
-                    break;
-                case "inflation":
-                    tx = commandMethod(scriptHash, "inflation");
-                    break;
-                case "inflationRate":
-                    using (InflationRateDialog dialog = new InflationRateDialog(scriptHash))
-                    {
-                        if (dialog.ShowDialog() != DialogResult.OK) return;
-                        tx = dialog.GetTransaction();
-                    }
-                    break;
-                case "inflationStartTime":
-                    using (InflationStartTimeDialog dialog = new InflationStartTimeDialog(scriptHash))
-                    {
-                        if (dialog.ShowDialog() != DialogResult.OK) return;
-                        tx = dialog.GetTransaction();
-                    }
-                    break;
-                case "inner":
-                    tx = commandMethod(scriptHash, "inner");
                     break;
                 default:
                     tx = null;
@@ -1211,77 +1085,5 @@ namespace Neo.UI
             Helper.SignAndShowInformation(tx);
         }
 
-        private void testToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //Transaction tx;
-            //using (ICODialog dialog = new ICODialog())
-            //{
-            //    if (dialog.ShowDialog() != DialogResult.OK) return;
-            //    tx = dialog.GetTransaction();
-            //}
-            //if (tx is InvocationTransaction itx)
-            //{
-            //    using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
-            //    {
-            //        if (dialog.ShowDialog() != DialogResult.OK) return;
-            //        tx = dialog.GetTransaction();
-            //    }
-            //}
-            //Helper.SignAndShowInformation(tx);
-
-
-            Transaction tx;
-            List<TransactionAttribute> attributes = new List<TransactionAttribute>();
-            string[] arrScriptHash = Settings.Default.NEP5Watched.OfType<string>().ToArray();
-            UInt160 scriptHash = UInt160.Parse(arrScriptHash[0]);
-            UInt160[] addresses = Program.CurrentWallet.GetAddresses().ToArray();
-            string _outputAddr = "ANd64d7o484xL5Da54RqsWQCGGhsvmPQjR";
-            UInt160 outputAddr = Wallet.ToScriptHash(_outputAddr);
-            BigInteger value = 1;
-            HashSet<UInt160> sAttributes = new HashSet<UInt160>();
-            using (ScriptBuilder sb = new ScriptBuilder())
-            {
-                //byte[] script;
-                //using (ScriptBuilder sb2 = new ScriptBuilder())
-                //{
-                //    sb2.EmitAppCall(outputAddr, "balanceOf", addresses[0]);
-                //    script = sb2.ToArray();
-                //}
-                //ApplicationEngine engine = TestEngine.Run(script);
-                //if (engine == null) throw new Exception();
-                //BigInteger sum = engine.EvaluationStack.Pop().GetBigInteger();
-
-                sAttributes.Add(addresses[0]);
-                sb.EmitAppCall(scriptHash, "transfer", addresses[0], outputAddr, value);
-                sb.Emit(OpCode.THROWIFNOT);
-                tx = new InvocationTransaction
-                {
-                    Version = 1,
-                    Script = sb.ToArray()
-                };
-
-            }
-            attributes.AddRange(sAttributes.Select(p => new TransactionAttribute
-            {
-                Usage = TransactionAttributeUsage.Script,
-                Data = p.ToArray()
-            }));
-            tx.Attributes = attributes.ToArray();
-            TransactionOutput txOutput = new TransactionOutput();
-            //txOutput.AssetId = scriptHash;
-            //tx.Outputs = txOutListBox1.Items.Where(p => p.AssetId is UInt256).Select(p => p.ToTxOutput()).ToArray();
-
-
-            if (tx is InvocationTransaction itx)
-            {
-                using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
-                {
-                    if (dialog.ShowDialog() != DialogResult.OK) return;
-                    tx = dialog.GetTransaction();
-                }
-            }
-            Helper.SignAndShowInformation(tx);
-
-        }
     }
 }
