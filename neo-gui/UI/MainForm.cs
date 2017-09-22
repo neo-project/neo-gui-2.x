@@ -28,8 +28,6 @@ namespace Neo.UI
 {
     internal partial class MainForm : Form
     {
-        public static string txid;
-
         private static readonly UInt160 RecycleScriptHash = new[] { (byte)OpCode.PUSHT }.ToScriptHash();
         private bool balance_changed = false;
         private bool check_nep5_balance = false;

@@ -13,7 +13,6 @@ namespace Neo.UI
 {
     internal partial class InvokeContractDialog : Form
     {
-        public static string testTxid;
         private InvocationTransaction tx;
         private UInt160 script_hash;
         private ContractParameter[] parameters;
@@ -93,13 +92,12 @@ namespace Neo.UI
         private void button5_Click(object sender, EventArgs e)
         {
             if (tx == null) tx = new InvocationTransaction();
-            tx.Version = 2;
+            tx.Version = 1;
             tx.Script = textBox6.Text.HexToBytes();
             if (tx.Attributes == null) tx.Attributes = new TransactionAttribute[0];
             if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
             if (tx.Outputs == null) tx.Outputs = new TransactionOutput[0];
             if (tx.Scripts == null) tx.Scripts = new Witness[0];
-            testTxid = tx.Hash.ToString();
 
             ApplicationEngine engine = ApplicationEngine.Run(tx.Script, tx);
             StringBuilder sb = new StringBuilder();
