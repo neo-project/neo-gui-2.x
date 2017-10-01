@@ -83,15 +83,6 @@ namespace Neo
                 button1.Enabled = false;
                 return;
             }
-            //try
-            //{
-            //    Wallet.ToScriptHash(textBox1.Text);
-            //}
-            //catch (FormatException)
-            //{
-            //    button1.Enabled = false;
-            //    return;
-            //}
             Fixed8 amount;
             if (!Fixed8.TryParse(textBox2.Text, out amount))
             {

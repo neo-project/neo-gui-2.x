@@ -1021,7 +1021,6 @@ namespace Neo.UI
 
         private Transaction commandMethod(string scriptHash, string command)
         {
-            //string command = "inflation";
             UInt160 script_hash = UInt160.Parse(scriptHash);
 
             byte[] script;
