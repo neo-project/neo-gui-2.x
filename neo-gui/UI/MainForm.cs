@@ -19,6 +19,7 @@ using System.Numerics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -156,6 +157,7 @@ namespace Neo.UI
             创建新地址NToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             导入私钥IToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             创建智能合约SToolStripMenuItem.Enabled = Program.CurrentWallet != null;
+            executeToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             listView1.Items.Clear();
             if (Program.CurrentWallet != null)
             {
@@ -1008,5 +1010,77 @@ namespace Neo.UI
                 dialog.ShowDialog();
             }
         }
+
+        private void watchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (WatchDialog dialog = new WatchDialog())
+            {
+                dialog.ShowDialog();
+            }
+        }
+
+        private Transaction commandMethod(string scriptHash, string command)
+        {
+            UInt160 script_hash = UInt160.Parse(scriptHash);
+
+            byte[] script;
+            using (ScriptBuilder sb = new ScriptBuilder())
+            {
+                sb.EmitPush(0);
+                sb.EmitPush(command);
+                sb.EmitAppCall(script_hash.ToArray());
+                script = sb.ToArray();
+            }
+
+            return Program.CurrentWallet.MakeTransaction(new InvocationTransaction
+            {
+                Script = script
+            });
+        }
+
+        private void executeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string scriptHash, command;
+            using (ExecuteDialog dialog = new ExecuteDialog())
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+                dialog.GetCommand(out scriptHash, out command);
+                if (scriptHash == null)
+                {
+                    MessageBox.Show(Strings.ChooseScriptHash);
+                    return;
+                }
+                if (command == null)
+                {
+                    MessageBox.Show(Strings.ChooseCommand);
+                    return;
+                }
+            }
+
+            Transaction tx;
+            switch (command)
+            {
+                case "mintTokens":
+                    using (MintTokensDialog dialog = new MintTokensDialog(scriptHash))
+                    {
+                        if (dialog.ShowDialog() != DialogResult.OK) return;
+                        tx = dialog.GetTransaction();
+                    }
+                    break;
+                default:
+                    tx = null;
+                    break;
+            }
+            if (tx is InvocationTransaction itx)
+            {
+                using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
+                {
+                    if (dialog.ShowDialog() != DialogResult.OK) return;
+                    tx = dialog.GetTransaction();
+                }
+            }
+            Helper.SignAndShowInformation(tx);
+        }
+
     }
 }

@@ -97,6 +97,7 @@ namespace Neo.UI
             if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
             if (tx.Outputs == null) tx.Outputs = new TransactionOutput[0];
             if (tx.Scripts == null) tx.Scripts = new Witness[0];
+
             ApplicationEngine engine = ApplicationEngine.Run(tx.Script, tx);
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"VM State: {engine.State}");
@@ -117,7 +118,7 @@ namespace Neo.UI
                 MessageBox.Show(Strings.ExecutionFailed);
             }
         }
-
+        
         private void button6_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() != DialogResult.OK) return;

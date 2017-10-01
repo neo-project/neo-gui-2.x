@@ -166,6 +166,7 @@
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Neo, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Neo.2.3.3\lib\net461\Neo.dll</HintPath>
     </Reference>
     <Reference Include="Neo.VM, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -281,6 +282,12 @@
     <Compile Include="Cryptography\CertificateQueryResult.cs" />
     <Compile Include="Cryptography\CertificateQueryResultType.cs" />
     <Compile Include="Cryptography\CertificateQueryService.cs" />
+    <Compile Include="UI\MintTokensDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MintTokensDialog.Designer.cs">
+      <DependentUpon>MintTokensDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -348,6 +355,12 @@
     </Compile>
     <Compile Include="UI\ElectionDialog.Designer.cs">
       <DependentUpon>ElectionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ExecuteDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ExecuteDialog.Designer.cs">
+      <DependentUpon>ExecuteDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\ImportCustomContractDialog.cs">
       <SubType>Form</SubType>
@@ -516,6 +529,15 @@
     <Compile Include="UI\VotingDialog.Designer.cs">
       <DependentUpon>VotingDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\WatchDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\WatchDialog.Designer.cs">
+      <DependentUpon>WatchDialog.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UI\MintTokensDialog.resx">
+      <DependentUpon>MintTokensDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="UI\Wrappers\ClaimTransactionWrapper.cs" />
     <Compile Include="UI\Wrappers\CoinReferenceWrapper.cs" />
     <Compile Include="UI\Wrappers\ContractTransactionWrapper.cs" />
@@ -658,6 +680,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ElectionDialog.zh-Hans.resx">
       <DependentUpon>ElectionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ExecuteDialog.resx">
+      <DependentUpon>ExecuteDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ExecuteDialog.zh-Hans.resx">
+      <DependentUpon>ExecuteDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ImportCustomContractDialog.es-ES.resx">
       <DependentUpon>ImportCustomContractDialog.cs</DependentUpon>
@@ -865,6 +893,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\VotingDialog.zh-Hans.resx">
       <DependentUpon>VotingDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WatchDialog.resx">
+      <DependentUpon>WatchDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WatchDialog.zh-Hans.resx">
+      <DependentUpon>WatchDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="config.testnet.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
