@@ -1,11 +1,11 @@
 ﻿using Neo.Core;
 using Neo.Cryptography.ECC;
+using Neo.SmartContract;
 using Neo.VM;
 using Neo.Wallets;
 using System;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Neo.UI
@@ -28,14 +28,7 @@ namespace Neo.UI
             UInt160 issuer = Wallet.ToScriptHash(comboBox4.Text);
             using (ScriptBuilder sb = new ScriptBuilder())
             {
-                sb.EmitPush(issuer.ToArray());
-                sb.EmitPush(admin.ToArray());
-                sb.EmitPush(owner.EncodePoint(true));
-                sb.EmitPush(precision);
-                sb.EmitPush(amount.GetData());
-                sb.EmitPush(Encoding.UTF8.GetBytes(name));
-                sb.EmitPush((byte)asset_type);
-                sb.EmitSysCall("Neo.Asset.Create");
+                sb.EmitSysCall("Neo.Asset.Create", asset_type, name, amount, precision, owner, admin, issuer);
                 return new InvocationTransaction
                 {
                     Attributes = new[]

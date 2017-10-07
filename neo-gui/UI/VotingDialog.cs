@@ -18,7 +18,7 @@ namespace Neo.UI
                     sb.EmitPush(line.HexToBytes());
                 sb.EmitPush(textBox1.Lines.Length);
                 sb.Emit(OpCode.PACK);
-                sb.EmitPush(script_hash.ToArray());
+                sb.EmitPush(script_hash);
                 sb.EmitSysCall("Neo.Blockchain.GetAccount");
                 sb.EmitSysCall("Neo.Account.SetVotes");
                 return new InvocationTransaction

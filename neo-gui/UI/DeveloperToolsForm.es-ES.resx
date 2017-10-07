@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="button8.Text" xml:space="preserve">
+    <value>Parametros de contexto</value>
+  </data>
+  <data name="button7.Text" xml:space="preserve">
+    <value>Monedas no gastadas</value>
+  </data>
+  <data name="button6.Text" xml:space="preserve">
+    <value>Opciones de configuración</value>
+  </data>
+  <data name="button5.Text" xml:space="preserve">
+    <value>Notas Transacción</value>
+  </data>
   <data name="tabPage2.Text" xml:space="preserve">
     <value>Parámetros del contrato</value>
   </data>

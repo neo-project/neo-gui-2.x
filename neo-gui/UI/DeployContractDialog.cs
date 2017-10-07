@@ -1,9 +1,9 @@
 ﻿using Neo.Core;
+using Neo.SmartContract;
 using Neo.VM;
 using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Neo.UI
@@ -28,16 +28,7 @@ namespace Neo.UI
             string description = textBox5.Text;
             using (ScriptBuilder sb = new ScriptBuilder())
             {
-                sb.EmitPush(Encoding.UTF8.GetBytes(description));
-                sb.EmitPush(Encoding.UTF8.GetBytes(email));
-                sb.EmitPush(Encoding.UTF8.GetBytes(author));
-                sb.EmitPush(Encoding.UTF8.GetBytes(version));
-                sb.EmitPush(Encoding.UTF8.GetBytes(name));
-                sb.EmitPush(need_storage);
-                sb.EmitPush((byte)return_type);
-                sb.EmitPush(parameter_list);
-                sb.EmitPush(script);
-                sb.EmitSysCall("Neo.Contract.Create");
+                sb.EmitSysCall("Neo.Contract.Create", script, parameter_list, return_type, need_storage, name, version, author, email, description);
                 return new InvocationTransaction
                 {
                     Script = sb.ToArray()

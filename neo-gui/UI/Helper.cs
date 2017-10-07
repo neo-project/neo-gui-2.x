@@ -1,6 +1,6 @@
 ﻿using Neo.Core;
 using Neo.Properties;
-using Neo.Wallets;
+using Neo.SmartContract;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -35,10 +35,10 @@ namespace Neo.UI
                 MessageBox.Show(Strings.InsufficientFunds);
                 return;
             }
-            SignatureContext context;
+            ContractParametersContext context;
             try
             {
-                context = new SignatureContext(tx);
+                context = new ContractParametersContext(tx);
             }
             catch (InvalidOperationException)
             {

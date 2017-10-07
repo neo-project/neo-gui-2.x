@@ -1,6 +1,7 @@
 ﻿using Neo.Core;
 using Neo.Cryptography.ECC;
 using Neo.Properties;
+using Neo.SmartContract;
 using Neo.Wallets;
 using System;
 using System.Collections.Generic;
