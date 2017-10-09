@@ -53,7 +53,7 @@ namespace Neo.UI
                     Value = new BigDecimal(Fixed8.Parse(line[1]).GetData(), 8),
                     ScriptHash = Wallet.ToScriptHash(line[0])
                 };
-            }).ToArray();
+            }).Where(p => p.Value.Value != 0).ToArray();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
