@@ -116,7 +116,7 @@ namespace Neo.UI
 
         private void Blockchain_PersistCompleted(object sender, Block block)
         {
-            persistence_time = DateTime.Now;
+            persistence_time = DateTime.UtcNow;
             if (Program.CurrentWallet != null)
             {
                 check_nep5_balance = true;
@@ -294,7 +294,7 @@ namespace Neo.UI
         {
             lbl_height.Text = $"{Blockchain.Default.Height}/{Blockchain.Default.HeaderHeight}";
             lbl_count_node.Text = Program.LocalNode.RemoteNodeCount.ToString();
-            TimeSpan persistence_span = DateTime.Now - persistence_time;
+            TimeSpan persistence_span = DateTime.UtcNow - persistence_time;
             if (persistence_span < TimeSpan.Zero) persistence_span = TimeSpan.Zero;
             if (persistence_span > Blockchain.TimePerBlock)
             {
