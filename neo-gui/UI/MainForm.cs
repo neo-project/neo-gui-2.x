@@ -31,6 +31,7 @@ namespace Neo.UI
         private bool balance_changed = false;
         private bool check_nep5_balance = false;
         private DateTime persistence_time = DateTime.MinValue;
+        private bool minimizeToTray = false;
 
         public MainForm(XDocument xdoc = null)
         {
@@ -46,6 +47,8 @@ namespace Neo.UI
                     toolStripStatusLabel3.Visible = true;
                 }
             }
+
+            this.minimizeToTray = Settings.Default.MinimizeToTray;
         }
 
         private void AddAddressToListView(UInt160 scriptHash, bool selected = false)
@@ -1007,6 +1010,22 @@ namespace Neo.UI
             {
                 dialog.ShowDialog();
             }
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            if (this.minimizeToTray && FormWindowState.Minimized == this.WindowState)
+            {
+                mainNotifyIcon.Visible = true;
+                this.Hide();
+            }
+        }
+
+        private void mainNotifyIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+            mainNotifyIcon.Visible = false;
         }
     }
 }

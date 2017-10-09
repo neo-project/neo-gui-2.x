@@ -11,6 +11,7 @@ namespace Neo.Properties
         public ushort WsPort { get; }
         public BrowserSettings Urls { get; }
         public ContractSettings Contracts { get; }
+        public bool MinimizeToTray { get; }
 
         public Settings()
         {
@@ -27,6 +28,11 @@ namespace Neo.Properties
             this.WsPort = ushort.Parse(section.GetSection("WsPort").Value);
             this.Urls = new BrowserSettings(section.GetSection("Urls"));
             this.Contracts = new ContractSettings(section.GetSection("Contracts"));
+
+            if (section.GetSection("MinimizeToTray").Value != null)
+            {
+                this.MinimizeToTray = bool.Parse(section.GetSection("MinimizeToTray").Value);
+            }
         }
     }
 
