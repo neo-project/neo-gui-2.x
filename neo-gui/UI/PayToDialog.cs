@@ -92,6 +92,11 @@ namespace Neo.UI
                 button1.Enabled = false;
                 return;
             }
+            if (amount == Fixed8.Zero)
+            {
+                button1.Enabled = false;
+                return;
+            }
             if (amount.GetData() % (long)Math.Pow(10, 8 - (comboBox1.SelectedItem as AssetDescriptor).Precision) != 0)
             {
                 button1.Enabled = false;

@@ -21,7 +21,7 @@ namespace Neo
             BigInteger divisor = BigInteger.Pow(10, decimals);
             BigInteger result = BigInteger.DivRem(value, divisor, out BigInteger remainder);
             if (remainder == 0) return result.ToString();
-            return $"{result}.{remainder}".TrimEnd('0');
+            return $"{result}.{remainder.ToString("d" + decimals)}".TrimEnd('0');
         }
     }
 }
