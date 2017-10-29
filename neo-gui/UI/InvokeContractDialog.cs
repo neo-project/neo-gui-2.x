@@ -4,8 +4,11 @@ using Neo.Properties;
 using Neo.SmartContract;
 using Neo.VM;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Windows.Forms;
 
@@ -49,6 +52,16 @@ namespace Neo.UI
             if (parameters.Any(p => p.Value == null)) return;
             using (ScriptBuilder sb = new ScriptBuilder())
             {
+                foreach (ContractParameter p in parameters) {
+                    if (p.Type == ContractParameterType.Array) {
+                        var subValues = (IList)p.Value;
+                        foreach (ContractParameter subp in subValues) {
+                            if (subp.Type == ContractParameterType.Integer && !(subp.Value is BigInteger)) {
+                                subp.Value = new BigInteger((long)subp.Value);
+                            }
+                        }
+                    }
+                }
                 sb.EmitAppCall(script_hash, parameters);
                 textBox6.Text = sb.ToArray().ToHexString();
             }
@@ -64,11 +77,12 @@ namespace Neo.UI
             script_hash = UInt160.Parse(textBox1.Text);
             ContractState contract = Blockchain.Default.GetContract(script_hash);
             if (contract == null) return;
-            parameters = contract.ParameterList.Select(p => new ContractParameter(p)).ToArray();
+            var paramsTypes = contract.ParameterList.Select(p => (byte)p == 22 ? ContractParameterType.Array : p).ToArray();
+            parameters = paramsTypes.Select(p => new ContractParameter(p)).ToArray();
             textBox2.Text = contract.Name;
             textBox3.Text = contract.CodeVersion;
             textBox4.Text = contract.Author;
-            textBox5.Text = string.Join(", ", contract.ParameterList);
+            textBox5.Text = string.Join(", ", paramsTypes);
             button2.Enabled = parameters.Length > 0;
             UpdateScript();
         }
