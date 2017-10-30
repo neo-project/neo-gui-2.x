@@ -165,9 +165,6 @@
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="Neo, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neo.2.3.3\lib\net461\Neo.dll</HintPath>
-    </Reference>
     <Reference Include="Neo.VM, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Neo.VM.2.0.3\lib\net461\Neo.VM.dll</HintPath>
     </Reference>
@@ -378,6 +375,12 @@
     </Compile>
     <Compile Include="UI\IssueDialog.Designer.cs">
       <DependentUpon>IssueDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MintTokensDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MintTokensDialog.Designer.cs">
+      <DependentUpon>MintTokensDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\OptionsDialog.cs">
       <SubType>Form</SubType>
@@ -722,6 +725,9 @@
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\MintTokensDialog.resx">
+      <DependentUpon>MintTokensDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\OpenWalletDialog.es-ES.resx">
       <DependentUpon>OpenWalletDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -935,6 +941,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\neo\neo\neo.csproj">
+      <Project>{36447a9b-0311-4d4d-a3d5-aecbe9c15bbc}</Project>
+      <Name>neo</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
