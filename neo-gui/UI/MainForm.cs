@@ -292,7 +292,15 @@ namespace Neo.UI
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            lbl_height.Text = $"{Blockchain.Default.Height}/{Blockchain.Default.HeaderHeight}";
+            uint walletHeight = 0;
+
+            if (Program.CurrentWallet != null)
+            {
+                walletHeight = (Program.CurrentWallet.WalletHeight > 0) ? Program.CurrentWallet.WalletHeight - 1 : 0;
+            }
+
+            lbl_height.Text = $"{walletHeight}/{Blockchain.Default.Height}/{Blockchain.Default.HeaderHeight}";
+
             lbl_count_node.Text = Program.LocalNode.RemoteNodeCount.ToString();
             TimeSpan persistence_span = DateTime.UtcNow - persistence_time;
             if (persistence_span < TimeSpan.Zero) persistence_span = TimeSpan.Zero;

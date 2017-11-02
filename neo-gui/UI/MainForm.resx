@@ -584,7 +584,7 @@
     <value>27, 17</value>
   </data>
   <data name="lbl_height.Text" xml:space="preserve">
-    <value>0/0</value>
+    <value>0/0/0</value>
   </data>
   <data name="toolStripStatusLabel4.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 17</value>
