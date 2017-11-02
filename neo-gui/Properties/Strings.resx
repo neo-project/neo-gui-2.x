@@ -135,6 +135,9 @@
   <data name="ChangePasswordSuccessful" xml:space="preserve">
     <value>Change password successful.</value>
   </data>
+  <data name="ChooseScriptHash" xml:space="preserve">
+    <value>Please Provide a Smart Contract Script Hash</value>
+  </data>
   <data name="DeleteAddressConfirmationCaption" xml:space="preserve">
     <value>Confirmation</value>
   </data>

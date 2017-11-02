@@ -1033,5 +1033,12 @@ namespace Neo.UI
             }
             Helper.SignAndShowInformation(contractTransaction);            
         }
+
+        private void manageSmartContractMenuItem_Click(object sender, EventArgs e)
+        {
+            using (QueryDialog dialog = new QueryDialog()) {
+                DialogResult result = dialog.ShowDialog();
+            }
+        }
     }
 }

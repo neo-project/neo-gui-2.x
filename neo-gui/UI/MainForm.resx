@@ -213,19 +213,19 @@
     <value>False</value>
   </data>
   <data name="提取小蚁币CToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
+    <value>212, 22</value>
   </data>
   <data name="提取小蚁币CToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;NeoGas Claim...</value>
   </data>
   <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 6</value>
+    <value>209, 6</value>
   </data>
   <data name="requestCertificateToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="requestCertificateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
+    <value>212, 22</value>
   </data>
   <data name="requestCertificateToolStripMenuItem.Text" xml:space="preserve">
     <value>Request &amp;Certificate...</value>
@@ -234,7 +234,7 @@
     <value>False</value>
   </data>
   <data name="注册资产RToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
+    <value>212, 22</value>
   </data>
   <data name="注册资产RToolStripMenuItem.Text" xml:space="preserve">
     <value>Asset &amp;Registration...</value>
@@ -243,19 +243,19 @@
     <value>False</value>
   </data>
   <data name="资产分发IToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
+    <value>212, 22</value>
   </data>
   <data name="资产分发IToolStripMenuItem.Text" xml:space="preserve">
     <value>Asset D&amp;istribution...</value>
   </data>
   <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 6</value>
+    <value>209, 6</value>
   </data>
   <data name="deployContractToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="deployContractToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
+    <value>212, 22</value>
   </data>
   <data name="deployContractToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Deploy Contract...</value>
@@ -264,37 +264,43 @@
     <value>False</value>
   </data>
   <data name="invokeContractToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
+    <value>212, 22</value>
   </data>
   <data name="invokeContractToolStripMenuItem.Text" xml:space="preserve">
     <value>In&amp;voke Contract...</value>
   </data>
   <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 6</value>
+    <value>209, 6</value>
   </data>
   <data name="选举EToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="选举EToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
+    <value>212, 22</value>
   </data>
   <data name="选举EToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Election...</value>
   </data>
   <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 6</value>
+    <value>209, 6</value>
   </data>
   <data name="optionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
+    <value>212, 22</value>
   </data>
   <data name="optionsToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Options...</value>
   </data>
   <data name="mintTokensMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 22</value>
+    <value>212, 22</value>
   </data>
   <data name="mintTokensMenuItem.Text" xml:space="preserve">
     <value>Mint Tokens...</value>
+  </data>
+  <data name="manageSmartContractMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 22</value>
+  </data>
+  <data name="manageSmartContractMenuItem.Text" xml:space="preserve">
+    <value>Manage Smart Contract ...</value>
   </data>
   <data name="高级AToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>72, 19</value>
@@ -751,7 +757,7 @@
     <value>3, 3</value>
   </data>
   <data name="listView2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>889, 521</value>
+    <value>889, 523</value>
   </data>
   <data name="listView2.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -775,7 +781,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>895, 527</value>
+    <value>895, 529</value>
   </data>
   <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -844,7 +850,7 @@
     <value>3, 3</value>
   </data>
   <data name="listView3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>889, 521</value>
+    <value>889, 523</value>
   </data>
   <data name="listView3.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -868,7 +874,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPage3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>895, 527</value>
+    <value>895, 529</value>
   </data>
   <data name="tabPage3.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1382,6 +1388,12 @@
   <data name="&gt;&gt;optionsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;mintTokensMenuItem.Name" xml:space="preserve">
+    <value>mintTokensMenuItem</value>
+  </data>
+  <data name="&gt;&gt;mintTokensMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;帮助HToolStripMenuItem.Name" xml:space="preserve">
     <value>帮助HToolStripMenuItem</value>
   </data>
@@ -1658,10 +1670,10 @@
   <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;mintTokensMenuItem.Name" xml:space="preserve">
-    <value>mintTokensMenuItem</value>
+  <data name="&gt;&gt;manageSmartContractMenuItem.Name" xml:space="preserve">
+    <value>manageSmartContractMenuItem</value>
   </data>
-  <data name="&gt;&gt;mintTokensMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;manageSmartContractMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
