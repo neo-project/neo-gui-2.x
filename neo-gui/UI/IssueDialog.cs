@@ -39,7 +39,7 @@ namespace Neo.UI
             if (UInt256.TryParse(textBox5.Text, out UInt256 asset_id))
             {
                 state = Blockchain.Default.GetAssetState(asset_id);
-                txOutListBox1.Asset = new AssetDescriptor(state);
+                txOutListBox1.Asset = new AssetDescriptor(asset_id);
             }
             else
             {
