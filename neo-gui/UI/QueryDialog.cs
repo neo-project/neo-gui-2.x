@@ -9,7 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
-using System.Text;
+using System.Text; 
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -35,7 +35,9 @@ namespace Neo.UI
             {
                 sb.EmitAppCall(scriptHash, "totalSupply");
                 sb.EmitAppCall(scriptHash, "symbol");
-                for (int i = 0; i < 5; i++) {
+                sb.EmitAppCall(scriptHash, "currentRate");
+                
+                for (int i = 0; i < 3; i++) {
                     sb.EmitAppCall(scriptHash, "roundTotal", new ContractParameter[] {
                       new ContractParameter{
                             Type = ContractParameterType.Integer,
@@ -51,12 +53,6 @@ namespace Neo.UI
                 this.txtbx_name.Text = asset.AssetName;
                 this.txtbx_precision.Text = asset.Precision.ToString();
 
-                // Round 5
-                txtbx_round_5.Text = new BigDecimal(engine.EvaluationStack.Pop().GetBigInteger(), asset.Precision).ToString();
-
-                // Round 4
-                txtbx_round_4.Text = new BigDecimal(engine.EvaluationStack.Pop().GetBigInteger(), asset.Precision).ToString();
-
                 // Round 3
                 txtbx_round_3.Text = new BigDecimal(engine.EvaluationStack.Pop().GetBigInteger(), asset.Precision).ToString();
 
@@ -66,13 +62,16 @@ namespace Neo.UI
                 // Round 1
                 txtbx_round_1.Text = new BigDecimal(engine.EvaluationStack.Pop().GetBigInteger(), asset.Precision).ToString();               
 
+                // Current swap rate
+                txtbx_swap_rate.Text = engine.EvaluationStack.Pop().GetBigInteger().ToString();
+                
                 //symbol
                 this.txtbx_symbol.Text = engine.EvaluationStack.Pop().GetString();
 
                 //totalSupply
                 BigInteger _totalSupply = engine.EvaluationStack.Pop().GetBigInteger();
                 BigDecimal totalSupply = new BigDecimal(_totalSupply, asset.Precision);
-                this.txtbx_totalSupply.Text = totalSupply.ToString();
+                this.txtbx_totalSupply.Text = totalSupply.ToString();               
             }
             else
             {

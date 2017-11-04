@@ -32,8 +32,9 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.contractScriptHashTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.Query = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtbx_swap_rate = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.txtbx_name = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtbx_precision = new System.Windows.Forms.TextBox();
@@ -49,16 +50,13 @@
             this.label10 = new System.Windows.Forms.Label();
             this.CheckBalance = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.txtbx_round_5 = new System.Windows.Forms.TextBox();
-            this.txtbx_round_4 = new System.Windows.Forms.TextBox();
             this.txtbx_round_3 = new System.Windows.Forms.TextBox();
             this.txtbx_round_2 = new System.Windows.Forms.TextBox();
             this.txtbx_round_1 = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.Query = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -84,16 +82,10 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
-            // Query
-            // 
-            this.Query.BackgroundImage = global::Neo.Properties.Resources.refresh;
-            resources.ApplyResources(this.Query, "Query");
-            this.Query.Name = "Query";
-            this.Query.UseVisualStyleBackColor = true;
-            this.Query.Click += new System.EventHandler(this.Query_Click);
-            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtbx_swap_rate);
+            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.txtbx_name);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.txtbx_precision);
@@ -105,6 +97,17 @@
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
+            // 
+            // txtbx_swap_rate
+            // 
+            this.txtbx_swap_rate.BackColor = System.Drawing.SystemColors.Control;
+            resources.ApplyResources(this.txtbx_swap_rate, "txtbx_swap_rate");
+            this.txtbx_swap_rate.Name = "txtbx_swap_rate";
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
             // 
             // txtbx_name
             // 
@@ -191,31 +194,15 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.txtbx_round_5);
-            this.groupBox4.Controls.Add(this.txtbx_round_4);
             this.groupBox4.Controls.Add(this.txtbx_round_3);
             this.groupBox4.Controls.Add(this.txtbx_round_2);
             this.groupBox4.Controls.Add(this.txtbx_round_1);
-            this.groupBox4.Controls.Add(this.label12);
-            this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.label6);
             resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
-            // 
-            // txtbx_round_5
-            // 
-            this.txtbx_round_5.BackColor = System.Drawing.SystemColors.Control;
-            resources.ApplyResources(this.txtbx_round_5, "txtbx_round_5");
-            this.txtbx_round_5.Name = "txtbx_round_5";
-            // 
-            // txtbx_round_4
-            // 
-            this.txtbx_round_4.BackColor = System.Drawing.SystemColors.Control;
-            resources.ApplyResources(this.txtbx_round_4, "txtbx_round_4");
-            this.txtbx_round_4.Name = "txtbx_round_4";
             // 
             // txtbx_round_3
             // 
@@ -235,16 +222,6 @@
             resources.ApplyResources(this.txtbx_round_1, "txtbx_round_1");
             this.txtbx_round_1.Name = "txtbx_round_1";
             // 
-            // label12
-            // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
             // label8
             // 
             resources.ApplyResources(this.label8, "label8");
@@ -259,6 +236,14 @@
             // 
             resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
+            // 
+            // Query
+            // 
+            this.Query.BackgroundImage = global::Neo.Properties.Resources.refresh;
+            resources.ApplyResources(this.Query, "Query");
+            this.Query.Name = "Query";
+            this.Query.UseVisualStyleBackColor = true;
+            this.Query.Click += new System.EventHandler(this.Query_Click);
             // 
             // QueryDialog
             // 
@@ -303,15 +288,13 @@
         private System.Windows.Forms.Button CheckBalance;
         private System.Windows.Forms.TextBox contractScriptHashTextBox;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.TextBox txtbx_round_5;
-        private System.Windows.Forms.TextBox txtbx_round_4;
         private System.Windows.Forms.TextBox txtbx_round_3;
         private System.Windows.Forms.TextBox txtbx_round_2;
         private System.Windows.Forms.TextBox txtbx_round_1;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtbx_swap_rate;
+        private System.Windows.Forms.Label label9;
     }
 }
