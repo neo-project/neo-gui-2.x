@@ -32,6 +32,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.contractScriptHashTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.Query = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtbx_swap_rate = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -56,11 +57,17 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.Query = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.refundsGridView = new System.Windows.Forms.DataGridView();
+            this.RefreshRefundsButton = new System.Windows.Forms.Button();
+            this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.refundsGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -81,6 +88,14 @@
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
+            // 
+            // Query
+            // 
+            this.Query.BackgroundImage = global::Neo.Properties.Resources.refresh;
+            resources.ApplyResources(this.Query, "Query");
+            this.Query.Name = "Query";
+            this.Query.UseVisualStyleBackColor = true;
+            this.Query.Click += new System.EventHandler(this.Query_Click);
             // 
             // groupBox2
             // 
@@ -237,18 +252,48 @@
             resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
             // 
-            // Query
+            // groupBox5
             // 
-            this.Query.BackgroundImage = global::Neo.Properties.Resources.refresh;
-            resources.ApplyResources(this.Query, "Query");
-            this.Query.Name = "Query";
-            this.Query.UseVisualStyleBackColor = true;
-            this.Query.Click += new System.EventHandler(this.Query_Click);
+            this.groupBox5.Controls.Add(this.RefreshRefundsButton);
+            this.groupBox5.Controls.Add(this.refundsGridView);
+            resources.ApplyResources(this.groupBox5, "groupBox5");
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.TabStop = false;
+            // 
+            // refundsGridView
+            // 
+            this.refundsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.refundsGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Address,
+            this.Value});
+            resources.ApplyResources(this.refundsGridView, "refundsGridView");
+            this.refundsGridView.Name = "refundsGridView";
+            // 
+            // RefreshRefundsButton
+            // 
+            this.RefreshRefundsButton.BackgroundImage = global::Neo.Properties.Resources.refresh;
+            resources.ApplyResources(this.RefreshRefundsButton, "RefreshRefundsButton");
+            this.RefreshRefundsButton.Name = "RefreshRefundsButton";
+            this.RefreshRefundsButton.UseVisualStyleBackColor = true;
+            this.RefreshRefundsButton.Click += new System.EventHandler(this.RefreshRefundsButton_Click);
+            // 
+            // Address
+            // 
+            resources.ApplyResources(this.Address, "Address");
+            this.Address.Name = "Address";
+            this.Address.ReadOnly = true;
+            // 
+            // Value
+            // 
+            resources.ApplyResources(this.Value, "Value");
+            this.Value.Name = "Value";
+            this.Value.ReadOnly = true;
             // 
             // QueryDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -262,6 +307,8 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.refundsGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -296,5 +343,10 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtbx_swap_rate;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.DataGridView refundsGridView;
+        private System.Windows.Forms.Button RefreshRefundsButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Address;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Value;
     }
 }

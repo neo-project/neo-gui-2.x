@@ -20,7 +20,16 @@ namespace Neo.UI
             var unspentCoins = Program.CurrentWallet.FindUnspentCoins().Select(p => p.Output.AssetId).Distinct();
             foreach (UInt256 asset_id in unspentCoins)
             {
-                this.assetComboBox.Items.Add(Blockchain.Default.GetAssetState(asset_id));
+                AssetState state = Blockchain.Default.GetAssetState(asset_id);
+                if (state.AssetType == AssetType.GoverningToken)
+                {
+                    assetComboBox.Items.Add(state);
+                    break;
+                }                
+            }
+            if (assetComboBox.Items.Count > 0)
+            {
+                assetComboBox.SelectedIndex = 0;
             }
         }
 

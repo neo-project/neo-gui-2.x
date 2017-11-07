@@ -1,16 +1,8 @@
-﻿using Neo.Properties;
-using Neo.SmartContract;
+﻿using Neo.SmartContract;
 using Neo.VM;
 using Neo.Wallets;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Numerics;
-using System.Text; 
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Neo.UI
@@ -23,13 +15,14 @@ namespace Neo.UI
         public QueryDialog()
         {
             InitializeComponent();
+            RefreshRefundsButton.Enabled = false;
         }
 
         private void Query_Click(object sender, EventArgs e)
         {
 
-            this.scriptHash = UInt160.Parse(contractScriptHashTextBox.Text);
-            this.asset = new AssetDescriptor(this.scriptHash);
+            scriptHash = UInt160.Parse(contractScriptHashTextBox.Text);
+            asset = new AssetDescriptor(this.scriptHash);
             byte[] script;
             using (ScriptBuilder sb = new ScriptBuilder())
             {
@@ -71,20 +64,14 @@ namespace Neo.UI
                 //totalSupply
                 BigInteger _totalSupply = engine.EvaluationStack.Pop().GetBigInteger();
                 BigDecimal totalSupply = new BigDecimal(_totalSupply, asset.Precision);
-                this.txtbx_totalSupply.Text = totalSupply.ToString();               
+                txtbx_totalSupply.Text = totalSupply.ToString();
+                RefreshRefundsButton.Enabled = true;                
             }
             else
             {
                 MessageBox.Show("Query Failed");
+                RefreshRefundsButton.Enabled = false;
             }
-        }
-
-        public static DateTime ConvertIntDateTime(double d)
-        {
-            DateTime time = System.DateTime.MinValue;
-            DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
-            time = startTime.AddSeconds(d);
-            return time;
         }
 
         private void CheckBalance_Click(object sender, EventArgs e)
@@ -106,6 +93,47 @@ namespace Neo.UI
             else
             {
                 MessageBox.Show("Query Failed");
+            }
+        }        
+
+        private void RefreshRefundsButton_Click(object sender, EventArgs e)
+        {
+            byte[] script;
+            /** Now load refunds asynchronously, since this can be slow to load. */
+            using (ScriptBuilder sb = new ScriptBuilder())
+            {
+                sb.EmitAppCall(scriptHash, "listRefund");                
+                script = sb.ToArray();
+            }             
+            refundsGridView.Rows.Clear();
+            ApplicationEngine engine = ApplicationEngine.Run(script);                 
+            if (!engine.State.HasFlag(VMState.FAULT))
+            {
+                byte[] refunds = engine.EvaluationStack.Pop().GetByteArray();
+                int currentStart = 0;
+                for (int i = 0; i < refunds.Length; i++)
+                {
+                    /** Move until we find the first marker, the '=' symbol */
+                    if ((char) refunds[i] == '=')
+                    {                
+                        byte[] currentKey = new byte[i -  currentStart];
+                        /* Get the bytes for the script hash of the address for the refund */
+                        Array.Copy(refunds, currentStart , currentKey, 0, currentKey.Length);
+                        var j = i + 1;
+                        
+                        /* Move until the end or until we find the next refund, with the marker '@' */
+                        while (j < refunds.Length && (char) refunds[j] != '@' ){ j++; }
+                        
+                        /** Get the bytes of the refund numeric value */
+                        byte[] intBytes = new byte[j - i - 1];
+                        Array.Copy(refunds, i + 1, intBytes, 0, j - i - 1);
+                        
+                        /**  Add the new row to the refunds */
+                        refundsGridView.Rows.Add(new object[]{Wallet.ToAddress(new UInt160(currentKey)), new BigDecimal(new BigInteger(intBytes), asset.Precision)});                            
+                        i = j + 1;
+                        currentStart = i;
+                    }                       
+                }                                                                               
             }
         }
     }
