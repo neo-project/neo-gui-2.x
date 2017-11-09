@@ -1,4 +1,5 @@
 ﻿using Neo.Core;
+using Neo.Wallets;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

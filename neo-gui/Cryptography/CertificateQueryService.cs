@@ -1,5 +1,4 @@
 ﻿using Neo.Core;
-using Neo.Cryptography.ECC;
 using Neo.Properties;
 using Neo.SmartContract;
 using Neo.Wallets;
@@ -9,6 +8,8 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using ECCurve = Neo.Cryptography.ECC.ECCurve;
+using ECPoint = Neo.Cryptography.ECC.ECPoint;
 
 namespace Neo.Cryptography
 {

@@ -1,5 +1,4 @@
-﻿using Neo.Core;
-using Neo.Properties;
+﻿using Neo.Properties;
 using Neo.Wallets;
 using System;
 using System.Linq;
@@ -16,8 +15,7 @@ namespace Neo.UI
             {
                 foreach (UInt256 asset_id in Program.CurrentWallet.FindUnspentCoins().Select(p => p.Output.AssetId).Distinct())
                 {
-                    AssetState state = Blockchain.Default.GetAssetState(asset_id);
-                    comboBox1.Items.Add(new AssetDescriptor(state));
+                    comboBox1.Items.Add(new AssetDescriptor(asset_id));
                 }
                 foreach (string s in Settings.Default.NEP5Watched)
                 {
@@ -65,7 +63,7 @@ namespace Neo.UI
             }
             else
             {
-                textBox3.Text = asset.GetAvailable().ToString();
+                textBox3.Text = Program.CurrentWallet.GetAvailable(asset.AssetId).ToString();
             }
             textBox1_TextChanged(this, EventArgs.Empty);
         }
