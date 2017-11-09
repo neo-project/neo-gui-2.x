@@ -56,7 +56,7 @@ namespace Neo.UI
                 txtbx_round_1.Text = new BigDecimal(engine.EvaluationStack.Pop().GetBigInteger(), asset.Precision).ToString();               
 
                 // Current swap rate
-                txtbx_swap_rate.Text = engine.EvaluationStack.Pop().GetBigInteger().ToString();
+                txtbx_swap_rate.Text = new BigDecimal(engine.EvaluationStack.Pop().GetBigInteger(), asset.Precision).ToString();
                 
                 //symbol
                 this.txtbx_symbol.Text = engine.EvaluationStack.Pop().GetString();
