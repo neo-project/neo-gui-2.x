@@ -342,6 +342,12 @@
     <Compile Include="UI\IssueDialog.Designer.cs">
       <DependentUpon>IssueDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\MintTokensDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MintTokensDialog.Designer.cs">
+      <DependentUpon>MintTokensDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\OptionsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -353,6 +359,12 @@
     </Compile>
     <Compile Include="UI\ParametersEditor.Designer.cs">
       <DependentUpon>ParametersEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\QueryDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\QueryDialog.designer.cs">
+      <DependentUpon>QueryDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\RestoreAccountsDialog.cs">
       <SubType>Form</SubType>
@@ -685,6 +697,9 @@
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\MintTokensDialog.resx">
+      <DependentUpon>MintTokensDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\OpenWalletDialog.es-ES.resx">
       <DependentUpon>OpenWalletDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -718,6 +733,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\PayToDialog.zh-Hans.resx">
       <DependentUpon>PayToDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\QueryDialog.resx">
+      <DependentUpon>QueryDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\QueryDialog.zh-Hans.resx">
+      <DependentUpon>QueryDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\RestoreAccountsDialog.es-ES.resx">
       <DependentUpon>RestoreAccountsDialog.cs</DependentUpon>
@@ -882,6 +903,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
+    <None Include="Resources\refresh.png" />
     <None Include="Resources\search.png" />
     <None Include="Resources\add2.png" />
     <None Include="Resources\remove.png" />

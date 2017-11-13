@@ -1016,5 +1016,37 @@ namespace Neo.UI
                 dialog.ShowDialog();
             }
         }
+
+        private void mintTokensMenuItem_Click(object sender, EventArgs e)
+        {
+            InvocationTransaction mintTransaction;
+            using (MintTokensDialog dialog = new MintTokensDialog()) {
+                if (dialog.ShowDialog() != DialogResult.OK) {
+                    return;
+                }
+                mintTransaction = dialog.GetMintTransaction();
+            }
+            if (mintTransaction == null)
+            {
+                return;
+            }
+            Transaction contractTransaction;
+            using (InvokeContractDialog dialog = new InvokeContractDialog(mintTransaction))
+            {
+                if (dialog.ShowDialog() != DialogResult.OK) return;
+                contractTransaction = dialog.GetTransaction();
+            }
+            if (contractTransaction == null) {
+                return;
+            }
+            Helper.SignAndShowInformation(contractTransaction);            
+        }
+
+        private void manageSmartContractMenuItem_Click(object sender, EventArgs e)
+        {
+            using (QueryDialog dialog = new QueryDialog()) {
+                DialogResult result = dialog.ShowDialog();
+            }
+        }
     }
 }
