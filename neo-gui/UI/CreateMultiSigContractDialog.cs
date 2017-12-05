@@ -1,7 +1,8 @@
-﻿using Neo.Core;
-using Neo.Cryptography.ECC;
+﻿using Neo.Cryptography.ECC;
+using Neo.SmartContract;
 using Neo.Wallets;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -9,23 +10,23 @@ namespace Neo.UI
 {
     internal partial class CreateMultiSigContractDialog : Form
     {
+        private ECPoint[] publicKeys;
+
         public CreateMultiSigContractDialog()
         {
             InitializeComponent();
         }
 
-        public VerificationContract GetContract()
+        public Contract GetContract()
         {
-            ECPoint[] publicKeys = listBox1.Items.OfType<string>().Select(p => ECPoint.DecodePoint(p.HexToBytes(), ECCurve.Secp256r1)).ToArray();
-            foreach (ECPoint publicKey in publicKeys)
-            {
-                KeyPair key = Program.CurrentWallet.GetKey(publicKey.EncodePoint(true).ToScriptHash());
-                if (key != null)
-                {
-                    return VerificationContract.CreateMultiSigContract(key.PublicKeyHash, (int)numericUpDown2.Value, publicKeys);
-                }
-            }
-            return null;
+            publicKeys = listBox1.Items.OfType<string>().Select(p => ECPoint.DecodePoint(p.HexToBytes(), ECCurve.Secp256r1)).ToArray();
+            return Contract.CreateMultiSigContract((int)numericUpDown2.Value, publicKeys);
+        }
+
+        public KeyPair GetKey()
+        {
+            HashSet<ECPoint> hashSet = new HashSet<ECPoint>(publicKeys);
+            return Program.CurrentWallet.GetAccounts().FirstOrDefault(p => p.HasKey && hashSet.Contains(p.GetKey().PublicKey))?.GetKey();
         }
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)

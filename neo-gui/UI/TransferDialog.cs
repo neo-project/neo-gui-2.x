@@ -40,7 +40,7 @@ namespace Neo.UI
             }
             else
             {
-                UInt160[] addresses = Program.CurrentWallet.GetAddresses().ToArray();
+                UInt160[] addresses = Program.CurrentWallet.GetAccounts().Select(p => p.ScriptHash).ToArray();
                 HashSet<UInt160> sAttributes = new HashSet<UInt160>();
                 using (ScriptBuilder sb = new ScriptBuilder())
                 {
