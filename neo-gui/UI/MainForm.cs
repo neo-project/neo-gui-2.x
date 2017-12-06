@@ -86,15 +86,15 @@ namespace Neo.UI
             item.Selected = selected;
         }
 
-        private void AddTransaction(Transaction tx, uint height, uint time)
+        private void AddTransaction(Transaction tx, uint? height, uint time)
         {
-            int? confirmations = (int)Blockchain.Default.Height - (int)height + 1;
+            int? confirmations = (int)Blockchain.Default.Height - (int?)height + 1;
             if (confirmations <= 0) confirmations = null;
             string confirmations_str = confirmations?.ToString() ?? Strings.Unconfirmed;
             string txid = tx.Hash.ToString();
             if (listView3.Items.ContainsKey(txid))
             {
-                listView3.Items[txid].Tag = (uint?)height;
+                listView3.Items[txid].Tag = height;
                 listView3.Items[txid].SubItems["confirmations"].Text = confirmations_str;
             }
             else
@@ -127,7 +127,7 @@ namespace Neo.UI
                         }, -1)
                 {
                     Name = txid,
-                    Tag = (uint?)height
+                    Tag = height
                 });
             }
         }
@@ -191,7 +191,7 @@ namespace Neo.UI
         private void CurrentWallet_BalanceChanged(object sender, BalanceEventArgs e)
         {
             balance_changed = true;
-            BeginInvoke(new Action<Transaction, uint, uint>(AddTransaction), e.Transaction, e.Height, e.Time);
+            BeginInvoke(new Action<Transaction, uint?, uint>(AddTransaction), e.Transaction, e.Height, e.Time);
         }
 
         private void ImportBlocks(Stream stream)
