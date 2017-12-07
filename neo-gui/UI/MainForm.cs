@@ -155,12 +155,18 @@ namespace Neo.UI
             listView3.Items.Clear();
             if (Program.CurrentWallet != null)
             {
-                foreach (UInt256 hash in Program.CurrentWallet.GetTransactions())
+                foreach (var i in Program.CurrentWallet.GetTransactions().Select(p => new
                 {
-                    Transaction tx = Blockchain.Default.GetTransaction(hash, out int height);
-                    if (tx == null) continue;
-                    uint time = Blockchain.Default.GetHeader((uint)height).Timestamp;
-                    AddTransaction(tx, (uint)height, time);
+                    Transaction = Blockchain.Default.GetTransaction(p, out int height),
+                    Height = (uint)height
+                }).Where(p => p.Transaction != null).Select(p => new
+                {
+                    p.Transaction,
+                    p.Height,
+                    Time = Blockchain.Default.GetHeader(p.Height).Timestamp
+                }).OrderBy(p => p.Time))
+                {
+                    AddTransaction(i.Transaction, i.Height, i.Time);
                 }
                 Program.CurrentWallet.BalanceChanged += CurrentWallet_BalanceChanged;
             }
