@@ -2,6 +2,7 @@
 using Neo.Cryptography;
 using Neo.Implementations.Blockchains.LevelDB;
 using Neo.Implementations.Wallets.EntityFramework;
+using Neo.Implementations.Wallets.NEP6;
 using Neo.IO;
 using Neo.Properties;
 using Neo.SmartContract;
@@ -144,12 +145,13 @@ namespace Neo.UI
             BeginInvoke(new Action(RefreshConfirmations));
         }
 
-        private void ChangeWallet(UserWallet wallet)
+        private void ChangeWallet(Wallet wallet)
         {
             if (Program.CurrentWallet != null)
             {
                 Program.CurrentWallet.BalanceChanged -= CurrentWallet_BalanceChanged;
-                Program.CurrentWallet.Dispose();
+                if (Program.CurrentWallet is IDisposable disposable)
+                    disposable.Dispose();
             }
             Program.CurrentWallet = wallet;
             listView3.Items.Clear();
@@ -170,7 +172,7 @@ namespace Neo.UI
                 }
                 Program.CurrentWallet.BalanceChanged += CurrentWallet_BalanceChanged;
             }
-            修改密码CToolStripMenuItem.Enabled = Program.CurrentWallet != null;
+            修改密码CToolStripMenuItem.Enabled = Program.CurrentWallet is UserWallet;
             交易TToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             提取小蚁币CToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             requestCertificateToolStripMenuItem.Enabled = Program.CurrentWallet != null;
@@ -497,9 +499,13 @@ namespace Neo.UI
             using (CreateWalletDialog dialog = new CreateWalletDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                //ChangeWallet(UserWallet.Create(dialog.WalletPath, dialog.Password));
-                //Settings.Default.LastWalletPath = dialog.WalletPath;
-                //Settings.Default.Save();
+                NEP6Wallet wallet = new NEP6Wallet(dialog.WalletPath);
+                wallet.Unlock(dialog.Password);
+                wallet.CreateAccount();
+                wallet.Save();
+                ChangeWallet(wallet);
+                Settings.Default.LastWalletPath = dialog.WalletPath;
+                Settings.Default.Save();
             }
         }
 
@@ -508,15 +514,24 @@ namespace Neo.UI
             using (OpenWalletDialog dialog = new OpenWalletDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                UserWallet wallet;
-                try
+                Wallet wallet;
+                if (Path.GetExtension(dialog.WalletPath) == ".db3")
                 {
-                    wallet = UserWallet.Open(dialog.WalletPath, dialog.Password);
+                    try
+                    {
+                        wallet = UserWallet.Open(dialog.WalletPath, dialog.Password);
+                    }
+                    catch (CryptographicException)
+                    {
+                        MessageBox.Show(Strings.PasswordIncorrect);
+                        return;
+                    }
                 }
-                catch (CryptographicException)
+                else
                 {
-                    MessageBox.Show(Strings.PasswordIncorrect);
-                    return;
+                    NEP6Wallet nep6wallet = new NEP6Wallet(dialog.WalletPath);
+                    nep6wallet.Unlock(dialog.Password);
+                    wallet = nep6wallet;
                 }
                 ChangeWallet(wallet);
                 Settings.Default.LastWalletPath = dialog.WalletPath;
@@ -529,7 +544,7 @@ namespace Neo.UI
             using (ChangePasswordDialog dialog = new ChangePasswordDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                if (Program.CurrentWallet.ChangePassword(dialog.OldPassword, dialog.NewPassword))
+                if (((UserWallet)Program.CurrentWallet).ChangePassword(dialog.OldPassword, dialog.NewPassword))
                     MessageBox.Show(Strings.ChangePasswordSuccessful);
                 else
                     MessageBox.Show(Strings.PasswordIncorrect);
@@ -708,6 +723,8 @@ namespace Neo.UI
             listView1.SelectedIndices.Clear();
             WalletAccount account = Program.CurrentWallet.CreateAccount();
             AddAccount(account, true);
+            if (Program.CurrentWallet is NEP6Wallet wallet)
+                wallet.Save();
         }
 
         private void importWIFToolStripMenuItem_Click(object sender, EventArgs e)
@@ -729,6 +746,8 @@ namespace Neo.UI
                     }
                     AddAccount(account, true);
                 }
+                if (Program.CurrentWallet is NEP6Wallet wallet)
+                    wallet.Save();
             }
         }
 
@@ -740,6 +759,8 @@ namespace Neo.UI
                 listView1.SelectedIndices.Clear();
                 WalletAccount account = Program.CurrentWallet.Import(dialog.SelectedCertificate);
                 AddAccount(account, true);
+                if (Program.CurrentWallet is NEP6Wallet wallet)
+                    wallet.Save();
             }
         }
 
@@ -768,6 +789,8 @@ namespace Neo.UI
                     AddAccount(account, true);
                 }
             }
+            if (Program.CurrentWallet is NEP6Wallet wallet)
+                wallet.Save();
         }
 
         private void 多方签名MToolStripMenuItem_Click(object sender, EventArgs e)
