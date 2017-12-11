@@ -194,7 +194,7 @@
 Note: updated files cannot be openned by clients in older versions!</value>
   </data>
   <data name="MigrateWalletSucceedMessage" xml:space="preserve">
-    <value>Wallet files relocated. Old files have been auto-saved at: </value>
+    <value>Wallet file relocated. New wallet file has been saved at: </value>
   </data>
   <data name="PasswordIncorrect" xml:space="preserve">
     <value>Password Incorrect</value>

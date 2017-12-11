@@ -517,20 +517,49 @@ namespace Neo.UI
                 Wallet wallet;
                 if (Path.GetExtension(dialog.WalletPath) == ".db3")
                 {
+                    if (MessageBox.Show(Strings.MigrateWalletMessage, Strings.MigrateWalletCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                    {
+                        string path_new = Path.ChangeExtension(dialog.WalletPath, ".json");
+                        NEP6Wallet nep6wallet;
+                        try
+                        {
+                            nep6wallet = NEP6Wallet.Migrate(path_new, dialog.WalletPath, dialog.Password);
+                        }
+                        catch (CryptographicException)
+                        {
+                            MessageBox.Show(Strings.PasswordIncorrect);
+                            return;
+                        }
+                        nep6wallet.Save();
+                        nep6wallet.Unlock(dialog.Password);
+                        wallet = nep6wallet;
+                        MessageBox.Show($"{Strings.MigrateWalletSucceedMessage}\n{path_new}");
+                    }
+                    else
+                    {
+                        try
+                        {
+                            wallet = UserWallet.Open(dialog.WalletPath, dialog.Password);
+                        }
+                        catch (CryptographicException)
+                        {
+                            MessageBox.Show(Strings.PasswordIncorrect);
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    NEP6Wallet nep6wallet = new NEP6Wallet(dialog.WalletPath);
                     try
                     {
-                        wallet = UserWallet.Open(dialog.WalletPath, dialog.Password);
+                        nep6wallet.Unlock(dialog.Password);
                     }
                     catch (CryptographicException)
                     {
                         MessageBox.Show(Strings.PasswordIncorrect);
                         return;
                     }
-                }
-                else
-                {
-                    NEP6Wallet nep6wallet = new NEP6Wallet(dialog.WalletPath);
-                    nep6wallet.Unlock(dialog.Password);
                     wallet = nep6wallet;
                 }
                 ChangeWallet(wallet);

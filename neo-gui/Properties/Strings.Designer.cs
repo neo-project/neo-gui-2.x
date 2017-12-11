@@ -287,7 +287,7 @@ namespace Neo.Properties {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Wallet files relocated. Old files have been auto-saved at: .
+        ///   Looks up a localized string similar to Wallet file relocated. New wallet file has been saved at: .
         /// </summary>
         internal static string MigrateWalletSucceedMessage {
             get {
@@ -303,7 +303,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("PasswordIncorrect", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Data broadcast success, the hash is shown as follows:.
         /// </summary>
@@ -330,7 +330,7 @@ namespace Neo.Properties {
                 return ResourceManager.GetString("RelayTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Transaction sent, TXID:.
         /// </summary>
