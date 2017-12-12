@@ -193,9 +193,6 @@
     <value>Abriendo ficheros de monederos antiguos, actualizar al nuevo formato?
 Aviso: los ficheros actualizados no podran ser abiertos por clientes de versiones antiguas.</value>
   </data>
-  <data name="MigrateWalletSucceedMessage" xml:space="preserve">
-    <value>Ficheros de monederos realojados. Los ficheros antiguos se guardaron automáticamente en:</value>
-  </data>
   <data name="PasswordIncorrect" xml:space="preserve">
     <value>Contraseña incorrecta</value>
   </data>

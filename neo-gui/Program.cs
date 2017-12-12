@@ -1,9 +1,9 @@
 ﻿using Neo.Core;
 using Neo.Implementations.Blockchains.LevelDB;
-using Neo.Implementations.Wallets.EntityFramework;
 using Neo.Network;
 using Neo.Properties;
 using Neo.UI;
+using Neo.Wallets;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -19,7 +19,7 @@ namespace Neo
     internal static class Program
     {
         public static LocalNode LocalNode;
-        public static UserWallet CurrentWallet;
+        public static Wallet CurrentWallet;
         public static MainForm MainForm;
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

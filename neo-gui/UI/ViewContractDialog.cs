@@ -1,4 +1,4 @@
-﻿using Neo.Wallets;
+﻿using Neo.SmartContract;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -6,7 +6,7 @@ namespace Neo.UI
 {
     public partial class ViewContractDialog : Form
     {
-        public ViewContractDialog(VerificationContract contract)
+        public ViewContractDialog(Contract contract)
         {
             InitializeComponent();
             textBox1.Text = contract.Address;

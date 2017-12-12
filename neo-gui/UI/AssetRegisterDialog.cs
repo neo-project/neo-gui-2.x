@@ -47,9 +47,9 @@ namespace Neo.UI
         private void AssetRegisterDialog_Load(object sender, EventArgs e)
         {
             comboBox1.Items.AddRange(new object[] { AssetType.Share, AssetType.Token });
-            comboBox2.Items.AddRange(Program.CurrentWallet.GetContracts().Where(p => p.IsStandard).Select(p => Program.CurrentWallet.GetKey(p.PublicKeyHash).PublicKey).ToArray());
-            comboBox3.Items.AddRange(Program.CurrentWallet.GetContracts().Select(p => p.Address).ToArray());
-            comboBox4.Items.AddRange(Program.CurrentWallet.GetContracts().Select(p => p.Address).ToArray());
+            comboBox2.Items.AddRange(Program.CurrentWallet.GetAccounts().Where(p => !p.WatchOnly && p.Contract.IsStandard).Select(p => p.GetKey().PublicKey).ToArray());
+            comboBox3.Items.AddRange(Program.CurrentWallet.GetAccounts().Where(p => !p.WatchOnly).Select(p => p.Address).ToArray());
+            comboBox4.Items.AddRange(Program.CurrentWallet.GetAccounts().Where(p => !p.WatchOnly).Select(p => p.Address).ToArray());
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
