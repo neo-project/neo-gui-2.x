@@ -595,17 +595,21 @@ namespace Neo.UI
         private void 转账TToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Transaction tx;
+            UInt160 change_address;
+            Fixed8 fee;
             using (TransferDialog dialog = new TransferDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
                 tx = dialog.GetTransaction();
+                change_address = dialog.ChangeAddress;
+                fee = dialog.Fee;
             }
             if (tx is InvocationTransaction itx)
             {
                 using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
                 {
                     if (dialog.ShowDialog() != DialogResult.OK) return;
-                    tx = dialog.GetTransaction();
+                    tx = dialog.GetTransaction(change_address, fee);
                 }
             }
             Helper.SignAndShowInformation(tx);

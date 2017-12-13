@@ -44,6 +44,19 @@ namespace Neo.UI
             }, fee: fee);
         }
 
+        public InvocationTransaction GetTransaction(UInt160 change_address, Fixed8 fee)
+        {
+            return Program.CurrentWallet.MakeTransaction(new InvocationTransaction
+            {
+                Version = tx.Version,
+                Script = tx.Script,
+                Gas = tx.Gas,
+                Attributes = tx.Attributes,
+                Inputs = tx.Inputs,
+                Outputs = tx.Outputs
+            }, change_address, fee);
+        }
+
         private void UpdateScript()
         {
             if (parameters.Any(p => p.Value == null)) return;
