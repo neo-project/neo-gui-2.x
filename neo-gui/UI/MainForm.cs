@@ -258,7 +258,7 @@ namespace Neo.UI
                     File.Delete(acc_zip_path);
                 }
                 Blockchain.PersistCompleted += Blockchain_PersistCompleted;
-                Program.LocalNode.Start(Settings.Default.NodePort, Settings.Default.WsPort);
+                Program.LocalNode.Start(Settings.Default.P2P.Port, Settings.Default.P2P.WsPort);
             });
         }
 
@@ -945,7 +945,7 @@ namespace Neo.UI
             AssetState asset = (AssetState)listView2.SelectedItems[0].Tag;
             UInt160 hash = Contract.CreateSignatureRedeemScript(asset.Owner).ToScriptHash();
             string address = Wallet.ToAddress(hash);
-            string path = Path.Combine(Settings.Default.CertCachePath, $"{address}.cer");
+            string path = Path.Combine(Settings.Default.Paths.CertCache, $"{address}.cer");
             Process.Start(path);
         }
 
