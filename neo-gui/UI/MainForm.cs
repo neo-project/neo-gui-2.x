@@ -514,16 +514,18 @@ namespace Neo.UI
             using (OpenWalletDialog dialog = new OpenWalletDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
+                string path = dialog.WalletPath;
                 Wallet wallet;
-                if (Path.GetExtension(dialog.WalletPath) == ".db3")
+                if (Path.GetExtension(path) == ".db3")
                 {
                     if (MessageBox.Show(Strings.MigrateWalletMessage, Strings.MigrateWalletCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                     {
-                        string path_new = Path.ChangeExtension(dialog.WalletPath, ".json");
+                        string path_old = path;
+                        path = Path.ChangeExtension(path_old, ".json");
                         NEP6Wallet nep6wallet;
                         try
                         {
-                            nep6wallet = NEP6Wallet.Migrate(path_new, dialog.WalletPath, dialog.Password);
+                            nep6wallet = NEP6Wallet.Migrate(path, path_old, dialog.Password);
                         }
                         catch (CryptographicException)
                         {
@@ -533,13 +535,13 @@ namespace Neo.UI
                         nep6wallet.Save();
                         nep6wallet.Unlock(dialog.Password);
                         wallet = nep6wallet;
-                        MessageBox.Show($"{Strings.MigrateWalletSucceedMessage}\n{path_new}");
+                        MessageBox.Show($"{Strings.MigrateWalletSucceedMessage}\n{path}");
                     }
                     else
                     {
                         try
                         {
-                            wallet = UserWallet.Open(dialog.WalletPath, dialog.Password);
+                            wallet = UserWallet.Open(path, dialog.Password);
                         }
                         catch (CryptographicException)
                         {
@@ -550,7 +552,7 @@ namespace Neo.UI
                 }
                 else
                 {
-                    NEP6Wallet nep6wallet = new NEP6Wallet(dialog.WalletPath);
+                    NEP6Wallet nep6wallet = new NEP6Wallet(path);
                     try
                     {
                         nep6wallet.Unlock(dialog.Password);
@@ -563,7 +565,7 @@ namespace Neo.UI
                     wallet = nep6wallet;
                 }
                 ChangeWallet(wallet);
-                Settings.Default.LastWalletPath = dialog.WalletPath;
+                Settings.Default.LastWalletPath = path;
                 Settings.Default.Save();
             }
         }
