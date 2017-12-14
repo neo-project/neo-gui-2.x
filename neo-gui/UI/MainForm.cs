@@ -836,6 +836,8 @@ namespace Neo.UI
                     return;
                 }
                 WalletAccount account = Program.CurrentWallet.CreateAccount(contract, dialog.GetKey());
+                if (Program.CurrentWallet is NEP6Wallet wallet)
+                    wallet.Save();
                 listView1.SelectedIndices.Clear();
                 AddAccount(account, true);
             }
@@ -853,6 +855,8 @@ namespace Neo.UI
                     return;
                 }
                 WalletAccount account = Program.CurrentWallet.CreateAccount(contract, dialog.GetKey());
+                if (Program.CurrentWallet is NEP6Wallet wallet)
+                    wallet.Save();
                 listView1.SelectedIndices.Clear();
                 AddAccount(account, true);
             }
@@ -865,6 +869,8 @@ namespace Neo.UI
                 if (dialog.ShowDialog() != DialogResult.OK) return;
                 Contract contract = dialog.GetContract();
                 WalletAccount account = Program.CurrentWallet.CreateAccount(contract, dialog.GetKey());
+                if (Program.CurrentWallet is NEP6Wallet wallet)
+                    wallet.Save();
                 listView1.SelectedIndices.Clear();
                 AddAccount(account, true);
             }
