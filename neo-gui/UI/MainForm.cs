@@ -450,7 +450,11 @@ namespace Neo.UI
                         string name = engine.EvaluationStack.Pop().GetString();
                         byte decimals = (byte)engine.EvaluationStack.Pop().GetBigInteger();
                         BigInteger amount = engine.EvaluationStack.Pop().GetArray().Aggregate(BigInteger.Zero, (x, y) => x + y.GetBigInteger());
-                        if (amount == 0) continue;
+                        if (amount == 0)
+                        {
+                            listView2.Items.RemoveByKey(script_hash.ToString());
+                            continue;
+                        }
                         BigDecimal balance = new BigDecimal(amount, decimals);
                         string value_text = balance.ToString();
                         if (listView2.Items.ContainsKey(script_hash.ToString()))
