@@ -70,10 +70,17 @@ namespace Neo.UI
         {
             if (listView1.SelectedIndices.Count == 0) return;
             ContractParameter parameter = (ContractParameter)listView1.SelectedItems[0].Tag;
-            parameter.SetValue(textBox2.Text);
-            listView1.SelectedItems[0].SubItems["value"].Text = parameter.ToString();
-            textBox1.Text = listView1.SelectedItems[0].SubItems["value"].Text;
-            textBox2.Clear();
+            try
+            {
+                parameter.SetValue(textBox2.Text);
+                listView1.SelectedItems[0].SubItems["value"].Text = parameter.ToString();
+                textBox1.Text = listView1.SelectedItems[0].SubItems["value"].Text;
+                textBox2.Clear();
+            }
+            catch(Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
