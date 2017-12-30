@@ -20,7 +20,8 @@ namespace Neo.UI
             byte[] script = textBox8.Text.HexToBytes();
             byte[] parameter_list = textBox6.Text.HexToBytes();
             ContractParameterType return_type = textBox7.Text.HexToBytes().Select(p => (ContractParameterType?)p).FirstOrDefault() ?? ContractParameterType.Void;
-            bool need_storage = checkBox1.Checked;
+            int need_storage = checkBox1.Checked ? 1 : 0;
+            int need_nep4 = checkBox2.Checked ? 2 : 0;
             string name = textBox1.Text;
             string version = textBox2.Text;
             string author = textBox3.Text;
@@ -28,7 +29,7 @@ namespace Neo.UI
             string description = textBox5.Text;
             using (ScriptBuilder sb = new ScriptBuilder())
             {
-                sb.EmitSysCall("Neo.Contract.Create", script, parameter_list, return_type, need_storage, name, version, author, email, description);
+                sb.EmitSysCall("Neo.Contract.Create", script, parameter_list, return_type, need_storage | need_nep4, name, version, author, email, description);
                 return new InvocationTransaction
                 {
                     Script = sb.ToArray()
