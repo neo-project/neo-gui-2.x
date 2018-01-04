@@ -938,6 +938,8 @@ namespace Neo.UI
                 listView1.Items.RemoveByKey(account.Address);
                 Program.CurrentWallet.DeleteAccount(account.ScriptHash);
             }
+            if (Program.CurrentWallet is NEP6Wallet wallet)
+                wallet.Save();
             balance_changed = true;
         }
 
