@@ -37,7 +37,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.修改密码CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.重建钱包数据库RToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.restoreAccountsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.退出XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.交易TToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -145,7 +144,6 @@
             this.toolStripSeparator1,
             this.修改密码CToolStripMenuItem,
             this.重建钱包数据库RToolStripMenuItem,
-            this.restoreAccountsToolStripMenuItem,
             this.toolStripSeparator2,
             this.退出XToolStripMenuItem});
             this.钱包WToolStripMenuItem.Name = "钱包WToolStripMenuItem";
@@ -178,12 +176,6 @@
             resources.ApplyResources(this.重建钱包数据库RToolStripMenuItem, "重建钱包数据库RToolStripMenuItem");
             this.重建钱包数据库RToolStripMenuItem.Name = "重建钱包数据库RToolStripMenuItem";
             this.重建钱包数据库RToolStripMenuItem.Click += new System.EventHandler(this.重建钱包数据库RToolStripMenuItem_Click);
-            // 
-            // restoreAccountsToolStripMenuItem
-            // 
-            resources.ApplyResources(this.restoreAccountsToolStripMenuItem, "restoreAccountsToolStripMenuItem");
-            this.restoreAccountsToolStripMenuItem.Name = "restoreAccountsToolStripMenuItem";
-            this.restoreAccountsToolStripMenuItem.Click += new System.EventHandler(this.restoreAccountsToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -814,7 +806,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem restoreAccountsToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripMenuItem requestCertificateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewCertificateToolStripMenuItem;

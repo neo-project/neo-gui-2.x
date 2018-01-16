@@ -126,6 +126,40 @@
   <data name="button3.Text" xml:space="preserve">
     <value>确定</value>
   </data>
+  <data name="button2.Text" xml:space="preserve">
+    <value>高级</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="comboBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>80, 54</value>
+  </data>
+  <data name="comboBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 24</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 16</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>找零地址：</value>
+  </data>
+  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>80, 25</value>
+  </data>
+  <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 23</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 28</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 16</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>手续费：</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>高级</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>转账</value>
   </data>

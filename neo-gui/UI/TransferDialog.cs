@@ -2,6 +2,7 @@
 using Neo.Properties;
 using Neo.SmartContract;
 using Neo.VM;
+using Neo.Wallets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,15 @@ namespace Neo.UI
     {
         private string remark = "";
 
+        public Fixed8 Fee => Fixed8.Parse(textBox1.Text);
+        public UInt160 ChangeAddress => Wallet.ToScriptHash((string)comboBox1.SelectedItem);
+
         public TransferDialog()
         {
             InitializeComponent();
+            textBox1.Text = "0";
+            comboBox1.Items.AddRange(Program.CurrentWallet.GetAccounts().Select(p => p.Address).ToArray());
+            comboBox1.SelectedItem = Wallet.ToAddress(Program.CurrentWallet.GetChangeAddress());
         }
 
         public Transaction GetTransaction()
@@ -40,7 +47,7 @@ namespace Neo.UI
             }
             else
             {
-                UInt160[] addresses = Program.CurrentWallet.GetAddresses().ToArray();
+                UInt160[] addresses = Program.CurrentWallet.GetAccounts().Select(p => p.ScriptHash).ToArray();
                 HashSet<UInt160> sAttributes = new HashSet<UInt160>();
                 using (ScriptBuilder sb = new ScriptBuilder())
                 {
@@ -110,7 +117,7 @@ namespace Neo.UI
             tx.Attributes = attributes.ToArray();
             tx.Outputs = txOutListBox1.Items.Where(p => p.AssetId is UInt256).Select(p => p.ToTxOutput()).ToArray();
             if (tx is ContractTransaction ctx)
-                tx = Program.CurrentWallet.MakeTransaction(ctx);
+                tx = Program.CurrentWallet.MakeTransaction(ctx, ChangeAddress, Fee);
             return tx;
         }
 
@@ -122,6 +129,13 @@ namespace Neo.UI
         private void button1_Click(object sender, EventArgs e)
         {
             remark = InputBox.Show(Strings.EnterRemarkMessage, Strings.EnterRemarkTitle, remark);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            button2.Visible = false;
+            groupBox1.Visible = true;
+            this.Height = 479;
         }
     }
 }

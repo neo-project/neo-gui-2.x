@@ -145,12 +145,6 @@
   <data name="重建钱包数据库RToolStripMenuItem.Text" xml:space="preserve">
     <value>Reconstruir &amp;indice</value>
   </data>
-  <data name="restoreAccountsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 22</value>
-  </data>
-  <data name="restoreAccountsToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Restaurar cuentas...</value>
-  </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>189, 6</value>
   </data>

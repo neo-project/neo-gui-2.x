@@ -170,7 +170,7 @@
     <value>确定</value>
   </data>
   <data name="saveFileDialog1.Filter" xml:space="preserve">
-    <value>钱包数据库|*.db3</value>
+    <value>钱包文件|*.json</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>483, 105</value>
