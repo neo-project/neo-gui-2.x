@@ -702,18 +702,11 @@ namespace Neo.UI
 
         private void 选举EToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InvocationTransaction tx;
             using (ElectionDialog dialog = new ElectionDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                tx = dialog.GetTransaction();
+                Helper.SignAndShowInformation(dialog.GetTransaction());
             }
-            using (InvokeContractDialog dialog = new InvokeContractDialog(tx))
-            {
-                if (dialog.ShowDialog() != DialogResult.OK) return;
-                tx = dialog.GetTransaction();
-            }
-            Helper.SignAndShowInformation(tx);
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -904,19 +897,12 @@ namespace Neo.UI
 
         private void voteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InvocationTransaction tx;
             WalletAccount account = (WalletAccount)listView1.SelectedItems[0].Tag;
             using (VotingDialog dialog = new VotingDialog(account.ScriptHash))
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                tx = dialog.GetTransaction();
+                Helper.SignAndShowInformation(dialog.GetTransaction());
             }
-            using (InvokeContractDialog dialog = new InvokeContractDialog(tx))
-            {
-                if (dialog.ShowDialog() != DialogResult.OK) return;
-                tx = dialog.GetTransaction();
-            }
-            Helper.SignAndShowInformation(tx);
         }
 
         private void 复制到剪贴板CToolStripMenuItem_Click(object sender, EventArgs e)
