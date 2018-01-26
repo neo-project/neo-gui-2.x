@@ -184,6 +184,27 @@
   <data name="openFileDialog1.Filter" xml:space="preserve">
     <value>AVM文件|*.avm</value>
   </data>
+  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 71</value>
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 17</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>参数列表:</value>
+  </data>
+  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>48, 39</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 17</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>方法:</value>
+  </data>
+  <data name="button7.Text" xml:space="preserve">
+    <value>打开ABI文件</value>
+  </data>
   <data name="tabPage1.Text" xml:space="preserve">
     <value>函数调用</value>
   </data>
@@ -192,6 +213,9 @@
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
     <value>运行结果</value>
+  </data>
+  <data name="openFileDialog2.Filter" xml:space="preserve">
+    <value>ABI文件|*.abi.json</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>调用合约</value>

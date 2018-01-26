@@ -14,6 +14,7 @@ namespace Neo.UI
     internal partial class InvokeContractDialog : Form
     {
         private InvocationTransaction tx;
+        private JObject abi;
         private UInt160 script_hash;
         private ContractParameter[] parameters;
 
@@ -145,6 +146,30 @@ namespace Neo.UI
         {
             if (openFileDialog1.ShowDialog() != DialogResult.OK) return;
             textBox6.Text = File.ReadAllBytes(openFileDialog1.FileName).ToHexString();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog2.ShowDialog() != DialogResult.OK) return;
+            abi = JObject.Parse(File.ReadAllText(openFileDialog2.FileName));
+            script_hash = UInt160.Parse(abi["hash"].AsString());
+            textBox8.Text = script_hash.ToString();
+            comboBox1.Items.Clear();
+            comboBox1.Items.AddRange(((JArray)abi["functions"]).Select(p => p["name"].AsString()).ToArray());
+            textBox9.Clear();
+            button8.Enabled = false;
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string method = (string)comboBox1.SelectedItem;
+            JArray functions = (JArray)abi["functions"];
+            JObject function = functions.First(p => p["name"].AsString() == method);
+            JArray _params = (JArray)function["parameters"];
+            parameters = _params.Select(p => new ContractParameter(p["type"].AsEnum<ContractParameterType>())).ToArray();
+            textBox9.Text = string.Join(", ", _params.Select(p => p["name"].AsString()));
+            button8.Enabled = parameters.Length > 0;
+            UpdateScript();
         }
     }
 }
