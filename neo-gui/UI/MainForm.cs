@@ -927,6 +927,7 @@ namespace Neo.UI
             if (Program.CurrentWallet is NEP6Wallet wallet)
                 wallet.Save();
             balance_changed = true;
+            check_nep5_balance = true;
         }
 
         private void contextMenuStrip2_Opening(object sender, CancelEventArgs e)
