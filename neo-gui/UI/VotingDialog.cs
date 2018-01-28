@@ -1,5 +1,6 @@
 ﻿using Neo.Core;
-using Neo.VM;
+using Neo.Cryptography.ECC;
+using Neo.IO;
 using Neo.Wallets;
 using System.Linq;
 using System.Windows.Forms;
@@ -10,30 +11,22 @@ namespace Neo.UI
     {
         private UInt160 script_hash;
 
-        public InvocationTransaction GetTransaction()
+        public StateTransaction GetTransaction()
         {
-            using (ScriptBuilder sb = new ScriptBuilder())
+            return Program.CurrentWallet.MakeTransaction(new StateTransaction
             {
-                foreach (string line in textBox1.Lines.Reverse())
-                    sb.EmitPush(line.HexToBytes());
-                sb.EmitPush(textBox1.Lines.Length);
-                sb.Emit(OpCode.PACK);
-                sb.EmitPush(script_hash);
-                sb.EmitSysCall("Neo.Blockchain.GetAccount");
-                sb.EmitSysCall("Neo.Account.SetVotes");
-                return new InvocationTransaction
+                Version = 0,
+                Descriptors = new[]
                 {
-                    Script = sb.ToArray(),
-                    Attributes = new[]
+                    new StateDescriptor
                     {
-                        new TransactionAttribute
-                        {
-                            Usage = TransactionAttributeUsage.Script,
-                            Data = script_hash.ToArray()
-                        }
+                        Type = StateType.Account,
+                        Key = script_hash.ToArray(),
+                        Field = "Votes",
+                        Value = textBox1.Lines.Select(p => ECPoint.Parse(p, ECCurve.Secp256r1)).ToArray().ToByteArray()
                     }
-                };
-            }
+                }
+            });
         }
 
         public VotingDialog(UInt160 script_hash)
