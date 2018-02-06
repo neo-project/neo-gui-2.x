@@ -135,6 +135,8 @@ namespace Neo.UI
 
         private void Blockchain_PersistCompleted(object sender, Block block)
         {
+            if (IsDisposed) return;
+
             persistence_time = DateTime.UtcNow;
             if (Program.CurrentWallet != null)
             {
@@ -142,6 +144,7 @@ namespace Neo.UI
                 if (Program.CurrentWallet.GetCoins().Any(p => !p.State.HasFlag(CoinState.Spent) && p.Output.AssetId.Equals(Blockchain.GoverningToken.Hash)) == true)
                     balance_changed = true;
             }
+
             BeginInvoke(new Action(RefreshConfirmations));
         }
 
@@ -265,6 +268,7 @@ namespace Neo.UI
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Blockchain.PersistCompleted -= Blockchain_PersistCompleted;
+            WalletIndexer.ExitThread();
             ChangeWallet(null);
         }
 
