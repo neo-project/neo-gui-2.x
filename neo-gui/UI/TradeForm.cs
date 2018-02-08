@@ -110,7 +110,7 @@ namespace Neo.UI
             }
             try
             {
-                if (inputs.Select(p => Blockchain.Default.GetTransaction(p.PrevHash).Outputs[p.PrevIndex].ScriptHash).Distinct().Any(p => Program.CurrentWallet.ContainsAddress(p)))
+                if (inputs.Select(p => Blockchain.Default.GetTransaction(p.PrevHash).Outputs[p.PrevIndex].ScriptHash).Distinct().Any(p => Program.CurrentWallet.Contains(p)))
                 {
                     MessageBox.Show(Strings.TradeFailedInvalidDataMessage, Strings.Failed, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -121,7 +121,7 @@ namespace Neo.UI
                 MessageBox.Show(Strings.TradeFailedNoSyncMessage, Strings.Failed, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            outputs = outputs.Where(p => Program.CurrentWallet.ContainsAddress(p.ScriptHash));
+            outputs = outputs.Where(p => Program.CurrentWallet.Contains(p.ScriptHash));
             using (TradeVerificationDialog dialog = new TradeVerificationDialog(outputs))
             {
                 button3.Enabled = dialog.ShowDialog() == DialogResult.OK;
@@ -152,7 +152,7 @@ namespace Neo.UI
             {
                 context.Verifiable.Scripts = context.GetScripts();
                 ContractTransaction tx = (ContractTransaction)context.Verifiable;
-                Program.CurrentWallet.SaveTransaction(tx);
+                Program.CurrentWallet.ApplyTransaction(tx);
                 Program.LocalNode.Relay(tx);
                 InformationBox.Show(tx.Hash.ToString(), Strings.TradeSuccessMessage, Strings.TradeSuccessCaption);
             }

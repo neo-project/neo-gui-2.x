@@ -44,6 +44,19 @@ namespace Neo.UI
             }, fee: fee);
         }
 
+        public InvocationTransaction GetTransaction(UInt160 change_address, Fixed8 fee)
+        {
+            return Program.CurrentWallet.MakeTransaction(new InvocationTransaction
+            {
+                Version = tx.Version,
+                Script = tx.Script,
+                Gas = tx.Gas,
+                Attributes = tx.Attributes,
+                Inputs = tx.Inputs,
+                Outputs = tx.Outputs
+            }, change_address: change_address, fee: fee);
+        }
+
         private void UpdateScript()
         {
             if (parameters.Any(p => p.Value == null)) return;
@@ -90,9 +103,19 @@ namespace Neo.UI
 
         private void button5_Click(object sender, EventArgs e)
         {
+            byte[] script;
+            try
+            {
+                script = textBox6.Text.Trim().HexToBytes();
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
             if (tx == null) tx = new InvocationTransaction();
             tx.Version = 1;
-            tx.Script = textBox6.Text.HexToBytes();
+            tx.Script = script;
             if (tx.Attributes == null) tx.Attributes = new TransactionAttribute[0];
             if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
             if (tx.Outputs == null) tx.Outputs = new TransactionOutput[0];

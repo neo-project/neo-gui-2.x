@@ -32,18 +32,6 @@ namespace Neo.UI
             }
         }
 
-        public bool RepairMode
-        {
-            get
-            {
-                return checkBox1.Checked;
-            }
-            set
-            {
-                checkBox1.Checked = value;
-            }
-        }
-
         public string WalletPath
         {
             get

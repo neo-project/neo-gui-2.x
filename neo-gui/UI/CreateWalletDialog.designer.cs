@@ -92,7 +92,7 @@
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "db3";
+            this.saveFileDialog1.DefaultExt = "json";
             resources.ApplyResources(this.saveFileDialog1, "saveFileDialog1");
             // 
             // CreateWalletDialog

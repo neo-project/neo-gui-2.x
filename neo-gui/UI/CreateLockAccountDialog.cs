@@ -1,6 +1,4 @@
-﻿using Neo.Core;
-using Neo.Cryptography.ECC;
-using Neo.SmartContract;
+﻿using Neo.SmartContract;
 using Neo.VM;
 using Neo.Wallets;
 using System;
@@ -14,21 +12,25 @@ namespace Neo.UI
         public CreateLockAccountDialog()
         {
             InitializeComponent();
-            comboBox1.Items.AddRange(Program.CurrentWallet.GetContracts().Where(p => p.IsStandard).Select(p => Program.CurrentWallet.GetKey(p.PublicKeyHash).PublicKey).ToArray());
+            comboBox1.Items.AddRange(Program.CurrentWallet.GetAccounts().Where(p => !p.WatchOnly && p.Contract.IsStandard).Select(p => p.GetKey()).ToArray());
         }
 
-        public VerificationContract GetContract()
+        public Contract GetContract()
         {
-            ECPoint publicKey = (ECPoint)comboBox1.SelectedItem;
             uint timestamp = dateTimePicker1.Value.ToTimestamp();
             using (ScriptBuilder sb = new ScriptBuilder())
             {
-                sb.EmitPush(publicKey);
+                sb.EmitPush(GetKey().PublicKey);
                 sb.EmitPush(timestamp);
                 // Lock 2.0 in mainnet tx:4e84015258880ced0387f34842b1d96f605b9cc78b308e1f0d876933c2c9134b
                 sb.EmitAppCall(UInt160.Parse("d3cce84d0800172d09c88ccad61130611bd047a4"));
-                return VerificationContract.Create(publicKey.EncodePoint(true).ToScriptHash(), new[] { ContractParameterType.Signature }, sb.ToArray());
+                return Contract.Create(new[] { ContractParameterType.Signature }, sb.ToArray());
             }
+        }
+
+        public KeyPair GetKey()
+        {
+            return (KeyPair)comboBox1.SelectedItem;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

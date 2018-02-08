@@ -194,7 +194,7 @@
 注意，升级后将无法用旧版本的客户端打开该文件！</value>
   </data>
   <data name="MigrateWalletSucceedMessage" xml:space="preserve">
-    <value>钱包文件迁移成功，旧的文件已经自动保存到以下位置：</value>
+    <value>钱包文件迁移成功，新的钱包文件已经自动保存到以下位置：</value>
   </data>
   <data name="PasswordIncorrect" xml:space="preserve">
     <value>密码错误！</value>
