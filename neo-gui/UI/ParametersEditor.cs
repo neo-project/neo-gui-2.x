@@ -171,7 +171,7 @@ namespace Neo.UI
                 new ListViewItem.ListViewSubItem
                 {
                     Name = "value",
-                    Text = parameter.ToString()
+                    Text = parameter.Value.ToString()
                 }
             }, -1)
             {
