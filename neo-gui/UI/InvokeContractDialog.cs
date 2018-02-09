@@ -17,6 +17,7 @@ namespace Neo.UI
         private JObject abi;
         private UInt160 script_hash;
         private ContractParameter[] parameters;
+        private ContractParameter[] parameters_abi;
 
         private static readonly Fixed8 net_fee = Fixed8.FromDecimal(0.001m);
 
@@ -56,6 +57,23 @@ namespace Neo.UI
                 Inputs = tx.Inputs,
                 Outputs = tx.Outputs
             }, change_address: change_address, fee: fee);
+        }
+
+        private void UpdateParameters()
+        {
+            parameters = new[]
+            {
+                new ContractParameter
+                {
+                    Type = ContractParameterType.String,
+                    Value = comboBox1.SelectedItem
+                },
+                new ContractParameter
+                {
+                    Type = ContractParameterType.Array,
+                    Value = parameters_abi
+                }
+            };
         }
 
         private void UpdateScript()
@@ -160,15 +178,26 @@ namespace Neo.UI
             button8.Enabled = false;
         }
 
+        private void button8_Click(object sender, EventArgs e)
+        {
+            using (ParametersEditor dialog = new ParametersEditor(parameters_abi))
+            {
+                dialog.ShowDialog();
+            }
+            UpdateParameters();
+            UpdateScript();
+        }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             string method = (string)comboBox1.SelectedItem;
             JArray functions = (JArray)abi["functions"];
             JObject function = functions.First(p => p["name"].AsString() == method);
             JArray _params = (JArray)function["parameters"];
-            parameters = _params.Select(p => new ContractParameter(p["type"].AsEnum<ContractParameterType>())).ToArray();
+            parameters_abi = _params.Select(p => new ContractParameter(p["type"].AsEnum<ContractParameterType>())).ToArray();
             textBox9.Text = string.Join(", ", _params.Select(p => p["name"].AsString()));
-            button8.Enabled = parameters.Length > 0;
+            button8.Enabled = parameters_abi.Length > 0;
+            UpdateParameters();
             UpdateScript();
         }
     }
