@@ -118,12 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="radioButton1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 21</value>
-  </data>
-  <data name="radioButton1.Text" xml:space="preserve">
-    <value>Invocar función</value>
-  </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 125</value>
   </data>
@@ -154,12 +148,6 @@
   <data name="label2.Text" xml:space="preserve">
     <value>Nombre:</value>
   </data>
-  <data name="radioButton2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 21</value>
-  </data>
-  <data name="radioButton2.Text" xml:space="preserve">
-    <value>Personalizada</value>
-  </data>
   <data name="button6.Text" xml:space="preserve">
     <value>Cargar</value>
   </data>
@@ -183,6 +171,12 @@
   </data>
   <data name="button5.Text" xml:space="preserve">
     <value>Prueba</value>
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 17</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>Parámetros:</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Invocar contrato</value>
