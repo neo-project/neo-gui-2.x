@@ -351,6 +351,9 @@
   <data name="textBox9.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
+  <data name="textBox9.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
