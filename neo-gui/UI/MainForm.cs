@@ -268,7 +268,6 @@ namespace Neo.UI
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Blockchain.PersistCompleted -= Blockchain_PersistCompleted;
-            WalletIndexer.ExitThread();
             ChangeWallet(null);
         }
 
