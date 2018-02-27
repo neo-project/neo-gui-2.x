@@ -46,6 +46,7 @@
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -53,7 +54,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -77,9 +78,9 @@
             // 
             // textBox5
             // 
-            resources.ApplyResources(this.textBox5, "textBox5");
             this.textBox5.AcceptsReturn = true;
             this.textBox5.AcceptsTab = true;
+            resources.ApplyResources(this.textBox5, "textBox5");
             this.textBox5.Name = "textBox5";
             this.textBox5.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -134,11 +135,11 @@
             // 
             // groupBox2
             // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.textBox7);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.textBox6);
             this.groupBox2.Controls.Add(this.label6);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
@@ -165,6 +166,7 @@
             // groupBox3
             // 
             resources.ApplyResources(this.groupBox3, "groupBox3");
+            this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.checkBox2);
             this.groupBox3.Controls.Add(this.textBox9);
             this.groupBox3.Controls.Add(this.button1);
@@ -172,6 +174,12 @@
             this.groupBox3.Controls.Add(this.textBox8);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.TabStop = false;
+            // 
+            // checkBox2
+            // 
+            resources.ApplyResources(this.checkBox2, "checkBox2");
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // textBox9
             // 
@@ -215,19 +223,18 @@
             // 
             // openFileDialog1
             // 
-            resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
             this.openFileDialog1.DefaultExt = "avm";
+            resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
             // 
-            // checkBox2
+            // label8
             // 
-            resources.ApplyResources(this.checkBox2, "checkBox2");
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
             // 
             // DeployContractDialog
             // 
-            resources.ApplyResources(this, "$this");
             this.AcceptButton = this.button2;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button3;
             this.Controls.Add(this.groupBox1);
@@ -277,5 +284,6 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Label label8;
     }
 }
