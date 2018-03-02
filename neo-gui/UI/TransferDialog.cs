@@ -135,7 +135,7 @@ namespace Neo.UI
         {
             button2.Visible = false;
             groupBox1.Visible = true;
-            this.Height = 479;
+            this.Height = 510;
         }
     }
 }
