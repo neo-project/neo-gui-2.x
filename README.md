@@ -3,7 +3,25 @@ Project Setup
 
 On Linux:
 =========
-`yum install leveldb-devel`
+rhel-like 
+
+'sudo yum install leveldb-devel`
+
+or debian-like:
+
+`sudo apt-get install leveldb-devel`
+
+
+On source code:
+=========
+'git clone https://github.com/google/leveldb.git'
+'cd leveldb/'
+'make'
+'sudo scp out-static/lib* out-shared/lib* /usr/local/lib/'
+'cd include/'
+'sudo scp -r leveldb /usr/local/include/'
+'sudo ldconfig'
+
 
 On Windows:
 ===========
