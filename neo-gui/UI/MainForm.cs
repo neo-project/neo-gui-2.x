@@ -23,6 +23,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using VMArray = Neo.VM.Types.Array;
 
 namespace Neo.UI
 {
@@ -452,7 +453,12 @@ namespace Neo.UI
                         if (engine.State.HasFlag(VMState.FAULT)) continue;
                         string name = engine.EvaluationStack.Pop().GetString();
                         byte decimals = (byte)engine.EvaluationStack.Pop().GetBigInteger();
-                        BigInteger amount = engine.EvaluationStack.Pop().GetArray().Aggregate(BigInteger.Zero, (x, y) => x + y.GetBigInteger());
+                        BigInteger amount = 0;
+                        StackItem item = engine.EvaluationStack.Pop();
+                        if (item is VMArray array1)
+                        {
+                            amount = array1.Aggregate(BigInteger.Zero, (x, y) => x + y.GetBigInteger());
+                        }
                         if (amount == 0)
                         {
                             listView2.Items.RemoveByKey(script_hash.ToString());
