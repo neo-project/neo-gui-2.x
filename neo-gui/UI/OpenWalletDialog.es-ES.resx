@@ -117,18 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="button2.Text" xml:space="preserve">
-    <value>Confirmar</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="textBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>155, 41</value>
+    <value>142, 41</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>67, 44</value>
+    <value>65, 44</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 17</value>
+    <value>71, 16</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>Contraseña:</value>
@@ -137,25 +134,16 @@
     <value>Buscar...</value>
   </data>
   <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>155, 12</value>
+    <value>142, 12</value>
   </data>
   <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 23</value>
+    <value>204, 23</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 17</value>
+    <value>124, 16</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Fichero de nomedero:</value>
-  </data>
-  <data name="checkBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 79</value>
-  </data>
-  <data name="checkBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 21</value>
-  </data>
-  <data name="checkBox1.Text" xml:space="preserve">
-    <value>modo reparación</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Abrir monedero</value>

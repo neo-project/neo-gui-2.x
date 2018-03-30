@@ -1,16 +1,17 @@
 ﻿{
   "ApplicationConfiguration": {
-    "DataDirectoryPath": "ChainTestNet",
-    "CertCachePath": "Certs",
-    "NodePort": 20333,
-    "WsPort": 20334,
-    "UriPrefix": [ "http://*:20332" ],
-    "SslCert": "",
-    "SslCertPassword": "",
+    "Paths": {
+      "Chain": "ChainTestNet",
+      "CertCache": "Certs"
+    },
+    "P2P": {
+      "Port": 20333,
+      "WsPort": 20334
+    },
     "Urls": {
-      "AddressUrl": "http://testnet.antchain.xyz/address/{0}",
-      "AssetUrl": "http://testnet.antchain.xyz/asset/hash/{0}",
-      "TransactionUrl": "http://testnet.antchain.xyz/tx/hash/{0}"
+      "AddressUrl": "https://neoscan-testnet.io/address/{0}",
+      "AssetUrl": "https://neoscan-testnet.io/api/test_net/v1/get_asset/{0}",
+      "TransactionUrl": "https://neoscan-testnet.io/transaction/{0}"
     }
   }
 }

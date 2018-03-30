@@ -124,7 +124,7 @@
     <value>Wallet File:</value>
   </data>
   <data name="saveFileDialog1.Filter" xml:space="preserve">
-    <value>Wallet File|*.db3</value>
+    <value>Wallet File|*.json</value>
   </data>
   <data name="&gt;&gt;button1.Parent" xml:space="preserve">
     <value>$this</value>

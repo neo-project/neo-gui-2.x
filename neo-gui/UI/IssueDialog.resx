@@ -328,7 +328,7 @@
     <value>6, 22</value>
   </data>
   <data name="textBox5.MaxLength" type="System.Int32, mscorlib">
-    <value>64</value>
+    <value>66</value>
   </data>
   <data name="textBox5.Size" type="System.Drawing.Size, System.Drawing">
     <value>491, 23</value>

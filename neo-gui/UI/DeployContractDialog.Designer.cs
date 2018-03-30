@@ -53,6 +53,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -164,6 +166,8 @@
             // groupBox3
             // 
             resources.ApplyResources(this.groupBox3, "groupBox3");
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.checkBox2);
             this.groupBox3.Controls.Add(this.textBox9);
             this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.checkBox1);
@@ -216,6 +220,17 @@
             resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
             this.openFileDialog1.DefaultExt = "avm";
             // 
+            // checkBox2
+            // 
+            resources.ApplyResources(this.checkBox2, "checkBox2");
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            // 
             // DeployContractDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -227,6 +242,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DeployContractDialog";
@@ -267,5 +283,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Label label8;
     }
 }

@@ -14,8 +14,10 @@ namespace Neo.UI
     internal partial class InvokeContractDialog : Form
     {
         private InvocationTransaction tx;
+        private JObject abi;
         private UInt160 script_hash;
         private ContractParameter[] parameters;
+        private ContractParameter[] parameters_abi;
 
         private static readonly Fixed8 net_fee = Fixed8.FromDecimal(0.001m);
 
@@ -42,6 +44,36 @@ namespace Neo.UI
                 Inputs = tx.Inputs,
                 Outputs = tx.Outputs
             }, fee: fee);
+        }
+
+        public InvocationTransaction GetTransaction(UInt160 change_address, Fixed8 fee)
+        {
+            return Program.CurrentWallet.MakeTransaction(new InvocationTransaction
+            {
+                Version = tx.Version,
+                Script = tx.Script,
+                Gas = tx.Gas,
+                Attributes = tx.Attributes,
+                Inputs = tx.Inputs,
+                Outputs = tx.Outputs
+            }, change_address: change_address, fee: fee);
+        }
+
+        private void UpdateParameters()
+        {
+            parameters = new[]
+            {
+                new ContractParameter
+                {
+                    Type = ContractParameterType.String,
+                    Value = comboBox1.SelectedItem
+                },
+                new ContractParameter
+                {
+                    Type = ContractParameterType.Array,
+                    Value = parameters_abi
+                }
+            };
         }
 
         private void UpdateScript()
@@ -90,9 +122,19 @@ namespace Neo.UI
 
         private void button5_Click(object sender, EventArgs e)
         {
+            byte[] script;
+            try
+            {
+                script = textBox6.Text.Trim().HexToBytes();
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
             if (tx == null) tx = new InvocationTransaction();
             tx.Version = 1;
-            tx.Script = textBox6.Text.HexToBytes();
+            tx.Script = script;
             if (tx.Attributes == null) tx.Attributes = new TransactionAttribute[0];
             if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
             if (tx.Outputs == null) tx.Outputs = new TransactionOutput[0];
@@ -122,6 +164,41 @@ namespace Neo.UI
         {
             if (openFileDialog1.ShowDialog() != DialogResult.OK) return;
             textBox6.Text = File.ReadAllBytes(openFileDialog1.FileName).ToHexString();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog2.ShowDialog() != DialogResult.OK) return;
+            abi = JObject.Parse(File.ReadAllText(openFileDialog2.FileName));
+            script_hash = UInt160.Parse(abi["hash"].AsString());
+            textBox8.Text = script_hash.ToString();
+            comboBox1.Items.Clear();
+            comboBox1.Items.AddRange(((JArray)abi["functions"]).Select(p => p["name"].AsString()).ToArray());
+            textBox9.Clear();
+            button8.Enabled = false;
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            using (ParametersEditor dialog = new ParametersEditor(parameters_abi))
+            {
+                dialog.ShowDialog();
+            }
+            UpdateParameters();
+            UpdateScript();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string method = (string)comboBox1.SelectedItem;
+            JArray functions = (JArray)abi["functions"];
+            JObject function = functions.First(p => p["name"].AsString() == method);
+            JArray _params = (JArray)function["parameters"];
+            parameters_abi = _params.Select(p => new ContractParameter(p["type"].AsEnum<ContractParameterType>())).ToArray();
+            textBox9.Text = string.Join(", ", _params.Select(p => p["name"].AsString()));
+            button8.Enabled = parameters_abi.Length > 0;
+            UpdateParameters();
+            UpdateScript();
         }
     }
 }

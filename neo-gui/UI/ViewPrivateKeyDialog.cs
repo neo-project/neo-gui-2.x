@@ -5,10 +5,11 @@ namespace Neo.UI
 {
     internal partial class ViewPrivateKeyDialog : Form
     {
-        public ViewPrivateKeyDialog(KeyPair key, UInt160 scriptHash)
+        public ViewPrivateKeyDialog(WalletAccount account)
         {
             InitializeComponent();
-            textBox3.Text = Wallet.ToAddress(scriptHash);
+            KeyPair key = account.GetKey();
+            textBox3.Text = account.Address;
             textBox4.Text = key.PublicKey.EncodePoint(true).ToHexString();
             using (key.Decrypt())
             {

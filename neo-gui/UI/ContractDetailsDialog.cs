@@ -1,11 +1,12 @@
-﻿using Neo.Wallets;
+﻿using Neo.SmartContract;
+using Neo.Wallets;
 using System.Windows.Forms;
 
 namespace Neo.UI
 {
     internal partial class ContractDetailsDialog : Form
     {
-        public ContractDetailsDialog(VerificationContract contract)
+        public ContractDetailsDialog(Contract contract)
         {
             InitializeComponent();
             textBox1.Text = Wallet.ToAddress(contract.ScriptHash);
