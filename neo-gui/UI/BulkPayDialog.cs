@@ -48,7 +48,7 @@ namespace Neo.UI
                 {
                     AssetName = asset.AssetName,
                     AssetId = asset.AssetId,
-                    Value = new BigDecimal(Fixed8.Parse(line[1]).GetData(), 8),
+                    Value = BigDecimal.Parse(line[1], asset.Decimals),
                     ScriptHash = Wallet.ToScriptHash(line[0])
                 };
             }).Where(p => p.Value.Value != 0).ToArray();
