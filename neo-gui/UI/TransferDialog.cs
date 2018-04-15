@@ -9,6 +9,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Windows.Forms;
+using VMArray = Neo.VM.Types.Array;
 
 namespace Neo.UI
 {
@@ -63,7 +64,7 @@ namespace Neo.UI
                         }
                         ApplicationEngine engine = ApplicationEngine.Run(script);
                         if (engine.State.HasFlag(VMState.FAULT)) return null;
-                        var balances = engine.EvaluationStack.Pop().GetArray().Reverse().Zip(addresses, (i, a) => new
+                        var balances = ((VMArray)engine.EvaluationStack.Pop()).AsEnumerable().Reverse().Zip(addresses, (i, a) => new
                         {
                             Account = a,
                             Value = i.GetBigInteger()
@@ -135,7 +136,7 @@ namespace Neo.UI
         {
             button2.Visible = false;
             groupBox1.Visible = true;
-            this.Height = 479;
+            this.Height = 510;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Neo.Network;
 using System.Linq;
 
 namespace Neo.Properties
@@ -33,7 +34,7 @@ namespace Neo.Properties
 
         public PathsSettings(IConfigurationSection section)
         {
-            this.Chain = section.GetSection("Chain").Value;
+            this.Chain = string.Format(section.GetSection("Chain").Value, Message.Magic.ToString("X8"));
             this.CertCache = section.GetSection("CertCache").Value;
         }
     }

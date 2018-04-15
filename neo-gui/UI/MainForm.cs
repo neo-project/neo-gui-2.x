@@ -23,6 +23,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using VMArray = Neo.VM.Types.Array;
 
 namespace Neo.UI
 {
@@ -135,6 +136,8 @@ namespace Neo.UI
 
         private void Blockchain_PersistCompleted(object sender, Block block)
         {
+            if (IsDisposed) return;
+
             persistence_time = DateTime.UtcNow;
             if (Program.CurrentWallet != null)
             {
@@ -142,6 +145,7 @@ namespace Neo.UI
                 if (Program.CurrentWallet.GetCoins().Any(p => !p.State.HasFlag(CoinState.Spent) && p.Output.AssetId.Equals(Blockchain.GoverningToken.Hash)) == true)
                     balance_changed = true;
             }
+
             BeginInvoke(new Action(RefreshConfirmations));
         }
 
@@ -449,7 +453,7 @@ namespace Neo.UI
                         if (engine.State.HasFlag(VMState.FAULT)) continue;
                         string name = engine.EvaluationStack.Pop().GetString();
                         byte decimals = (byte)engine.EvaluationStack.Pop().GetBigInteger();
-                        BigInteger amount = engine.EvaluationStack.Pop().GetArray().Aggregate(BigInteger.Zero, (x, y) => x + y.GetBigInteger());
+                        BigInteger amount = ((VMArray)engine.EvaluationStack.Pop()).Aggregate(BigInteger.Zero, (x, y) => x + y.GetBigInteger());
                         if (amount == 0)
                         {
                             listView2.Items.RemoveByKey(script_hash.ToString());
