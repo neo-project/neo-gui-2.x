@@ -173,8 +173,8 @@
     <Reference Include="Microsoft.Net.Http.Headers, Version=2.0.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.Headers.2.0.2\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
     </Reference>
-    <Reference Include="Neo, Version=2.7.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neo.2.7.4\lib\net47\Neo.dll</HintPath>
+    <Reference Include="Neo, Version=2.7.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neo.2.7.6\lib\net47\Neo.dll</HintPath>
     </Reference>
     <Reference Include="Neo.VM, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Neo.VM.2.2.0\lib\net461\Neo.VM.dll</HintPath>
