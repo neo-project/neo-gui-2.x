@@ -180,6 +180,7 @@ namespace Neo.UI
             修改密码CToolStripMenuItem.Enabled = Program.CurrentWallet is UserWallet;
             交易TToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             提取小蚁币CToolStripMenuItem.Enabled = Program.CurrentWallet != null;
+            signDataToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             requestCertificateToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             注册资产RToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             资产分发IToolStripMenuItem.Enabled = Program.CurrentWallet != null;
@@ -661,7 +662,7 @@ namespace Neo.UI
 
         private void 签名SToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (SigningDialog dialog = new SigningDialog())
+            using (SigningTxDialog dialog = new SigningTxDialog())
             {
                 dialog.ShowDialog();
             }
@@ -1039,6 +1040,14 @@ namespace Neo.UI
         private void toolStripStatusLabel3_Click(object sender, EventArgs e)
         {
             using (UpdateDialog dialog = new UpdateDialog((XDocument)toolStripStatusLabel3.Tag))
+            {
+                dialog.ShowDialog();
+            }
+        }
+
+        private void signDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SigningDialog dialog = new SigningDialog())
             {
                 dialog.ShowDialog();
             }

@@ -1,8 +1,7 @@
-﻿using Neo.Network;
-using Neo.Properties;
-using Neo.SmartContract;
-using System;
+﻿using System;
+using System.Text;
 using System.Windows.Forms;
+using Neo.Properties;
 
 namespace Neo.UI
 {
@@ -11,6 +10,8 @@ namespace Neo.UI
         public SigningDialog()
         {
             InitializeComponent();
+
+            cmbFormat.SelectedIndex = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -20,30 +21,36 @@ namespace Neo.UI
                 MessageBox.Show(Strings.SigningFailedNoDataMessage);
                 return;
             }
-            ContractParametersContext context = ContractParametersContext.Parse(textBox1.Text);
-            if (!Program.CurrentWallet.Sign(context))
+
+            byte[] raw, signedData = null;
+            try
+            {
+                switch (cmbFormat.SelectedIndex)
+                {
+                    case 0: raw = Encoding.UTF8.GetBytes(textBox1.Text); break;
+                    case 1: raw = textBox1.Text.HexToBytes(); break;
+                    default: return;
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!Program.CurrentWallet.Sign(raw, out signedData))
             {
                 MessageBox.Show(Strings.SigningFailedKeyNotFoundMessage);
                 return;
             }
-            textBox2.Text = context.ToString();
-            if (context.Completed) button4.Visible = true;
+
+            textBox2.Text = signedData.ToHexString();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             textBox2.SelectAll();
             textBox2.Copy();
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            ContractParametersContext context = ContractParametersContext.Parse(textBox2.Text);
-            context.Verifiable.Scripts = context.GetScripts();
-            IInventory inventory = (IInventory)context.Verifiable;
-            Program.LocalNode.Relay(inventory);
-            InformationBox.Show(inventory.Hash.ToString(), Strings.RelaySuccessText, Strings.RelaySuccessTitle);
-            button4.Visible = false;
         }
     }
 }
