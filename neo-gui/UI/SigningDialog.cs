@@ -1,17 +1,53 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Neo.Cryptography;
 using Neo.Properties;
+using Neo.Wallets;
 
 namespace Neo.UI
 {
     internal partial class SigningDialog : Form
     {
+        class WalletEntry
+        {
+            public WalletAccount Account;
+
+            public override string ToString()
+            {
+                if (!string.IsNullOrEmpty(Account.Label))
+                {
+                    return $"[{Account.Label}] " + Account.Address;
+                }
+
+                return Account.Address;
+            }
+        }
+
+
         public SigningDialog()
         {
             InitializeComponent();
 
             cmbFormat.SelectedIndex = 0;
+            cmbAddress.Items.AddRange
+                (
+                Program.CurrentWallet.GetAccounts()
+                .Where(u => u.HasKey)
+                .Select(u => new WalletEntry() { Account = u })
+                .ToArray()
+                );
+
+            if (cmbAddress.Items.Count > 0)
+            {
+                cmbAddress.SelectedIndex = 0;
+            }
+            else
+            {
+                textBox2.Enabled = false;
+                button1.Enabled = false;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -38,13 +74,20 @@ namespace Neo.UI
                 return;
             }
 
-            if (!Program.CurrentWallet.Sign(raw, out signedData))
+            var account = (WalletEntry)cmbAddress.SelectedItem;
+            var keys = account.Account.GetKey();
+
+            try
             {
-                MessageBox.Show(Strings.SigningFailedKeyNotFoundMessage);
+                signedData = Crypto.Default.Sign(raw, keys.PrivateKey, keys.PublicKey.EncodePoint(false).Skip(1).ToArray());
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            textBox2.Text = signedData.ToHexString();
+            textBox2.Text = signedData?.ToHexString();
         }
 
         private void button2_Click(object sender, EventArgs e)
