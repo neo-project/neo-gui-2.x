@@ -217,15 +217,6 @@
   <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 6</value>
   </data>
-  <data name="选举EToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 22</value>
-  </data>
-  <data name="选举EToolStripMenuItem.Text" xml:space="preserve">
-    <value>选举(&amp;E)...</value>
-  </data>
-  <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 6</value>
-  </data>
   <data name="deployContractToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 22</value>
   </data>
@@ -237,6 +228,21 @@
   </data>
   <data name="invokeContractToolStripMenuItem.Text" xml:space="preserve">
     <value>调用合约(&amp;V)...</value>
+  </data>
+  <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 6</value>
+  </data>
+  <data name="选举EToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 22</value>
+  </data>
+  <data name="选举EToolStripMenuItem.Text" xml:space="preserve">
+    <value>选举(&amp;E)...</value>
+  </data>
+  <data name="signDataToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 22</value>
+  </data>
+  <data name="signDataToolStripMenuItem.Text" xml:space="preserve">
+    <value>消息签名(&amp;S)...</value>
   </data>
   <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 6</value>
@@ -386,7 +392,7 @@
     <value>删除(&amp;D)...</value>
   </data>
   <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 208</value>
+    <value>165, 186</value>
   </data>
   <data name="listView1.Groups" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -492,6 +498,12 @@
         AAAHdmFsdWVfXwAIAgAAAAAAAAAKBgUAAAAHY2hlY2tlZAs=
 </value>
   </data>
+  <data name="listView2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>889, 521</value>
+  </data>
+  <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>895, 527</value>
+  </data>
   <data name="tabPage2.Text" xml:space="preserve">
     <value>资产</value>
   </data>
@@ -515,6 +527,12 @@
   </data>
   <data name="contextMenuStrip3.Size" type="System.Drawing.Size, System.Drawing">
     <value>138, 26</value>
+  </data>
+  <data name="listView3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>889, 521</value>
+  </data>
+  <data name="tabPage3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>895, 527</value>
   </data>
   <data name="tabPage3.Text" xml:space="preserve">
     <value>交易记录</value>
