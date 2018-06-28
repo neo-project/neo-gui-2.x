@@ -94,7 +94,7 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // SigningDialog
+            // SigningTxDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -108,7 +108,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "SigningDialog";
+            this.Name = "SigningTxDialog";
             this.ShowInTaskbar = false;
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

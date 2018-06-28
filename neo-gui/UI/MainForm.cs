@@ -740,6 +740,14 @@ namespace Neo.UI
             }
         }
 
+        private void signDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SigningDialog dialog = new SigningDialog())
+            {
+                dialog.ShowDialog();
+            }
+        }
+
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (OptionsDialog dialog = new OptionsDialog())
@@ -1040,14 +1048,6 @@ namespace Neo.UI
         private void toolStripStatusLabel3_Click(object sender, EventArgs e)
         {
             using (UpdateDialog dialog = new UpdateDialog((XDocument)toolStripStatusLabel3.Tag))
-            {
-                dialog.ShowDialog();
-            }
-        }
-
-        private void signDataToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (SigningDialog dialog = new SigningDialog())
             {
                 dialog.ShowDialog();
             }

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Neo.Cryptography;
+using Neo.Properties;
+using Neo.Wallets;
+using System;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Neo.Cryptography;
-using Neo.Properties;
-using Neo.Wallets;
 
 namespace Neo.UI
 {

@@ -92,19 +92,19 @@
             // 
             // cmbFormat
             // 
+            resources.ApplyResources(this.cmbFormat, "cmbFormat");
             this.cmbFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFormat.FormattingEnabled = true;
             this.cmbFormat.Items.AddRange(new object[] {
             resources.GetString("cmbFormat.Items"),
             resources.GetString("cmbFormat.Items1")});
-            resources.ApplyResources(this.cmbFormat, "cmbFormat");
             this.cmbFormat.Name = "cmbFormat";
             // 
             // cmbAddress
             // 
+            resources.ApplyResources(this.cmbAddress, "cmbAddress");
             this.cmbAddress.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAddress.FormattingEnabled = true;
-            resources.ApplyResources(this.cmbAddress, "cmbAddress");
             this.cmbAddress.Name = "cmbAddress";
             // 
             // label1
