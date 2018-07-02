@@ -1,4 +1,4 @@
-﻿using Neo.Core;
+﻿using Neo.Network.P2P.Payloads;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace Neo.UI.Wrappers
         [Category("Basic")]
         public List<TransactionOutputWrapper> Outputs { get; set; } = new List<TransactionOutputWrapper>();
         [Category("Basic")]
-        public List<WitnessWrapper> Scripts { get; set; } = new List<WitnessWrapper>();
+        public List<WitnessWrapper> Witnesses { get; set; } = new List<WitnessWrapper>();
 
         public virtual Transaction Unwrap()
         {
@@ -28,7 +28,7 @@ namespace Neo.UI.Wrappers
             tx.Attributes = Attributes.Select(p => p.Unwrap()).ToArray();
             tx.Inputs = Inputs.Select(p => p.Unwrap()).ToArray();
             tx.Outputs = Outputs.Select(p => p.Unwrap()).ToArray();
-            tx.Scripts = Scripts.Select(p => p.Unwrap()).ToArray();
+            tx.Witnesses = Witnesses.Select(p => p.Unwrap()).ToArray();
             return tx;
         }
     }

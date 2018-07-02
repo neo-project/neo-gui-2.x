@@ -1,5 +1,5 @@
-﻿using Neo.Core;
-using Neo.Cryptography.ECC;
+﻿using Neo.Cryptography.ECC;
+using Neo.Network.P2P.Payloads;
 using Neo.SmartContract;
 using Neo.VM;
 using Neo.Wallets;
@@ -24,8 +24,8 @@ namespace Neo.UI
             Fixed8 amount = checkBox1.Checked ? Fixed8.Parse(textBox2.Text) : -Fixed8.Satoshi;
             byte precision = (byte)numericUpDown1.Value;
             ECPoint owner = (ECPoint)comboBox2.SelectedItem;
-            UInt160 admin = Wallet.ToScriptHash(comboBox3.Text);
-            UInt160 issuer = Wallet.ToScriptHash(comboBox4.Text);
+            UInt160 admin = comboBox3.Text.ToScriptHash();
+            UInt160 issuer = comboBox4.Text.ToScriptHash();
             using (ScriptBuilder sb = new ScriptBuilder())
             {
                 sb.EmitSysCall("Neo.Asset.Create", asset_type, name, amount, precision, owner, admin, issuer);
@@ -77,8 +77,8 @@ namespace Neo.UI
             {
                 try
                 {
-                    Wallet.ToScriptHash(comboBox3.Text);
-                    Wallet.ToScriptHash(comboBox4.Text);
+                    comboBox3.Text.ToScriptHash();
+                    comboBox4.Text.ToScriptHash();
                 }
                 catch (FormatException)
                 {

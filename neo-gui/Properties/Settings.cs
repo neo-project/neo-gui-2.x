@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Neo.Network;
+using Neo.Network.P2P;
 using System.Linq;
 
 namespace Neo.Properties

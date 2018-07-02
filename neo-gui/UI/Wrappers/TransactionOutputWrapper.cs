@@ -1,4 +1,4 @@
-﻿using Neo.Core;
+﻿using Neo.Network.P2P.Payloads;
 using Neo.Wallets;
 using System.ComponentModel;
 
@@ -18,11 +18,11 @@ namespace Neo.UI.Wrappers
             get
             {
                 if (ScriptHash == null) return null;
-                return Wallet.ToAddress(ScriptHash);
+                return ScriptHash.ToAddress();
             }
             set
             {
-                ScriptHash = Wallet.ToScriptHash(value);
+                ScriptHash = value.ToScriptHash();
             }
         }
 

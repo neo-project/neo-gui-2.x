@@ -1,6 +1,4 @@
-﻿using Neo.Core;
-using Neo.Implementations.Blockchains.LevelDB;
-using Neo.Network;
+﻿using Neo.Persistence.LevelDB;
 using Neo.Properties;
 using Neo.UI;
 using Neo.Wallets;
@@ -18,7 +16,7 @@ namespace Neo
 {
     internal static class Program
     {
-        public static LocalNode LocalNode;
+        public static NeoSystem NeoSystem;
         public static Wallet CurrentWallet;
         public static MainForm MainForm;
 
@@ -99,21 +97,10 @@ namespace Neo
                 }
             }
             if (!InstallCertificate()) return;
-            const string PeerStatePath = "peers.dat";
-            if (File.Exists(PeerStatePath))
-                using (FileStream fs = new FileStream(PeerStatePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                {
-                    LocalNode.LoadState(fs);
-                }
-            using (Blockchain.RegisterBlockchain(new LevelDBBlockchain(Settings.Default.Paths.Chain)))
-            using (LocalNode = new LocalNode())
+            using (LevelDBStore store = new LevelDBStore(Settings.Default.Paths.Chain))
+            using (NeoSystem = new NeoSystem(store))
             {
-                LocalNode.UpnpEnabled = true;
                 Application.Run(MainForm = new MainForm(xdoc));
-            }
-            using (FileStream fs = new FileStream(PeerStatePath, FileMode.Create, FileAccess.Write, FileShare.None))
-            {
-                LocalNode.SaveState(fs);
             }
         }
 

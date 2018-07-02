@@ -1,4 +1,6 @@
-using Neo.Network;
+using Akka.Actor;
+using Neo.Network.P2P;
+using Neo.Network.P2P.Payloads;
 using Neo.Properties;
 using Neo.SmartContract;
 using Neo.Wallets;
@@ -17,7 +19,7 @@ namespace Neo.UI
             if (listBox1.SelectedIndex < 0) return;
             listBox2.Items.Clear();
             if (Program.CurrentWallet == null) return;
-            UInt160 hash = Wallet.ToScriptHash((string)listBox1.SelectedItem);
+            UInt160 hash = ((string)listBox1.SelectedItem).ToScriptHash();
             listBox2.Items.AddRange(context.GetParameters(hash).ToArray());
         }
 
@@ -45,7 +47,7 @@ namespace Neo.UI
             listBox2.Items.Clear();
             textBox1.Clear();
             textBox2.Clear();
-            listBox1.Items.AddRange(context.ScriptHashes.Select(p => Wallet.ToAddress(p)).ToArray());
+            listBox1.Items.AddRange(context.ScriptHashes.Select(p => p.ToAddress()).ToArray());
             button2.Enabled = true;
             button4.Visible = context.Completed;
         }
@@ -68,9 +70,9 @@ namespace Neo.UI
 
         private void button4_Click(object sender, EventArgs e)
         {
-            context.Verifiable.Scripts = context.GetScripts();
+            context.Verifiable.Witnesses = context.GetWitnesses();
             IInventory inventory = (IInventory)context.Verifiable;
-            Program.LocalNode.Relay(inventory);
+            Program.NeoSystem.LocalNode.Tell(new LocalNode.Relay { Inventory = inventory });
             InformationBox.Show(inventory.Hash.ToString(), Strings.RelaySuccessText, Strings.RelaySuccessTitle);
         }
     }

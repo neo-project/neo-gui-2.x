@@ -9,7 +9,7 @@ namespace Neo.UI
         public ContractDetailsDialog(Contract contract)
         {
             InitializeComponent();
-            textBox1.Text = Wallet.ToAddress(contract.ScriptHash);
+            textBox1.Text = contract.ScriptHash.ToAddress();
             textBox2.Text = contract.ScriptHash.ToString();
             textBox3.Text = contract.Script.ToHexString();
         }

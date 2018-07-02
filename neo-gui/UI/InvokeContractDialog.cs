@@ -1,5 +1,6 @@
-﻿using Neo.Core;
-using Neo.IO.Json;
+﻿using Neo.IO.Json;
+using Neo.Ledger;
+using Neo.Network.P2P.Payloads;
 using Neo.Properties;
 using Neo.SmartContract;
 using Neo.VM;
@@ -94,7 +95,7 @@ namespace Neo.UI
         private void button1_Click(object sender, EventArgs e)
         {
             script_hash = UInt160.Parse(textBox1.Text);
-            ContractState contract = Blockchain.Default.GetContract(script_hash);
+            ContractState contract = Blockchain.Singleton.Snapshot.Contracts.TryGet(script_hash);
             if (contract == null) return;
             parameters = contract.ParameterList.Select(p => new ContractParameter(p)).ToArray();
             textBox2.Text = contract.Name;
@@ -138,12 +139,12 @@ namespace Neo.UI
             if (tx.Attributes == null) tx.Attributes = new TransactionAttribute[0];
             if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
             if (tx.Outputs == null) tx.Outputs = new TransactionOutput[0];
-            if (tx.Scripts == null) tx.Scripts = new Witness[0];
+            if (tx.Witnesses == null) tx.Witnesses = new Witness[0];
             ApplicationEngine engine = ApplicationEngine.Run(tx.Script, tx);
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"VM State: {engine.State}");
             sb.AppendLine($"Gas Consumed: {engine.GasConsumed}");
-            sb.AppendLine($"Evaluation Stack: {new JArray(engine.EvaluationStack.Select(p => p.ToParameter().ToJson()))}");
+            sb.AppendLine($"Evaluation Stack: {new JArray(engine.ResultStack.Select(p => p.ToParameter().ToJson()))}");
             textBox7.Text = sb.ToString();
             if (!engine.State.HasFlag(VMState.FAULT))
             {

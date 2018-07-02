@@ -38,7 +38,7 @@ namespace Neo.UI
             }
             if (scriptHash != null)
             {
-                textBox1.Text = Wallet.ToAddress(scriptHash);
+                textBox1.Text = scriptHash.ToAddress();
                 textBox1.ReadOnly = true;
             }
         }
@@ -51,20 +51,19 @@ namespace Neo.UI
                 AssetName = asset.AssetName,
                 AssetId = asset.AssetId,
                 Value = BigDecimal.Parse(textBox2.Text, asset.Decimals),
-                ScriptHash = Wallet.ToScriptHash(textBox1.Text)
+                ScriptHash = textBox1.Text.ToScriptHash()
             };
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            AssetDescriptor asset = comboBox1.SelectedItem as AssetDescriptor;
-            if (asset == null)
+            if (comboBox1.SelectedItem is AssetDescriptor asset)
             {
-                textBox3.Text = "";
+                textBox3.Text = Program.CurrentWallet.GetAvailable(asset.AssetId).ToString();
             }
             else
             {
-                textBox3.Text = Program.CurrentWallet.GetAvailable(asset.AssetId).ToString();
+                textBox3.Text = "";
             }
             textBox_TextChanged(this, EventArgs.Empty);
         }
@@ -78,7 +77,7 @@ namespace Neo.UI
             }
             try
             {
-                Wallet.ToScriptHash(textBox1.Text);
+                textBox1.Text.ToScriptHash();
             }
             catch (FormatException)
             {

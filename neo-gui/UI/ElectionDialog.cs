@@ -1,6 +1,6 @@
-﻿using Neo.Core;
-using Neo.Cryptography.ECC;
+﻿using Neo.Cryptography.ECC;
 using Neo.IO;
+using Neo.Network.P2P.Payloads;
 using System;
 using System.Linq;
 using System.Windows.Forms;

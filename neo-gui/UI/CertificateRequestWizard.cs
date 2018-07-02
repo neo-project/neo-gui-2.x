@@ -26,15 +26,11 @@ namespace Neo.UI
 
         private void button1_Click(object sender, EventArgs e)
         {
+            const int ECDSA_PRIVATE_P256_MAGIC = 0x32534345;
             if (saveFileDialog1.ShowDialog() != DialogResult.OK) return;
             KeyPair key = (KeyPair)comboBox1.SelectedItem;
             byte[] pubkey = key.PublicKey.EncodePoint(false).Skip(1).ToArray();
-            byte[] prikey;
-            using (key.Decrypt())
-            {
-                const int ECDSA_PRIVATE_P256_MAGIC = 0x32534345;
-                prikey = BitConverter.GetBytes(ECDSA_PRIVATE_P256_MAGIC).Concat(BitConverter.GetBytes(32)).Concat(pubkey).Concat(key.PrivateKey).ToArray();
-            }
+            byte[] prikey = BitConverter.GetBytes(ECDSA_PRIVATE_P256_MAGIC).Concat(BitConverter.GetBytes(32)).Concat(pubkey).Concat(key.PrivateKey).ToArray();
             CX509PrivateKey x509key = new CX509PrivateKey();
             x509key.AlgorithmName = "ECDSA_P256";
             x509key.Import("ECCPRIVATEBLOB", Convert.ToBase64String(prikey));

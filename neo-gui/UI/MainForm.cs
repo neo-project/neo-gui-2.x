@@ -1,13 +1,16 @@
-﻿using Neo.Core;
+﻿using Akka.Actor;
 using Neo.Cryptography;
-using Neo.Implementations.Blockchains.LevelDB;
-using Neo.Implementations.Wallets.EntityFramework;
-using Neo.Implementations.Wallets.NEP6;
 using Neo.IO;
+using Neo.IO.Actors;
+using Neo.Ledger;
+using Neo.Network.P2P;
+using Neo.Network.P2P.Payloads;
 using Neo.Properties;
 using Neo.SmartContract;
 using Neo.VM;
 using Neo.Wallets;
+using Neo.Wallets.NEP6;
+using Neo.Wallets.SQLite;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +27,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using Settings = Neo.Properties.Settings;
 using VMArray = Neo.VM.Types.Array;
 
 namespace Neo.UI
@@ -34,6 +38,7 @@ namespace Neo.UI
         private bool balance_changed = false;
         private bool check_nep5_balance = false;
         private DateTime persistence_time = DateTime.MinValue;
+        private IActorRef actor;
 
         public MainForm(XDocument xdoc = null)
         {
@@ -91,7 +96,7 @@ namespace Neo.UI
 
         private void AddTransaction(Transaction tx, uint? height, uint time)
         {
-            int? confirmations = (int)Blockchain.Default.Height - (int?)height + 1;
+            int? confirmations = (int)Blockchain.Singleton.Snapshot.Height - (int?)height + 1;
             if (confirmations <= 0) confirmations = null;
             string confirmations_str = confirmations?.ToString() ?? Strings.Unconfirmed;
             string txid = tx.Hash.ToString();
@@ -135,7 +140,7 @@ namespace Neo.UI
             }
         }
 
-        private void Blockchain_PersistCompleted(object sender, Block block)
+        private void Blockchain_PersistCompleted(Blockchain.PersistCompleted e)
         {
             if (IsDisposed) return;
 
@@ -162,18 +167,14 @@ namespace Neo.UI
             listView3.Items.Clear();
             if (Program.CurrentWallet != null)
             {
-                foreach (var i in Program.CurrentWallet.GetTransactions().Select(p => new
-                {
-                    Transaction = Blockchain.Default.GetTransaction(p, out int height),
-                    Height = (uint)height
-                }).Where(p => p.Transaction != null).Select(p => new
+                foreach (var i in Program.CurrentWallet.GetTransactions().Select(p => Blockchain.Singleton.Snapshot.Transactions.TryGet(p)).Where(p => p.Transaction != null).Select(p => new
                 {
                     p.Transaction,
-                    p.Height,
-                    Time = Blockchain.Default.GetHeader(p.Height).Timestamp
+                    p.BlockIndex,
+                    Time = Blockchain.Singleton.Snapshot.GetHeader(p.BlockIndex).Timestamp
                 }).OrderBy(p => p.Time))
                 {
-                    AddTransaction(i.Transaction, i.Height, i.Time);
+                    AddTransaction(i.Transaction, i.BlockIndex, i.Time);
                 }
                 Program.CurrentWallet.BalanceChanged += CurrentWallet_BalanceChanged;
             }
@@ -208,24 +209,67 @@ namespace Neo.UI
             BeginInvoke(new Action<Transaction, uint?, uint>(AddTransaction), e.Transaction, e.Height, e.Time);
         }
 
-        private void ImportBlocks(Stream stream, bool read_start = false)
+        private static IEnumerable<Block> GetBlocks(Stream stream, bool read_start = false)
         {
-            LevelDBBlockchain blockchain = (LevelDBBlockchain)Blockchain.Default;
             using (BinaryReader r = new BinaryReader(stream))
             {
                 uint start = read_start ? r.ReadUInt32() : 0;
                 uint count = r.ReadUInt32();
                 uint end = start + count - 1;
-                if (end <= blockchain.Height) return;
+                if (end <= Blockchain.Singleton.Snapshot.Height) yield break;
                 for (uint height = start; height <= end; height++)
                 {
                     byte[] array = r.ReadBytes(r.ReadInt32());
-                    if (height > blockchain.Height)
+                    if (height > Blockchain.Singleton.Snapshot.Height)
                     {
                         Block block = array.AsSerializable<Block>();
-                        blockchain.AddBlockDirectly(block);
+                        yield return block;
                     }
                 }
+            }
+        }
+
+        private static void ImportBlocks(IActorRef blockchain)
+        {
+            const string path_acc = "chain.acc";
+            if (File.Exists(path_acc))
+                using (FileStream fs = new FileStream(path_acc, FileMode.Open, FileAccess.Read, FileShare.None))
+                    blockchain.Ask<Blockchain.ImportCompleted>(new Blockchain.Import
+                    {
+                        Blocks = GetBlocks(fs)
+                    }).Wait();
+            const string path_acc_zip = path_acc + ".zip";
+            if (File.Exists(path_acc_zip))
+                using (FileStream fs = new FileStream(path_acc_zip, FileMode.Open, FileAccess.Read, FileShare.None))
+                using (ZipArchive zip = new ZipArchive(fs, ZipArchiveMode.Read))
+                using (Stream zs = zip.GetEntry(path_acc).Open())
+                    blockchain.Ask<Blockchain.ImportCompleted>(new Blockchain.Import
+                    {
+                        Blocks = GetBlocks(zs)
+                    }).Wait();
+            var paths = Directory.EnumerateFiles(".", "chain.*.acc", SearchOption.TopDirectoryOnly).Concat(Directory.EnumerateFiles(".", "chain.*.acc.zip", SearchOption.TopDirectoryOnly)).Select(p => new
+            {
+                FileName = Path.GetFileName(p),
+                Start = uint.Parse(Regex.Match(p, @"\d+").Value),
+                IsCompressed = p.EndsWith(".zip")
+            }).OrderBy(p => p.Start);
+            foreach (var path in paths)
+            {
+                if (path.Start > Blockchain.Singleton.Snapshot.Height + 1) break;
+                if (path.IsCompressed)
+                    using (FileStream fs = new FileStream(path.FileName, FileMode.Open, FileAccess.Read, FileShare.None))
+                    using (ZipArchive zip = new ZipArchive(fs, ZipArchiveMode.Read))
+                    using (Stream zs = zip.GetEntry(Path.GetFileNameWithoutExtension(path.FileName)).Open())
+                        blockchain.Ask<Blockchain.ImportCompleted>(new Blockchain.Import
+                        {
+                            Blocks = GetBlocks(zs, true)
+                        }).Wait();
+                else
+                    using (FileStream fs = new FileStream(path.FileName, FileMode.Open, FileAccess.Read, FileShare.None))
+                        blockchain.Ask<Blockchain.ImportCompleted>(new Blockchain.Import
+                        {
+                            Blocks = GetBlocks(fs, true)
+                        }).Wait();
             }
         }
 
@@ -234,7 +278,7 @@ namespace Neo.UI
             foreach (ListViewItem item in listView3.Items)
             {
                 uint? height = item.Tag as uint?;
-                int? confirmations = (int)Blockchain.Default.Height - (int?)height + 1;
+                int? confirmations = (int)Blockchain.Singleton.Snapshot.Height - (int?)height + 1;
                 if (confirmations <= 0) confirmations = null;
                 item.SubItems["confirmations"].Text = confirmations?.ToString() ?? Strings.Unconfirmed;
             }
@@ -244,58 +288,15 @@ namespace Neo.UI
         {
             Task.Run(() =>
             {
-                const string path_acc = "chain.acc";
-                if (File.Exists(path_acc))
-                {
-                    using (FileStream fs = new FileStream(path_acc, FileMode.Open, FileAccess.Read, FileShare.None))
-                    {
-                        ImportBlocks(fs);
-                    }
-                }
-                const string path_acc_zip = path_acc + ".zip";
-                if (File.Exists(path_acc_zip))
-                {
-                    using (FileStream fs = new FileStream(path_acc_zip, FileMode.Open, FileAccess.Read, FileShare.None))
-                    using (ZipArchive zip = new ZipArchive(fs, ZipArchiveMode.Read))
-                    using (Stream zs = zip.GetEntry(path_acc).Open())
-                    {
-                        ImportBlocks(zs);
-                    }
-                }
-                var paths = Directory.EnumerateFiles(".", "chain.*.acc", SearchOption.TopDirectoryOnly).Concat(Directory.EnumerateFiles(".", "chain.*.acc.zip", SearchOption.TopDirectoryOnly)).Select(p => new
-                {
-                    FileName = Path.GetFileName(p),
-                    Start = uint.Parse(Regex.Match(p, @"\d+").Value),
-                    IsCompressed = p.EndsWith(".zip")
-                }).OrderBy(p => p.Start);
-                foreach (var path in paths)
-                {
-                    if (path.Start > Blockchain.Default.Height + 1) break;
-                    if (path.IsCompressed)
-                    {
-                        using (FileStream fs = new FileStream(path.FileName, FileMode.Open, FileAccess.Read, FileShare.None))
-                        using (ZipArchive zip = new ZipArchive(fs, ZipArchiveMode.Read))
-                        using (Stream zs = zip.GetEntry(Path.GetFileNameWithoutExtension(path.FileName)).Open())
-                        {
-                            ImportBlocks(zs, true);
-                        }
-                    }
-                    else
-                    {
-                        using (FileStream fs = new FileStream(path.FileName, FileMode.Open, FileAccess.Read, FileShare.None))
-                        {
-                            ImportBlocks(fs, true);
-                        }
-                    }
-                }
-                Blockchain.PersistCompleted += Blockchain_PersistCompleted;
-                Program.LocalNode.Start(Settings.Default.P2P.Port, Settings.Default.P2P.WsPort);
+                ImportBlocks(Program.NeoSystem.Blockchain);
+                actor = Program.NeoSystem.ActorSystem.ActorOf(EventWrapper<Blockchain.PersistCompleted>.Props(Blockchain_PersistCompleted));
+                Program.NeoSystem.StartNode(Settings.Default.P2P.Port, Settings.Default.P2P.WsPort);
             });
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Blockchain.PersistCompleted -= Blockchain_PersistCompleted;
+            Program.NeoSystem.ActorSystem.Stop(actor);
             ChangeWallet(null);
         }
 
@@ -308,9 +309,9 @@ namespace Neo.UI
                 walletHeight = (Program.CurrentWallet.WalletHeight > 0) ? Program.CurrentWallet.WalletHeight - 1 : 0;
             }
 
-            lbl_height.Text = $"{walletHeight}/{Blockchain.Default.Height}/{Blockchain.Default.HeaderHeight}";
+            lbl_height.Text = $"{walletHeight}/{Blockchain.Singleton.Snapshot.Height}/{Blockchain.Singleton.Snapshot.HeaderHeight}";
 
-            lbl_count_node.Text = Program.LocalNode.RemoteNodeCount.ToString();
+            lbl_count_node.Text = LocalNode.Singleton.ConnectedCount.ToString();
             TimeSpan persistence_span = DateTime.UtcNow - persistence_time;
             if (persistence_span < TimeSpan.Zero) persistence_span = TimeSpan.Zero;
             if (persistence_span > Blockchain.TimePerBlock)
@@ -324,17 +325,17 @@ namespace Neo.UI
             }
             if (Program.CurrentWallet != null)
             {
-                if (Program.CurrentWallet.WalletHeight <= Blockchain.Default.Height + 1)
+                if (Program.CurrentWallet.WalletHeight <= Blockchain.Singleton.Snapshot.Height + 1)
                 {
                     if (balance_changed)
                     {
                         IEnumerable<Coin> coins = Program.CurrentWallet?.GetCoins().Where(p => !p.State.HasFlag(CoinState.Spent)) ?? Enumerable.Empty<Coin>();
-                        Fixed8 bonus_available = Blockchain.CalculateBonus(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference));
-                        Fixed8 bonus_unavailable = Blockchain.CalculateBonus(coins.Where(p => p.State.HasFlag(CoinState.Confirmed) && p.Output.AssetId.Equals(Blockchain.GoverningToken.Hash)).Select(p => p.Reference), Blockchain.Default.Height + 1);
+                        Fixed8 bonus_available = Blockchain.Singleton.Snapshot.CalculateBonus(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference));
+                        Fixed8 bonus_unavailable = Blockchain.Singleton.Snapshot.CalculateBonus(coins.Where(p => p.State.HasFlag(CoinState.Confirmed) && p.Output.AssetId.Equals(Blockchain.GoverningToken.Hash)).Select(p => p.Reference), Blockchain.Singleton.Snapshot.Height + 1);
                         Fixed8 bonus = bonus_available + bonus_unavailable;
                         var assets = coins.GroupBy(p => p.Output.AssetId, (k, g) => new
                         {
-                            Asset = Blockchain.Default.GetAssetState(k),
+                            Asset = Blockchain.Singleton.Snapshot.Assets.TryGet(k),
                             Value = g.Sum(p => p.Output.Value),
                             Claim = k.Equals(Blockchain.UtilityToken.Hash) ? bonus : Fixed8.Zero
                         }).ToDictionary(p => p.Asset.AssetId);
@@ -342,7 +343,7 @@ namespace Neo.UI
                         {
                             assets[Blockchain.UtilityToken.Hash] = new
                             {
-                                Asset = Blockchain.Default.GetAssetState(Blockchain.UtilityToken.Hash),
+                                Asset = Blockchain.Singleton.Snapshot.Assets.TryGet(Blockchain.UtilityToken.Hash),
                                 Value = Fixed8.Zero,
                                 Claim = bonus
                             };
@@ -351,7 +352,7 @@ namespace Neo.UI
                         var balance_anc = coins.Where(p => p.Output.AssetId.Equals(Blockchain.UtilityToken.Hash)).GroupBy(p => p.Output.ScriptHash).ToDictionary(p => p.Key, p => p.Sum(i => i.Output.Value));
                         foreach (ListViewItem item in listView1.Items)
                         {
-                            UInt160 script_hash = Wallet.ToScriptHash(item.Name);
+                            UInt160 script_hash = item.Name.ToScriptHash();
                             Fixed8 ans = balance_ans.ContainsKey(script_hash) ? balance_ans[script_hash] : Fixed8.Zero;
                             Fixed8 anc = balance_anc.ContainsKey(script_hash) ? balance_anc[script_hash] : Fixed8.Zero;
                             item.SubItems["ans"].Text = ans.ToString();
@@ -478,9 +479,9 @@ namespace Neo.UI
                         }
                         ApplicationEngine engine = ApplicationEngine.Run(script);
                         if (engine.State.HasFlag(VMState.FAULT)) continue;
-                        string name = engine.EvaluationStack.Pop().GetString();
-                        byte decimals = (byte)engine.EvaluationStack.Pop().GetBigInteger();
-                        BigInteger amount = ((VMArray)engine.EvaluationStack.Pop()).Aggregate(BigInteger.Zero, (x, y) => x + y.GetBigInteger());
+                        string name = engine.ResultStack.Pop().GetString();
+                        byte decimals = (byte)engine.ResultStack.Pop().GetBigInteger();
+                        BigInteger amount = ((VMArray)engine.ResultStack.Pop()).Aggregate(BigInteger.Zero, (x, y) => x + y.GetBigInteger());
                         if (amount == 0)
                         {
                             listView2.Items.RemoveByKey(script_hash.ToString());
@@ -850,7 +851,7 @@ namespace Neo.UI
                     UInt160 scriptHash;
                     try
                     {
-                        scriptHash = Wallet.ToScriptHash(address);
+                        scriptHash = address.ToScriptHash();
                     }
                     catch (FormatException)
                     {
@@ -988,7 +989,7 @@ namespace Neo.UI
         {
             AssetState asset = (AssetState)listView2.SelectedItems[0].Tag;
             UInt160 hash = Contract.CreateSignatureRedeemScript(asset.Owner).ToScriptHash();
-            string address = Wallet.ToAddress(hash);
+            string address = hash.ToAddress();
             string path = Path.Combine(Settings.Default.Paths.CertCache, $"{address}.cer");
             Process.Start(path);
         }

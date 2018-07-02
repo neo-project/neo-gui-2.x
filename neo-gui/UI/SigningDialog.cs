@@ -79,10 +79,7 @@ namespace Neo.UI
 
             try
             {
-                using (keys.Decrypt())
-                {
-                    signedData = Crypto.Default.Sign(raw, keys.PrivateKey, keys.PublicKey.EncodePoint(false).Skip(1).ToArray());
-                }
+                signedData = Crypto.Default.Sign(raw, keys.PrivateKey, keys.PublicKey.EncodePoint(false).Skip(1).ToArray());
             }
             catch (Exception err)
             {

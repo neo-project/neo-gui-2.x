@@ -1,4 +1,5 @@
-﻿using Neo.Core;
+﻿using Neo.Ledger;
+using Neo.Network.P2P.Payloads;
 using Neo.Wallets;
 using System;
 using System.Collections.Generic;
@@ -65,7 +66,7 @@ namespace Neo.UI
             listBox1.Items.Clear();
             foreach (TransactionOutput output in outputs)
             {
-                AssetState asset = Blockchain.Default.GetAssetState(output.AssetId);
+                AssetState asset = Blockchain.Singleton.Snapshot.Assets.TryGet(output.AssetId);
                 listBox1.Items.Add(new TxOutListBoxItem
                 {
                     AssetName = $"{asset.GetName()} ({asset.Owner})",

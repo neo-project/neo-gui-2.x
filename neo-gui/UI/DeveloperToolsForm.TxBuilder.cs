@@ -1,4 +1,4 @@
-using Neo.Core;
+using Neo.Network.P2P.Payloads;
 using Neo.Properties;
 using Neo.SmartContract;
 using Neo.UI.Wrappers;

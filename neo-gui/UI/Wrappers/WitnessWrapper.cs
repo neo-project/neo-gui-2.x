@@ -1,4 +1,4 @@
-﻿using Neo.Core;
+﻿using Neo.Network.P2P.Payloads;
 using System.ComponentModel;
 using System.Drawing.Design;
 
