@@ -34,7 +34,7 @@ namespace Neo.UI
         {
             InitializeComponent();
             this.script_hash = script_hash;
-            AccountState account = Blockchain.Singleton.Snapshot.Accounts.TryGet(script_hash);
+            AccountState account = Blockchain.Singleton.Store.GetAccounts().TryGet(script_hash);
             label1.Text = script_hash.ToAddress();
             textBox1.Lines = account.Votes.Select(p => p.ToString()).ToArray();
         }

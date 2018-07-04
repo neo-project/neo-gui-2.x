@@ -39,7 +39,7 @@ namespace Neo.UI
             AssetState state;
             if (UInt256.TryParse(textBox5.Text, out UInt256 asset_id))
             {
-                state = Blockchain.Singleton.Snapshot.Assets.TryGet(asset_id);
+                state = Blockchain.Singleton.Store.GetAssets().TryGet(asset_id);
                 txOutListBox1.Asset = new AssetDescriptor(asset_id);
             }
             else

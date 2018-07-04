@@ -5,6 +5,7 @@ using Neo.IO.Actors;
 using Neo.Ledger;
 using Neo.Network.P2P;
 using Neo.Network.P2P.Payloads;
+using Neo.Persistence;
 using Neo.Properties;
 using Neo.SmartContract;
 using Neo.VM;
@@ -96,7 +97,7 @@ namespace Neo.UI
 
         private void AddTransaction(Transaction tx, uint? height, uint time)
         {
-            int? confirmations = (int)Blockchain.Singleton.Snapshot.Height - (int?)height + 1;
+            int? confirmations = (int)Blockchain.Singleton.Height - (int?)height + 1;
             if (confirmations <= 0) confirmations = null;
             string confirmations_str = confirmations?.ToString() ?? Strings.Unconfirmed;
             string txid = tx.Hash.ToString();
@@ -167,15 +168,16 @@ namespace Neo.UI
             listView3.Items.Clear();
             if (Program.CurrentWallet != null)
             {
-                foreach (var i in Program.CurrentWallet.GetTransactions().Select(p => Blockchain.Singleton.Snapshot.Transactions.TryGet(p)).Where(p => p.Transaction != null).Select(p => new
-                {
-                    p.Transaction,
-                    p.BlockIndex,
-                    Time = Blockchain.Singleton.Snapshot.GetHeader(p.BlockIndex).Timestamp
-                }).OrderBy(p => p.Time))
-                {
-                    AddTransaction(i.Transaction, i.BlockIndex, i.Time);
-                }
+                using (Snapshot snapshot = Blockchain.Singleton.GetSnapshot())
+                    foreach (var i in Program.CurrentWallet.GetTransactions().Select(p => snapshot.Transactions.TryGet(p)).Where(p => p.Transaction != null).Select(p => new
+                    {
+                        p.Transaction,
+                        p.BlockIndex,
+                        Time = snapshot.GetHeader(p.BlockIndex).Timestamp
+                    }).OrderBy(p => p.Time))
+                    {
+                        AddTransaction(i.Transaction, i.BlockIndex, i.Time);
+                    }
                 Program.CurrentWallet.BalanceChanged += CurrentWallet_BalanceChanged;
             }
             修改密码CToolStripMenuItem.Enabled = Program.CurrentWallet is UserWallet;
@@ -216,11 +218,11 @@ namespace Neo.UI
                 uint start = read_start ? r.ReadUInt32() : 0;
                 uint count = r.ReadUInt32();
                 uint end = start + count - 1;
-                if (end <= Blockchain.Singleton.Snapshot.Height) yield break;
+                if (end <= Blockchain.Singleton.Height) yield break;
                 for (uint height = start; height <= end; height++)
                 {
                     byte[] array = r.ReadBytes(r.ReadInt32());
-                    if (height > Blockchain.Singleton.Snapshot.Height)
+                    if (height > Blockchain.Singleton.Height)
                     {
                         Block block = array.AsSerializable<Block>();
                         yield return block;
@@ -255,7 +257,7 @@ namespace Neo.UI
             }).OrderBy(p => p.Start);
             foreach (var path in paths)
             {
-                if (path.Start > Blockchain.Singleton.Snapshot.Height + 1) break;
+                if (path.Start > Blockchain.Singleton.Height + 1) break;
                 if (path.IsCompressed)
                     using (FileStream fs = new FileStream(path.FileName, FileMode.Open, FileAccess.Read, FileShare.None))
                     using (ZipArchive zip = new ZipArchive(fs, ZipArchiveMode.Read))
@@ -278,7 +280,7 @@ namespace Neo.UI
             foreach (ListViewItem item in listView3.Items)
             {
                 uint? height = item.Tag as uint?;
-                int? confirmations = (int)Blockchain.Singleton.Snapshot.Height - (int?)height + 1;
+                int? confirmations = (int)Blockchain.Singleton.Height - (int?)height + 1;
                 if (confirmations <= 0) confirmations = null;
                 item.SubItems["confirmations"].Text = confirmations?.ToString() ?? Strings.Unconfirmed;
             }
@@ -311,7 +313,7 @@ namespace Neo.UI
                 walletHeight = (Program.CurrentWallet.WalletHeight > 0) ? Program.CurrentWallet.WalletHeight - 1 : 0;
             }
 
-            lbl_height.Text = $"{walletHeight}/{Blockchain.Singleton.Snapshot.Height}/{Blockchain.Singleton.Snapshot.HeaderHeight}";
+            lbl_height.Text = $"{walletHeight}/{Blockchain.Singleton.Height}/{Blockchain.Singleton.HeaderHeight}";
 
             lbl_count_node.Text = LocalNode.Singleton.ConnectedCount.ToString();
             TimeSpan persistence_span = DateTime.UtcNow - persistence_time;
@@ -327,91 +329,92 @@ namespace Neo.UI
             }
             if (Program.CurrentWallet != null)
             {
-                if (Program.CurrentWallet.WalletHeight <= Blockchain.Singleton.Snapshot.Height + 1)
+                if (Program.CurrentWallet.WalletHeight <= Blockchain.Singleton.Height + 1)
                 {
                     if (balance_changed)
-                    {
-                        IEnumerable<Coin> coins = Program.CurrentWallet?.GetCoins().Where(p => !p.State.HasFlag(CoinState.Spent)) ?? Enumerable.Empty<Coin>();
-                        Fixed8 bonus_available = Blockchain.Singleton.Snapshot.CalculateBonus(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference));
-                        Fixed8 bonus_unavailable = Blockchain.Singleton.Snapshot.CalculateBonus(coins.Where(p => p.State.HasFlag(CoinState.Confirmed) && p.Output.AssetId.Equals(Blockchain.GoverningToken.Hash)).Select(p => p.Reference), Blockchain.Singleton.Snapshot.Height + 1);
-                        Fixed8 bonus = bonus_available + bonus_unavailable;
-                        var assets = coins.GroupBy(p => p.Output.AssetId, (k, g) => new
+                        using (Snapshot snapshot = Blockchain.Singleton.GetSnapshot())
                         {
-                            Asset = Blockchain.Singleton.Snapshot.Assets.TryGet(k),
-                            Value = g.Sum(p => p.Output.Value),
-                            Claim = k.Equals(Blockchain.UtilityToken.Hash) ? bonus : Fixed8.Zero
-                        }).ToDictionary(p => p.Asset.AssetId);
-                        if (bonus != Fixed8.Zero && !assets.ContainsKey(Blockchain.UtilityToken.Hash))
-                        {
-                            assets[Blockchain.UtilityToken.Hash] = new
+                            IEnumerable<Coin> coins = Program.CurrentWallet?.GetCoins().Where(p => !p.State.HasFlag(CoinState.Spent)) ?? Enumerable.Empty<Coin>();
+                            Fixed8 bonus_available = snapshot.CalculateBonus(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference));
+                            Fixed8 bonus_unavailable = snapshot.CalculateBonus(coins.Where(p => p.State.HasFlag(CoinState.Confirmed) && p.Output.AssetId.Equals(Blockchain.GoverningToken.Hash)).Select(p => p.Reference), snapshot.Height + 1);
+                            Fixed8 bonus = bonus_available + bonus_unavailable;
+                            var assets = coins.GroupBy(p => p.Output.AssetId, (k, g) => new
                             {
-                                Asset = Blockchain.Singleton.Snapshot.Assets.TryGet(Blockchain.UtilityToken.Hash),
-                                Value = Fixed8.Zero,
-                                Claim = bonus
-                            };
-                        }
-                        var balance_ans = coins.Where(p => p.Output.AssetId.Equals(Blockchain.GoverningToken.Hash)).GroupBy(p => p.Output.ScriptHash).ToDictionary(p => p.Key, p => p.Sum(i => i.Output.Value));
-                        var balance_anc = coins.Where(p => p.Output.AssetId.Equals(Blockchain.UtilityToken.Hash)).GroupBy(p => p.Output.ScriptHash).ToDictionary(p => p.Key, p => p.Sum(i => i.Output.Value));
-                        foreach (ListViewItem item in listView1.Items)
-                        {
-                            UInt160 script_hash = item.Name.ToScriptHash();
-                            Fixed8 ans = balance_ans.ContainsKey(script_hash) ? balance_ans[script_hash] : Fixed8.Zero;
-                            Fixed8 anc = balance_anc.ContainsKey(script_hash) ? balance_anc[script_hash] : Fixed8.Zero;
-                            item.SubItems["ans"].Text = ans.ToString();
-                            item.SubItems["anc"].Text = anc.ToString();
-                        }
-                        foreach (AssetState asset in listView2.Items.OfType<ListViewItem>().Select(p => p.Tag as AssetState).Where(p => p != null).ToArray())
-                        {
-                            if (!assets.ContainsKey(asset.AssetId))
+                                Asset = snapshot.Assets.TryGet(k),
+                                Value = g.Sum(p => p.Output.Value),
+                                Claim = k.Equals(Blockchain.UtilityToken.Hash) ? bonus : Fixed8.Zero
+                            }).ToDictionary(p => p.Asset.AssetId);
+                            if (bonus != Fixed8.Zero && !assets.ContainsKey(Blockchain.UtilityToken.Hash))
                             {
-                                listView2.Items.RemoveByKey(asset.AssetId.ToString());
-                            }
-                        }
-                        foreach (var asset in assets.Values)
-                        {
-                            string value_text = asset.Value.ToString() + (asset.Asset.AssetId.Equals(Blockchain.UtilityToken.Hash) ? $"+({asset.Claim})" : "");
-                            if (listView2.Items.ContainsKey(asset.Asset.AssetId.ToString()))
-                            {
-                                listView2.Items[asset.Asset.AssetId.ToString()].SubItems["value"].Text = value_text;
-                            }
-                            else
-                            {
-                                string asset_name = asset.Asset.AssetType == AssetType.GoverningToken ? "NEO" :
-                                                    asset.Asset.AssetType == AssetType.UtilityToken ? "NeoGas" :
-                                                    asset.Asset.GetName();
-                                listView2.Items.Add(new ListViewItem(new[]
+                                assets[Blockchain.UtilityToken.Hash] = new
                                 {
-                                    new ListViewItem.ListViewSubItem
-                                    {
-                                        Name = "name",
-                                        Text = asset_name
-                                    },
-                                    new ListViewItem.ListViewSubItem
-                                    {
-                                        Name = "type",
-                                        Text = asset.Asset.AssetType.ToString()
-                                    },
-                                    new ListViewItem.ListViewSubItem
-                                    {
-                                        Name = "value",
-                                        Text = value_text
-                                    },
-                                    new ListViewItem.ListViewSubItem
-                                    {
-                                        ForeColor = Color.Gray,
-                                        Name = "issuer",
-                                        Text = $"{Strings.UnknownIssuer}[{asset.Asset.Owner}]"
-                                    }
-                                }, -1, listView2.Groups["unchecked"])
-                                {
-                                    Name = asset.Asset.AssetId.ToString(),
-                                    Tag = asset.Asset,
-                                    UseItemStyleForSubItems = false
-                                });
+                                    Asset = snapshot.Assets.TryGet(Blockchain.UtilityToken.Hash),
+                                    Value = Fixed8.Zero,
+                                    Claim = bonus
+                                };
                             }
+                            var balance_ans = coins.Where(p => p.Output.AssetId.Equals(Blockchain.GoverningToken.Hash)).GroupBy(p => p.Output.ScriptHash).ToDictionary(p => p.Key, p => p.Sum(i => i.Output.Value));
+                            var balance_anc = coins.Where(p => p.Output.AssetId.Equals(Blockchain.UtilityToken.Hash)).GroupBy(p => p.Output.ScriptHash).ToDictionary(p => p.Key, p => p.Sum(i => i.Output.Value));
+                            foreach (ListViewItem item in listView1.Items)
+                            {
+                                UInt160 script_hash = item.Name.ToScriptHash();
+                                Fixed8 ans = balance_ans.ContainsKey(script_hash) ? balance_ans[script_hash] : Fixed8.Zero;
+                                Fixed8 anc = balance_anc.ContainsKey(script_hash) ? balance_anc[script_hash] : Fixed8.Zero;
+                                item.SubItems["ans"].Text = ans.ToString();
+                                item.SubItems["anc"].Text = anc.ToString();
+                            }
+                            foreach (AssetState asset in listView2.Items.OfType<ListViewItem>().Select(p => p.Tag as AssetState).Where(p => p != null).ToArray())
+                            {
+                                if (!assets.ContainsKey(asset.AssetId))
+                                {
+                                    listView2.Items.RemoveByKey(asset.AssetId.ToString());
+                                }
+                            }
+                            foreach (var asset in assets.Values)
+                            {
+                                string value_text = asset.Value.ToString() + (asset.Asset.AssetId.Equals(Blockchain.UtilityToken.Hash) ? $"+({asset.Claim})" : "");
+                                if (listView2.Items.ContainsKey(asset.Asset.AssetId.ToString()))
+                                {
+                                    listView2.Items[asset.Asset.AssetId.ToString()].SubItems["value"].Text = value_text;
+                                }
+                                else
+                                {
+                                    string asset_name = asset.Asset.AssetType == AssetType.GoverningToken ? "NEO" :
+                                                        asset.Asset.AssetType == AssetType.UtilityToken ? "NeoGas" :
+                                                        asset.Asset.GetName();
+                                    listView2.Items.Add(new ListViewItem(new[]
+                                    {
+                                        new ListViewItem.ListViewSubItem
+                                        {
+                                            Name = "name",
+                                            Text = asset_name
+                                        },
+                                        new ListViewItem.ListViewSubItem
+                                        {
+                                            Name = "type",
+                                            Text = asset.Asset.AssetType.ToString()
+                                        },
+                                        new ListViewItem.ListViewSubItem
+                                        {
+                                            Name = "value",
+                                            Text = value_text
+                                        },
+                                        new ListViewItem.ListViewSubItem
+                                        {
+                                            ForeColor = Color.Gray,
+                                            Name = "issuer",
+                                            Text = $"{Strings.UnknownIssuer}[{asset.Asset.Owner}]"
+                                        }
+                                    }, -1, listView2.Groups["unchecked"])
+                                    {
+                                        Name = asset.Asset.AssetId.ToString(),
+                                        Tag = asset.Asset,
+                                        UseItemStyleForSubItems = false
+                                    });
+                                }
+                            }
+                            balance_changed = false;
                         }
-                        balance_changed = false;
-                    }
                     foreach (ListViewItem item in listView2.Groups["unchecked"].Items.OfType<ListViewItem>().ToArray())
                     {
                         ListViewItem.ListViewSubItem subitem = item.SubItems["issuer"];

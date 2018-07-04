@@ -1,4 +1,5 @@
-﻿using Neo.Ledger;
+﻿using Neo.IO.Caching;
+using Neo.Ledger;
 using Neo.Network.P2P.Payloads;
 using Neo.Wallets;
 using System;
@@ -64,9 +65,10 @@ namespace Neo.UI
         public void SetItems(IEnumerable<TransactionOutput> outputs)
         {
             listBox1.Items.Clear();
+            DataCache<UInt256, AssetState> cache = Blockchain.Singleton.Store.GetAssets();
             foreach (TransactionOutput output in outputs)
             {
-                AssetState asset = Blockchain.Singleton.Snapshot.Assets.TryGet(output.AssetId);
+                AssetState asset = cache.TryGet(output.AssetId);
                 listBox1.Items.Add(new TxOutListBoxItem
                 {
                     AssetName = $"{asset.GetName()} ({asset.Owner})",

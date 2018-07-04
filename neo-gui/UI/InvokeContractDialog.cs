@@ -95,7 +95,7 @@ namespace Neo.UI
         private void button1_Click(object sender, EventArgs e)
         {
             script_hash = UInt160.Parse(textBox1.Text);
-            ContractState contract = Blockchain.Singleton.Snapshot.Contracts.TryGet(script_hash);
+            ContractState contract = Blockchain.Singleton.Store.GetContracts().TryGet(script_hash);
             if (contract == null) return;
             parameters = contract.ParameterList.Select(p => new ContractParameter(p)).ToArray();
             textBox2.Text = contract.Name;
