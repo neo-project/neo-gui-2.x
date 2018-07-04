@@ -46,6 +46,7 @@ namespace Neo.UI
             if (bonus_available == Fixed8.Zero) button1.Enabled = false;
             CalculateBonusUnavailable(Blockchain.Singleton.Snapshot.Height + 1);
             actor = Program.NeoSystem.ActorSystem.ActorOf(EventWrapper<Blockchain.PersistCompleted>.Props(Blockchain_PersistCompleted));
+            Program.NeoSystem.Blockchain.Tell(new Blockchain.Register(), actor);
         }
 
         private void ClaimForm_FormClosing(object sender, FormClosingEventArgs e)

@@ -290,13 +290,15 @@ namespace Neo.UI
             {
                 ImportBlocks(Program.NeoSystem.Blockchain);
                 actor = Program.NeoSystem.ActorSystem.ActorOf(EventWrapper<Blockchain.PersistCompleted>.Props(Blockchain_PersistCompleted));
+                Program.NeoSystem.Blockchain.Tell(new Blockchain.Register(), actor);
                 Program.NeoSystem.StartNode(Settings.Default.P2P.Port, Settings.Default.P2P.WsPort);
             });
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Program.NeoSystem.ActorSystem.Stop(actor);
+            if (actor != null)
+                Program.NeoSystem.ActorSystem.Stop(actor);
             ChangeWallet(null);
         }
 
