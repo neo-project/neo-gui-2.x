@@ -20,6 +20,7 @@ namespace Neo.UI
                 TransactionType.ClaimTransaction,
                 TransactionType.IssueTransaction,
                 TransactionType.InvocationTransaction,
+                TransactionType.StateTransaction,
             });
             button6.Enabled = Program.CurrentWallet != null;
             button7.Enabled = Program.CurrentWallet != null;

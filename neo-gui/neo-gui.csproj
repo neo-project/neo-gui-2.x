@@ -533,6 +533,8 @@
     <Compile Include="UI\Wrappers\InvocationTransactionWrapper.cs" />
     <Compile Include="UI\Wrappers\IssueTransactionWrapper.cs" />
     <Compile Include="UI\Wrappers\ScriptEditor.cs" />
+    <Compile Include="UI\Wrappers\StateDescriptorWrapper.cs" />
+    <Compile Include="UI\Wrappers\StateTransactionWrapper.cs" />
     <Compile Include="UI\Wrappers\TransactionAttributeWrapper.cs" />
     <Compile Include="UI\Wrappers\TransactionOutputWrapper.cs" />
     <Compile Include="UI\Wrappers\TransactionWrapper.cs" />
