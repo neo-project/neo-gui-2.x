@@ -173,8 +173,8 @@
     <Reference Include="Microsoft.Net.Http.Headers, Version=2.0.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.Headers.2.0.2\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
     </Reference>
-    <Reference Include="Neo, Version=2.7.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Neo.2.7.4\lib\net47\Neo.dll</HintPath>
+    <Reference Include="Neo, Version=2.7.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Neo.2.7.6\lib\net47\Neo.dll</HintPath>
     </Reference>
     <Reference Include="Neo.VM, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Neo.VM.2.2.0\lib\net461\Neo.VM.dll</HintPath>
@@ -377,6 +377,12 @@
     <Compile Include="UI\ParametersEditor.Designer.cs">
       <DependentUpon>ParametersEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\SigningDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SigningDialog.Designer.cs">
+      <DependentUpon>SigningDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\TradeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -459,11 +465,11 @@
     <Compile Include="UI\SelectCertificateDialog.Designer.cs">
       <DependentUpon>SelectCertificateDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SigningDialog.cs">
+    <Compile Include="UI\SigningTxDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\SigningDialog.Designer.cs">
-      <DependentUpon>SigningDialog.cs</DependentUpon>
+    <Compile Include="UI\SigningTxDialog.Designer.cs">
+      <DependentUpon>SigningTxDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\TransferDialog.cs">
       <SubType>Form</SubType>
@@ -746,8 +752,18 @@
     <EmbeddedResource Include="UI\SigningDialog.es-ES.resx">
       <DependentUpon>SigningDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\SigningDialog.resx">
+      <DependentUpon>SigningDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\SigningDialog.zh-Hans.resx">
       <DependentUpon>SigningDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SigningTxDialog.es-ES.resx">
+      <DependentUpon>SigningTxDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SigningTxDialog.zh-Hans.resx">
+      <DependentUpon>SigningTxDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TradeForm.es-ES.resx">
       <DependentUpon>TradeForm.cs</DependentUpon>
@@ -783,8 +799,8 @@
     <EmbeddedResource Include="UI\SelectCertificateDialog.resx">
       <DependentUpon>SelectCertificateDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SigningDialog.resx">
-      <DependentUpon>SigningDialog.cs</DependentUpon>
+    <EmbeddedResource Include="UI\SigningTxDialog.resx">
+      <DependentUpon>SigningTxDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\CreateWalletDialog.resx">

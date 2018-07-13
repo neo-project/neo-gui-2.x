@@ -20,6 +20,7 @@ using System.Numerics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -179,6 +180,7 @@ namespace Neo.UI
             修改密码CToolStripMenuItem.Enabled = Program.CurrentWallet is UserWallet;
             交易TToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             提取小蚁币CToolStripMenuItem.Enabled = Program.CurrentWallet != null;
+            signDataToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             requestCertificateToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             注册资产RToolStripMenuItem.Enabled = Program.CurrentWallet != null;
             资产分发IToolStripMenuItem.Enabled = Program.CurrentWallet != null;
@@ -206,24 +208,25 @@ namespace Neo.UI
             BeginInvoke(new Action<Transaction, uint?, uint>(AddTransaction), e.Transaction, e.Height, e.Time);
         }
 
-        private void ImportBlocks(Stream stream)
+        private void ImportBlocks(Stream stream, bool read_start = false)
         {
             LevelDBBlockchain blockchain = (LevelDBBlockchain)Blockchain.Default;
-            blockchain.VerifyBlocks = false;
             using (BinaryReader r = new BinaryReader(stream))
             {
+                uint start = read_start ? r.ReadUInt32() : 0;
                 uint count = r.ReadUInt32();
-                for (int height = 0; height < count; height++)
+                uint end = start + count - 1;
+                if (end <= blockchain.Height) return;
+                for (uint height = start; height <= end; height++)
                 {
                     byte[] array = r.ReadBytes(r.ReadInt32());
-                    if (height > Blockchain.Default.Height)
+                    if (height > blockchain.Height)
                     {
                         Block block = array.AsSerializable<Block>();
-                        Blockchain.Default.AddBlock(block);
+                        blockchain.AddBlockDirectly(block);
                     }
                 }
             }
-            blockchain.VerifyBlocks = true;
         }
 
         private void RefreshConfirmations()
@@ -241,25 +244,49 @@ namespace Neo.UI
         {
             Task.Run(() =>
             {
-                const string acc_path = "chain.acc";
-                const string acc_zip_path = acc_path + ".zip";
-                if (File.Exists(acc_path))
+                const string path_acc = "chain.acc";
+                if (File.Exists(path_acc))
                 {
-                    using (FileStream fs = new FileStream(acc_path, FileMode.Open, FileAccess.Read, FileShare.None))
+                    using (FileStream fs = new FileStream(path_acc, FileMode.Open, FileAccess.Read, FileShare.None))
                     {
                         ImportBlocks(fs);
                     }
-                    File.Delete(acc_path);
                 }
-                else if (File.Exists(acc_zip_path))
+                const string path_acc_zip = path_acc + ".zip";
+                if (File.Exists(path_acc_zip))
                 {
-                    using (FileStream fs = new FileStream(acc_zip_path, FileMode.Open, FileAccess.Read, FileShare.None))
+                    using (FileStream fs = new FileStream(path_acc_zip, FileMode.Open, FileAccess.Read, FileShare.None))
                     using (ZipArchive zip = new ZipArchive(fs, ZipArchiveMode.Read))
-                    using (Stream zs = zip.GetEntry(acc_path).Open())
+                    using (Stream zs = zip.GetEntry(path_acc).Open())
                     {
                         ImportBlocks(zs);
                     }
-                    File.Delete(acc_zip_path);
+                }
+                var paths = Directory.EnumerateFiles(".", "chain.*.acc", SearchOption.TopDirectoryOnly).Concat(Directory.EnumerateFiles(".", "chain.*.acc.zip", SearchOption.TopDirectoryOnly)).Select(p => new
+                {
+                    FileName = Path.GetFileName(p),
+                    Start = uint.Parse(Regex.Match(p, @"\d+").Value),
+                    IsCompressed = p.EndsWith(".zip")
+                }).OrderBy(p => p.Start);
+                foreach (var path in paths)
+                {
+                    if (path.Start > Blockchain.Default.Height + 1) break;
+                    if (path.IsCompressed)
+                    {
+                        using (FileStream fs = new FileStream(path.FileName, FileMode.Open, FileAccess.Read, FileShare.None))
+                        using (ZipArchive zip = new ZipArchive(fs, ZipArchiveMode.Read))
+                        using (Stream zs = zip.GetEntry(Path.GetFileNameWithoutExtension(path.FileName)).Open())
+                        {
+                            ImportBlocks(zs, true);
+                        }
+                    }
+                    else
+                    {
+                        using (FileStream fs = new FileStream(path.FileName, FileMode.Open, FileAccess.Read, FileShare.None))
+                        {
+                            ImportBlocks(fs, true);
+                        }
+                    }
                 }
                 Blockchain.PersistCompleted += Blockchain_PersistCompleted;
                 Program.LocalNode.Start(Settings.Default.P2P.Port, Settings.Default.P2P.WsPort);
@@ -635,7 +662,7 @@ namespace Neo.UI
 
         private void 签名SToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (SigningDialog dialog = new SigningDialog())
+            using (SigningTxDialog dialog = new SigningTxDialog())
             {
                 dialog.ShowDialog();
             }
@@ -710,6 +737,14 @@ namespace Neo.UI
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
                 Helper.SignAndShowInformation(dialog.GetTransaction());
+            }
+        }
+
+        private void signDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SigningDialog dialog = new SigningDialog())
+            {
+                dialog.ShowDialog();
             }
         }
 

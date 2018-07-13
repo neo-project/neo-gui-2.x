@@ -55,6 +55,7 @@
             this.invokeContractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.选举EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.signDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助HToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -235,6 +236,7 @@
             this.invokeContractToolStripMenuItem,
             this.toolStripSeparator11,
             this.选举EToolStripMenuItem,
+            this.signDataToolStripMenuItem,
             this.toolStripSeparator9,
             this.optionsToolStripMenuItem});
             this.高级AToolStripMenuItem.Name = "高级AToolStripMenuItem";
@@ -295,6 +297,12 @@
             resources.ApplyResources(this.选举EToolStripMenuItem, "选举EToolStripMenuItem");
             this.选举EToolStripMenuItem.Name = "选举EToolStripMenuItem";
             this.选举EToolStripMenuItem.Click += new System.EventHandler(this.选举EToolStripMenuItem_Click);
+            // 
+            // signDataToolStripMenuItem
+            // 
+            resources.ApplyResources(this.signDataToolStripMenuItem, "signDataToolStripMenuItem");
+            this.signDataToolStripMenuItem.Name = "signDataToolStripMenuItem";
+            this.signDataToolStripMenuItem.Click += new System.EventHandler(this.signDataToolStripMenuItem_Click);
             // 
             // toolStripSeparator9
             // 
@@ -820,6 +828,7 @@
         private System.Windows.Forms.ToolStripMenuItem invokeContractToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lockToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
+        private System.Windows.Forms.ToolStripMenuItem signDataToolStripMenuItem;
     }
 }
 

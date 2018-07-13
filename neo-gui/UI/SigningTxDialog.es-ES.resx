@@ -118,34 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="button1.Text" xml:space="preserve">
-    <value>签名</value>
+    <value>Firma</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
-    <value>输入</value>
+    <value>Entrada</value>
   </data>
   <data name="groupBox2.Text" xml:space="preserve">
-    <value>输出</value>
+    <value>Salida</value>
   </data>
   <data name="button2.Text" xml:space="preserve">
-    <value>复制</value>
+    <value>Copiar</value>
   </data>
   <data name="button3.Text" xml:space="preserve">
-    <value>关闭</value>
+    <value>Cancelar</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 17</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>地址</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 17</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>格式</value>
+  <data name="button4.Text" xml:space="preserve">
+    <value>Emitir</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>签名</value>
+    <value>Firma</value>
   </data>
 </root>

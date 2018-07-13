@@ -1,16 +1,53 @@
-﻿using Neo.Network;
+﻿using Neo.Cryptography;
 using Neo.Properties;
-using Neo.SmartContract;
+using Neo.Wallets;
 using System;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Neo.UI
 {
     internal partial class SigningDialog : Form
     {
+        class WalletEntry
+        {
+            public WalletAccount Account;
+
+            public override string ToString()
+            {
+                if (!string.IsNullOrEmpty(Account.Label))
+                {
+                    return $"[{Account.Label}] " + Account.Address;
+                }
+
+                return Account.Address;
+            }
+        }
+
+
         public SigningDialog()
         {
             InitializeComponent();
+
+            cmbFormat.SelectedIndex = 0;
+            cmbAddress.Items.AddRange
+                (
+                Program.CurrentWallet.GetAccounts()
+                .Where(u => u.HasKey)
+                .Select(u => new WalletEntry() { Account = u })
+                .ToArray()
+                );
+
+            if (cmbAddress.Items.Count > 0)
+            {
+                cmbAddress.SelectedIndex = 0;
+            }
+            else
+            {
+                textBox2.Enabled = false;
+                button1.Enabled = false;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -20,30 +57,46 @@ namespace Neo.UI
                 MessageBox.Show(Strings.SigningFailedNoDataMessage);
                 return;
             }
-            ContractParametersContext context = ContractParametersContext.Parse(textBox1.Text);
-            if (!Program.CurrentWallet.Sign(context))
+
+            byte[] raw, signedData = null;
+            try
             {
-                MessageBox.Show(Strings.SigningFailedKeyNotFoundMessage);
+                switch (cmbFormat.SelectedIndex)
+                {
+                    case 0: raw = Encoding.UTF8.GetBytes(textBox1.Text); break;
+                    case 1: raw = textBox1.Text.HexToBytes(); break;
+                    default: return;
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            textBox2.Text = context.ToString();
-            if (context.Completed) button4.Visible = true;
+
+            var account = (WalletEntry)cmbAddress.SelectedItem;
+            var keys = account.Account.GetKey();
+
+            try
+            {
+                using (keys.Decrypt())
+                {
+                    signedData = Crypto.Default.Sign(raw, keys.PrivateKey, keys.PublicKey.EncodePoint(false).Skip(1).ToArray());
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            textBox2.Text = signedData?.ToHexString();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             textBox2.SelectAll();
             textBox2.Copy();
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            ContractParametersContext context = ContractParametersContext.Parse(textBox2.Text);
-            context.Verifiable.Scripts = context.GetScripts();
-            IInventory inventory = (IInventory)context.Verifiable;
-            Program.LocalNode.Relay(inventory);
-            InformationBox.Show(inventory.Hash.ToString(), Strings.RelaySuccessText, Strings.RelaySuccessTitle);
-            button4.Visible = false;
         }
     }
 }

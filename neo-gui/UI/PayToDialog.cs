@@ -50,7 +50,7 @@ namespace Neo.UI
             {
                 AssetName = asset.AssetName,
                 AssetId = asset.AssetId,
-                Value = new BigDecimal(Fixed8.Parse(textBox2.Text).GetData(), 8),
+                Value = BigDecimal.Parse(textBox2.Text, asset.Decimals),
                 ScriptHash = Wallet.ToScriptHash(textBox1.Text)
             };
         }
@@ -85,17 +85,13 @@ namespace Neo.UI
                 button1.Enabled = false;
                 return;
             }
-            if (!Fixed8.TryParse(textBox2.Text, out Fixed8 amount))
+            AssetDescriptor asset = (AssetDescriptor)comboBox1.SelectedItem;
+            if (!BigDecimal.TryParse(textBox2.Text, asset.Decimals, out BigDecimal amount))
             {
                 button1.Enabled = false;
                 return;
             }
-            if (amount == Fixed8.Zero)
-            {
-                button1.Enabled = false;
-                return;
-            }
-            if (amount.GetData() % (long)Math.Pow(10, 8 - (comboBox1.SelectedItem as AssetDescriptor).Decimals) != 0)
+            if (amount.Sign == 0)
             {
                 button1.Enabled = false;
                 return;
