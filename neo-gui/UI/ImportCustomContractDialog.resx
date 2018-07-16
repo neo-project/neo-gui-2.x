@@ -205,7 +205,7 @@
     <value>3, 19</value>
   </data>
   <data name="textBox2.MaxLength" type="System.Int32, mscorlib">
-    <value>64000</value>
+    <value>131072</value>
   </data>
   <data name="textBox2.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
