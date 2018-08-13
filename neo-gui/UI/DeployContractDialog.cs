@@ -23,6 +23,7 @@ namespace Neo.UI
             ContractPropertyState properties = ContractPropertyState.NoProperty;
             if (checkBox1.Checked) properties |= ContractPropertyState.HasStorage;
             if (checkBox2.Checked) properties |= ContractPropertyState.HasDynamicInvoke;
+            if (checkBox3.Checked) properties |= ContractPropertyState.Payable;
             string name = textBox1.Text;
             string version = textBox2.Text;
             string author = textBox3.Text;
