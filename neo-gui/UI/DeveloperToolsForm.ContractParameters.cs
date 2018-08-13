@@ -1,8 +1,10 @@
+using Neo.Core;
 using Neo.Network;
 using Neo.Properties;
 using Neo.SmartContract;
 using Neo.Wallets;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -70,8 +72,16 @@ namespace Neo.UI
         {
             context.Verifiable.Scripts = context.GetScripts();
             IInventory inventory = (IInventory)context.Verifiable;
-            Program.LocalNode.Relay(inventory);
-            InformationBox.Show(inventory.Hash.ToString(), Strings.RelaySuccessText, Strings.RelaySuccessTitle);
+            var tx = inventory as Transaction;
+            if (tx.Verify(new List<Transaction> { tx }))
+            {
+                Program.LocalNode.Relay(inventory);
+                InformationBox.Show(inventory.Hash.ToString(), Strings.RelaySuccessText, Strings.RelaySuccessTitle);
+            }
+            else
+            {
+                MessageBox.Show("Transaction validation failed and cannot be broadcast.");
+            }
         }
     }
 }
