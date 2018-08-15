@@ -20,7 +20,22 @@ namespace Neo.UI
             listBox2.Items.Clear();
             if (Program.CurrentWallet == null) return;
             UInt160 hash = Wallet.ToScriptHash((string)listBox1.SelectedItem);
+            var parameters = context.GetParameters(hash);
+            if (parameters == null)
+            {
+                var parameterList = Program.CurrentWallet.GetAccount(hash).Contract.ParameterList ?? Blockchain.Default.GetContract(hash).ParameterList;
+                if (parameterList != null)
+                {
+                    var pList = new List<ContractParameter>();
+                    for (int i = 0; i < parameterList.Length; i++)
+                    {
+                        pList.Add(new ContractParameter(parameterList[i]));
+                        context.Add(Program.CurrentWallet.GetAccount(hash).Contract, i, null);
+                    }
+                }
+            }
             listBox2.Items.AddRange(context.GetParameters(hash).ToArray());
+            button4.Visible = context.Completed;
         }
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
