@@ -204,6 +204,9 @@
   <data name="textBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 19</value>
   </data>
+  <data name="textBox2.MaxLength" type="System.Int32, mscorlib">
+    <value>131072</value>
+  </data>
   <data name="textBox2.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>

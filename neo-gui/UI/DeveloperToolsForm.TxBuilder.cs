@@ -69,7 +69,7 @@ namespace Neo.UI
                 tx.Outputs.Add(new TransactionOutputWrapper
                 {
                     AssetId = (UInt256)output.AssetId,
-                    Value = new Fixed8((long)output.Value.Value),
+                    Value = output.Value.ToFixed8(),
                     ScriptHash = output.ScriptHash
                 });
             }
