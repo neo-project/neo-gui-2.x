@@ -40,6 +40,7 @@ namespace Neo.UI
         private bool check_nep5_balance = false;
         private DateTime persistence_time = DateTime.MinValue;
         private IActorRef actor;
+        private WalletIndexer indexer;
 
         public MainForm(XDocument xdoc = null)
         {
@@ -229,6 +230,13 @@ namespace Neo.UI
                     }
                 }
             }
+        }
+
+        private WalletIndexer GetIndexer()
+        {
+            if (indexer is null)
+                indexer = new WalletIndexer(Settings.Default.Paths.Index);
+            return indexer;
         }
 
         private static void ImportBlocks(IActorRef blockchain)
@@ -540,7 +548,7 @@ namespace Neo.UI
             using (CreateWalletDialog dialog = new CreateWalletDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                NEP6Wallet wallet = new NEP6Wallet(dialog.WalletPath);
+                NEP6Wallet wallet = new NEP6Wallet(GetIndexer(), dialog.WalletPath);
                 wallet.Unlock(dialog.Password);
                 wallet.CreateAccount();
                 wallet.Save();
@@ -566,7 +574,7 @@ namespace Neo.UI
                         NEP6Wallet nep6wallet;
                         try
                         {
-                            nep6wallet = NEP6Wallet.Migrate(path, path_old, dialog.Password);
+                            nep6wallet = NEP6Wallet.Migrate(GetIndexer(), path, path_old, dialog.Password);
                         }
                         catch (CryptographicException)
                         {
@@ -582,7 +590,7 @@ namespace Neo.UI
                     {
                         try
                         {
-                            wallet = UserWallet.Open(path, dialog.Password);
+                            wallet = UserWallet.Open(GetIndexer(), path, dialog.Password);
                         }
                         catch (CryptographicException)
                         {
@@ -593,7 +601,7 @@ namespace Neo.UI
                 }
                 else
                 {
-                    NEP6Wallet nep6wallet = new NEP6Wallet(path);
+                    NEP6Wallet nep6wallet = new NEP6Wallet(GetIndexer(), path);
                     try
                     {
                         nep6wallet.Unlock(dialog.Password);
@@ -627,7 +635,7 @@ namespace Neo.UI
         {
             listView2.Items.Clear();
             listView3.Items.Clear();
-            WalletIndexer.RebuildIndex();
+            GetIndexer().RebuildIndex();
         }
 
         private void 退出XToolStripMenuItem_Click(object sender, EventArgs e)

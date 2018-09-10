@@ -30,11 +30,13 @@ namespace Neo.Properties
     internal class PathsSettings
     {
         public string Chain { get; }
+        public string Index { get; }
         public string CertCache { get; }
 
         public PathsSettings(IConfigurationSection section)
         {
             this.Chain = string.Format(section.GetSection("Chain").Value, Message.Magic.ToString("X8"));
+            this.Index = string.Format(section.GetSection("Index").Value, Message.Magic.ToString("X8"));
             this.CertCache = section.GetSection("CertCache").Value;
         }
     }

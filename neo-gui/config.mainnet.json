@@ -2,6 +2,7 @@
   "ApplicationConfiguration": {
     "Paths": {
       "Chain": "Chain_{0}",
+      "Index": "Index_{0}",
       "CertCache": "Certs"
     },
     "P2P": {
