@@ -18,14 +18,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Numerics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using Settings = Neo.Properties.Settings;
@@ -212,75 +209,11 @@ namespace Neo.UI
             BeginInvoke(new Action<Transaction, uint?, uint>(AddTransaction), e.Transaction, e.Height, e.Time);
         }
 
-        private static IEnumerable<Block> GetBlocks(Stream stream, bool read_start = false)
-        {
-            using (BinaryReader r = new BinaryReader(stream))
-            {
-                uint start = read_start ? r.ReadUInt32() : 0;
-                uint count = r.ReadUInt32();
-                uint end = start + count - 1;
-                if (end <= Blockchain.Singleton.Height) yield break;
-                for (uint height = start; height <= end; height++)
-                {
-                    byte[] array = r.ReadBytes(r.ReadInt32());
-                    if (height > Blockchain.Singleton.Height)
-                    {
-                        Block block = array.AsSerializable<Block>();
-                        yield return block;
-                    }
-                }
-            }
-        }
-
         private WalletIndexer GetIndexer()
         {
             if (indexer is null)
                 indexer = new WalletIndexer(Settings.Default.Paths.Index);
             return indexer;
-        }
-
-        private static void ImportBlocks(IActorRef blockchain)
-        {
-            const string path_acc = "chain.acc";
-            if (File.Exists(path_acc))
-                using (FileStream fs = new FileStream(path_acc, FileMode.Open, FileAccess.Read, FileShare.None))
-                    blockchain.Ask<Blockchain.ImportCompleted>(new Blockchain.Import
-                    {
-                        Blocks = GetBlocks(fs)
-                    }).Wait();
-            const string path_acc_zip = path_acc + ".zip";
-            if (File.Exists(path_acc_zip))
-                using (FileStream fs = new FileStream(path_acc_zip, FileMode.Open, FileAccess.Read, FileShare.None))
-                using (ZipArchive zip = new ZipArchive(fs, ZipArchiveMode.Read))
-                using (Stream zs = zip.GetEntry(path_acc).Open())
-                    blockchain.Ask<Blockchain.ImportCompleted>(new Blockchain.Import
-                    {
-                        Blocks = GetBlocks(zs)
-                    }).Wait();
-            var paths = Directory.EnumerateFiles(".", "chain.*.acc", SearchOption.TopDirectoryOnly).Concat(Directory.EnumerateFiles(".", "chain.*.acc.zip", SearchOption.TopDirectoryOnly)).Select(p => new
-            {
-                FileName = Path.GetFileName(p),
-                Start = uint.Parse(Regex.Match(p, @"\d+").Value),
-                IsCompressed = p.EndsWith(".zip")
-            }).OrderBy(p => p.Start);
-            foreach (var path in paths)
-            {
-                if (path.Start > Blockchain.Singleton.Height + 1) break;
-                if (path.IsCompressed)
-                    using (FileStream fs = new FileStream(path.FileName, FileMode.Open, FileAccess.Read, FileShare.None))
-                    using (ZipArchive zip = new ZipArchive(fs, ZipArchiveMode.Read))
-                    using (Stream zs = zip.GetEntry(Path.GetFileNameWithoutExtension(path.FileName)).Open())
-                        blockchain.Ask<Blockchain.ImportCompleted>(new Blockchain.Import
-                        {
-                            Blocks = GetBlocks(zs, true)
-                        }).Wait();
-                else
-                    using (FileStream fs = new FileStream(path.FileName, FileMode.Open, FileAccess.Read, FileShare.None))
-                        blockchain.Ask<Blockchain.ImportCompleted>(new Blockchain.Import
-                        {
-                            Blocks = GetBlocks(fs, true)
-                        }).Wait();
-            }
         }
 
         private void RefreshConfirmations()
@@ -296,13 +229,9 @@ namespace Neo.UI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Task.Run(() =>
-            {
-                ImportBlocks(Program.NeoSystem.Blockchain);
-                actor = Program.NeoSystem.ActorSystem.ActorOf(EventWrapper<Blockchain.PersistCompleted>.Props(Blockchain_PersistCompleted));
-                Program.NeoSystem.Blockchain.Tell(new Blockchain.Register(), actor);
-                Program.NeoSystem.StartNode(Settings.Default.P2P.Port, Settings.Default.P2P.WsPort);
-            });
+            actor = Program.NeoSystem.ActorSystem.ActorOf(EventWrapper<Blockchain.PersistCompleted>.Props(Blockchain_PersistCompleted));
+            Program.NeoSystem.Blockchain.Tell(new Blockchain.Register(), actor);
+            Program.NeoSystem.StartNode(Settings.Default.P2P.Port, Settings.Default.P2P.WsPort);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
