@@ -26,9 +26,15 @@ namespace Neo
         {
             using (FileStream fs = new FileStream("error.log", FileMode.Create, FileAccess.Write, FileShare.None))
             using (StreamWriter w = new StreamWriter(fs))
-            {
-                PrintErrorLogs(w, (Exception)e.ExceptionObject);
-            }
+                if (e.ExceptionObject is Exception ex)
+                {
+                    PrintErrorLogs(w, ex);
+                }
+                else
+                {
+                    w.WriteLine(e.ExceptionObject.GetType());
+                    w.WriteLine(e.ExceptionObject);
+                }
         }
 
         private static bool InstallCertificate()
