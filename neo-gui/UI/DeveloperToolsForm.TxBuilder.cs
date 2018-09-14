@@ -1,4 +1,4 @@
-using Neo.Core;
+using Neo.Network.P2P.Payloads;
 using Neo.Properties;
 using Neo.SmartContract;
 using Neo.UI.Wrappers;
@@ -20,6 +20,7 @@ namespace Neo.UI
                 TransactionType.ClaimTransaction,
                 TransactionType.IssueTransaction,
                 TransactionType.InvocationTransaction,
+                TransactionType.StateTransaction,
             });
             button6.Enabled = Program.CurrentWallet != null;
             button7.Enabled = Program.CurrentWallet != null;

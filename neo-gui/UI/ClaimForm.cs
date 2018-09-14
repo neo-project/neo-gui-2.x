@@ -1,4 +1,8 @@
-﻿using Neo.Core;
+﻿using Akka.Actor;
+using Neo.IO.Actors;
+using Neo.Ledger;
+using Neo.Network.P2P.Payloads;
+using Neo.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +12,8 @@ namespace Neo.UI
 {
     public partial class ClaimForm : Form
     {
+        private IActorRef actor;
+
         public ClaimForm()
         {
             InitializeComponent();
@@ -24,40 +30,45 @@ namespace Neo.UI
 
             foreach (var group in unspent.GroupBy(p => p.PrevHash))
             {
-                int height_start;
-                Transaction tx = Blockchain.Default.GetTransaction(group.Key, out height_start);
-                if (tx == null)
+                if (!Blockchain.Singleton.ContainsTransaction(group.Key))
                     continue; // not enough of the chain available
                 foreach (var reference in group)
                     references.Add(reference);
             }
 
-            textBox2.Text = Blockchain.CalculateBonus(references, height).ToString();
+            using (Snapshot snapshot = Blockchain.Singleton.GetSnapshot())
+            {
+                textBox2.Text = snapshot.CalculateBonus(references, height).ToString();
+            }
         }
 
         private void ClaimForm_Load(object sender, EventArgs e)
         {
-            Fixed8 bonus_available = Blockchain.CalculateBonus(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference));
-            textBox1.Text = bonus_available.ToString();
-            if (bonus_available == Fixed8.Zero) button1.Enabled = false;
-            CalculateBonusUnavailable(Blockchain.Default.Height + 1);
-            Blockchain.PersistCompleted += Blockchain_PersistCompleted;
+            using (Snapshot snapshot = Blockchain.Singleton.GetSnapshot())
+            {
+                Fixed8 bonus_available = snapshot.CalculateBonus(Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference));
+                textBox1.Text = bonus_available.ToString();
+                if (bonus_available == Fixed8.Zero) button1.Enabled = false;
+                CalculateBonusUnavailable(snapshot.Height + 1);
+            }
+            actor = Program.NeoSystem.ActorSystem.ActorOf(EventWrapper<Blockchain.PersistCompleted>.Props(Blockchain_PersistCompleted));
+            Program.NeoSystem.Blockchain.Tell(new Blockchain.Register(), actor);
         }
 
         private void ClaimForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Blockchain.PersistCompleted -= Blockchain_PersistCompleted;
+            Program.NeoSystem.ActorSystem.Stop(actor);
         }
 
-        private void Blockchain_PersistCompleted(object sender, Block block)
+        private void Blockchain_PersistCompleted(Blockchain.PersistCompleted e)
         {
             if (InvokeRequired)
             {
-                BeginInvoke(new Action<object, Block>(Blockchain_PersistCompleted), sender, block);
+                BeginInvoke(new Action<Blockchain.PersistCompleted>(Blockchain_PersistCompleted), e);
             }
             else
             {
-                CalculateBonusUnavailable(block.Index + 1);
+                CalculateBonusUnavailable(e.Block.Index + 1);
             }
         }
 
@@ -65,21 +76,22 @@ namespace Neo.UI
         {
             CoinReference[] claims = Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference).ToArray();
             if (claims.Length == 0) return;
-            Helper.SignAndShowInformation(new ClaimTransaction
-            {
-                Claims = claims,
-                Attributes = new TransactionAttribute[0],
-                Inputs = new CoinReference[0],
-                Outputs = new[]
+            using (Snapshot snapshot = Blockchain.Singleton.GetSnapshot())
+                Helper.SignAndShowInformation(new ClaimTransaction
                 {
-                    new TransactionOutput
+                    Claims = claims,
+                    Attributes = new TransactionAttribute[0],
+                    Inputs = new CoinReference[0],
+                    Outputs = new[]
                     {
-                        AssetId = Blockchain.UtilityToken.Hash,
-                        Value = Blockchain.CalculateBonus(claims),
-                        ScriptHash = Program.CurrentWallet.GetChangeAddress()
+                        new TransactionOutput
+                        {
+                            AssetId = Blockchain.UtilityToken.Hash,
+                            Value = snapshot.CalculateBonus(claims),
+                            ScriptHash = Program.CurrentWallet.GetChangeAddress()
+                        }
                     }
-                }
-            });
+                });
             Close();
         }
     }

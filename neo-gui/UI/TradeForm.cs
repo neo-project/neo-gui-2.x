@@ -1,5 +1,8 @@
-﻿using Neo.Core;
+﻿using Akka.Actor;
 using Neo.IO.Json;
+using Neo.Ledger;
+using Neo.Network.P2P;
+using Neo.Network.P2P.Payloads;
 using Neo.Properties;
 using Neo.SmartContract;
 using Neo.Wallets;
@@ -30,7 +33,7 @@ namespace Neo.UI
                 {
                     AssetId = UInt256.Parse(p["asset"].AsString()),
                     Value = Fixed8.Parse(p["value"].AsString()),
-                    ScriptHash = Wallet.ToScriptHash(p["address"].AsString())
+                    ScriptHash = p["address"].AsString().ToScriptHash()
                 }).ToArray()
             };
         }
@@ -40,7 +43,7 @@ namespace Neo.UI
             JObject json = new JObject();
             json["vin"] = tx.Inputs.Select(p => p.ToJson()).ToArray();
             json["vout"] = tx.Outputs.Select((p, i) => p.ToJson((ushort)i)).ToArray();
-            json["change_address"] = Wallet.ToAddress(Program.CurrentWallet.GetChangeAddress());
+            json["change_address"] = Program.CurrentWallet.GetChangeAddress().ToAddress();
             return json;
         }
 
@@ -48,7 +51,7 @@ namespace Neo.UI
         {
             try
             {
-                txOutListBox1.ScriptHash = Wallet.ToScriptHash(textBox1.Text);
+                txOutListBox1.ScriptHash = textBox1.Text.ToScriptHash();
                 txOutListBox1.Enabled = true;
             }
             catch (FormatException)
@@ -110,7 +113,7 @@ namespace Neo.UI
             }
             try
             {
-                if (inputs.Select(p => Blockchain.Default.GetTransaction(p.PrevHash).Outputs[p.PrevIndex].ScriptHash).Distinct().Any(p => Program.CurrentWallet.Contains(p)))
+                if (inputs.Select(p => Blockchain.Singleton.GetTransaction(p.PrevHash).Outputs[p.PrevIndex].ScriptHash).Distinct().Any(p => Program.CurrentWallet.Contains(p)))
                 {
                     MessageBox.Show(Strings.TradeFailedInvalidDataMessage, Strings.Failed, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -150,10 +153,10 @@ namespace Neo.UI
             Program.CurrentWallet.Sign(context);
             if (context.Completed)
             {
-                context.Verifiable.Scripts = context.GetScripts();
+                context.Verifiable.Witnesses = context.GetWitnesses();
                 ContractTransaction tx = (ContractTransaction)context.Verifiable;
                 Program.CurrentWallet.ApplyTransaction(tx);
-                Program.LocalNode.Relay(tx);
+                Program.NeoSystem.LocalNode.Tell(new LocalNode.Relay { Inventory = tx });
                 InformationBox.Show(tx.Hash.ToString(), Strings.TradeSuccessMessage, Strings.TradeSuccessCaption);
             }
             else

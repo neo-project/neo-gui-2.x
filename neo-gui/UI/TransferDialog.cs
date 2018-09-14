@@ -1,4 +1,4 @@
-﻿using Neo.Core;
+﻿using Neo.Network.P2P.Payloads;
 using Neo.Properties;
 using Neo.SmartContract;
 using Neo.VM;
@@ -18,14 +18,14 @@ namespace Neo.UI
         private string remark = "";
 
         public Fixed8 Fee => Fixed8.Parse(textBox1.Text);
-        public UInt160 ChangeAddress => Wallet.ToScriptHash((string)comboBox1.SelectedItem);
+        public UInt160 ChangeAddress => ((string)comboBox1.SelectedItem).ToScriptHash();
 
         public TransferDialog()
         {
             InitializeComponent();
             textBox1.Text = "0";
             comboBox1.Items.AddRange(Program.CurrentWallet.GetAccounts().Select(p => p.Address).ToArray());
-            comboBox1.SelectedItem = Wallet.ToAddress(Program.CurrentWallet.GetChangeAddress());
+            comboBox1.SelectedItem = Program.CurrentWallet.GetChangeAddress().ToAddress();
         }
 
         public Transaction GetTransaction()
@@ -36,9 +36,9 @@ namespace Neo.UI
                 Account = p.ScriptHash
             }, (k, g) => new
             {
-                AssetId = k.AssetId,
+                k.AssetId,
                 Value = g.Aggregate(BigInteger.Zero, (x, y) => x + y.Value.Value),
-                Account = k.Account
+                k.Account
             }).ToArray();
             Transaction tx;
             List<TransactionAttribute> attributes = new List<TransactionAttribute>();
@@ -64,7 +64,7 @@ namespace Neo.UI
                         }
                         ApplicationEngine engine = ApplicationEngine.Run(script);
                         if (engine.State.HasFlag(VMState.FAULT)) return null;
-                        var balances = ((VMArray)engine.EvaluationStack.Pop()).AsEnumerable().Reverse().Zip(addresses, (i, a) => new
+                        var balances = ((VMArray)engine.ResultStack.Pop()).AsEnumerable().Reverse().Zip(addresses, (i, a) => new
                         {
                             Account = a,
                             Value = i.GetBigInteger()

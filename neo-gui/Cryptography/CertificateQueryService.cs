@@ -1,5 +1,4 @@
-﻿using Neo.Core;
-using Neo.Properties;
+﻿using Neo.Properties;
 using Neo.SmartContract;
 using Neo.Wallets;
 using System;
@@ -36,7 +35,7 @@ namespace Neo.Cryptography
                 }
                 else
                 {
-                    string address = Wallet.ToAddress(hash);
+                    string address = hash.ToAddress();
                     string path = Path.Combine(Settings.Default.Paths.CertCache, $"{address}.cer");
                     File.WriteAllBytes(path, e.Result);
                     lock (results)
@@ -59,7 +58,7 @@ namespace Neo.Cryptography
                 if (results.ContainsKey(hash)) return results[hash];
                 results[hash] = new CertificateQueryResult { Type = CertificateQueryResultType.Querying };
             }
-            string address = Wallet.ToAddress(hash);
+            string address = hash.ToAddress();
             string path = Path.Combine(Settings.Default.Paths.CertCache, $"{address}.cer");
             if (File.Exists(path))
             {
@@ -80,7 +79,7 @@ namespace Neo.Cryptography
 
         private static void UpdateResultFromFile(UInt160 hash)
         {
-            string address = Wallet.ToAddress(hash);
+            string address = hash.ToAddress();
             X509Certificate2 cert;
             try
             {

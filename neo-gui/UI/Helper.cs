@@ -1,4 +1,6 @@
-﻿using Neo.Core;
+﻿using Akka.Actor;
+using Neo.Network.P2P;
+using Neo.Network.P2P.Payloads;
 using Neo.Properties;
 using Neo.SmartContract;
 using System;
@@ -48,9 +50,9 @@ namespace Neo.UI
             Program.CurrentWallet.Sign(context);
             if (context.Completed)
             {
-                context.Verifiable.Scripts = context.GetScripts();
+                context.Verifiable.Witnesses = context.GetWitnesses();
                 Program.CurrentWallet.ApplyTransaction(tx);
-                Program.LocalNode.Relay(tx);
+                Program.NeoSystem.LocalNode.Tell(new LocalNode.Relay { Inventory = tx });
                 InformationBox.Show(tx.Hash.ToString(), Strings.SendTxSucceedMessage, Strings.SendTxSucceedTitle);
             }
             else

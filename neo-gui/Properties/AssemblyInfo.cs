@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("neo-gui")]
-[assembly: AssemblyCopyright("© The Neo Project 2015-2017 Released under the MIT license")]
+[assembly: AssemblyCopyright("© The Neo Project 2015-2018 Released under the MIT license")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,6 +30,6 @@ using System.Runtime.InteropServices;
 //
 // 可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值，
 // 方法是按如下所示使用“*”: 
-[assembly: AssemblyVersion("2.7.*")]
+[assembly: AssemblyVersion("2.9.*")]
 //[assembly: AssemblyVersion("1.0.0.0")]
 //[assembly: AssemblyFileVersion("1.0.0.0")]
