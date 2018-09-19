@@ -174,7 +174,7 @@ namespace Neo.UI
             script_hash = UInt160.Parse(abi["hash"].AsString());
             textBox8.Text = script_hash.ToString();
             comboBox1.Items.Clear();
-            comboBox1.Items.AddRange(((JArray)abi["functions"]).Select(p => p["name"].AsString()).ToArray());
+            comboBox1.Items.AddRange(((JArray)abi["functions"]).Select(p => p["name"].AsString()).Where(p => p != abi["entrypoint"].AsString()).ToArray());
             textBox9.Clear();
             button8.Enabled = false;
         }
