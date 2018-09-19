@@ -90,7 +90,7 @@ namespace Neo.UI
                 button1.Enabled = false;
                 return;
             }
-            if (amount.Sign == 0)
+            if (amount.Sign <= 0)
             {
                 button1.Enabled = false;
                 return;
