@@ -54,7 +54,8 @@ namespace Neo.UI
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            numericUpDown1.Enabled = (AssetType)comboBox1.SelectedItem != AssetType.Share;
+            if (!(comboBox1.SelectedItem is AssetType assetType)) return;
+            numericUpDown1.Enabled = assetType != AssetType.Share;
             if (!numericUpDown1.Enabled) numericUpDown1.Value = 0;
             CheckForm(sender, e);
         }

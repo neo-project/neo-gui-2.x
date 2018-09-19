@@ -28,6 +28,7 @@ namespace Neo.UI
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboBox1.SelectedItem is null) return;
             string typeName = $"{typeof(TransactionWrapper).Namespace}.{comboBox1.SelectedItem}Wrapper";
             propertyGrid1.SelectedObject = Assembly.GetExecutingAssembly().CreateInstance(typeName);
         }
