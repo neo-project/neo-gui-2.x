@@ -412,9 +412,6 @@ namespace Neo.UI
                         byte[] script;
                         using (ScriptBuilder sb = new ScriptBuilder())
                         {
-                            foreach (UInt160 address in addresses)
-                                sb.EmitAppCall(script_hash, "balanceOf", address);
-                            sb.Emit(OpCode.DEPTH, OpCode.PACK);
                             sb.EmitAppCall(script_hash, "decimals");
                             sb.EmitAppCall(script_hash, "name");
                             script = sb.ToArray();
@@ -423,7 +420,25 @@ namespace Neo.UI
                         if (engine.State.HasFlag(VMState.FAULT)) continue;
                         string name = engine.ResultStack.Pop().GetString();
                         byte decimals = (byte)engine.ResultStack.Pop().GetBigInteger();
-                        BigInteger amount = ((VMArray)engine.ResultStack.Pop()).Aggregate(BigInteger.Zero, (x, y) => x + y.GetBigInteger());
+
+                        BigInteger amount = BigInteger.Zero;
+                        using (Snapshot snapshot = Blockchain.Singleton.GetSnapshot())
+                        {
+                            ContractState asset = snapshot.Contracts.TryGet(script_hash);
+                            foreach (UInt160 address in addresses)
+                            {
+                                StorageKey key = new StorageKey
+                                {
+                                    ScriptHash = asset.ScriptHash,
+                                    Key = address.ToArray()
+                                };
+                                StorageItem item = snapshot.Storages.TryGet(key);
+                                if (item != null)
+                                {
+                                    amount += new BigInteger(item.Value);
+                                }
+                            }
+                        }
                         if (amount == 0)
                         {
                             listView2.Items.RemoveByKey(script_hash.ToString());

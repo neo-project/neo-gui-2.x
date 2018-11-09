@@ -1,5 +1,7 @@
-﻿using Neo.Network.P2P.Payloads;
+﻿using Neo.Ledger;
+using Neo.Network.P2P.Payloads;
 using Neo.Properties;
+using Neo.Persistence;
 using Neo.SmartContract;
 using Neo.VM;
 using Neo.Wallets;
@@ -54,38 +56,40 @@ namespace Neo.UI
                 {
                     foreach (var output in cOutputs)
                     {
-                        byte[] script;
-                        using (ScriptBuilder sb2 = new ScriptBuilder())
+                        var balances = new List<(UInt160 Account, BigInteger Value)>();
+
+                        using (Snapshot snapshot = Blockchain.Singleton.GetSnapshot())
                         {
+                            ContractState asset = snapshot.Contracts.TryGet(output.AssetId);
                             foreach (UInt160 address in addresses)
-                                sb2.EmitAppCall(output.AssetId, "balanceOf", address);
-                            sb2.Emit(OpCode.DEPTH, OpCode.PACK);
-                            script = sb2.ToArray();
+                            {
+                                StorageKey key = new StorageKey
+                                {
+                                    ScriptHash = asset.ScriptHash,
+                                    Key = address.ToArray()
+                                };
+                                StorageItem item = snapshot.Storages.TryGet(key);
+                                balances.Add((address, item == null ? BigInteger.Zero : new BigInteger(item.Value)));
+                            }
                         }
-                        ApplicationEngine engine = ApplicationEngine.Run(script);
-                        if (engine.State.HasFlag(VMState.FAULT)) return null;
-                        var balances = ((VMArray)engine.ResultStack.Pop()).AsEnumerable().Reverse().Zip(addresses, (i, a) => new
-                        {
-                            Account = a,
-                            Value = i.GetBigInteger()
-                        }).ToArray();
                         BigInteger sum = balances.Aggregate(BigInteger.Zero, (x, y) => x + y.Value);
+
                         if (sum < output.Value) return null;
                         if (sum != output.Value)
                         {
-                            balances = balances.OrderByDescending(p => p.Value).ToArray();
+                            balances = balances.OrderByDescending(p => p.Value).ToList();
                             BigInteger amount = output.Value;
                             int i = 0;
                             while (balances[i].Value <= amount)
                                 amount -= balances[i++].Value;
                             if (amount == BigInteger.Zero)
-                                balances = balances.Take(i).ToArray();
+                                balances = balances.Take(i).ToList();
                             else
-                                balances = balances.Take(i).Concat(new[] { balances.Last(p => p.Value >= amount) }).ToArray();
+                                balances = balances.Take(i).Concat(new[] { balances.Last(p => p.Value >= amount) }).ToList();
                             sum = balances.Aggregate(BigInteger.Zero, (x, y) => x + y.Value);
                         }
                         sAttributes.UnionWith(balances.Select(p => p.Account));
-                        for (int i = 0; i < balances.Length; i++)
+                        for (int i = 0; i < balances.Count; i++)
                         {
                             BigInteger value = balances[i].Value;
                             if (i == 0)
