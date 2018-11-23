@@ -68,7 +68,7 @@ namespace Neo.UI
             }
             if (item == null)
             {
-                string groupName = account.WatchOnly ? "watchOnlyGroup" : account.Contract.IsStandard ? "standardContractGroup" : "nonstandardContractGroup";
+                string groupName = account.WatchOnly ? "watchOnlyGroup" : account.Contract.Script.IsSignatureContract() ? "standardContractGroup" : "nonstandardContractGroup";
                 item = listView1.Items.Add(new ListViewItem(new[]
                 {
                     new ListViewItem.ListViewSubItem
@@ -158,7 +158,7 @@ namespace Neo.UI
         {
             if (Program.CurrentWallet != null)
             {
-                Program.CurrentWallet.BalanceChanged -= CurrentWallet_BalanceChanged;
+                Program.CurrentWallet.WalletTransaction -= CurrentWallet_WalletTransaction;
                 if (Program.CurrentWallet is IDisposable disposable)
                     disposable.Dispose();
             }
@@ -176,7 +176,7 @@ namespace Neo.UI
                     {
                         AddTransaction(i.Transaction, i.BlockIndex, i.Time);
                     }
-                Program.CurrentWallet.BalanceChanged += CurrentWallet_BalanceChanged;
+                Program.CurrentWallet.WalletTransaction += CurrentWallet_WalletTransaction;
             }
             修改密码CToolStripMenuItem.Enabled = Program.CurrentWallet is UserWallet;
             交易TToolStripMenuItem.Enabled = Program.CurrentWallet != null;
@@ -203,7 +203,7 @@ namespace Neo.UI
             check_nep5_balance = true;
         }
 
-        private void CurrentWallet_BalanceChanged(object sender, BalanceEventArgs e)
+        private void CurrentWallet_WalletTransaction(object sender, WalletTransactionEventArgs e)
         {
             balance_changed = true;
             BeginInvoke(new Action<Transaction, uint?, uint>(AddTransaction), e.Transaction, e.Height, e.Time);
@@ -719,7 +719,7 @@ namespace Neo.UI
             查看私钥VToolStripMenuItem.Enabled =
                 listView1.SelectedIndices.Count == 1 &&
                 !((WalletAccount)listView1.SelectedItems[0].Tag).WatchOnly &&
-                ((WalletAccount)listView1.SelectedItems[0].Tag).Contract.IsStandard;
+                ((WalletAccount)listView1.SelectedItems[0].Tag).Contract.Script.IsSignatureContract();
             viewContractToolStripMenuItem.Enabled =
                 listView1.SelectedIndices.Count == 1 &&
                 !((WalletAccount)listView1.SelectedItems[0].Tag).WatchOnly;

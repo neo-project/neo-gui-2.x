@@ -1,6 +1,7 @@
 ﻿using Neo.Cryptography.ECC;
 using Neo.IO;
 using Neo.Network.P2P.Payloads;
+using Neo.SmartContract;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -35,7 +36,7 @@ namespace Neo.UI
 
         private void ElectionDialog_Load(object sender, EventArgs e)
         {
-            comboBox1.Items.AddRange(Program.CurrentWallet.GetAccounts().Where(p => !p.WatchOnly && p.Contract.IsStandard).Select(p => p.GetKey().PublicKey).ToArray());
+            comboBox1.Items.AddRange(Program.CurrentWallet.GetAccounts().Where(p => !p.WatchOnly && p.Contract.Script.IsStandardContract()).Select(p => p.GetKey().PublicKey).ToArray());
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
