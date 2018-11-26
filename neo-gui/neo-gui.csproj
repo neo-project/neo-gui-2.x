@@ -737,6 +737,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Neo" Version="2.9.2" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="1.1.11" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
