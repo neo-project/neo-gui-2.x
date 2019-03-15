@@ -195,7 +195,7 @@ namespace Neo.UI
             JArray functions = (JArray)abi["functions"];
             JObject function = functions.First(p => p["name"].AsString() == method);
             JArray _params = (JArray)function["parameters"];
-            parameters_abi = _params.Select(p => new ContractParameter(p["type"].AsEnum<ContractParameterType>())).ToArray();
+            parameters_abi = _params.Select(p => new ContractParameter(p["type"].TryGetEnum<ContractParameterType>())).ToArray();
             textBox9.Text = string.Join(", ", _params.Select(p => p["name"].AsString()));
             button8.Enabled = parameters_abi.Length > 0;
             UpdateParameters();
