@@ -41,10 +41,14 @@ namespace Neo.UI
         private void button4_Click(object sender, EventArgs e)
         {
             ContractParametersContext context = ContractParametersContext.Parse(textBox2.Text);
-            context.Verifiable.Witnesses = context.GetWitnesses();
-            IInventory inventory = (IInventory)context.Verifiable;
-            Program.NeoSystem.LocalNode.Tell(new LocalNode.Relay { Inventory = inventory });
-            InformationBox.Show(inventory.Hash.ToString(), Strings.RelaySuccessText, Strings.RelaySuccessTitle);
+            if (!(context.Verifiable is Transaction tx))
+            {
+                MessageBox.Show("Only support to broadcast transaction.");
+                return;
+            }
+            tx.Witnesses = context.GetWitnesses();
+            Program.NeoSystem.LocalNode.Tell(new LocalNode.Relay { Inventory = tx });
+            InformationBox.Show(tx.Hash.ToString(), Strings.RelaySuccessText, Strings.RelaySuccessTitle);
             button4.Visible = false;
         }
     }

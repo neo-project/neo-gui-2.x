@@ -10,11 +10,18 @@ namespace Neo.IO.Actors
         public EventWrapper(Action<T> callback)
         {
             this.callback = callback;
+            Context.System.EventStream.Subscribe(Self, typeof(T));
         }
 
         protected override void OnReceive(object message)
         {
             if (message is T obj) callback(obj);
+        }
+
+        protected override void PostStop()
+        {
+            Context.System.EventStream.Unsubscribe(Self);
+            base.PostStop();
         }
 
         public static Props Props(Action<T> callback)

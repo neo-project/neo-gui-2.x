@@ -52,7 +52,6 @@ namespace Neo.UI
                 CalculateBonusUnavailable(snapshot.Height + 1);
             }
             actor = Program.NeoSystem.ActorSystem.ActorOf(EventWrapper<Blockchain.PersistCompleted>.Props(Blockchain_PersistCompleted));
-            Program.NeoSystem.Blockchain.Tell(new Blockchain.Register(), actor);
         }
 
         private void ClaimForm_FormClosing(object sender, FormClosingEventArgs e)

@@ -230,7 +230,6 @@ namespace Neo.UI
         private void MainForm_Load(object sender, EventArgs e)
         {
             actor = Program.NeoSystem.ActorSystem.ActorOf(EventWrapper<Blockchain.PersistCompleted>.Props(Blockchain_PersistCompleted));
-            Program.NeoSystem.Blockchain.Tell(new Blockchain.Register(), actor);
             Program.NeoSystem.StartNode(Settings.Default.P2P.Port, Settings.Default.P2P.WsPort);
         }
 
