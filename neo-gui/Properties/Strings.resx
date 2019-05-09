@@ -135,6 +135,12 @@
   <data name="ChangePasswordSuccessful" xml:space="preserve">
     <value>Change password successful.</value>
   </data>
+  <data name="CostTips" xml:space="preserve">
+    <value>will be consumed, confirm?</value>
+  </data>
+  <data name="CostTitle" xml:space="preserve">
+    <value>Cost Warning</value>
+  </data>
   <data name="DeleteAddressConfirmationCaption" xml:space="preserve">
     <value>Confirmation</value>
   </data>

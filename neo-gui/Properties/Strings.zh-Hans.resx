@@ -135,6 +135,12 @@
   <data name="ChangePasswordSuccessful" xml:space="preserve">
     <value>修改密码成功。</value>
   </data>
+  <data name="CostTips" xml:space="preserve">
+    <value>费用即将被消费，确认？</value>
+  </data>
+  <data name="CostTitle" xml:space="preserve">
+    <value>消费提示</value>
+  </data>
   <data name="DeleteAddressConfirmationCaption" xml:space="preserve">
     <value>删除地址确认</value>
   </data>

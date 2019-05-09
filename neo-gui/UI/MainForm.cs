@@ -636,6 +636,7 @@ namespace Neo.UI
                 if (dialog.ShowDialog() != DialogResult.OK) return;
                 tx = dialog.GetTransaction();
             }
+            tx = Helper.DecorateTransaction(tx);
             Helper.SignAndShowInformation(tx);
         }
 
@@ -644,7 +645,8 @@ namespace Neo.UI
             using (IssueDialog dialog = new IssueDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                Helper.SignAndShowInformation(dialog.GetTransaction());
+
+                Helper.SignAndShowInformation(Helper.DecorateTransaction(dialog.GetTransaction()));
             }
         }
 
@@ -661,6 +663,7 @@ namespace Neo.UI
                 if (dialog.ShowDialog() != DialogResult.OK) return;
                 tx = dialog.GetTransaction();
             }
+            tx = Helper.DecorateTransaction(tx);
             Helper.SignAndShowInformation(tx);
         }
 
@@ -669,7 +672,7 @@ namespace Neo.UI
             using (InvokeContractDialog dialog = new InvokeContractDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                Helper.SignAndShowInformation(dialog.GetTransaction());
+                Helper.SignAndShowInformation(Helper.DecorateTransaction(dialog.GetTransaction()));
             }
         }
 
@@ -678,7 +681,7 @@ namespace Neo.UI
             using (ElectionDialog dialog = new ElectionDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                Helper.SignAndShowInformation(dialog.GetTransaction());
+                Helper.SignAndShowInformation(Helper.DecorateTransaction(dialog.GetTransaction()));
             }
         }
 
@@ -882,7 +885,7 @@ namespace Neo.UI
             using (VotingDialog dialog = new VotingDialog(account.ScriptHash))
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                Helper.SignAndShowInformation(dialog.GetTransaction());
+                Helper.SignAndShowInformation(Helper.DecorateTransaction(dialog.GetTransaction()));
             }
         }
 
@@ -957,6 +960,7 @@ namespace Neo.UI
                     ScriptHash = RecycleScriptHash
                 }).ToArray()
             }, fee: Fixed8.Zero);
+            tx = Helper.DecorateTransaction(tx);
             Helper.SignAndShowInformation(tx);
         }
 
