@@ -3,6 +3,7 @@ using Neo.IO.Actors;
 using Neo.Ledger;
 using Neo.Network.P2P.Payloads;
 using Neo.Persistence;
+using Neo.Wallets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace Neo.UI
         public ClaimForm()
         {
             InitializeComponent();
+            this.ClientSize = new System.Drawing.Size(400, 180);
         }
 
         private void CalculateBonusUnavailable(uint height)
@@ -51,6 +53,8 @@ namespace Neo.UI
                 if (bonus_available == Fixed8.Zero) button1.Enabled = false;
                 CalculateBonusUnavailable(snapshot.Height + 1);
             }
+            BindAddresses();
+
             actor = Program.NeoSystem.ActorSystem.ActorOf(EventWrapper<Blockchain.PersistCompleted>.Props(Blockchain_PersistCompleted));
         }
 
@@ -75,23 +79,43 @@ namespace Neo.UI
         {
             CoinReference[] claims = Program.CurrentWallet.GetUnclaimedCoins().Select(p => p.Reference).ToArray();
             if (claims.Length == 0) return;
-            using (Snapshot snapshot = Blockchain.Singleton.GetSnapshot())
-                Helper.SignAndShowInformation(new ClaimTransaction
-                {
-                    Claims = claims,
-                    Attributes = new TransactionAttribute[0],
-                    Inputs = new CoinReference[0],
-                    Outputs = new[]
+            var address = combo_address.Text;
+            try
+            {
+                using (Snapshot snapshot = Blockchain.Singleton.GetSnapshot())
+                    Helper.SignAndShowInformation(new ClaimTransaction
                     {
+                        Claims = claims,
+                        Attributes = new TransactionAttribute[0],
+                        Inputs = new CoinReference[0],
+                        Outputs = new[]
+                        {
                         new TransactionOutput
                         {
                             AssetId = Blockchain.UtilityToken.Hash,
                             Value = snapshot.CalculateBonus(claims),
-                            ScriptHash = Program.CurrentWallet.GetChangeAddress()
+                            ScriptHash = address.ToScriptHash()
                         }
                     }
-                });
+                    });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
             Close();
         }
+
+        private void BindAddresses()
+        {
+            var accounts = Program.CurrentWallet.GetAccounts();
+            var addresses = accounts.Select(c => c.ScriptHash.ToAddress()).ToArray();
+            combo_address.Items.Clear();
+            combo_address.Items.AddRange(addresses);
+            combo_address.SelectedIndex = 0;
+        }
+
+
     }
 }

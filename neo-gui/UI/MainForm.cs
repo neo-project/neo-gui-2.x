@@ -636,8 +636,16 @@ namespace Neo.UI
                 if (dialog.ShowDialog() != DialogResult.OK) return;
                 tx = dialog.GetTransaction();
             }
-            tx = Helper.DecorateTransaction(tx);
-            Helper.SignAndShowInformation(tx);
+
+            try
+            {
+                Helper.SignAndShowInformation(tx);
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+
         }
 
         private void 资产分发IToolStripMenuItem_Click(object sender, EventArgs e)
@@ -646,7 +654,15 @@ namespace Neo.UI
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
 
-                Helper.SignAndShowInformation(Helper.DecorateTransaction(dialog.GetTransaction()));
+                try
+                {
+                    Helper.SignAndShowInformation(dialog.GetTransaction());
+                }
+                catch (Exception ex)
+                {
+                    return;
+                }
+                
             }
         }
 
@@ -663,8 +679,16 @@ namespace Neo.UI
                 if (dialog.ShowDialog() != DialogResult.OK) return;
                 tx = dialog.GetTransaction();
             }
-            tx = Helper.DecorateTransaction(tx);
-            Helper.SignAndShowInformation(tx);
+
+            try
+            {
+                Helper.SignAndShowInformation(tx);
+            }
+            catch(Exception ex)
+            {
+                return;
+            }
+
         }
 
         private void invokeContractToolStripMenuItem_Click(object sender, EventArgs e)
@@ -672,7 +696,14 @@ namespace Neo.UI
             using (InvokeContractDialog dialog = new InvokeContractDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                Helper.SignAndShowInformation(Helper.DecorateTransaction(dialog.GetTransaction()));
+                try
+                {
+                    Helper.SignAndShowInformation(dialog.GetTransaction());
+                }
+                catch (Exception ex)
+                {
+                    return;
+                }            
             }
         }
 
@@ -681,7 +712,14 @@ namespace Neo.UI
             using (ElectionDialog dialog = new ElectionDialog())
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                Helper.SignAndShowInformation(Helper.DecorateTransaction(dialog.GetTransaction()));
+                try
+                {
+                    Helper.SignAndShowInformation(dialog.GetTransaction());
+                }
+                catch (Exception ex)
+                {
+                    return;
+                }
             }
         }
 
@@ -885,7 +923,14 @@ namespace Neo.UI
             using (VotingDialog dialog = new VotingDialog(account.ScriptHash))
             {
                 if (dialog.ShowDialog() != DialogResult.OK) return;
-                Helper.SignAndShowInformation(Helper.DecorateTransaction(dialog.GetTransaction()));
+                try
+                {
+                    Helper.SignAndShowInformation(dialog.GetTransaction());
+                }
+                catch (Exception ex)
+                {
+                    return;
+                }
             }
         }
 
@@ -960,8 +1005,15 @@ namespace Neo.UI
                     ScriptHash = RecycleScriptHash
                 }).ToArray()
             }, fee: Fixed8.Zero);
-            tx = Helper.DecorateTransaction(tx);
-            Helper.SignAndShowInformation(tx);
+            try
+            {
+                Helper.SignAndShowInformation(tx);
+            }
+            catch
+            {
+                return;
+            }
+
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)

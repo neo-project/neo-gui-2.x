@@ -62,137 +62,26 @@ namespace Neo.UI
             }
         }
 
-        public static bool CostRemind(Fixed8 fee)
+        public static bool CostRemind(Fixed8 SystemFee, Fixed8 NetFee, Fixed8 PriorityFee)
         {
-            StringBuilder sb = new StringBuilder(32);
-
-            string content = sb.AppendFormat("{0} {1}",fee.ToString(),Strings.CostTips).ToString();
-            string BoxTilte = Strings.CostTitle.ToString();
-
-            DialogResult dr = MessageBox.Show(content, BoxTilte, MessageBoxButtons.OKCancel);
-
-            if (dr == DialogResult.OK)
+            NetFeeDialog frm = new NetFeeDialog(SystemFee, NetFee, PriorityFee);
+            if (frm.ShowDialog() == DialogResult.OK)
             {
-                return true;
+                if (frm.IsPriority.Checked == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }               
             }
             else
             {
-                return false;
+                throw new Exception("Add Gas failed");
             }
         }
 
-        public static InvocationTransaction DecorateTransaction(InvocationTransaction tx)
-        {
-            if (tx.Attributes == null) tx.Attributes = new TransactionAttribute[0];
-            if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
-            if (tx.Outputs == null) tx.Outputs = new TransactionOutput[0];
-            if (tx.Witnesses == null) tx.Witnesses = new Witness[0];
 
-            Fixed8 fee = Fixed8.FromDecimal(0.001m);
-
-            if (tx.Size > 1024)
-            {
-                fee += Fixed8.FromDecimal(tx.Size * 0.00001m);
-            }
-            if (!CostRemind(fee))
-            {
-                return null;
-            }            
-            InvocationTransaction result = Program.CurrentWallet.MakeTransaction(new InvocationTransaction
-            {
-                Version = tx.Version,
-                Script = tx.Script,
-                Gas = tx.Gas,
-                Attributes = tx.Attributes,
-                Inputs = tx.Inputs,
-                Outputs = tx.Outputs
-            }, fee: fee);
-
-            return result;
-        }
-
-        public static IssueTransaction DecorateTransaction(IssueTransaction tx)
-        {
-            if (tx.Attributes == null) tx.Attributes = new TransactionAttribute[0];
-            if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
-            if (tx.Outputs == null) tx.Outputs = new TransactionOutput[0];
-            if (tx.Witnesses == null) tx.Witnesses = new Witness[0];
-            Fixed8 fee = Fixed8.FromDecimal(0.001m);
-
-            if (tx.Size > 1024)
-            {
-                fee += Fixed8.FromDecimal(tx.Size * 0.00001m);
-            }
-            if (!CostRemind(fee))
-            {
-                return null;
-            }
-            IssueTransaction result = Program.CurrentWallet.MakeTransaction(new IssueTransaction
-            {
-                Version = tx.Version,
-                Attributes = tx.Attributes,
-                Inputs = tx.Inputs,
-                Outputs = tx.Outputs
-            }, fee: fee);
-
-            return result;
-        }
-
-        public static StateTransaction DecorateTransaction(StateTransaction tx)
-        {
-            if (tx.Attributes == null) tx.Attributes = new TransactionAttribute[0];
-            if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
-            if (tx.Outputs == null) tx.Outputs = new TransactionOutput[0];
-            if (tx.Witnesses == null) tx.Witnesses = new Witness[0];
-            Fixed8 fee = Fixed8.FromDecimal(0.001m);
-
-            if (tx.Size > 1024)
-            {
-                fee += Fixed8.FromDecimal(tx.Size * 0.00001m);
-            }
-            if (!CostRemind(fee))
-            {
-                return null;
-            }
-
-            StateTransaction result = Program.CurrentWallet.MakeTransaction(new StateTransaction
-            {
-                Version = tx.Version,
-                Attributes = tx.Attributes,
-                Inputs = tx.Inputs,
-                Outputs = tx.Outputs,
-                Descriptors = tx.Descriptors
-            }, fee: fee);
-
-            return result;
-        }
-
-        public static ContractTransaction DecorateTransaction(ContractTransaction tx)
-        {
-            if (tx.Attributes == null) tx.Attributes = new TransactionAttribute[0];
-            if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
-            if (tx.Outputs == null) tx.Outputs = new TransactionOutput[0];
-            if (tx.Witnesses == null) tx.Witnesses = new Witness[0];
-            Fixed8 fee = Fixed8.FromDecimal(0.001m);
-
-            if (tx.Size > 1024)
-            {
-                fee += Fixed8.FromDecimal(tx.Size * 0.00001m);
-            }
-            if (!CostRemind(fee))
-            {
-                return null;
-            }
-
-            ContractTransaction result = Program.CurrentWallet.MakeTransaction(new ContractTransaction
-            {
-                Version = tx.Version,
-                Attributes = tx.Attributes,
-                Inputs = tx.Inputs,
-                Outputs = tx.Outputs
-            }, fee:fee);
-
-            return result;
-        }
     }
 }
