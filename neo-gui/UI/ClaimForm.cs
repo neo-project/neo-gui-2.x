@@ -116,6 +116,17 @@ namespace Neo.UI
             combo_address.SelectedIndex = 0;
         }
 
-
+        private void combo_address_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                combo_address.Text.ToScriptHash();
+                button1.Enabled = true;
+            }
+            catch (FormatException)
+            {
+                button1.Enabled = false;
+            }
+        }
     }
 }

@@ -97,6 +97,7 @@
             this.Name = "ClaimForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ClaimForm_FormClosing);
             this.Load += new System.EventHandler(this.ClaimForm_Load);
+            this.combo_address.TextChanged += new System.EventHandler(this.combo_address_TextChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 

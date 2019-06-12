@@ -49,6 +49,7 @@ namespace Neo.UI
             this.IsPriority.Text = global::Neo.Properties.Strings.HighPriority;
             this.IsPriority.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.IsPriority.UseVisualStyleBackColor = true;
+            this.IsPriority.Visible = false;
             this.IsPriority.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // button1
@@ -68,7 +69,7 @@ namespace Neo.UI
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 2;
-            this.button2.Text = Neo.Properties.Strings.Cancel;
+            this.button2.Text = global::Neo.Properties.Strings.Cancel;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
