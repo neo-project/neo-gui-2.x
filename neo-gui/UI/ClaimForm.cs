@@ -25,8 +25,7 @@ namespace Neo.UI
         {
             var unspent = Program.CurrentWallet.FindUnspentCoins()
                 .Where(p => p.Output.AssetId.Equals(Blockchain.GoverningToken.Hash))
-                .Select(p => p.Reference)
-                ;
+                .Select(p => p.Reference);
 
             ICollection<CoinReference> references = new HashSet<CoinReference>();
 
