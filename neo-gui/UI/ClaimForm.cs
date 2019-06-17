@@ -18,7 +18,6 @@ namespace Neo.UI
         public ClaimForm()
         {
             InitializeComponent();
-            this.ClientSize = new System.Drawing.Size(400, 180);
         }
 
         private void CalculateBonusUnavailable(uint height)
