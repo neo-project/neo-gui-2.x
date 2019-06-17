@@ -132,8 +132,20 @@
   <data name="Address" xml:space="preserve">
     <value>地址</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
   <data name="ChangePasswordSuccessful" xml:space="preserve">
     <value>修改密码成功。</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="CostTips" xml:space="preserve">
+    <value>费用即将被消耗，确认？</value>
+  </data>
+  <data name="CostTitle" xml:space="preserve">
+    <value>消费提示</value>
   </data>
   <data name="DeleteAddressConfirmationCaption" xml:space="preserve">
     <value>删除地址确认</value>
@@ -161,6 +173,9 @@
   </data>
   <data name="Failed" xml:space="preserve">
     <value>失败</value>
+  </data>
+  <data name="HighPriority" xml:space="preserve">
+    <value>优先交易</value>
   </data>
   <data name="ImportWatchOnlyAddress" xml:space="preserve">
     <value>导入监视地址</value>

@@ -34,6 +34,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.combo_address = new System.Windows.Forms.ComboBox();
+            this.lb_claim_to_address = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -67,10 +69,23 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             // 
+            // combo_address
+            // 
+            this.combo_address.FormattingEnabled = true;
+            resources.ApplyResources(this.combo_address, "combo_address");
+            this.combo_address.Name = "combo_address";
+            // 
+            // lb_claim_to_address
+            // 
+            resources.ApplyResources(this.lb_claim_to_address, "lb_claim_to_address");
+            this.lb_claim_to_address.Name = "lb_claim_to_address";
+            // 
             // ClaimForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lb_claim_to_address);
+            this.Controls.Add(this.combo_address);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
@@ -78,9 +93,11 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ClaimForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ClaimForm_FormClosing);
             this.Load += new System.EventHandler(this.ClaimForm_Load);
+            this.combo_address.TextChanged += new System.EventHandler(this.combo_address_TextChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -93,5 +110,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox combo_address;
+        private System.Windows.Forms.Label lb_claim_to_address;
     }
 }

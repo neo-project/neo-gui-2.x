@@ -154,4 +154,7 @@
   <data name="$this.Text" xml:space="preserve">
     <value>提取NeoGas</value>
   </data>
+  <data name="lb_claim_to_address.Text" xml:space="preserve">
+    <value>提取到:</value>
+  </data>
 </root>

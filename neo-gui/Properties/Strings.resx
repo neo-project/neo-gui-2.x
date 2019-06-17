@@ -132,8 +132,20 @@
   <data name="Address" xml:space="preserve">
     <value>Address</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="ChangePasswordSuccessful" xml:space="preserve">
     <value>Change password successful.</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="CostTips" xml:space="preserve">
+    <value>will be consumed, confirm?</value>
+  </data>
+  <data name="CostTitle" xml:space="preserve">
+    <value>Cost Warning</value>
   </data>
   <data name="DeleteAddressConfirmationCaption" xml:space="preserve">
     <value>Confirmation</value>
@@ -161,6 +173,9 @@
   </data>
   <data name="Failed" xml:space="preserve">
     <value>Failed</value>
+  </data>
+  <data name="HighPriority" xml:space="preserve">
+    <value>High Priority Transaction</value>
   </data>
   <data name="ImportWatchOnlyAddress" xml:space="preserve">
     <value>Import Watch-Only Address</value>
