@@ -641,7 +641,7 @@ namespace Neo.UI
             {
                 Helper.SignAndShowInformation(tx);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return;
             }
@@ -658,7 +658,7 @@ namespace Neo.UI
                 {
                     Helper.SignAndShowInformation(dialog.GetTransaction());
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return;
                 }
@@ -669,22 +669,21 @@ namespace Neo.UI
         private void deployContractToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InvocationTransaction tx;
-            using (DeployContractDialog dialog = new DeployContractDialog())
-            {
-                if (dialog.ShowDialog() != DialogResult.OK) return;
-                tx = dialog.GetTransaction();
-            }
-            using (InvokeContractDialog dialog = new InvokeContractDialog(tx))
-            {
-                if (dialog.ShowDialog() != DialogResult.OK) return;
-                tx = dialog.GetTransaction();
-            }
-
             try
             {
-                Helper.SignAndShowInformation(tx);
+                using (DeployContractDialog dialog = new DeployContractDialog())
+                {
+                    if (dialog.ShowDialog() != DialogResult.OK) return;
+                    tx = dialog.GetTransaction();
+                }
+                using (InvokeContractDialog dialog = new InvokeContractDialog(tx))
+                {
+                    if (dialog.ShowDialog() != DialogResult.OK) return;
+                    tx = dialog.GetTransaction();
+                    Helper.SignAndShowInformation(tx);
+                }                
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return;
             }
@@ -700,7 +699,7 @@ namespace Neo.UI
                 {
                     Helper.SignAndShowInformation(dialog.GetTransaction());
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return;
                 }            
@@ -716,7 +715,7 @@ namespace Neo.UI
                 {
                     Helper.SignAndShowInformation(dialog.GetTransaction());
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return;
                 }
@@ -927,7 +926,7 @@ namespace Neo.UI
                 {
                     Helper.SignAndShowInformation(dialog.GetTransaction());
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     return;
                 }
