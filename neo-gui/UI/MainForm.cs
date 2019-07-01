@@ -641,7 +641,7 @@ namespace Neo.UI
             {
                 Helper.SignAndShowInformation(tx);
             }
-            catch (Exception)
+            catch
             {
                 return;
             }
@@ -658,7 +658,7 @@ namespace Neo.UI
                 {
                     Helper.SignAndShowInformation(dialog.GetTransaction());
                 }
-                catch (Exception)
+                catch
                 {
                     return;
                 }
@@ -683,7 +683,7 @@ namespace Neo.UI
                     Helper.SignAndShowInformation(tx);
                 }                
             }
-            catch(Exception)
+            catch
             {
                 return;
             }
@@ -699,7 +699,7 @@ namespace Neo.UI
                 {
                     Helper.SignAndShowInformation(dialog.GetTransaction());
                 }
-                catch (Exception)
+                catch
                 {
                     return;
                 }            
@@ -715,7 +715,7 @@ namespace Neo.UI
                 {
                     Helper.SignAndShowInformation(dialog.GetTransaction());
                 }
-                catch (Exception)
+                catch
                 {
                     return;
                 }
@@ -926,7 +926,7 @@ namespace Neo.UI
                 {
                     Helper.SignAndShowInformation(dialog.GetTransaction());
                 }
-                catch (Exception)
+                catch
                 {
                     return;
                 }
