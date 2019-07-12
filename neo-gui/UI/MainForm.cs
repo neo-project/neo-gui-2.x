@@ -260,8 +260,12 @@ namespace Neo.UI
             }
             else
             {
-                toolStripProgressBar1.Value = persistence_span.Seconds;
-                toolStripProgressBar1.Style = ProgressBarStyle.Blocks;
+                try
+                {
+                    toolStripProgressBar1.Value = persistence_span.Seconds;
+                    toolStripProgressBar1.Style = ProgressBarStyle.Blocks;
+                }
+                catch { }
             }
             if (Program.CurrentWallet != null)
             {
@@ -662,7 +666,7 @@ namespace Neo.UI
                 {
                     return;
                 }
-                
+
             }
         }
 
@@ -684,7 +688,7 @@ namespace Neo.UI
             {
                 Helper.SignAndShowInformation(tx);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return;
             }
@@ -703,7 +707,7 @@ namespace Neo.UI
                 catch (Exception ex)
                 {
                     return;
-                }            
+                }
             }
         }
 
