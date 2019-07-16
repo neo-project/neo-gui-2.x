@@ -42,6 +42,9 @@ namespace Neo.UI
         public MainForm(XDocument xdoc = null)
         {
             InitializeComponent();
+            
+            toolStripProgressBar1.Maximum = Blockchain.TimePerBlock;
+
             if (xdoc != null)
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -662,7 +665,6 @@ namespace Neo.UI
                 {
                     return;
                 }
-                
             }
         }
 
@@ -702,7 +704,7 @@ namespace Neo.UI
                 catch
                 {
                     return;
-                }            
+                }
             }
         }
 
