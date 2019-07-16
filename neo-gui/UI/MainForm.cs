@@ -42,6 +42,9 @@ namespace Neo.UI
         public MainForm(XDocument xdoc = null)
         {
             InitializeComponent();
+            
+            toolStripProgressBar1.Maximum = Blockchain.TimePerBlock;
+
             if (xdoc != null)
             {
                 Version version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -260,12 +263,8 @@ namespace Neo.UI
             }
             else
             {
-                try
-                {
-                    toolStripProgressBar1.Value = persistence_span.Seconds;
-                    toolStripProgressBar1.Style = ProgressBarStyle.Blocks;
-                }
-                catch { }
+                toolStripProgressBar1.Value = persistence_span.Seconds;
+                toolStripProgressBar1.Style = ProgressBarStyle.Blocks;
             }
             if (Program.CurrentWallet != null)
             {
