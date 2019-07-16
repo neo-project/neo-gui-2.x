@@ -137,7 +137,7 @@
     <value>不可提取：</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>170, 92</value>
+    <value>170, 102</value>
   </data>
   <data name="button1.Text" xml:space="preserve">
     <value>全部提取</value>
@@ -149,7 +149,7 @@
     <value>86, 48</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>257, 127</value>
+    <value>400, 160</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>提取NeoGas</value>
