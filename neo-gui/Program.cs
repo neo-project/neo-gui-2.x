@@ -86,7 +86,7 @@ namespace Neo
             XDocument xdoc = null;
             try
             {
-                xdoc = XDocument.Load("https://neo.org/client/update.xml");
+                xdoc = XDocument.Load("https://raw.githubusercontent.com/neo-project/neo-gui/master/update.xml");
             }
             catch { }
             if (xdoc != null)
