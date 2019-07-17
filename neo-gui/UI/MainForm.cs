@@ -43,7 +43,7 @@ namespace Neo.UI
         {
             InitializeComponent();
             
-            toolStripProgressBar1.Maximum = (int)Blockchain.TimePerBlock.TotalSeconds;
+            toolStripProgressBar1.Maximum = (int)Blockchain.SecondsPerBlock;
 
             if (xdoc != null)
             {
