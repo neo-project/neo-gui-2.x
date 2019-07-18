@@ -19,6 +19,7 @@ namespace Neo.UI
 
         public Fixed8 Fee => Fixed8.Parse(textBox1.Text);
         public UInt160 ChangeAddress => ((string)comboBox1.SelectedItem).ToScriptHash();
+        public UInt160 FromAddress;
 
         public TransferDialog()
         {
@@ -26,6 +27,7 @@ namespace Neo.UI
             textBox1.Text = "0";
             comboBox1.Items.AddRange(Program.CurrentWallet.GetAccounts().Select(p => p.Address).ToArray());
             comboBox1.SelectedItem = Program.CurrentWallet.GetChangeAddress().ToAddress();
+            comboBox2.Items.AddRange(Program.CurrentWallet.GetAccounts().Select(p => p.Address).ToArray());
         }
 
         public Transaction GetTransaction()
@@ -42,13 +44,31 @@ namespace Neo.UI
             }).ToArray();
             Transaction tx;
             List<TransactionAttribute> attributes = new List<TransactionAttribute>();
+
+            if (comboBox2.SelectedItem == null)
+            {
+                FromAddress = null;
+            }
+            else
+            {
+                FromAddress = ((string)comboBox2.SelectedItem).ToScriptHash();
+            }
+            
             if (cOutputs.Length == 0)
             {
                 tx = new ContractTransaction();
             }
             else
             {
-                UInt160[] addresses = Program.CurrentWallet.GetAccounts().Select(p => p.ScriptHash).ToArray();
+                UInt160[] addresses;
+                if (FromAddress != null)
+                {
+                    addresses = (from add in Program.CurrentWallet.GetAccounts().Select(p => p.ScriptHash).ToArray() where add.Equals(FromAddress) select add).ToArray();
+                }
+                else
+                {
+                    addresses = Program.CurrentWallet.GetAccounts().Select(p => p.ScriptHash).ToArray();
+                }                
                 HashSet<UInt160> sAttributes = new HashSet<UInt160>();
                 using (ScriptBuilder sb = new ScriptBuilder())
                 {
@@ -57,8 +77,12 @@ namespace Neo.UI
                         byte[] script;
                         using (ScriptBuilder sb2 = new ScriptBuilder())
                         {
+
                             foreach (UInt160 address in addresses)
+                            {
                                 sb2.EmitAppCall(output.AssetId, "balanceOf", address);
+                            }
+
                             sb2.Emit(OpCode.DEPTH, OpCode.PACK);
                             script = sb2.ToArray();
                         }
@@ -69,6 +93,7 @@ namespace Neo.UI
                             Account = a,
                             Value = i.GetBigInteger()
                         }).ToArray();
+
                         BigInteger sum = balances.Aggregate(BigInteger.Zero, (x, y) => x + y.Value);
                         if (sum < output.Value) return null;
                         if (sum != output.Value)
@@ -118,7 +143,16 @@ namespace Neo.UI
             tx.Attributes = attributes.ToArray();
             tx.Outputs = txOutListBox1.Items.Where(p => p.AssetId is UInt256).Select(p => p.ToTxOutput()).ToArray();
             if (tx is ContractTransaction ctx)
-                tx = Program.CurrentWallet.MakeTransaction(ctx, change_address: ChangeAddress, fee: Fee);
+            {
+                if (FromAddress != null)
+                {
+                    tx = Program.CurrentWallet.MakeTransaction(ctx, FromAddress,change_address: ChangeAddress, fee: Fee);
+                }
+                else
+                {
+                    tx = Program.CurrentWallet.MakeTransaction(ctx, change_address: ChangeAddress, fee: Fee);
+                }               
+            }               
             return tx;
         }
 
@@ -136,7 +170,7 @@ namespace Neo.UI
         {
             button2.Visible = false;
             groupBox1.Visible = true;
-            this.Height = 510;
+            this.Height = 570;
         }
     }
 }
