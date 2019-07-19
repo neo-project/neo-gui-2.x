@@ -63,7 +63,7 @@ namespace Neo.UI
                 UInt160[] addresses;
                 if (FromAddress != null)
                 {
-                    addresses = (from add in Program.CurrentWallet.GetAccounts().Select(p => p.ScriptHash).ToArray() where add.Equals(FromAddress) select add).ToArray();
+                    addresses = Program.CurrentWallet.GetAccounts().Select(p => p.ScriptHash).Where(e => e.Equals(FromAddress)).ToArray();
                 }
                 else
                 {
