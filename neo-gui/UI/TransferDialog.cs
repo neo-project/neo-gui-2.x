@@ -146,7 +146,7 @@ namespace Neo.UI
             {
                 if (FromAddress != null)
                 {
-                    tx = Program.CurrentWallet.MakeTransaction(ctx, FromAddress,change_address: ChangeAddress, fee: Fee);
+                    tx = Program.CurrentWallet.MakeTransaction(ctx, FromAddress, change_address: ChangeAddress, fee: Fee);
                 }
                 else
                 {
