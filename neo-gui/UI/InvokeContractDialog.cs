@@ -33,53 +33,38 @@ namespace Neo.UI
             }
         }
 
-        public InvocationTransaction GetTransaction()
+        public InvocationTransaction GetTransaction(Fixed8 fee, UInt160 Change_Address = null)
         {
-            Fixed8 fee = Fixed8.Zero;
-            if (tx.Size > 1024)
+            if (fee != Fixed8.Zero) { }
+            else if (tx.Size > 1024)
             {
-                fee += Fixed8.FromDecimal(tx.Size * 0.00001m);
+                Fixed8 sumFee = Fixed8.FromDecimal(tx.Size * 0.00001m) + Fixed8.FromDecimal(0.001m);
+                if (fee < sumFee)
+                {
+                    fee = sumFee;
+                }
             }
-            if (Helper.CostRemind(tx.Gas.Ceiling(), fee, Fixed8.FromDecimal(0.001m)))
+            else
             {
-                Fixed8 sumFee = fee + Fixed8.FromDecimal(0.001m);
+                fee = Fixed8.Zero;
+            }
+
+            if (Helper.CostRemind(tx.Gas.Ceiling(), fee))
+            {
                 InvocationTransaction result = Program.CurrentWallet.MakeTransaction(new InvocationTransaction
                 {
                     Version = tx.Version,
                     Script = tx.Script,
                     Gas = tx.Gas,
                     Attributes = tx.Attributes,
-                    Inputs = tx.Inputs,
                     Outputs = tx.Outputs
-                }, fee: sumFee);
+                }, change_address: Change_Address, fee: fee);
                 return result;
             }
             else
             {
-                InvocationTransaction result = Program.CurrentWallet.MakeTransaction(new InvocationTransaction
-                {
-                    Version = tx.Version,
-                    Script = tx.Script,
-                    Gas = tx.Gas,
-                    Attributes = tx.Attributes,
-                    Inputs = tx.Inputs,
-                    Outputs = tx.Outputs
-                }, fee: fee);
-                return result;
+                return null;
             }
-        }
-
-        public InvocationTransaction GetTransaction(UInt160 change_address, Fixed8 fee)
-        {
-            return Program.CurrentWallet.MakeTransaction(new InvocationTransaction
-            {
-                Version = tx.Version,
-                Script = tx.Script,
-                Gas = tx.Gas,
-                Attributes = tx.Attributes,
-                Inputs = tx.Inputs,
-                Outputs = tx.Outputs
-            }, change_address: change_address, fee: fee);
         }
 
         private void UpdateParameters()

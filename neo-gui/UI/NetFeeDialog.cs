@@ -17,18 +17,15 @@ namespace Neo.UI
         Fixed8 NetFee;
         Fixed8 PriorityFee;
 
-        public NetFeeDialog(Fixed8 SystemFee, Fixed8 NetFee, Fixed8 PriorityFee)
+        public NetFeeDialog(Fixed8 SystemFee, Fixed8 NetFee)
         {
             this.SystemFee = SystemFee;
             this.NetFee = NetFee;
-            this.PriorityFee = PriorityFee;
-
             InitializeComponent();
             OnResize();
             this.ControlBox = false;
             this.CenterToParent();
-
-            ShowCost(SystemFee + NetFee + PriorityFee);
+            ShowCost(SystemFee + NetFee);
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)

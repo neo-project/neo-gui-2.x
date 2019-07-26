@@ -25,9 +25,9 @@ namespace Neo.UI
         {
             InitializeComponent();
             textBox1.Text = "0";
-            comboBox1.Items.AddRange(Program.CurrentWallet.GetAccounts().Select(p => p.Address).ToArray());
+            comboBox1.Items.AddRange(Program.CurrentWallet.GetAccounts().Where(p => !p.WatchOnly).Select(p => p.Address).ToArray());
             comboBox1.SelectedItem = Program.CurrentWallet.GetChangeAddress().ToAddress();
-            comboBox2.Items.AddRange(Program.CurrentWallet.GetAccounts().Select(p => p.Address).ToArray());
+            comboBox2.Items.AddRange(Program.CurrentWallet.GetAccounts().Where(p => !p.WatchOnly).Select(p => p.Address).ToArray());
         }
 
         public Transaction GetTransaction()
@@ -53,7 +53,7 @@ namespace Neo.UI
             {
                 FromAddress = ((string)comboBox2.SelectedItem).ToScriptHash();
             }
-            
+
             if (cOutputs.Length == 0)
             {
                 tx = new ContractTransaction();
@@ -63,12 +63,12 @@ namespace Neo.UI
                 UInt160[] addresses;
                 if (FromAddress != null)
                 {
-                    addresses = Program.CurrentWallet.GetAccounts().Select(p => p.ScriptHash).Where(e => e.Equals(FromAddress)).ToArray();
+                    addresses = Program.CurrentWallet.GetAccounts().Where(e => e.ScriptHash.Equals(FromAddress)).Select(p => p.ScriptHash).ToArray();
                 }
                 else
                 {
-                    addresses = Program.CurrentWallet.GetAccounts().Select(p => p.ScriptHash).ToArray();
-                }                
+                    addresses = Program.CurrentWallet.GetAccounts().Where(e => !e.WatchOnly).Select(p => p.ScriptHash).ToArray();
+                }
                 HashSet<UInt160> sAttributes = new HashSet<UInt160>();
                 using (ScriptBuilder sb = new ScriptBuilder())
                 {
@@ -92,7 +92,7 @@ namespace Neo.UI
                         {
                             Account = a,
                             Value = i.GetBigInteger()
-                        }).ToArray();
+                        }).Where(p => p.Value != 0).ToArray();
 
                         BigInteger sum = balances.Aggregate(BigInteger.Zero, (x, y) => x + y.Value);
                         if (sum < output.Value) return null;
@@ -142,17 +142,30 @@ namespace Neo.UI
                 });
             tx.Attributes = attributes.ToArray();
             tx.Outputs = txOutListBox1.Items.Where(p => p.AssetId is UInt256).Select(p => p.ToTxOutput()).ToArray();
-            if (tx is ContractTransaction ctx)
+            var tempOuts = tx.Outputs;
+            if (tx is ContractTransaction copyTx)
             {
-                if (FromAddress != null)
+                copyTx.Witnesses = new Witness[0];
+                copyTx = Program.CurrentWallet.MakeTransaction(copyTx, FromAddress, change_address: ChangeAddress, fee: Fee);
+                if (copyTx == null) return null;
+                ContractParametersContext transContext = new ContractParametersContext(copyTx);
+                Program.CurrentWallet.Sign(transContext);
+                if (transContext.Completed)
                 {
-                    tx = Program.CurrentWallet.MakeTransaction(ctx, FromAddress,change_address: ChangeAddress, fee: Fee);
+                    copyTx.Witnesses = transContext.GetWitnesses();
                 }
-                else
+                if (copyTx.Size > 1024)
                 {
-                    tx = Program.CurrentWallet.MakeTransaction(ctx, change_address: ChangeAddress, fee: Fee);
-                }               
-            }               
+                    Fixed8 PriorityFee = Fixed8.FromDecimal(0.001m) + Fixed8.FromDecimal(copyTx.Size * 0.00001m);
+                    if (Fee > PriorityFee) PriorityFee = Fee;
+                    if (!Helper.CostRemind(Fixed8.Zero, PriorityFee)) return null;
+                    tx = Program.CurrentWallet.MakeTransaction(new ContractTransaction
+                    {
+                        Outputs = tempOuts,
+                        Attributes = tx.Attributes
+                    }, FromAddress, change_address: ChangeAddress, fee: PriorityFee);
+                }
+            }
             return tx;
         }
 
