@@ -35,18 +35,13 @@ namespace Neo.UI
 
         public InvocationTransaction GetTransaction(Fixed8 fee, UInt160 Change_Address = null)
         {
-            if (fee != Fixed8.Zero) { }
-            else if (tx.Size > 1024)
+            if (tx.Size > 1024)
             {
                 Fixed8 sumFee = Fixed8.FromDecimal(tx.Size * 0.00001m) + Fixed8.FromDecimal(0.001m);
                 if (fee < sumFee)
                 {
                     fee = sumFee;
                 }
-            }
-            else
-            {
-                fee = Fixed8.Zero;
             }
 
             if (Helper.CostRemind(tx.Gas.Ceiling(), fee))
