@@ -62,26 +62,17 @@ namespace Neo.UI
             }
         }
 
-        public static bool CostRemind(Fixed8 SystemFee, Fixed8 NetFee, Fixed8 PriorityFee)
+        public static bool CostRemind(Fixed8 SystemFee, Fixed8 NetFee)
         {
-            NetFeeDialog frm = new NetFeeDialog(SystemFee, NetFee, PriorityFee);
+            NetFeeDialog frm = new NetFeeDialog(SystemFee, NetFee);
             if (frm.ShowDialog() == DialogResult.OK)
             {
-                if (frm.IsPriority.Checked == true)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }               
+                return true;
             }
             else
             {
-                throw new Exception("Add Gas failed");
+                return false;
             }
         }
-
-
     }
 }
