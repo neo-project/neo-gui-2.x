@@ -17,17 +17,17 @@ namespace Neo.UI
     {
         private string remark = "";
 
-        public Fixed8 Fee => Fixed8.Parse(textBox1.Text);
-        public UInt160 ChangeAddress => ((string)comboBox1.SelectedItem).ToScriptHash();
+        public Fixed8 Fee => Fixed8.Parse(textBoxFee.Text);
+        public UInt160 ChangeAddress => ((string)comboBoxChangeAddress.SelectedItem).ToScriptHash();
         public UInt160 FromAddress;
 
         public TransferDialog()
         {
             InitializeComponent();
-            textBox1.Text = "0";
-            comboBox1.Items.AddRange(Program.CurrentWallet.GetAccounts().Where(p => !p.WatchOnly).Select(p => p.Address).ToArray());
-            comboBox1.SelectedItem = Program.CurrentWallet.GetChangeAddress().ToAddress();
-            comboBox2.Items.AddRange(Program.CurrentWallet.GetAccounts().Where(p => !p.WatchOnly).Select(p => p.Address).ToArray());
+            textBoxFee.Text = "0";
+            comboBoxChangeAddress.Items.AddRange(Program.CurrentWallet.GetAccounts().Where(p => !p.WatchOnly).Select(p => p.Address).ToArray());
+            comboBoxChangeAddress.SelectedItem = Program.CurrentWallet.GetChangeAddress().ToAddress();
+            comboBoxFrom.Items.AddRange(Program.CurrentWallet.GetAccounts().Where(p => !p.WatchOnly).Select(p => p.Address).ToArray());
         }
 
         public Transaction GetTransaction()
@@ -45,13 +45,13 @@ namespace Neo.UI
             Transaction tx;
             List<TransactionAttribute> attributes = new List<TransactionAttribute>();
 
-            if (comboBox2.SelectedItem == null)
+            if (comboBoxFrom.SelectedItem == null)
             {
                 FromAddress = null;
             }
             else
             {
-                FromAddress = ((string)comboBox2.SelectedItem).ToScriptHash();
+                FromAddress = ((string)comboBoxFrom.SelectedItem).ToScriptHash();
             }
 
             if (cOutputs.Length == 0)
