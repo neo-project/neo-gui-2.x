@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 20</value>
+    <value>29, 21</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>56, 17</value>
@@ -128,7 +128,7 @@
     <value>可提取：</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 48</value>
+    <value>17, 49</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>68, 17</value>
@@ -137,7 +137,7 @@
     <value>不可提取：</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>170, 102</value>
+    <value>159, 125</value>
   </data>
   <data name="button1.Text" xml:space="preserve">
     <value>全部提取</value>
@@ -153,6 +153,12 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>提取NeoGas</value>
+  </data>
+  <data name="lb_claim_to_address.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 75</value>
+  </data>
+   <data name="combo_address.Location" type="System.Drawing.Point, System.Drawing">
+    <value>86, 72</value>
   </data>
   <data name="lb_claim_to_address.Text" xml:space="preserve">
     <value>提取到:</value>

@@ -178,7 +178,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>160, 110</value>
+    <value>159, 125</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -250,7 +250,7 @@
     <value>2</value>
   </data>
   <data name="combo_address.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 71</value>
+    <value>96, 81</value>
   </data>
   <data name="combo_address.Size" type="System.Drawing.Size, System.Drawing">
     <value>279, 25</value>
@@ -274,7 +274,7 @@
     <value>True</value>
   </data>
   <data name="lb_claim_to_address.Location" type="System.Drawing.Point, System.Drawing">
-    <value>31, 71</value>
+    <value>31, 85</value>
   </data>
   <data name="lb_claim_to_address.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 17</value>
@@ -307,7 +307,7 @@
     <value>400, 160</value>
   </data>
   <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>微软雅黑, 9pt</value>
+    <value>Microsoft YaHei UI, 9pt</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 4, 3, 4</value>

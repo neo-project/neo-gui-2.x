@@ -31,17 +31,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TransferDialog));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.txOutListBox1 = new Neo.UI.TxOutListBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxFrom = new System.Windows.Forms.ComboBox();
+            this.labelFrom = new System.Windows.Forms.Label();
+            this.comboBoxChangeAddress = new System.Windows.Forms.ComboBox();
+            this.labelChangeAddress = new System.Windows.Forms.Label();
+            this.textBoxFee = new System.Windows.Forms.TextBox();
+            this.labelFee = new System.Windows.Forms.Label();
+            this.txOutListBox1 = new Neo.UI.TxOutListBox();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -61,15 +61,6 @@
             this.button1.Name = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // txOutListBox1
-            // 
-            resources.ApplyResources(this.txOutListBox1, "txOutListBox1");
-            this.txOutListBox1.Asset = null;
-            this.txOutListBox1.Name = "txOutListBox1";
-            this.txOutListBox1.ReadOnly = false;
-            this.txOutListBox1.ScriptHash = null;
-            this.txOutListBox1.ItemsChanged += new System.EventHandler(this.txOutListBox1_ItemsChanged);
             // 
             // button4
             // 
@@ -95,46 +86,57 @@
             // groupBox1
             // 
             resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Controls.Add(this.comboBox2);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.comboBox1);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.comboBoxFrom);
+            this.groupBox1.Controls.Add(this.labelFrom);
+            this.groupBox1.Controls.Add(this.comboBoxChangeAddress);
+            this.groupBox1.Controls.Add(this.labelChangeAddress);
+            this.groupBox1.Controls.Add(this.textBoxFee);
+            this.groupBox1.Controls.Add(this.labelFee);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
-            // comboBox2
+            // comboBoxFrom
             // 
-            resources.ApplyResources(this.comboBox2, "comboBox2");
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Name = "comboBox2";
+            resources.ApplyResources(this.comboBoxFrom, "comboBoxFrom");
+            this.comboBoxFrom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFrom.FormattingEnabled = true;
+            this.comboBoxFrom.Name = "comboBoxFrom";
             // 
-            // label3
+            // labelFrom
             // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
+            resources.ApplyResources(this.labelFrom, "labelFrom");
+            this.labelFrom.Name = "labelFrom";
             // 
-            // comboBox1
+            // comboBoxChangeAddress
             // 
-            resources.ApplyResources(this.comboBox1, "comboBox1");
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Name = "comboBox1";
+            resources.ApplyResources(this.comboBoxChangeAddress, "comboBoxChangeAddress");
+            this.comboBoxChangeAddress.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxChangeAddress.FormattingEnabled = true;
+            this.comboBoxChangeAddress.Name = "comboBoxChangeAddress";
             // 
-            // label2
+            // labelChangeAddress
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
+            resources.ApplyResources(this.labelChangeAddress, "labelChangeAddress");
+            this.labelChangeAddress.Name = "labelChangeAddress";
             // 
-            // textBox1
+            // textBoxFee
             // 
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
+            resources.ApplyResources(this.textBoxFee, "textBoxFee");
+            this.textBoxFee.Name = "textBoxFee";
             // 
-            // label1
+            // labelFee
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.labelFee, "labelFee");
+            this.labelFee.Name = "labelFee";
+            // 
+            // txOutListBox1
+            // 
+            resources.ApplyResources(this.txOutListBox1, "txOutListBox1");
+            this.txOutListBox1.Asset = null;
+            this.txOutListBox1.Name = "txOutListBox1";
+            this.txOutListBox1.ReadOnly = false;
+            this.txOutListBox1.ScriptHash = null;
+            this.txOutListBox1.ItemsChanged += new System.EventHandler(this.txOutListBox1_ItemsChanged);
             // 
             // TransferDialog
             // 
@@ -164,11 +166,11 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxFee;
+        private System.Windows.Forms.Label labelFee;
+        private System.Windows.Forms.Label labelChangeAddress;
+        private System.Windows.Forms.ComboBox comboBoxChangeAddress;
+        private System.Windows.Forms.ComboBox comboBoxFrom;
+        private System.Windows.Forms.Label labelFrom;
     }
 }
