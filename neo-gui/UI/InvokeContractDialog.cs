@@ -3,8 +3,11 @@ using Neo.Ledger;
 using Neo.Network.P2P.Payloads;
 using Neo.Properties;
 using Neo.SmartContract;
+using Neo.UI.Wrappers;
 using Neo.VM;
+using Neo.Wallets;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -19,8 +22,23 @@ namespace Neo.UI
         private UInt160 script_hash;
         private ContractParameter[] parameters;
         private ContractParameter[] parameters_abi;
-
+        private List<TransactionAttributeWrapper> temp_signatures = new List<TransactionAttributeWrapper>();
         private static readonly Fixed8 net_fee = Fixed8.FromDecimal(0.001m);
+
+        class WalletEntry
+        {
+            public WalletAccount Account;
+
+            public override string ToString()
+            {
+                if (!string.IsNullOrEmpty(Account.Label))
+                {
+                    return $"[{Account.Label}] " + Account.Address;
+                }
+
+                return Account.Address;
+            }
+        }
 
         public InvokeContractDialog(InvocationTransaction tx = null)
         {
@@ -31,6 +49,7 @@ namespace Neo.UI
                 tabControl1.SelectedTab = tabPage2;
                 textBox6.Text = tx.Script.ToHexString();
             }
+            comboBoxSignature.Items.AddRange(Program.CurrentWallet.GetAccounts().Where(u => u.HasKey).Select(u => new WalletEntry() { Account = u }).ToArray());
         }
 
         public InvocationTransaction GetTransaction(Fixed8 fee, UInt160 Change_Address = null)
@@ -138,10 +157,29 @@ namespace Neo.UI
             if (tx == null) tx = new InvocationTransaction();
             tx.Version = 1;
             tx.Script = script;
-            if (tx.Attributes == null) tx.Attributes = new TransactionAttribute[0];
+            tx.Attributes = temp_signatures.Select(p => p.Unwrap()).ToArray();
             if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
             if (tx.Outputs == null) tx.Outputs = new TransactionOutput[0];
             if (tx.Witnesses == null) tx.Witnesses = new Witness[0];
+            if (tx.Attributes != null)
+            {
+                try
+                {
+                    ContractParametersContext context;
+                    context = new ContractParametersContext(tx);
+                    Program.CurrentWallet.Sign(context);
+                    tx.Witnesses = context.GetWitnesses();
+                }
+                catch (InvalidOperationException)
+                {
+                    MessageBox.Show(Strings.UnsynchronizedBlock);
+                    return;
+                }
+            }
+            else 
+            {
+                tx.Witnesses = new Witness[0];
+            }
             ApplicationEngine engine = ApplicationEngine.Run(tx.Script, tx, testMode: true);
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"VM State: {engine.State}");
@@ -202,6 +240,31 @@ namespace Neo.UI
             button8.Enabled = parameters_abi.Length > 0;
             UpdateParameters();
             UpdateScript();
+        }
+
+        private void Button9_Click(object sender, EventArgs e)
+        {
+            if (comboBoxSignature.SelectedItem.ToString() == "")
+            {
+                MessageBox.Show("Please choose address");
+                return;
+            }
+            var index = comboBoxSignature.SelectedIndex;
+            temp_signatures.Add(new TransactionAttributeWrapper
+            {
+                Usage = TransactionAttributeUsage.Script,
+                Data = comboBoxSignature.SelectedItem.ToString().ToScriptHash().ToArray()
+            });
+            MessageBox.Show("Success!");
+            comboBoxSignature.Items.RemoveAt(index);
+            if (comboBoxSignature.Items.Count > 0)
+            {
+                comboBoxSignature.SelectedIndex = 0;
+            }
+            else
+            {
+                comboBoxSignature.SelectedText = "";
+            }
         }
     }
 }
