@@ -267,9 +267,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.button_Add);
-            this.tabPage1.Controls.Add(this.comboBoxSignature);
-            this.tabPage1.Controls.Add(this.label_Signature);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.textBox5);
@@ -316,7 +313,7 @@
             // 
             resources.ApplyResources(this.label_Signature, "label_Signature");
             this.label_Signature.Name = "label_Signature";
-            // 
+            //
             // comboBoxSignature
             // 
             this.comboBoxSignature.FormattingEnabled = true;
@@ -335,7 +332,10 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button4;
+            this.Controls.Add(this.button_Add);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.comboBoxSignature);
+            this.Controls.Add(this.label_Signature);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label7);
