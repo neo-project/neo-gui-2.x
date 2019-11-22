@@ -317,6 +317,7 @@
             // comboBoxSignature
             // 
             this.comboBoxSignature.FormattingEnabled = true;
+            this.comboBoxSignature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             resources.ApplyResources(this.comboBoxSignature, "comboBoxSignature");
             this.comboBoxSignature.Name = "comboBoxSignature";
             // 
