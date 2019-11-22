@@ -246,7 +246,7 @@ namespace Neo.UI
         {
             if (comboBoxSignature.SelectedItem.ToString() == "")
             {
-                MessageBox.Show("Please choose address");
+                MessageBox.Show("Please choose the address");
                 return;
             }
             var index = comboBoxSignature.SelectedIndex;
