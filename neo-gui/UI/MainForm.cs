@@ -421,7 +421,7 @@ namespace Neo.UI
                             sb.EmitAppCall(script_hash, "name");
                             script = sb.ToArray();
                         }
-                        ApplicationEngine engine = ApplicationEngine.Run(script);
+                        using ApplicationEngine engine = ApplicationEngine.Run(script);
                         if (engine.State.HasFlag(VMState.FAULT)) continue;
                         string name = engine.ResultStack.Pop().GetString();
                         byte decimals = (byte)engine.ResultStack.Pop().GetBigInteger();
