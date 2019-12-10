@@ -86,40 +86,42 @@ namespace Neo.UI
                             sb2.Emit(OpCode.DEPTH, OpCode.PACK);
                             script = sb2.ToArray();
                         }
-                        ApplicationEngine engine = ApplicationEngine.Run(script);
-                        if (engine.State.HasFlag(VMState.FAULT)) return null;
-                        var balances = ((VMArray)engine.ResultStack.Pop()).AsEnumerable().Reverse().Zip(addresses, (i, a) => new
+                        using (ApplicationEngine engine = ApplicationEngine.Run(script))
                         {
-                            Account = a,
-                            Value = i.GetBigInteger()
-                        }).Where(p => p.Value != 0).ToArray();
-
-                        BigInteger sum = balances.Aggregate(BigInteger.Zero, (x, y) => x + y.Value);
-                        if (sum < output.Value) return null;
-                        if (sum != output.Value)
-                        {
-                            balances = balances.OrderByDescending(p => p.Value).ToArray();
-                            BigInteger amount = output.Value;
-                            int i = 0;
-                            while (balances[i].Value <= amount)
-                                amount -= balances[i++].Value;
-                            if (amount == BigInteger.Zero)
-                                balances = balances.Take(i).ToArray();
-                            else
-                                balances = balances.Take(i).Concat(new[] { balances.Last(p => p.Value >= amount) }).ToArray();
-                            sum = balances.Aggregate(BigInteger.Zero, (x, y) => x + y.Value);
-                        }
-                        sAttributes.UnionWith(balances.Select(p => p.Account));
-                        for (int i = 0; i < balances.Length; i++)
-                        {
-                            BigInteger value = balances[i].Value;
-                            if (i == 0)
+                            if (engine.State.HasFlag(VMState.FAULT)) return null;
+                            var balances = ((VMArray)engine.ResultStack.Pop()).AsEnumerable().Reverse().Zip(addresses, (i, a) => new
                             {
-                                BigInteger change = sum - output.Value;
-                                if (change > 0) value -= change;
+                                Account = a,
+                                Value = i.GetBigInteger()
+                            }).Where(p => p.Value != 0).ToArray();
+
+                            BigInteger sum = balances.Aggregate(BigInteger.Zero, (x, y) => x + y.Value);
+                            if (sum < output.Value) return null;
+                            if (sum != output.Value)
+                            {
+                                balances = balances.OrderByDescending(p => p.Value).ToArray();
+                                BigInteger amount = output.Value;
+                                int i = 0;
+                                while (balances[i].Value <= amount)
+                                    amount -= balances[i++].Value;
+                                if (amount == BigInteger.Zero)
+                                    balances = balances.Take(i).ToArray();
+                                else
+                                    balances = balances.Take(i).Concat(new[] { balances.Last(p => p.Value >= amount) }).ToArray();
+                                sum = balances.Aggregate(BigInteger.Zero, (x, y) => x + y.Value);
                             }
-                            sb.EmitAppCall(output.AssetId, "transfer", balances[i].Account, output.Account, value);
-                            sb.Emit(OpCode.THROWIFNOT);
+                            sAttributes.UnionWith(balances.Select(p => p.Account));
+                            for (int i = 0; i < balances.Length; i++)
+                            {
+                                BigInteger value = balances[i].Value;
+                                if (i == 0)
+                                {
+                                    BigInteger change = sum - output.Value;
+                                    if (change > 0) value -= change;
+                                }
+                                sb.EmitAppCall(output.AssetId, "transfer", balances[i].Account, output.Account, value);
+                                sb.Emit(OpCode.THROWIFNOT);
+                            }
                         }
                     }
                     tx = new InvocationTransaction

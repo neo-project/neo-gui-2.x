@@ -142,24 +142,26 @@ namespace Neo.UI
             if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
             if (tx.Outputs == null) tx.Outputs = new TransactionOutput[0];
             if (tx.Witnesses == null) tx.Witnesses = new Witness[0];
-            ApplicationEngine engine = ApplicationEngine.Run(tx.Script, tx, testMode: true);
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"VM State: {engine.State}");
-            sb.AppendLine($"Gas Consumed: {engine.GasConsumed}");
-            sb.AppendLine($"Evaluation Stack: {new JArray(engine.ResultStack.Select(p => p.ToParameter().ToJson()))}");
-            textBox7.Text = sb.ToString();
-            if (!engine.State.HasFlag(VMState.FAULT))
+            using (ApplicationEngine engine = ApplicationEngine.Run(tx.Script, tx, testMode: true))
             {
-                tx.Gas = engine.GasConsumed - Fixed8.FromDecimal(10);
-                if (tx.Gas < Fixed8.Zero) tx.Gas = Fixed8.Zero;
-                tx.Gas = tx.Gas.Ceiling();
-                Fixed8 fee = tx.Gas;
-                label7.Text = fee + " gas";
-                button3.Enabled = true;
-            }
-            else
-            {
-                MessageBox.Show(Strings.ExecutionFailed);
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine($"VM State: {engine.State}");
+                sb.AppendLine($"Gas Consumed: {engine.GasConsumed}");
+                sb.AppendLine($"Evaluation Stack: {new JArray(engine.ResultStack.Select(p => p.ToParameter().ToJson()))}");
+                textBox7.Text = sb.ToString();
+                if (!engine.State.HasFlag(VMState.FAULT))
+                {
+                    tx.Gas = engine.GasConsumed - Fixed8.FromDecimal(10);
+                    if (tx.Gas < Fixed8.Zero) tx.Gas = Fixed8.Zero;
+                    tx.Gas = tx.Gas.Ceiling();
+                    Fixed8 fee = tx.Gas;
+                    label7.Text = fee + " gas";
+                    button3.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show(Strings.ExecutionFailed);
+                }
             }
         }
 
