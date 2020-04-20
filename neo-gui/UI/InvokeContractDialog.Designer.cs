@@ -326,6 +326,7 @@
             resources.ApplyResources(this.button_Add, "button_Add");
             this.button_Add.Name = "button_Add";
             this.button_Add.UseVisualStyleBackColor = true;
+            this.button_Add.Click += new System.EventHandler(this.Button9_Click);
             // 
             // InvokeContractDialog
             // 
