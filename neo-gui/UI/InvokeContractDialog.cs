@@ -185,6 +185,21 @@ namespace Neo.UI
             sb.AppendLine($"VM State: {engine.State}");
             sb.AppendLine($"Gas Consumed: {engine.GasConsumed}");
             sb.AppendLine($"Evaluation Stack: {new JArray(engine.ResultStack.Select(p => p.ToParameter().ToJson()))}");
+            JObject notifications = engine.Service.Notifications.Select(q =>
+            {
+                JObject notification = new JObject();
+                notification["contract"] = q.ScriptHash.ToString();
+                try
+                {
+                    notification["state"] = q.State.ToParameter().ToJson();
+                }
+                catch (InvalidOperationException)
+                {
+                    notification["state"] = "error: recursive reference";
+                }
+                return notification;
+            }).ToArray();
+            sb.AppendLine($"Notifications: {notifications}");
             textBox7.Text = sb.ToString();
             if (!engine.State.HasFlag(VMState.FAULT))
             {
