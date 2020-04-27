@@ -42,7 +42,7 @@ namespace Neo.UI
         public MainForm(XDocument xdoc = null)
         {
             InitializeComponent();
-            
+
             toolStripProgressBar1.Maximum = (int)Blockchain.SecondsPerBlock;
 
             if (xdoc != null)
@@ -421,52 +421,54 @@ namespace Neo.UI
                             sb.EmitAppCall(script_hash, "name");
                             script = sb.ToArray();
                         }
-                        ApplicationEngine engine = ApplicationEngine.Run(script);
-                        if (engine.State.HasFlag(VMState.FAULT)) continue;
-                        string name = engine.ResultStack.Pop().GetString();
-                        byte decimals = (byte)engine.ResultStack.Pop().GetBigInteger();
-                        BigInteger amount = ((VMArray)engine.ResultStack.Pop()).Aggregate(BigInteger.Zero, (x, y) => x + y.GetBigInteger());
-                        if (amount == 0)
+                        using (ApplicationEngine engine = ApplicationEngine.Run(script))
                         {
-                            listView2.Items.RemoveByKey(script_hash.ToString());
-                            continue;
-                        }
-                        BigDecimal balance = new BigDecimal(amount, decimals);
-                        string value_text = balance.ToString();
-                        if (listView2.Items.ContainsKey(script_hash.ToString()))
-                        {
-                            listView2.Items[script_hash.ToString()].SubItems["value"].Text = value_text;
-                        }
-                        else
-                        {
-                            listView2.Items.Add(new ListViewItem(new[]
+                            if (engine.State.HasFlag(VMState.FAULT)) continue;
+                            string name = engine.ResultStack.Pop().GetString();
+                            byte decimals = (byte)engine.ResultStack.Pop().GetBigInteger();
+                            BigInteger amount = ((VMArray)engine.ResultStack.Pop()).Aggregate(BigInteger.Zero, (x, y) => x + y.GetBigInteger());
+                            if (amount == 0)
                             {
-                                new ListViewItem.ListViewSubItem
-                                {
-                                    Name = "name",
-                                    Text = name
-                                },
-                                new ListViewItem.ListViewSubItem
-                                {
-                                    Name = "type",
-                                    Text = "NEP-5"
-                                },
-                                new ListViewItem.ListViewSubItem
-                                {
-                                    Name = "value",
-                                    Text = value_text
-                                },
-                                new ListViewItem.ListViewSubItem
-                                {
-                                    ForeColor = Color.Gray,
-                                    Name = "issuer",
-                                    Text = $"ScriptHash:{script_hash}"
-                                }
-                            }, -1, listView2.Groups["checked"])
+                                listView2.Items.RemoveByKey(script_hash.ToString());
+                                continue;
+                            }
+                            BigDecimal balance = new BigDecimal(amount, decimals);
+                            string value_text = balance.ToString();
+                            if (listView2.Items.ContainsKey(script_hash.ToString()))
                             {
-                                Name = script_hash.ToString(),
-                                UseItemStyleForSubItems = false
-                            });
+                                listView2.Items[script_hash.ToString()].SubItems["value"].Text = value_text;
+                            }
+                            else
+                            {
+                                listView2.Items.Add(new ListViewItem(new[]
+                                {
+                                    new ListViewItem.ListViewSubItem
+                                    {
+                                        Name = "name",
+                                        Text = name
+                                    },
+                                    new ListViewItem.ListViewSubItem
+                                    {
+                                        Name = "type",
+                                        Text = "NEP-5"
+                                    },
+                                    new ListViewItem.ListViewSubItem
+                                    {
+                                        Name = "value",
+                                        Text = value_text
+                                    },
+                                    new ListViewItem.ListViewSubItem
+                                    {
+                                        ForeColor = Color.Gray,
+                                        Name = "issuer",
+                                        Text = $"ScriptHash:{script_hash}"
+                                    }
+                                }, -1, listView2.Groups["checked"])
+                                {
+                                    Name = script_hash.ToString(),
+                                    UseItemStyleForSubItems = false
+                                });
+                            }
                         }
                     }
                     check_nep5_balance = false;
@@ -591,7 +593,7 @@ namespace Neo.UI
                 using (InvokeContractDialog dialog = new InvokeContractDialog(itx))
                 {
                     if (dialog.ShowDialog() != DialogResult.OK) return;
-                    tx = dialog.GetTransaction(fee,change_address);
+                    tx = dialog.GetTransaction(fee, change_address);
                 }
             }
             Helper.SignAndShowInformation(tx);
@@ -683,7 +685,7 @@ namespace Neo.UI
                     if (dialog.ShowDialog() != DialogResult.OK) return;
                     tx = dialog.GetTransaction(Fixed8.Zero);
                     Helper.SignAndShowInformation(tx);
-                }                
+                }
             }
             catch
             {

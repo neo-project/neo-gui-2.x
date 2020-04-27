@@ -1,4 +1,4 @@
-﻿using Neo.IO.Json;
+using Neo.IO.Json;
 using Neo.Ledger;
 using Neo.Network.P2P.Payloads;
 using Neo.Properties;
@@ -180,39 +180,41 @@ namespace Neo.UI
             {
                 tx.Witnesses = new Witness[0];
             }
-            ApplicationEngine engine = ApplicationEngine.Run(tx.Script, tx, testMode: true);
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"VM State: {engine.State}");
-            sb.AppendLine($"Gas Consumed: {engine.GasConsumed}");
-            sb.AppendLine($"Evaluation Stack: {new JArray(engine.ResultStack.Select(p => p.ToParameter().ToJson()))}");
-            JObject notifications = engine.Service.Notifications.Select(q =>
+            using (ApplicationEngine engine = ApplicationEngine.Run(tx.Script, tx, testMode: true))
             {
-                JObject notification = new JObject();
-                notification["contract"] = q.ScriptHash.ToString();
-                try
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine($"VM State: {engine.State}");
+                sb.AppendLine($"Gas Consumed: {engine.GasConsumed}");
+                sb.AppendLine($"Evaluation Stack: {new JArray(engine.ResultStack.Select(p => p.ToParameter().ToJson()))}");
+                JObject notifications = engine.Service.Notifications.Select(q =>
                 {
-                    notification["state"] = q.State.ToParameter().ToJson();
-                }
-                catch (InvalidOperationException)
+                    JObject notification = new JObject();
+                    notification["contract"] = q.ScriptHash.ToString();
+                    try
+                    {
+                        notification["state"] = q.State.ToParameter().ToJson();
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        notification["state"] = "error: recursive reference";
+                    }
+                    return notification;
+                }).ToArray();
+                sb.AppendLine($"Notifications: {notifications}");
+                textBox7.Text = sb.ToString();
+                if (!engine.State.HasFlag(VMState.FAULT))
                 {
-                    notification["state"] = "error: recursive reference";
+                    tx.Gas = engine.GasConsumed - Fixed8.FromDecimal(10);
+                    if (tx.Gas < Fixed8.Zero) tx.Gas = Fixed8.Zero;
+                    tx.Gas = tx.Gas.Ceiling();
+                    Fixed8 fee = tx.Gas;
+                    label7.Text = fee + " gas";
+                    button3.Enabled = true;
                 }
-                return notification;
-            }).ToArray();
-            sb.AppendLine($"Notifications: {notifications}");
-            textBox7.Text = sb.ToString();
-            if (!engine.State.HasFlag(VMState.FAULT))
-            {
-                tx.Gas = engine.GasConsumed - Fixed8.FromDecimal(10);
-                if (tx.Gas < Fixed8.Zero) tx.Gas = Fixed8.Zero;
-                tx.Gas = tx.Gas.Ceiling();
-                Fixed8 fee = tx.Gas;
-                label7.Text = fee + " gas";
-                button3.Enabled = true;
-            }
-            else
-            {
-                MessageBox.Show(Strings.ExecutionFailed);
+                else
+                {
+                    MessageBox.Show(Strings.ExecutionFailed);
+                }
             }
         }
 
