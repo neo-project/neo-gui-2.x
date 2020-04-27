@@ -64,6 +64,9 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.label_Signature = new System.Windows.Forms.Label();
+            this.comboBoxSignature = new System.Windows.Forms.ComboBox();
+            this.button_Add = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -187,21 +190,20 @@
             // 
             // openFileDialog1
             // 
-            resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
             this.openFileDialog1.DefaultExt = "avm";
+            resources.ApplyResources(this.openFileDialog1, "openFileDialog1");
             // 
             // tabControl1
             // 
-            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             // 
             // tabPage3
             // 
-            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Controls.Add(this.button8);
             this.tabPage3.Controls.Add(this.textBox9);
             this.tabPage3.Controls.Add(this.label10);
@@ -210,6 +212,7 @@
             this.tabPage3.Controls.Add(this.button7);
             this.tabPage3.Controls.Add(this.textBox8);
             this.tabPage3.Controls.Add(this.label8);
+            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
@@ -233,9 +236,9 @@
             // 
             // comboBox1
             // 
-            resources.ApplyResources(this.comboBox1, "comboBox1");
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBox1, "comboBox1");
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -264,7 +267,6 @@
             // 
             // tabPage1
             // 
-            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.textBox5);
@@ -277,21 +279,22 @@
             this.tabPage1.Controls.Add(this.textBox2);
             this.tabPage1.Controls.Add(this.textBox3);
             this.tabPage1.Controls.Add(this.label3);
+            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
-            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Controls.Add(this.button6);
             this.tabPage2.Controls.Add(this.textBox6);
+            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.textBox7);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -303,16 +306,38 @@
             // 
             // openFileDialog2
             // 
-            resources.ApplyResources(this.openFileDialog2, "openFileDialog2");
             this.openFileDialog2.DefaultExt = "abi.json";
+            resources.ApplyResources(this.openFileDialog2, "openFileDialog2");
+            // 
+            // label_Signature
+            // 
+            resources.ApplyResources(this.label_Signature, "label_Signature");
+            this.label_Signature.Name = "label_Signature";
+            //
+            // comboBoxSignature
+            // 
+            this.comboBoxSignature.FormattingEnabled = true;
+            this.comboBoxSignature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            resources.ApplyResources(this.comboBoxSignature, "comboBoxSignature");
+            this.comboBoxSignature.Name = "comboBoxSignature";
+            // 
+            // button_Add
+            // 
+            resources.ApplyResources(this.button_Add, "button_Add");
+            this.button_Add.Name = "button_Add";
+            this.button_Add.UseVisualStyleBackColor = true;
+            this.button_Add.Click += new System.EventHandler(this.Button9_Click);
             // 
             // InvokeContractDialog
             // 
-            resources.ApplyResources(this, "$this");
             this.AcceptButton = this.button3;
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button4;
+            this.Controls.Add(this.button_Add);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.comboBoxSignature);
+            this.Controls.Add(this.label_Signature);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label7);
@@ -374,5 +399,8 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button button_Add;
+        private System.Windows.Forms.ComboBox comboBoxSignature;
+        private System.Windows.Forms.Label label_Signature;
     }
 }
