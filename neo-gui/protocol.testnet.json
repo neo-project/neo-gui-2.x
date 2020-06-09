@@ -2,6 +2,9 @@
   "ProtocolConfiguration": {
     "Magic": 1953787457,
     "AddressVersion": 23,
+    "SecondsPerBlock": 15,
+    "LowPriorityThreshold": 0.001,
+    "StateRootEnableIndex": 4380000,
     "StandbyValidators": [
       "0327da12b5c40200e9f65569476bbff2218da4f32548ff43b6387ec1416a231ee8",
       "026ce35b29147ad09e4afe4ec4a7319095f08198fa8babbe3c56e970b143528d22",
@@ -21,12 +24,7 @@
       "seed7.ngd.network:20333",
       "seed8.ngd.network:20333",
       "seed9.ngd.network:20333",
-      "seed10.ngd.network:20333",
-      "seed1.neo.org:20333",
-      "seed2.neo.org:20333",
-      "seed3.neo.org:20333",
-      "seed4.neo.org:20333",
-      "seed5.neo.org:20333"
+      "seed10.ngd.network:20333"
     ],
     "SystemFee": {
       "EnrollmentTransaction": 10,
