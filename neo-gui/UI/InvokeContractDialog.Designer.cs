@@ -67,6 +67,7 @@
             this.label_Signature = new System.Windows.Forms.Label();
             this.comboBoxSignature = new System.Windows.Forms.ComboBox();
             this.button_Add = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -313,11 +314,11 @@
             // 
             resources.ApplyResources(this.label_Signature, "label_Signature");
             this.label_Signature.Name = "label_Signature";
-            //
+            // 
             // comboBoxSignature
             // 
-            this.comboBoxSignature.FormattingEnabled = true;
             this.comboBoxSignature.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSignature.FormattingEnabled = true;
             resources.ApplyResources(this.comboBoxSignature, "comboBoxSignature");
             this.comboBoxSignature.Name = "comboBoxSignature";
             // 
@@ -328,12 +329,20 @@
             this.button_Add.UseVisualStyleBackColor = true;
             this.button_Add.Click += new System.EventHandler(this.Button9_Click);
             // 
+            // button9
+            // 
+            resources.ApplyResources(this.button9, "button9");
+            this.button9.Name = "button9";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click_1);
+            // 
             // InvokeContractDialog
             // 
             this.AcceptButton = this.button3;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button4;
+            this.Controls.Add(this.button9);
             this.Controls.Add(this.button_Add);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.comboBoxSignature);
@@ -402,5 +411,6 @@
         private System.Windows.Forms.Button button_Add;
         private System.Windows.Forms.ComboBox comboBoxSignature;
         private System.Windows.Forms.Label label_Signature;
+        private System.Windows.Forms.Button button9;
     }
 }
