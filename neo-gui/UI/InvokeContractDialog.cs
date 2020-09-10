@@ -308,7 +308,7 @@ namespace Neo.UI
                 ContractParametersContext context;
                 context = new ContractParametersContext(tx);
                 Clipboard.SetDataObject(context.ToString());
-                MessageBox.Show("ÒÑ¸´ÖÆµ½¼ôÌù°å");
+                MessageBox.Show("Copied to clipboard");
             }
             catch (InvalidOperationException)
             {
