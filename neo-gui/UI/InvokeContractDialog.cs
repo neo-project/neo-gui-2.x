@@ -283,5 +283,38 @@ namespace Neo.UI
                 comboBoxSignature.SelectedText = "";
             }
         }
+
+        private void button9_Click_1(object sender, EventArgs e)
+        {
+            byte[] script;
+            try
+            {
+                script = textBox6.Text.Trim().HexToBytes();
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
+            if (tx == null) tx = new InvocationTransaction();
+            tx.Version = 1;
+            tx.Script = script;
+            tx.Attributes = temp_signatures.Select(p => p.Unwrap()).ToArray();
+            if (tx.Inputs == null) tx.Inputs = new CoinReference[0];
+            if (tx.Outputs == null) tx.Outputs = new TransactionOutput[0];
+            if (tx.Witnesses == null) tx.Witnesses = new Witness[0];
+            try
+            {
+                ContractParametersContext context;
+                context = new ContractParametersContext(tx);
+                Clipboard.SetDataObject(context.ToString());
+                MessageBox.Show("Copied to clipboard");
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show(Strings.UnsynchronizedBlock);
+                return;
+            }
+        }
     }
 }
